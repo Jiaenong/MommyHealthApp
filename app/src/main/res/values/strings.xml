@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Mommy Health App</string>
+    <string name="welcome">Welcome !</string>
+    <string name="MommyHealthApp">Mommy Health App</string>
+    <string name="UserName">User Name</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgetpassword">Forget Your Password?</string>
+    <string name="mommycare">In Mommy We Care</string>
+</resources>
