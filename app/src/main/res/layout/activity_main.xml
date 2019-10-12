@@ -52,6 +52,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
                 android:layout_marginTop="20dp"
                 android:hint="@string/UserName"
                 style="@style/TextInputLayout">
@@ -68,6 +69,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
                 android:layout_marginTop="10dp"
                 android:hint="@string/password"
                 style="@style/TextInputLayout">
