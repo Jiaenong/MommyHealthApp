@@ -92,7 +92,7 @@
                 android:textColor="@color/colorPrimary" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button"
+                android:id="@+id/btnLogin"
                 style="@style/Button"
                 android:layout_width="150dp"
                 android:layout_height="60dp"
