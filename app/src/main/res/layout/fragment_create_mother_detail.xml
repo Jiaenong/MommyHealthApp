@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:padding="10dp"
-    android:orientation="vertical">
+    tools:context=".ui.CreateMother.CreateMotherDetailFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/TextInputLayout"
         android:focusableInTouchMode="true"
-        android:hint="@string/first_name">
+        android:hint="@string/height">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -23,7 +25,82 @@
         android:layout_height="wrap_content"
         style="@style/TextInputLayout"
         android:focusableInTouchMode="true"
-        android:hint="@string/last_name">
+        android:hint="@string/weight">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/family_disease"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupYesNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioBtnYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yes_disease" />
+
+        <RadioButton
+            android:id="@+id/radioBtnNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/no_disease" />
+    </RadioGroup>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextInputLayout"
+        android:focusableInTouchMode="true"
+        android:hint="@string/state_disease">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextDisease"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:visibility="gone" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextInputLayout"
+        android:focusableInTouchMode="true"
+        android:hint="@string/estimate_due_date">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextEDD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/urine_test"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextInputLayout"
+        android:focusableInTouchMode="true"
+        android:hint="@string/glucose_level">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -35,43 +112,7 @@
         android:layout_height="wrap_content"
         style="@style/TextInputLayout"
         android:focusableInTouchMode="true"
-        android:hint="@string/ic">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TextInputLayout"
-        android:focusableInTouchMode="true"
-        android:hint="@string/age">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TextInputLayout"
-        android:focusableInTouchMode="true"
-        android:hint="@string/husbandIC">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TextInputLayout"
-        android:focusableInTouchMode="true"
-        android:hint="@string/Referrals">
+        android:hint="@string/protein_level">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -79,11 +120,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnNextStep"
+        android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:text="@string/next_step"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/save_mother"
         app:cornerRadius="16dp" />
+
 </androidx.appcompat.widget.LinearLayoutCompat>

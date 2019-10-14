@@ -16,8 +16,6 @@ import com.example.mommyhealthapp.R;
 
 public class NurseProfileFragment extends Fragment {
 
-    private NurseProfileViewModel mViewModel;
-
     public static NurseProfileFragment newInstance() {
         return new NurseProfileFragment();
     }
@@ -31,8 +29,6 @@ public class NurseProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(NurseProfileViewModel.class);
-        // TODO: Use the ViewModel
     }
 
 }

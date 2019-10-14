@@ -29,4 +29,19 @@
     <string name="husbandIC">Husband IC or Marriage Certificate (Single Mother not required)</string>
     <string name="Referrals">Referrals</string>
     <string name="next_step">Next Step</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="nav_createMotherDetail">Mummy Detail</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="height">Height (cm)</string>
+    <string name="weight">Weight (kg)</string>
+    <string name="family_disease">Family Disease (optional):</string>
+    <string name="yes_disease">Yes</string>
+    <string name="no_disease">No</string>
+    <string name="state_disease">State the disease</string>
+    <string name="estimate_due_date">Estimate Due Date (EDD)</string>
+    <string name="urine_test">Urine Test :</string>
+    <string name="glucose_level">Glucose Level</string>
+    <string name="protein_level">Protein Level</string>
+    <string name="save_mother">Save</string>
 </resources>

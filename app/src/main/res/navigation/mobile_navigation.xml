@@ -11,9 +11,6 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_home_self"
-            app:destination="@id/nav_home" />
-        <action
             android:id="@+id/action_nav_home_to_nav_create"
             app:destination="@id/nav_create" />
         <action
@@ -28,7 +25,11 @@
         android:id="@+id/nav_create"
         android:name="com.example.mommyhealthapp.ui.CreateMother.CreateMotherFragment"
         android:label="@string/menu_create"
-        tools:layout="@layout/fragment_create_mummy" />
+        tools:layout="@layout/fragment_create_mummy" >
+        <action
+            android:id="@+id/action_nav_create_to_createMotherDetailFragment"
+            app:destination="@id/createMotherDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_search"
@@ -40,5 +41,10 @@
         android:name="com.example.mommyhealthapp.ui.NurseProfile.NurseProfileFragment"
         android:label="@string/nurse_profile"
         tools:layout="@layout/nurse_profile_fragment" />
+    <fragment
+        android:id="@+id/createMotherDetailFragment"
+        android:name="com.example.mommyhealthapp.ui.CreateMother.CreateMotherDetailFragment"
+        android:label="@string/nav_createMotherDetail"
+        tools:layout="@layout/fragment_create_mother_detail" />
 
 </navigation>

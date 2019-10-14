@@ -13,29 +13,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.ui.CreateMother.CreateMotherFragment;
 
 public class HomeFragment extends Fragment {
-
-    private HomeViewModel homeViewModel;
     private CardView cardViewCreate;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         cardViewCreate = (CardView)root.findViewById(R.id.cardViewCreate);
 
         cardViewCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment createFragement = new CreateMotherFragment();
-                ft.replace(R.id.nav_host_fragment, createFragement);
-                ft.commit();
+                Navigation.findNavController(v).navigate(R.id.nav_create);
             }
         });
 

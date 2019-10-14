@@ -1,7 +1,9 @@
 package com.example.mommyhealthapp;
 
+import android.net.Uri;
 import android.os.Bundle;
 
+import com.example.mommyhealthapp.ui.CreateMother.CreateMotherDetailFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -21,7 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
-public class NurseHomeActivity extends AppCompatActivity {
+public class NurseHomeActivity extends AppCompatActivity implements CreateMotherDetailFragment.OnFragmentInteractionListener {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -36,7 +38,7 @@ public class NurseHomeActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_create, R.id.nav_search)
+                R.id.nav_home, R.id.nav_create, R.id.nav_search, R.id.nav_nurseprofile)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -56,5 +58,10 @@ public class NurseHomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

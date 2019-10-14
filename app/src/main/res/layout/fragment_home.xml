@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/colorPrimary">
 
     <TextView
@@ -22,10 +23,11 @@
         android:id="@+id/cardViewCreate"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_below="@+id/textViewWelcomeNurse"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="20dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -57,10 +59,11 @@
         android:id="@+id/cardViewSearch"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_below="@+id/cardViewCreate"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="20dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -91,10 +94,11 @@
         android:id="@+id/cardViewNurse"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_below="@+id/cardViewSearch"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="20dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -122,4 +126,4 @@
 
     </androidx.cardview.widget.CardView>
 
-</RelativeLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
