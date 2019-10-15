@@ -60,31 +60,34 @@
     </RadioGroup>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtInputLayoutDisease"
+        style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TextInputLayout"
         android:focusableInTouchMode="true"
-        android:hint="@string/state_disease">
+        android:hint="@string/state_disease"
+        android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextDisease"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:visibility="gone" />
+            android:inputType="textMultiLine" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtInputLayoutEDD"
+        style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TextInputLayout"
         android:focusableInTouchMode="true"
         android:hint="@string/estimate_due_date">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextEDD"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="date"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView

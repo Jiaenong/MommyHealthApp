@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textViewWelcomeNurse"
@@ -104,15 +104,15 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="200dp"
                 android:layout_height="140dp"
-                app:srcCompat="@drawable/nurse_profile"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/nurse_profile" />
 
             <TextView
                 android:id="@+id/textView7"

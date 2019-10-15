@@ -16,6 +16,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.mommyhealthapp.R;
+import com.google.android.material.textfield.TextInputLayout;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -25,6 +28,7 @@ public class CreateMotherDetailFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD;
     private EditText editTextEDD;
     private EditText editTextDisease;
     DatePickerDialog datePickerDialog;
@@ -64,12 +68,15 @@ public class CreateMotherDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_create_mother_detail, container, false);
+        txtInputLayoutDisease = (TextInputLayout)v.findViewById(R.id.txtInputLayoutDisease);
+        txtInputLayoutEDD = (TextInputLayout)v.findViewById(R.id.txtInputLayoutEDD);
         editTextEDD = (EditText)v.findViewById(R.id.editTextEDD);
         editTextDisease = (EditText)v.findViewById(R.id.editTextDisease);
         radioGroupYesNo = (RadioGroup)v.findViewById(R.id.radioGroupYesNo);
         radioBtnNo = (RadioButton)v.findViewById(R.id.radioBtnNo);
         radioBtnYes = (RadioButton)v.findViewById(R.id.radioBtnYes);
 
+        editTextEDD.setKeyListener(null);
         editTextEDD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +86,6 @@ public class CreateMotherDetailFragment extends Fragment {
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
                 datePickerDialog = new DatePickerDialog(getActivity(),
                         new DatePickerDialog.OnDateSetListener() {
-
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                 editTextEDD.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
@@ -88,12 +94,17 @@ public class CreateMotherDetailFragment extends Fragment {
                 datePickerDialog.show();
             }
         });
-        if(radioBtnYes.isChecked())
-        {
-            editTextDisease.setVisibility(getView().VISIBLE);
-        }else{
-            editTextDisease.setVisibility(getView().GONE);
-        }
+        radioGroupYesNo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(radioBtnYes.isChecked())
+                {
+                    txtInputLayoutDisease.setVisibility(getView().VISIBLE);
+                }else{
+                    txtInputLayoutDisease.setVisibility(getView().GONE);
+                }
+            }
+        });
 
         return v;
     }
