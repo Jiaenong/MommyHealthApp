@@ -7,18 +7,6 @@
     android:background="@color/design_default_color_background"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewWelcomeNurse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/welcome"
-        android:textAlignment="center"
-        android:textColor="@color/design_default_color_on_secondary"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:fontFamily="sans-serif-smallcaps" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewCreate"
         android:layout_width="match_parent"
@@ -28,7 +16,7 @@
         android:layout_marginRight="20dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/colorAccent"
+        app:cardBackgroundColor="#ECEFF1"
         app:cardCornerRadius="20dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -66,7 +54,7 @@
         android:layout_marginRight="20dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/colorAccent"
+        app:cardBackgroundColor="#ECEFF1"
         app:cardCornerRadius="20dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -103,7 +91,7 @@
         android:layout_marginRight="20dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/colorAccent"
+        app:cardBackgroundColor="#ECEFF1"
         app:cardCornerRadius="20dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
