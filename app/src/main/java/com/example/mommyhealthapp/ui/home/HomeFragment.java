@@ -19,16 +19,24 @@ import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.ui.CreateMother.CreateMotherFragment;
 
 public class HomeFragment extends Fragment {
-    private CardView cardViewCreate;
+    private CardView cardViewCreate, cardViewNurse;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         cardViewCreate = (CardView)root.findViewById(R.id.cardViewCreate);
+        cardViewNurse = (CardView)root.findViewById(R.id.cardViewNurse);
 
         cardViewCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.nav_create);
+            }
+        });
+
+        cardViewNurse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.nav_nurseprofile);
             }
         });
 

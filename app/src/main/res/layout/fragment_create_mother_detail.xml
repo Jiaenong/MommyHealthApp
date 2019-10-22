@@ -124,6 +124,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button"
+        style="@style/Button"
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:layout_height="60dp"

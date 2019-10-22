@@ -27,7 +27,7 @@
     </style>
 
     <style name="Button" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="backgroundTint">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
