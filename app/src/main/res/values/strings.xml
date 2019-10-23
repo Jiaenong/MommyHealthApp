@@ -49,4 +49,6 @@
     <string name="nurse_name">Name :</string>
     <string name="nurse_ic">IC :</string>
     <string name="nurse_age">Age :</string>
+    <string name="nurse_email">Email :</string>
+    <string name="nurse_address">Address :</string>
 </resources>
