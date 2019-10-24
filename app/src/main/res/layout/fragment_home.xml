@@ -16,7 +16,7 @@
         android:layout_marginRight="20dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="#ECEFF1"
+        app:cardBackgroundColor="#fafafa"
         app:cardCornerRadius="20dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -54,7 +54,7 @@
         android:layout_marginRight="20dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="#ECEFF1"
+        app:cardBackgroundColor="#fafafa"
         app:cardCornerRadius="20dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -91,7 +91,7 @@
         android:layout_marginRight="20dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="#ECEFF1"
+        app:cardBackgroundColor="#fafafa"
         app:cardCornerRadius="20dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
