@@ -51,4 +51,5 @@
     <string name="nurse_age">Age :</string>
     <string name="nurse_email">Email :</string>
     <string name="nurse_address">Address :</string>
+    <string name="nurse_account">Account Info</string>
 </resources>

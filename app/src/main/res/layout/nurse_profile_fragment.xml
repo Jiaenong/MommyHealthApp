@@ -44,8 +44,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_marginBottom="20dp"
-            android:text="Account Info"
+            android:text="@string/nurse_account"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -53,7 +54,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp">
 
             <ImageView
                 android:id="@+id/imageViewId"
@@ -87,7 +89,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp">
 
             <ImageView
                 android:id="@+id/imageViewName"
@@ -121,7 +124,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp">
 
             <ImageView
                 android:id="@+id/imageViewEmail"
@@ -155,7 +159,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp">
 
             <ImageView
                 android:id="@+id/imageViewAddress"
@@ -189,7 +194,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp">
 
             <ImageView
                 android:id="@+id/imageViewIC"
