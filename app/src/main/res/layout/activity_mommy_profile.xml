@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MommyProfileActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewMummy"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/user" />
+
+            <TextView
+                android:id="@+id/textViewMummyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/imageViewMummy"
+                android:text="@string/mummy_name"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewMummyAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_toRightOf="@id/textViewMummyName"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/age" />
+
+            <TextView
+                android:id="@+id/textViewMummyID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:layout_toRightOf="@id/imageViewMummy"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentBottom="true"
+                android:text="@string/mummy_id" />
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#fafafa">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView6"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            app:srcCompat="@drawable/early_test" />
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/early_test"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp"
+                            app:fontFamily="sans-serif-smallcaps" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_marginLeft="20dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#fafafa">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView7"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            app:srcCompat="@drawable/early_test" />
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/maternal_medical_examination"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp"
+                            app:fontFamily="sans-serif-smallcaps" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#fafafa">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView8"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            app:srcCompat="@drawable/early_test" />
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/sectionN"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp"
+                            app:fontFamily="sans-serif-smallcaps" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_marginLeft="20dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#fafafa">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView9"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            app:srcCompat="@drawable/early_test" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/mgtt"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp"
+                            app:fontFamily="sans-serif-smallcaps" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#fafafa">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            app:srcCompat="@drawable/early_test" />
+
+                        <TextView
+                            android:id="@+id/textView17"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/pregnancy_examination"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp"
+                            app:fontFamily="sans-serif-smallcaps" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>

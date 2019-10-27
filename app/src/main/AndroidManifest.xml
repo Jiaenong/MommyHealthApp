@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".MommyProfileActivity"
+            android:label="Mommy Profile"/>
+        <activity
             android:name=".NurseHomeActivity"
             android:label="@string/title_activity_nurse_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/MyMaterialTheme.Base">

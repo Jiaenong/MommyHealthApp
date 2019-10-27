@@ -52,4 +52,26 @@
     <string name="nurse_email">Email :</string>
     <string name="nurse_address">Address :</string>
     <string name="nurse_account">Account Info</string>
+    <string name="mummy_race">Race</string>
+    <string name="mummy_address">Address</string>
+    <string name="mummy_phone">Phone No.</string>
+    <string name="mummy_ocupation">Occupation</string>
+    <string name="mummy_education">Education</string>
+    <string name="mummy_lnmp">LNMP</string>
+    <string name="mummy_tal">TAL (EDP)</string>
+    <string name="mummy_marriage">Marriage Status :</string>
+    <string name="mummy_single">Single</string>
+    <string name="mummy_married">Married</string>
+    <string name="mummy_husband">Husband Name</string>
+    <string name="mummy_husband_ic">Husband IC</string>
+    <string name="mummy_husband_work">Husband Occupation</string>
+    <string name="mummy_husband_workplace">Husband Work Place</string>
+    <string name="mummy_husband_phone">Husband Phone No.</string>
+    <string name="mummy_name">Mummy Name</string>
+    <string name="mummy_id">Mummy ID</string>
+    <string name="early_test">Early Test</string>
+    <string name="maternal_medical_examination">Routine Medical Examination</string>
+    <string name="sectionN">Section N</string>
+    <string name="mgtt">MGTT Examination</string>
+    <string name="pregnancy_examination">Pregnancy Examination</string>
 </resources>

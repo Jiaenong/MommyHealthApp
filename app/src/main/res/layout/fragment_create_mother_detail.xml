@@ -1,135 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="10dp"
     tools:context=".ui.CreateMother.CreateMotherDetailFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TextInputLayout"
-        android:focusableInTouchMode="true"
-        android:hint="@string/height">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            style="@style/TextInputLayout"
+            android:focusableInTouchMode="true"
+            android:hint="@string/height">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TextInputLayout"
-        android:focusableInTouchMode="true"
-        android:hint="@string/weight">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            style="@style/TextInputLayout"
+            android:focusableInTouchMode="true"
+            android:hint="@string/weight">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/family_disease"
-        android:textSize="18sp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <RadioGroup
-        android:id="@+id/radioGroupYesNo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/family_disease"
+            android:textSize="18sp" />
 
-        <RadioButton
-            android:id="@+id/radioBtnYes"
+        <RadioGroup
+            android:id="@+id/radioGroupYesNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioBtnYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yes_disease" />
+
+            <RadioButton
+                android:id="@+id/radioBtnNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/no_disease" />
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutDisease"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/state_disease"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextDisease"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutEDD"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/estimate_due_date">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextEDD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutLNMP"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_lnmp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextLNMP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutEDP"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_tal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextEDP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/yes_disease" />
+            android:text="@string/mummy_marriage"
+            android:textSize="18sp" />
 
-        <RadioButton
-            android:id="@+id/radioBtnNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="@string/no_disease" />
-    </RadioGroup>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtInputLayoutDisease"
-        style="@style/TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:hint="@string/state_disease"
-        android:visibility="gone">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextDisease"
+        <RadioGroup
+            android:id="@+id/radioGroupMarriage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="horizontal">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtInputLayoutEDD"
-        style="@style/TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:hint="@string/estimate_due_date">
+            <RadioButton
+                android:id="@+id/radioBtnSingle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mummy_single" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextEDD"
+            <RadioButton
+                android:id="@+id/radioBtnMarried"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/mummy_married" />
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayoutHusbandName"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="date"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_husband"
+            android:visibility="gone">
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/urine_test"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TextInputLayout"
-        android:focusableInTouchMode="true"
-        android:hint="@string/glucose_level">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayoutHusbandIC"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_husband_ic"
+            android:visibility="gone">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TextInputLayout"
-        android:focusableInTouchMode="true"
-        android:hint="@string/protein_level">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayoutHusbandWork"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_husband_work"
+            android:visibility="gone">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button"
-        style="@style/Button"
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/save_mother"
-        app:cornerRadius="16dp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayoutHusbandWorkAddress"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_husband_workplace"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayoutHusbandPhone"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_husband_phone"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/save_mother"
+            app:cornerRadius="16dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+</androidx.core.widget.NestedScrollView>

@@ -1,90 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayout"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:hint="@string/first_name">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/first_name">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:hint="@string/last_name">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/last_name">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:hint="@string/ic">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/ic">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:hint="@string/age">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_race">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:hint="@string/husbandIC">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_address">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:hint="@string/Referrals">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_phone">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnNextStep"
-        style="@style/Button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:text="@string/next_step"
-        app:cornerRadius="16dp" />
-</androidx.appcompat.widget.LinearLayoutCompat>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_ocupation">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/age">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/mummy_education">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNextStep"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:text="@string/next_step"
+            app:cornerRadius="16dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.core.widget.NestedScrollView>

@@ -28,12 +28,12 @@ public class CreateMotherDetailFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD;
-    private EditText editTextEDD;
+    private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr;
+    private EditText editTextEDD, editTextLNMP, editTextEDP;
     private EditText editTextDisease;
     DatePickerDialog datePickerDialog;
-    private RadioGroup radioGroupYesNo;
-    private RadioButton radioBtnYes, radioBtnNo;
+    private RadioGroup radioGroupYesNo, radioGroupMarriage;
+    private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -70,13 +70,25 @@ public class CreateMotherDetailFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_create_mother_detail, container, false);
         txtInputLayoutDisease = (TextInputLayout)v.findViewById(R.id.txtInputLayoutDisease);
         txtInputLayoutEDD = (TextInputLayout)v.findViewById(R.id.txtInputLayoutEDD);
+        txtLayoutHusbandPhone = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandPhone);
+        txtLayoutHusbandName = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandName);
+        txtLayoutHusbandIC = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandIC);
+        txtLayoutHusbandWork = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandWork);
+        txtLayoutHusbandWorkPlacr = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandWorkAddress);
         editTextEDD = (EditText)v.findViewById(R.id.editTextEDD);
         editTextDisease = (EditText)v.findViewById(R.id.editTextDisease);
+        editTextLNMP = (EditText)v.findViewById(R.id.editTextLNMP);
+        editTextEDP = (EditText)v.findViewById(R.id.editTextEDP);
         radioGroupYesNo = (RadioGroup)v.findViewById(R.id.radioGroupYesNo);
+        radioGroupMarriage = (RadioGroup)v.findViewById(R.id.radioGroupMarriage);
         radioBtnNo = (RadioButton)v.findViewById(R.id.radioBtnNo);
         radioBtnYes = (RadioButton)v.findViewById(R.id.radioBtnYes);
+        radioBtnMarried = (RadioButton)v.findViewById(R.id.radioBtnMarried);
+        radioBtnSingle = (RadioButton)v.findViewById(R.id.radioBtnSingle);
 
         editTextEDD.setKeyListener(null);
+        editTextLNMP.setKeyListener(null);
+        editTextEDP.setKeyListener(null);
         editTextEDD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +106,43 @@ public class CreateMotherDetailFragment extends Fragment {
                 datePickerDialog.show();
             }
         });
+
+        editTextLNMP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                datePickerDialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                editTextEDD.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+
+        editTextEDP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                datePickerDialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                editTextEDD.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+
         radioGroupYesNo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -102,6 +151,25 @@ public class CreateMotherDetailFragment extends Fragment {
                     txtInputLayoutDisease.setVisibility(getView().VISIBLE);
                 }else{
                     txtInputLayoutDisease.setVisibility(getView().GONE);
+                }
+            }
+        });
+
+        radioGroupMarriage.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(radioBtnMarried.isChecked()){
+                    txtLayoutHusbandName.setVisibility(getView().VISIBLE);
+                    txtLayoutHusbandIC.setVisibility(getView().VISIBLE);
+                    txtLayoutHusbandWork.setVisibility(getView().VISIBLE);
+                    txtLayoutHusbandWorkPlacr.setVisibility(getView().VISIBLE);
+                    txtLayoutHusbandPhone.setVisibility(getView().VISIBLE);
+                }else{
+                    txtLayoutHusbandName.setVisibility(getView().GONE);
+                    txtLayoutHusbandIC.setVisibility(getView().GONE);
+                    txtLayoutHusbandWork.setVisibility(getView().GONE);
+                    txtLayoutHusbandWorkPlacr.setVisibility(getView().GONE);
+                    txtLayoutHusbandPhone.setVisibility(getView().GONE);
                 }
             }
         });
