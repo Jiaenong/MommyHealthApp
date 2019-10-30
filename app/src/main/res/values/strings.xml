@@ -74,4 +74,5 @@
     <string name="sectionN">Section N</string>
     <string name="mgtt">MGTT Examination</string>
     <string name="pregnancy_examination">Pregnancy Examination</string>
+    <string name="summary">Summary Report</string>
 </resources>
