@@ -17,19 +17,27 @@
             android:layout_height="wrap_content"
             android:padding="10dp">
 
-            <ImageView
-                android:id="@+id/imageViewMummy"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:srcCompat="@drawable/user" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewMummy"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:cardCornerRadius="60dp">
+
+                <ImageView
+                    android:id="@+id/imageViewMummy"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/user" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/textViewMummyName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/imageViewMummy"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/cardViewMummy"
                 android:text="@string/mummy_name"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -42,7 +50,7 @@
                 android:textSize="24sp"
                 android:layout_toRightOf="@id/textViewMummyName"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/age" />
 
             <TextView
@@ -50,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
-                android:layout_toRightOf="@id/imageViewMummy"
+                android:layout_toRightOf="@id/cardViewMummy"
                 android:layout_marginLeft="10dp"
                 android:layout_alignParentBottom="true"
                 android:text="@string/mummy_id" />
@@ -265,7 +273,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="170dp"
                     android:layout_height="170dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="20dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa">
