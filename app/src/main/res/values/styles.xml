@@ -30,6 +30,10 @@
         <item name="backgroundTint">@color/colorPrimary</item>
     </style>
 
+    <style name="cancelButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">#C21807</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

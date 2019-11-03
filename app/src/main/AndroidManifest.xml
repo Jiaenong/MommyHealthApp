@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MommyInfoActivity"
+            android:label="Mommy Information"/>
         <activity
             android:name=".MommyProfileActivity"
-            android:label="Mommy Profile"/>
+            android:label="Mommy Profile" />
         <activity
             android:name=".NurseHomeActivity"
             android:label="@string/title_activity_nurse_home"

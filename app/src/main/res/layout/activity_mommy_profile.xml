@@ -13,6 +13,7 @@
         android:padding="10dp">
 
         <RelativeLayout
+            android:id="@+id/layoutMummyInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -61,11 +62,11 @@
                 android:id="@+id/textViewMummyID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:layout_toRightOf="@id/cardViewMummy"
-                android:layout_marginLeft="10dp"
                 android:layout_alignParentBottom="true"
-                android:text="@string/mummy_id" />
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/cardViewMummy"
+                android:text="@string/mummy_id"
+                android:textSize="18dp" />
 
             <ImageView
                 android:id="@+id/imageView"
