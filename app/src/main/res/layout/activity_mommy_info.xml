@@ -118,6 +118,7 @@
                 android:hint="@string/first_name">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -130,6 +131,7 @@
                 android:hint="@string/last_name">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -142,6 +144,7 @@
                 android:hint="@string/ic">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextIC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -154,6 +157,7 @@
                 android:hint="@string/mummy_race">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextRace"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -166,6 +170,7 @@
                 android:hint="@string/mummy_address">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine" />
@@ -179,6 +184,7 @@
                 android:hint="@string/mummy_phone">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone" />
@@ -192,6 +198,7 @@
                 android:hint="@string/mummy_ocupation">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextOccupation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -204,6 +211,7 @@
                 android:hint="@string/age">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -216,6 +224,7 @@
                 android:hint="@string/mummy_education">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextEducation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -296,6 +305,7 @@
                 android:hint="@string/height">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -308,6 +318,7 @@
                 android:hint="@string/weight">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -437,6 +448,7 @@
                 android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextHusbandName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -451,6 +463,7 @@
                 android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextHusbandIC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -465,6 +478,7 @@
                 android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextHusbandWork"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -479,6 +493,7 @@
                 android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextHusbandWorkAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine" />
@@ -494,6 +509,7 @@
                 android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextHusbandPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone" />
