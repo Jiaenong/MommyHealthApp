@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ public class MommyInfoActivity extends AppCompatActivity {
     private RadioGroup radioGroupYesNo, radioGroupMarriage;
     private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle;
     private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr;
+    private CheckBox chkBoxStatus;
 
     private Button buttonCancel, buttonCancelInfo, buttonUpdateInfo, buttonUpdate;
     @Override
@@ -54,6 +56,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextAge = (EditText)findViewById(R.id.editTextAge);
         editTextOccupation = (EditText)findViewById(R.id.editTextOccupation);
         editTextEducation = (EditText)findViewById(R.id.editTextEducation);
+        chkBoxStatus = (CheckBox)findViewById(R.id.chkBoxStatus);
 
         txtInputLayoutDisease = (TextInputLayout)findViewById(R.id.txtInputLayoutDisease);
         txtInputLayoutEDD = (TextInputLayout)findViewById(R.id.txtInputLayoutEDD);
@@ -85,10 +88,9 @@ public class MommyInfoActivity extends AppCompatActivity {
         buttonUpdateInfo = (Button)findViewById(R.id.buttonUpdateInfo);
         buttonUpdate = (Button)findViewById(R.id.buttonUpdate);
 
-        layoutInfo.setVisibility(View.GONE);
         layoutDetailInfo.setVisibility(View.GONE);
         imageViewUp.setVisibility(View.GONE);
-        imageViewUp1.setVisibility(View.GONE);
+        imageViewDown1.setVisibility(View.GONE);
         buttonCancel.setVisibility(View.GONE);
         buttonCancelInfo.setVisibility(View.GONE);
 
@@ -265,6 +267,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextAge.setEnabled(false);
         editTextOccupation.setEnabled(false);
         editTextEducation.setEnabled(false);
+        chkBoxStatus.setEnabled(false);
     }
 
     private void DisableDetailInfoEditText()
@@ -308,6 +311,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextAge.setEnabled(true);
         editTextOccupation.setEnabled(true);
         editTextEducation.setEnabled(true);
+        chkBoxStatus.setEnabled(true);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

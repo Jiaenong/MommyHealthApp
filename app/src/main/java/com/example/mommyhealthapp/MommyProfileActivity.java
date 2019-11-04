@@ -1,6 +1,7 @@
 package com.example.mommyhealthapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,17 +13,27 @@ import android.widget.RelativeLayout;
 public class MommyProfileActivity extends AppCompatActivity {
 
     private RelativeLayout layoutMummyInfo;
+    private CardView cardViewEarlyTest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mommy_profile);
 
         layoutMummyInfo = (RelativeLayout)findViewById(R.id.layoutMummyInfo);
+        cardViewEarlyTest = (CardView)findViewById(R.id.cardViewEarlyTest);
 
         layoutMummyInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MommyProfileActivity.this, MommyInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cardViewEarlyTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MommyProfileActivity.this, EarlyTestActivity.class);
                 startActivity(intent);
             }
         });

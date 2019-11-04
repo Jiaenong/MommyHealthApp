@@ -229,6 +229,12 @@
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <CheckBox
+                android:id="@+id/chkBoxStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mommy_status" />
+
             <Button
                 android:id="@+id/buttonUpdateInfo"
                 style="@style/Button"
