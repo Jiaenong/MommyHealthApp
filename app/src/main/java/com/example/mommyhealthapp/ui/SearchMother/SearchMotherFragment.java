@@ -19,13 +19,22 @@ import com.example.mommyhealthapp.R;
 
 public class SearchMotherFragment extends Fragment {
 
-    private ImageView imageViewQRCode;
+    private ImageView imageViewQRCode, imageViewNoRecordFound;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_search_mummy, container, false);
         imageViewQRCode = (ImageView)root.findViewById(R.id.imageViewQRCode);
+        imageViewNoRecordFound = (ImageView)root.findViewById(R.id.imageViewNoRecordFound);
 
         imageViewQRCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MommyProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewNoRecordFound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MommyProfileActivity.class);

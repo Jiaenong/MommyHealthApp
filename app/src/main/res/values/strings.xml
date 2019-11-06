@@ -97,5 +97,6 @@
     <string name="rpr">RPR (syphilis) :</string>
     <string name="rpr_type_nonreactive">NON-REACTIVE</string>
     <string name="rpr_type_reactive">REACTIVE</string>
+    <string name="norecordfound">No Record Found</string>
 
 </resources>
