@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.mommyhealthapp.MommyProfileActivity;
+import com.example.mommyhealthapp.MommyRecordActivity;
 import com.example.mommyhealthapp.R;
 
 public class SearchMotherFragment extends Fragment {
@@ -29,7 +30,7 @@ public class SearchMotherFragment extends Fragment {
         imageViewQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MommyProfileActivity.class);
+                Intent intent = new Intent(getActivity(), MommyRecordActivity.class);
                 startActivity(intent);
             }
         });
@@ -37,7 +38,7 @@ public class SearchMotherFragment extends Fragment {
         imageViewNoRecordFound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MommyProfileActivity.class);
+                Intent intent = new Intent(getActivity(), MommyRecordActivity.class);
                 startActivity(intent);
             }
         });
