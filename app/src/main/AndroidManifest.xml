@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MommyRecordActivity"></activity>
+        <activity android:name=".SectionAActivity"
+            android:label="Section A"/>
+        <activity
+            android:name=".MommyRecordActivity"
+            android:label="Pregnant Record" />
         <activity
             android:name=".EarlyTestActivity"
             android:label="Early Test" />

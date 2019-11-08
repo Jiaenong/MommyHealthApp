@@ -98,5 +98,21 @@
     <string name="rpr_type_nonreactive">NON-REACTIVE</string>
     <string name="rpr_type_reactive">REACTIVE</string>
     <string name="norecordfound">No Record Found</string>
+    <string name="year">2019</string>
+    <string name="month">06</string>
+    <string name="section_A_year">Year</string>
+    <string name="secA_contentResult">Content Result</string>
+    <string name="secA_birthType">Birth Type</string>
+    <string name="secA_placeDiscoverBirth">Place Discover Pregnant</string>
+    <string name="secA_gender">Gender :</string>
+    <string name="secA_Male">Male</string>
+    <string name="secA_Female">Female</string>
+    <string name="secA_birthWeight">Birth Weight (kg)</string>
+    <string name="secA_complication">Complication :</string>
+    <string name="secA_Mother">Mother</string>
+    <string name="secA_Children">Children</string>
+    <string name="secA_breastfeedingperiod">Breast Feeding Period</string>
+    <string name="secA_ChildSituation">Child Situation</string>
+    <string name="save">Save</string>
 
 </resources>

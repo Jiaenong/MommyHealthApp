@@ -127,12 +127,22 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <View
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewSectionA"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
                 android:layout_marginLeft="25dp"
