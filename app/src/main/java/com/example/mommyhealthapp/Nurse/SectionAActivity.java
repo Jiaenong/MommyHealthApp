@@ -1,10 +1,12 @@
-package com.example.mommyhealthapp;
+package com.example.mommyhealthapp.Nurse;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.mommyhealthapp.R;
 
 public class SectionAActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.mommyhealthapp;
+package com.example.mommyhealthapp.Nurse;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.mommyhealthapp.Nurse.MommyProfileActivity;
+import com.example.mommyhealthapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MommyRecordActivity extends AppCompatActivity {

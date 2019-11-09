@@ -1,4 +1,4 @@
-package com.example.mommyhealthapp.ui.SearchMother;
+package com.example.mommyhealthapp.Nurse.ui.SearchMother;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.mommyhealthapp.MommyProfileActivity;
-import com.example.mommyhealthapp.MommyRecordActivity;
+import com.example.mommyhealthapp.Nurse.MommyRecordActivity;
 import com.example.mommyhealthapp.R;
 
 public class SearchMotherFragment extends Fragment {

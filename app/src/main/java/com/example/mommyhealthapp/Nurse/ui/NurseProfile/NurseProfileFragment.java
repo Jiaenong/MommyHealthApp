@@ -1,4 +1,4 @@
-package com.example.mommyhealthapp.ui.NurseProfile;
+package com.example.mommyhealthapp.Nurse.ui.NurseProfile;
 
 import androidx.lifecycle.ViewModelProviders;
 

@@ -1,4 +1,4 @@
-package com.example.mommyhealthapp;
+package com.example.mommyhealthapp.Nurse;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import com.example.mommyhealthapp.Nurse.MommyInfoActivity;
+import com.example.mommyhealthapp.R;
 
 public class MommyProfileActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.mommyhealthapp;
+package com.example.mommyhealthapp.Nurse;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.example.mommyhealthapp.R;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package com.example.mommyhealthapp;
+package com.example.mommyhealthapp.Nurse;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.SectionAActivity;
 
 public class EarlyTestActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.mommyhealthapp.ui.home;
+package com.example.mommyhealthapp.Nurse.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.example.mommyhealthapp.R;
-import com.example.mommyhealthapp.ui.CreateMother.CreateMotherFragment;
+import com.example.mommyhealthapp.Nurse.ui.CreateMother.CreateMotherFragment;
 
 public class HomeFragment extends Fragment {
     private CardView cardViewCreate, cardViewNurse, cardViewSearch;
