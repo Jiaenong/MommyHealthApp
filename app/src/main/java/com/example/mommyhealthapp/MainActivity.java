@@ -1,4 +1,4 @@
-package com.example.mommyhealthapp.Nurse;
+package com.example.mommyhealthapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.mommyhealthapp.NurseHomeActivity;
-import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.Nurse.NurseHomeActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.mommyhealthapp.ui.home.HomeFragment"
+        android:name="com.example.mommyhealthapp.Nurse.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/nav_create"
-        android:name="com.example.mommyhealthapp.ui.CreateMother.CreateMotherFragment"
+        android:name="com.example.mommyhealthapp.Nurse.ui.CreateMother.CreateMotherFragment"
         android:label="@string/menu_create"
         tools:layout="@layout/fragment_create_mummy" >
         <action
@@ -33,17 +33,17 @@
 
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.example.mommyhealthapp.ui.SearchMother.SearchMotherFragment"
+        android:name="com.example.mommyhealthapp.Nurse.ui.SearchMother.SearchMotherFragment"
         android:label="@string/menu_search"
         tools:layout="@layout/fragment_search_mummy" />
     <fragment
         android:id="@+id/nav_nurseprofile"
-        android:name="com.example.mommyhealthapp.ui.NurseProfile.NurseProfileFragment"
+        android:name="com.example.mommyhealthapp.Nurse.ui.NurseProfile.NurseProfileFragment"
         android:label="@string/nurse_profile"
         tools:layout="@layout/nurse_profile_fragment" />
     <fragment
         android:id="@+id/createMotherDetailFragment"
-        android:name="com.example.mommyhealthapp.ui.CreateMother.CreateMotherDetailFragment"
+        android:name="com.example.mommyhealthapp.Nurse.ui.CreateMother.CreateMotherDetailFragment"
         android:label="@string/nav_createMotherDetail"
         tools:layout="@layout/fragment_create_mother_detail" />
 

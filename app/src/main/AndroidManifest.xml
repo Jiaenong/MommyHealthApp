@@ -9,22 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SectionAActivity"
-            android:label="Section A"/>
+        <activity android:name=".Nurse.SectionBActivity"></activity>
         <activity
-            android:name=".MommyRecordActivity"
+            android:name=".Nurse.SectionAActivity"
+            android:label="Section A" />
+        <activity
+            android:name=".Nurse.MommyRecordActivity"
             android:label="Pregnant Record" />
         <activity
-            android:name=".EarlyTestActivity"
+            android:name=".Nurse.EarlyTestActivity"
             android:label="Early Test" />
         <activity
-            android:name=".MommyInfoActivity"
+            android:name=".Nurse.MommyInfoActivity"
             android:label="Mommy Information" />
         <activity
-            android:name=".MommyProfileActivity"
+            android:name=".Nurse.MommyProfileActivity"
             android:label="Mommy Profile" />
         <activity
-            android:name=".NurseHomeActivity"
+            android:name=".Nurse.NurseHomeActivity"
             android:label="@string/title_activity_nurse_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

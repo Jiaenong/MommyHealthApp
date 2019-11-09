@@ -114,5 +114,12 @@
     <string name="secA_breastfeedingperiod">Breast Feeding Period</string>
     <string name="secA_ChildSituation">Child Situation</string>
     <string name="save">Save</string>
+    <string name="secB_rhesusBloodGroup">Rhesus Blood Group</string>
+    <string name="secB_vdrl">VDRL+/-TPHA</string>
+    <string name="secB_hivRepidTest">HIV/Rapid Test</string>
+    <string name="secB_HepatitisB">Hepatitis B</string>
+    <string name="secB_Thalassaemia">Thalassaemia</string>
+    <string name="secB_thalassaemia_guide">(For the mother have not perform Thalassaemia test before)</string>
+    <string name="secB_BFMP">BFMP</string>
 
 </resources>

@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.mommyhealthapp.R;
-import com.example.mommyhealthapp.ui.CreateMother.CreateMotherDetailFragment;
+import com.example.mommyhealthapp.Nurse.ui.CreateMother.CreateMotherDetailFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 

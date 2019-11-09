@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EarlyTestActivity">
+    tools:context="Nur.EarlyTestActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -178,6 +178,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewSetionB"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
                 android:layout_marginLeft="20dp"

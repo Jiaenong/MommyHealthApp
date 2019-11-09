@@ -8,23 +8,33 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SectionIndexer;
 
 import com.example.mommyhealthapp.R;
-import com.example.mommyhealthapp.SectionAActivity;
+import com.example.mommyhealthapp.Nurse.SectionAActivity;
 
 public class EarlyTestActivity extends AppCompatActivity {
 
-    private CardView cardViewSectionA;
+    private CardView cardViewSectionA, cardViewSectionB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_early_test);
 
         cardViewSectionA = (CardView)findViewById(R.id.cardViewSectionA);
+        cardViewSectionB = (CardView)findViewById(R.id.cardViewSetionB);
         cardViewSectionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EarlyTestActivity.this, SectionAActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cardViewSectionB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EarlyTestActivity.this, SectionBActivity.class);
                 startActivity(intent);
             }
         });
