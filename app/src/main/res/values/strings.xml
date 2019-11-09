@@ -121,5 +121,30 @@
     <string name="secB_Thalassaemia">Thalassaemia</string>
     <string name="secB_thalassaemia_guide">(For the mother have not perform Thalassaemia test before)</string>
     <string name="secB_BFMP">BFMP</string>
+    <string name="secC_menstruation">Menstruation :</string>
+    <string name="secC_dayNumber">Number of Days</string>
+    <string name="secC_round">Rounds</string>
+    <string name="secC_familyPlanningPractice">Family Planning Practice :</string>
+    <string name="secC_method">Method</string>
+    <string name="secC_Period">Period (months or year)</string>
+    <string name="secC_smoking">Smoke (Mother) :</string>
+    <string name="secC_smokehusband">Smoke (Husband) :</string>
+    <string name="secC_motherdiseasestatus">Mother Disease Status :</string>
+    <string name="secC_diabetes">Diabetes</string>
+    <string name="secC_asthma">Asthma</string>
+    <string name="secC_anemia">Anemia</string>
+    <string name="secC_highBloodPressure">High Blood Pressure</string>
+    <string name="secC_heartDisease">Heart Disease</string>
+    <string name="secC_Thalassemia">Thalassemia</string>
+    <string name="secC_allergy">Allergy</string>
+    <string name="secC_tuberculosis">Tuberculosis</string>
+    <string name="secC_other">Others</string>
+    <string name="secC_stateit">State It</string>
+    <string name="secC_familyDiseaseStatus">Family Disease Status :</string>
+    <string name="secC_motherImmue">Mother\'s Immunization Status :</string>
+    <string name="secC_tetanus_toxiod">Tetanus/Toxiod :</string>
+    <string name="secC_dos1">Dos 1 (Date)</string>
+    <string name="secC_dos2">Dos 2 (Date)</string>
+    <string name="secC_dosAddOn">Dos Add On (Date)</string>
 
 </resources>
