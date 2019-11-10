@@ -15,7 +15,7 @@ import com.example.mommyhealthapp.Nurse.SectionAActivity;
 
 public class EarlyTestActivity extends AppCompatActivity {
 
-    private CardView cardViewSectionA, cardViewSectionB, cardViewSectionC;
+    private CardView cardViewSectionA, cardViewSectionB, cardViewSectionC, cardViewSectionD;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +24,7 @@ public class EarlyTestActivity extends AppCompatActivity {
         cardViewSectionA = (CardView)findViewById(R.id.cardViewSectionA);
         cardViewSectionB = (CardView)findViewById(R.id.cardViewSetionB);
         cardViewSectionC = (CardView)findViewById(R.id.cardViewSectionC);
+        cardViewSectionD = (CardView)findViewById(R.id.cardViewSectionD);
         cardViewSectionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +45,14 @@ public class EarlyTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EarlyTestActivity.this, SectionCActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cardViewSectionD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EarlyTestActivity.this, SectionDActivity.class);
                 startActivity(intent);
             }
         });

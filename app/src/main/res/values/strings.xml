@@ -146,5 +146,16 @@
     <string name="secC_dos1">Dos 1 (Date)</string>
     <string name="secC_dos2">Dos 2 (Date)</string>
     <string name="secC_dosAddOn">Dos Add On (Date)</string>
+    <string name="secD_Height">Height (cm)</string>
+    <string name="secD_bmi">BMI (kg/m^2)</string>
+    <string name="secD_thyroid">Thyroid</string>
+    <string name="secD_jaundice">Jaundice</string>
+    <string name="secD_pallor">Pallor</string>
+    <string name="secD_breast_left">Breast (Left Side)</string>
+    <string name="secD_breast_right">Breast (Right Side)</string>
+    <string name="secD_varicoseVein_left">Varicose Vein (Left Side)</string>
+    <string name="secD_varicoseVein_right">Varicose Vein (Right Side)</string>
+    <string name="secD_abdomen">Abdomen</string>
+    <string name="secD_other">Others</string>
 
 </resources>

@@ -9,10 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Nurse.SectionCActivity"
-            android:label="Section C"></activity>
-        <activity android:name=".Nurse.SectionBActivity"
-            android:label="Section B"></activity>
+        <activity android:name=".Nurse.SectionDActivity"
+            android:label="Section D"/>
+        <activity
+            android:name=".Nurse.SectionCActivity"
+            android:label="Section C" />
+        <activity
+            android:name=".Nurse.SectionBActivity"
+            android:label="Section B" />
         <activity
             android:name=".Nurse.SectionAActivity"
             android:label="Section A" />
