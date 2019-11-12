@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/createMother"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="24sp"
                 app:fontFamily="sans-serif-smallcaps" />
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/searchMother"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="24sp"
                 app:fontFamily="sans-serif-smallcaps" />
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/nurse_profile"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="24sp"
                 app:fontFamily="sans-serif-smallcaps" />
         </androidx.appcompat.widget.LinearLayoutCompat>

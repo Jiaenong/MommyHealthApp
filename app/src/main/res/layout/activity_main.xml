@@ -50,12 +50,12 @@
                 app:fontFamily="sans-serif-smallcaps" />
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"
                 android:layout_marginTop="20dp"
-                android:hint="@string/UserName"
-                style="@style/TextInputLayout">
+                android:focusableInTouchMode="true"
+                android:hint="@string/UserName">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText2"
@@ -67,12 +67,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"
                 android:layout_marginTop="10dp"
+                android:focusableInTouchMode="true"
                 android:hint="@string/password"
-                style="@style/TextInputLayout">
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText4"
