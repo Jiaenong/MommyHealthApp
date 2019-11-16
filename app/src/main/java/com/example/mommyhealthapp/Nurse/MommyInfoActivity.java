@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,26 +17,30 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 
 import com.example.mommyhealthapp.R;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
+import java.util.Set;
 
 public class MommyInfoActivity extends AppCompatActivity {
 
-    private LinearLayoutCompat layoutInfo, layoutDetailInfo;
-    private ImageView imageViewUp, imageViewUp1, imageViewDown, imageViewDown1;
+    private LinearLayoutCompat layoutInfo, layoutDetailInfo, layoutAppointment;
+    private ImageView imageViewUp, imageViewUp1, imageViewDown, imageViewDown1, imageViewDownApp, imageViewAppUpApp;
     private EditText editTextFirstName, editTextLastName, editTextIC, editTextRace, editTextAddress, editTextPhone, editTextAge, editTextOccupation, editTextEducation;
     private EditText editTextEDD, editTextLNMP, editTextEDP, editTextDisease, editTextHeight, editTextWeight,
             editTextHusbandName, editTextHusbandIC, editTextHusbandWork, editTextHusbandWorkAddress, editTextHusbandPhone;
+    private EditText editTextAppointment, editTextAppTime;
     DatePickerDialog datePickerDialog;
+    TimePickerDialog timePickerDialog;
     private RadioGroup radioGroupYesNo, radioGroupMarriage;
     private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle;
     private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr;
     private CheckBox chkBoxStatus;
 
-    private Button buttonCancel, buttonCancelInfo, buttonUpdateInfo, buttonUpdate;
+    private Button buttonCancel, buttonCancelInfo, buttonUpdateInfo, buttonUpdate, btnUpdateApp, btnCancelApp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +48,13 @@ public class MommyInfoActivity extends AppCompatActivity {
 
         layoutInfo = (LinearLayoutCompat)findViewById(R.id.layoutInfo);
         layoutDetailInfo = (LinearLayoutCompat)findViewById(R.id.layoutDetailInfo);
+        layoutAppointment = (LinearLayoutCompat)findViewById(R.id.layoutAppointment);
         imageViewUp = (ImageView)findViewById(R.id.imageViewUp);
         imageViewDown = (ImageView)findViewById(R.id.imageViewDown);
         imageViewDown1 = (ImageView)findViewById(R.id.imageViewDown1);
         imageViewUp1 = (ImageView)findViewById(R.id.imageViewUp1);
+        imageViewAppUpApp = (ImageView)findViewById(R.id.imageViewUpAp);
+        imageViewDownApp = (ImageView)findViewById(R.id.imageViewDownAp);
 
         editTextFirstName = (EditText)findViewById(R.id.editTextFirstName);
         editTextLastName = (EditText)findViewById(R.id.editTextLastName);
@@ -58,6 +66,8 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextOccupation = (EditText)findViewById(R.id.editTextOccupation);
         editTextEducation = (EditText)findViewById(R.id.editTextEducation);
         chkBoxStatus = (CheckBox)findViewById(R.id.chkBoxStatus);
+        editTextAppointment = (EditText)findViewById(R.id.editTextAppointment);
+        editTextAppTime = (EditText)findViewById(R.id.editTextAppTime);
 
         txtInputLayoutDisease = (TextInputLayout)findViewById(R.id.txtInputLayoutDisease);
         txtInputLayoutEDD = (TextInputLayout)findViewById(R.id.txtInputLayoutEDD);
@@ -88,16 +98,57 @@ public class MommyInfoActivity extends AppCompatActivity {
         buttonCancelInfo = (Button)findViewById(R.id.buttonCancelInfo);
         buttonUpdateInfo = (Button)findViewById(R.id.buttonUpdateInfo);
         buttonUpdate = (Button)findViewById(R.id.buttonUpdate);
+        btnUpdateApp = (Button)findViewById(R.id.btnUpdateApp);
+        btnCancelApp = (Button)findViewById(R.id.btnCancelApp);
 
         layoutDetailInfo.setVisibility(View.GONE);
         imageViewUp.setVisibility(View.GONE);
         imageViewDown1.setVisibility(View.GONE);
         buttonCancel.setVisibility(View.GONE);
         buttonCancelInfo.setVisibility(View.GONE);
+        imageViewDownApp.setVisibility(View.GONE);
+        btnCancelApp.setVisibility(View.GONE);
 
         editTextEDD.setKeyListener(null);
         editTextLNMP.setKeyListener(null);
         editTextEDP.setKeyListener(null);
+        editTextAppointment.setKeyListener(null);
+        editTextAppTime.setKeyListener(null);
+
+        editTextAppTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                timePickerDialog = new TimePickerDialog(MommyInfoActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        editTextAppTime.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                timePickerDialog.setTitle("Select Time");
+                timePickerDialog.show();
+            }
+        });
+        editTextAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                datePickerDialog = new DatePickerDialog(MommyInfoActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                editTextAppointment.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
         editTextEDD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,9 +234,81 @@ public class MommyInfoActivity extends AppCompatActivity {
             }
         });
 
+        SetVisibility();
         DisableInfoEditText();
         DisableDetailInfoEditText();
+        DisableAppointmentText();
 
+        buttonUpdateInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EnableInfoEditText();
+                buttonCancelInfo.setVisibility(View.VISIBLE);
+            }
+        });
+
+        buttonCancelInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DisableInfoEditText();
+                buttonCancelInfo.setVisibility(View.GONE);
+            }
+        });
+
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EnableDetailInfoEditText();
+                buttonCancel.setVisibility(View.VISIBLE);
+            }
+        });
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DisableDetailInfoEditText();
+                buttonCancel.setVisibility(View.GONE);
+            }
+        });
+
+        btnUpdateApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EnableAppointmentText();
+                btnCancelApp.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnCancelApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DisableAppointmentText();
+                btnCancelApp.setVisibility(View.GONE);
+            }
+        });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void SetVisibility()
+    {
+        imageViewAppUpApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layoutAppointment.setVisibility(View.GONE);
+                imageViewAppUpApp.setVisibility(View.GONE);
+                imageViewDownApp.setVisibility(View.VISIBLE);
+            }
+        });
+
+        imageViewDownApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layoutAppointment.setVisibility(View.VISIBLE);
+                imageViewAppUpApp.setVisibility(View.VISIBLE);
+                imageViewDownApp.setVisibility(View.GONE);
+            }
+        });
         imageViewDown1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,40 +344,18 @@ public class MommyInfoActivity extends AppCompatActivity {
                 imageViewUp.setVisibility(View.GONE);
             }
         });
+    }
 
-        buttonUpdateInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EnableInfoEditText();
-                buttonCancelInfo.setVisibility(View.VISIBLE);
-            }
-        });
+    private void DisableAppointmentText()
+    {
+        editTextAppointment.setEnabled(false);
+        editTextAppTime.setEnabled(false);
+    }
 
-        buttonCancelInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DisableInfoEditText();
-                buttonCancelInfo.setVisibility(View.GONE);
-            }
-        });
-
-        buttonUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EnableDetailInfoEditText();
-                buttonCancel.setVisibility(View.VISIBLE);
-            }
-        });
-
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DisableDetailInfoEditText();
-                buttonCancel.setVisibility(View.GONE);
-            }
-        });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    private void EnableAppointmentText()
+    {
+        editTextAppointment.setEnabled(true);
+        editTextAppTime.setEnabled(true);
     }
 
     private void DisableInfoEditText()

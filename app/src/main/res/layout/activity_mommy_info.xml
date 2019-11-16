@@ -76,6 +76,103 @@
             android:paddingLeft="10dp">
 
             <TextView
+                android:id="@+id/textViewMummyApDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/appointmentDate"
+                android:textColor="@color/design_default_color_on_secondary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageViewDownAp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/textViewMummyApDate"
+                android:layout_marginLeft="115dp"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
+
+            <ImageView
+                android:id="@+id/imageViewUpAp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/textViewMummyApDate"
+                android:layout_marginLeft="115dp"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:hint="@string/appointmentDate">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAppointment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="datetime" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayout"
+                android:focusableInTouchMode="true"
+                android:hint="@string/appointmentTime">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAppTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnUpdateApp"
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="10dp"
+                android:text="@string/update"
+                app:cornerRadius="16dp" />
+
+            <Button
+                android:id="@+id/btnCancelApp"
+                style="@style/cancelButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:text="@string/cancel"
+                app:cornerRadius="16dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp">
+
+            <TextView
                 android:id="@+id/textViewMummyInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

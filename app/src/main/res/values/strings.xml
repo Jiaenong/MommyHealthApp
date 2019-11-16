@@ -157,5 +157,7 @@
     <string name="secD_varicoseVein_right">Varicose Vein (Right Side)</string>
     <string name="secD_abdomen">Abdomen</string>
     <string name="secD_other">Others</string>
+    <string name="appointmentDate">Appointment Date</string>
+    <string name="appointmentTime">Appointment Time</string>
 
 </resources>
