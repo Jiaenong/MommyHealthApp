@@ -46,12 +46,52 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mummy_race"
+            android:textSize="18sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupRace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioBtnMalay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_malay" />
+
+            <RadioButton
+                android:id="@+id/radioBtnChinese"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_chinese" />
+
+            <RadioButton
+                android:id="@+id/radioBtnIndian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_indian" />
+
+            <RadioButton
+                android:id="@+id/radioBtnOtherRace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_other" />
+        </RadioGroup>
+
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtIinputLayoutOtherRace"
             style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            android:hint="@string/mummy_race">
+            android:hint="@string/race_otherRaces"
+            android:visibility="gone">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

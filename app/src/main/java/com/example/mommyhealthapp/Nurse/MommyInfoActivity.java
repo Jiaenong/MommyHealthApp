@@ -35,9 +35,9 @@ public class MommyInfoActivity extends AppCompatActivity {
     private EditText editTextAppointment, editTextAppTime;
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
-    private RadioGroup radioGroupYesNo, radioGroupMarriage;
-    private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle;
-    private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr;
+    private RadioGroup radioGroupYesNo, radioGroupMarriage, radioGroupRace;
+    private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle, radioBtnMalay, radioBtnChinese, radioBtnIndian, radioBtnOtherRaces;;
+    private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr, txtIinputLayoutOtherRace;
     private CheckBox chkBoxStatus;
 
     private Button buttonCancel, buttonCancelInfo, buttonUpdateInfo, buttonUpdate, btnUpdateApp, btnCancelApp;
@@ -59,7 +59,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextFirstName = (EditText)findViewById(R.id.editTextFirstName);
         editTextLastName = (EditText)findViewById(R.id.editTextLastName);
         editTextIC = (EditText)findViewById(R.id.editTextIC);
-        editTextRace = (EditText)findViewById(R.id.editTextRace);
+        editTextRace = (EditText)findViewById(R.id.editTextOtherRace);
         editTextAddress = (EditText)findViewById(R.id.editTextAddress);
         editTextPhone = (EditText)findViewById(R.id.editTextPhone);
         editTextAge = (EditText)findViewById(R.id.editTextAge);
@@ -68,6 +68,11 @@ public class MommyInfoActivity extends AppCompatActivity {
         chkBoxStatus = (CheckBox)findViewById(R.id.chkBoxStatus);
         editTextAppointment = (EditText)findViewById(R.id.editTextAppointment);
         editTextAppTime = (EditText)findViewById(R.id.editTextAppTime);
+        radioGroupRace = (RadioGroup)findViewById(R.id.radioGroupRace);
+        radioBtnMalay = (RadioButton)findViewById(R.id.radioBtnMalay);
+        radioBtnChinese = (RadioButton)findViewById(R.id.radioBtnChinese);
+        radioBtnOtherRaces = (RadioButton)findViewById(R.id.radioBtnOtherRace);
+        txtIinputLayoutOtherRace = (TextInputLayout)findViewById(R.id.txtIinputLayoutOtherRace);
 
         txtInputLayoutDisease = (TextInputLayout)findViewById(R.id.txtInputLayoutDisease);
         txtInputLayoutEDD = (TextInputLayout)findViewById(R.id.txtInputLayoutEDD);
@@ -114,6 +119,18 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextEDP.setKeyListener(null);
         editTextAppointment.setKeyListener(null);
         editTextAppTime.setKeyListener(null);
+
+        radioGroupRace.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(radioBtnOtherRaces.isChecked())
+                {
+                    txtIinputLayoutOtherRace.setVisibility(View.VISIBLE);
+                }else{
+                    txtIinputLayoutOtherRace.setVisibility(View.GONE);
+                }
+            }
+        });
 
         editTextAppTime.setOnClickListener(new View.OnClickListener() {
             @Override

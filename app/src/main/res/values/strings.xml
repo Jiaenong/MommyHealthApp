@@ -52,7 +52,7 @@
     <string name="nurse_email">Email :</string>
     <string name="nurse_address">Address :</string>
     <string name="nurse_account">Account Info</string>
-    <string name="mummy_race">Race</string>
+    <string name="mummy_race">Race :</string>
     <string name="mummy_address">Address</string>
     <string name="mummy_phone">Phone No.</string>
     <string name="mummy_ocupation">Occupation</string>
@@ -159,5 +159,10 @@
     <string name="secD_other">Others</string>
     <string name="appointmentDate">Appointment Date</string>
     <string name="appointmentTime">Appointment Time</string>
+    <string name="race_malay">Malay</string>
+    <string name="race_chinese">Chinese</string>
+    <string name="race_indian">Indian</string>
+    <string name="race_other">Other</string>
+    <string name="race_otherRaces">Other Races</string>
 
 </resources>
