@@ -270,6 +270,7 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewPE"
                     android:layout_width="170dp"
                     android:layout_height="170dp"
                     android:layout_marginLeft="10dp"

@@ -164,5 +164,28 @@
     <string name="race_indian">Indian</string>
     <string name="race_other">Other</string>
     <string name="race_otherRaces">Other Races</string>
+    <string name="booking_weight">Booking Weight (kg)</string>
+    <string name="booking_BMI">Booking BMI (kg/m2)</string>
+    <string name="booking_BP">Booking BP (mmHg)</string>
+    <string name="lk_kr">LK/KR</string>
+    <string name="lab_test">Lab Test :</string>
+    <string name="urine_alb">Urine Alb</string>
+    <string name="urine_sugar">Urine Sugar</string>
+    <string name="lab_test_HB">Hb</string>
+    <string name="examination">Examination :</string>
+    <string name="body_weight">Body Weight (kg)</string>
+    <string name="blood_pressure">Blood Pressure</string>
+    <string name="pulse">Pulse</string>
+    <string name="edema">Edema</string>
+    <string name="womb">Womb :</string>
+    <string name="pregnancy_period">Pregnancy Period (week)</string>
+    <string name="uterine_height">Uterine Height (sm)</string>
+    <string name="fetus">Fetus :</string>
+    <string name="present_position">Present Position</string>
+    <string name="heart">Heart</string>
+    <string name="motion">Motion</string>
+    <string name="problem">Problem</string>
+    <string name="treatment">Treatment</string>
+    <string name="due_date">Due Date</string>
 
 </resources>
