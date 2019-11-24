@@ -80,9 +80,12 @@ public class SectionCActivity extends AppCompatActivity {
             }
         });
 
-        editTextDos1.setKeyListener(null);
-        editTextDos2.setKeyListener(null);
-        editTextDosAddOn.setKeyListener(null);
+        editTextDos1.setClickable(false);
+        editTextDos1.setFocusable(false);
+        editTextDos2.setClickable(false);
+        editTextDos2.setFocusable(false);
+        editTextDosAddOn.setClickable(false);
+        editTextDosAddOn.setFocusable(false);
 
         editTextDos1.setOnClickListener(new View.OnClickListener() {
             @Override

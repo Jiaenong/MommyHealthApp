@@ -7,6 +7,7 @@
     tools:context=".Nurse.MommyInfoActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutAllView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -61,11 +62,11 @@
                 android:id="@+id/textViewMummyID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:layout_toRightOf="@id/cardViewMummy"
-                android:layout_marginLeft="10dp"
                 android:layout_alignParentBottom="true"
-                android:text="@string/mummy_id" />
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/cardViewMummy"
+                android:text="@string/mummy_id"
+                android:textSize="18dp" />
 
         </RelativeLayout>
 
@@ -88,18 +89,18 @@
                 android:id="@+id/imageViewDownAp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/textViewMummyApDate"
                 android:layout_marginLeft="115dp"
                 android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/textViewMummyApDate"
                 app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
 
             <ImageView
                 android:id="@+id/imageViewUpAp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/textViewMummyApDate"
                 android:layout_marginLeft="115dp"
                 android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/textViewMummyApDate"
                 app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
 
         </RelativeLayout>
@@ -126,9 +127,9 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextInputLayout"
                 android:focusableInTouchMode="true"
                 android:hint="@string/appointmentTime">
 
@@ -161,10 +162,10 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <View
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@android:color/black" />
 
         <RelativeLayout
@@ -185,18 +186,18 @@
                 android:id="@+id/imageViewDown1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/textViewMummyInfo"
                 android:layout_marginLeft="90dp"
                 android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/textViewMummyInfo"
                 app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
 
             <ImageView
                 android:id="@+id/imageViewUp1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/textViewMummyInfo"
                 android:layout_marginLeft="90dp"
                 android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/textViewMummyInfo"
                 app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
         </RelativeLayout>
 
@@ -377,8 +378,8 @@
                 style="@style/Button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="bottom"
+                android:layout_marginTop="10dp"
                 android:text="@string/update"
                 app:cornerRadius="16dp" />
 
@@ -394,10 +395,10 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <View
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@android:color/black" />
 
         <RelativeLayout
@@ -418,18 +419,18 @@
                 android:id="@+id/imageViewDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/textViewMummyDetailInfo"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/textViewMummyDetailInfo"
                 app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
 
             <ImageView
                 android:id="@+id/imageViewUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/textViewMummyDetailInfo"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/textViewMummyDetailInfo"
                 app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
         </RelativeLayout>
 
@@ -663,8 +664,8 @@
                 style="@style/Button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="bottom"
+                android:layout_marginTop="10dp"
                 android:text="@string/update"
                 app:cornerRadius="16dp" />
 

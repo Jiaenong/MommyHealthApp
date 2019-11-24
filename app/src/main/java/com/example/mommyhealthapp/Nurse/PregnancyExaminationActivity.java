@@ -26,7 +26,8 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
 
         editTextDueDate = (EditText)findViewById(R.id.editTextDueDate);
 
-        editTextDueDate.setKeyListener(null);
+        editTextDueDate.setFocusable(false);
+        editTextDueDate.setClickable(false);
         editTextDueDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
