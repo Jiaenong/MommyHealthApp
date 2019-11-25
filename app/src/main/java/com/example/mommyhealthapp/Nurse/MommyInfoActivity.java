@@ -5,6 +5,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,12 +16,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 
 import com.example.mommyhealthapp.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -374,7 +377,9 @@ public class MommyInfoActivity extends AppCompatActivity {
     private void DisableAppointmentText()
     {
         editTextAppointment.setEnabled(false);
+        editTextAppointment.setTextColor(Color.parseColor("#000000"));
         editTextAppTime.setEnabled(false);
+        editTextAppTime.setTextColor(Color.parseColor("#000000"));
     }
 
     private void EnableAppointmentText()
@@ -386,30 +391,50 @@ public class MommyInfoActivity extends AppCompatActivity {
     private void DisableInfoEditText()
     {
         editTextFirstName.setEnabled(false);
+        editTextFirstName.setTextColor(Color.parseColor("#000000"));
         editTextLastName.setEnabled(false);
+        editTextLastName.setTextColor(Color.parseColor("#000000"));
         editTextIC.setEnabled(false);
+        editTextIC.setTextColor(Color.parseColor("#000000"));
         editTextRace.setEnabled(false);
+        editTextRace.setTextColor(Color.parseColor("#000000"));
         editTextAddress.setEnabled(false);
+        editTextAddress.setTextColor(Color.parseColor("#000000"));
         editTextPhone.setEnabled(false);
+        editTextPhone.setTextColor(Color.parseColor("#000000"));
         editTextAge.setEnabled(false);
+        editTextAge.setTextColor(Color.parseColor("#000000"));
         editTextOccupation.setEnabled(false);
+        editTextOccupation.setTextColor(Color.parseColor("#000000"));
         editTextEducation.setEnabled(false);
+        editTextEducation.setTextColor(Color.parseColor("#000000"));
         chkBoxStatus.setEnabled(false);
     }
 
     private void DisableDetailInfoEditText()
     {
         editTextEDD.setEnabled(false);
+        editTextEDD.setTextColor(Color.parseColor("#000000"));
         editTextDisease.setEnabled(false);
+        editTextDisease.setTextColor(Color.parseColor("#000000"));
         editTextLNMP.setEnabled(false);
+        editTextLNMP.setTextColor(Color.parseColor("#000000"));
         editTextEDP.setEnabled(false);
+        editTextEDP.setTextColor(Color.parseColor("#000000"));
         editTextHeight.setEnabled(false);
+        editTextHeight.setTextColor(Color.parseColor("#000000"));
         editTextWeight.setEnabled(false);
+        editTextWeight.setTextColor(Color.parseColor("#000000"));
         editTextHusbandName.setEnabled(false);
+        editTextHusbandName.setTextColor(Color.parseColor("#000000"));
         editTextHusbandIC.setEnabled(false);
+        editTextHusbandIC.setTextColor(Color.parseColor("#000000"));
         editTextHusbandWork.setEnabled(false);
+        editTextHusbandWork.setTextColor(Color.parseColor("#000000"));
         editTextHusbandWorkAddress.setEnabled(false);
+        editTextHusbandWorkAddress.setTextColor(Color.parseColor("#000000"));
         editTextHusbandPhone.setEnabled(false);
+        editTextHusbandPhone.setTextColor(Color.parseColor("#000000"));
     }
 
     private void EnableDetailInfoEditText()
