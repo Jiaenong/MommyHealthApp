@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_self_check"
+        android:icon="@drawable/ic_child_care_black_24dp"
+        android:title="@string/self_check" />
+
+    <item
+        android:id="@+id/navigation_pregnancy_record"
+        android:icon="@drawable/ic_library_books_black_24dp"
+        android:title="@string/pregnancy_record" />
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_notifications" />
+    <item
+        android:id="@+id/navigation_mother_profile"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/mother_profile" />
+
+</menu>

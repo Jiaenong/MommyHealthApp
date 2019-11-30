@@ -3,48 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/selfCheckFragment">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.mommyhealthapp.Nurse.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
+        android:id="@+id/selfCheckFragment"
+        android:name="com.example.mommyhealthapp.Mommy.ui.SelfCheck.SelfCheckFragment"
+        android:label="@string/self_check"
+        tools:layout="@layout/fragment_self_check" >
         <action
-            android:id="@+id/action_nav_home_to_nav_create"
-            app:destination="@id/nav_create" />
+            android:id="@+id/action_selfCheckFragment_to_navigation_mother_profile2"
+            app:destination="@id/navigation_mother_profile" />
         <action
-            android:id="@+id/action_nav_home_to_nav_search"
-            app:destination="@id/nav_search" />
+            android:id="@+id/action_selfCheckFragment_to_navigation_pregnancy_record2"
+            app:destination="@id/navigation_pregnancy_record" />
         <action
-            android:id="@+id/action_nav_home_to_nurseProfileFragment"
-            app:destination="@id/nav_nurseprofile" />
+            android:id="@+id/action_selfCheckFragment_to_navigation_notifications2"
+            app:destination="@id/navigation_notifications" />
+        <action
+            android:id="@+id/action_selfCheckFragment_self"
+            app:destination="@id/selfCheckFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_create"
-        android:name="com.example.mommyhealthapp.Nurse.ui.CreateMother.CreateMotherFragment"
-        android:label="@string/menu_create"
-        tools:layout="@layout/fragment_create_mummy" >
-        <action
-            android:id="@+id/action_nav_create_to_createMotherDetailFragment"
-            app:destination="@id/createMotherDetailFragment" />
-    </fragment>
+        android:id="@+id/navigation_mother_profile"
+        android:name="com.example.mommyhealthapp.Mommy.ui.MotherProfile.MotherProfileFragment"
+        android:label="@string/mother_profile"
+        tools:layout="@layout/fragment_mother_profile" />
 
     <fragment
-        android:id="@+id/nav_search"
-        android:name="com.example.mommyhealthapp.Nurse.ui.SearchMother.SearchMotherFragment"
-        android:label="@string/menu_search"
-        tools:layout="@layout/fragment_search_mummy" />
+        android:id="@+id/navigation_pregnancy_record"
+        android:name="com.example.mommyhealthapp.Mommy.ui.PregnancyRecord.PregnancyRecordFragment"
+        android:label="@string/pregnancy_record"
+        tools:layout="@layout/fragment_pregnancy_record" />
+
     <fragment
-        android:id="@+id/nav_nurseprofile"
-        android:name="com.example.mommyhealthapp.Nurse.ui.NurseProfile.NurseProfileFragment"
-        android:label="@string/nurse_profile"
-        tools:layout="@layout/nurse_profile_fragment" />
-    <fragment
-        android:id="@+id/createMotherDetailFragment"
-        android:name="com.example.mommyhealthapp.Nurse.ui.CreateMother.CreateMotherDetailFragment"
-        android:label="@string/nav_createMotherDetail"
-        tools:layout="@layout/fragment_create_mother_detail" />
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.mommyhealthapp.Mommy.ui.Notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
 
 </navigation>

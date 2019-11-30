@@ -187,5 +187,12 @@
     <string name="problem">Problem</string>
     <string name="treatment">Treatment</string>
     <string name="due_date">Due Date</string>
+    <string name="title_activity_mommy_home">MommyHomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="self_check">Self Check</string>
+    <string name="pregnancy_record">Pregnancy Record</string>
+    <string name="mother_profile">Mother Profile</string>
 
 </resources>
