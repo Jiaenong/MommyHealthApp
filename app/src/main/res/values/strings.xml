@@ -187,5 +187,16 @@
     <string name="problem">Problem</string>
     <string name="treatment">Treatment</string>
     <string name="due_date">Due Date</string>
+    <string name="mgtt_Age">1. Age above 35 year</string>
+    <string name="mgtt_BMI">2. <![CDATA[BMI > 27kg/m^2]]></string>
+    <string name="mgtt_obstetric">3. Past Obstetric History</string>
+    <string name="mgtt_gestational">a. Gestational Diabetes Mellitus</string>
+    <string name="mgtt_intrauterine">b. Unexplained Instrauterine Death</string>
+    <string name="mgtt_stillbirth">c. Unexplained Stillbirth</string>
+    <string name="mgtt_neotanal">d. Unexplained Neotanal Death</string>
+    <string name="mgtt_recurrent">e. Recurrent miscarriages</string>
+    <string name="mgtt_congenital">f. Congenital Abnormality(Previous child)</string>
+    <string name="mgtt_mascrosomic"><![CDATA[g. Previous mascrosomic baby >= 4kg]]></string>
+    <string name="mgtt_diabetes">4. First degree relatives with Diabetes</string>
 
 </resources>
