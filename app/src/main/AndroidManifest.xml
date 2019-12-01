@@ -14,6 +14,9 @@
             android:name=".Nurse.PregnancyExaminationActivity"
             android:label="Pregnancy Examination" />
         <activity
+            android:name=".Mommy.MommyHomeActivity"
+            android:label="@string/title_activity_mommy_home"></activity>
+        <activity
             android:name=".Nurse.PregnancyExamRecordActivity"
             android:label="Examination Record" />
         <activity

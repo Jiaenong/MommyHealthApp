@@ -198,5 +198,12 @@
     <string name="mgtt_congenital">f. Congenital Abnormality(Previous child)</string>
     <string name="mgtt_mascrosomic"><![CDATA[g. Previous mascrosomic baby >= 4kg]]></string>
     <string name="mgtt_diabetes">4. First degree relatives with Diabetes</string>
+    <string name="title_activity_mommy_home">MommyHomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="self_check">Self Check</string>
+    <string name="pregnancy_record">Pregnancy Record</string>
+    <string name="mother_profile">Mother Profile</string>
 
 </resources>
