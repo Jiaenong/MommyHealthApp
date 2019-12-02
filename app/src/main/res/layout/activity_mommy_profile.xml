@@ -226,6 +226,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewMGTT"
                     android:layout_width="170dp"
                     android:layout_height="170dp"
                     android:layout_marginLeft="20dp"

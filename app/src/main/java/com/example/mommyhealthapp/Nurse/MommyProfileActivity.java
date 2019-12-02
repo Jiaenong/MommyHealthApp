@@ -16,7 +16,7 @@ import com.example.mommyhealthapp.R;
 public class MommyProfileActivity extends AppCompatActivity {
 
     private RelativeLayout layoutMummyInfo;
-    private CardView cardViewEarlyTest, cardViewPE;
+    private CardView cardViewEarlyTest, cardViewPE, cardViewMGTT;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +25,7 @@ public class MommyProfileActivity extends AppCompatActivity {
         layoutMummyInfo = (RelativeLayout)findViewById(R.id.layoutMummyInfo);
         cardViewEarlyTest = (CardView)findViewById(R.id.cardViewEarlyTest);
         cardViewPE = (CardView)findViewById(R.id.cardViewPE);
+        cardViewMGTT = (CardView)findViewById(R.id.cardViewMGTT);
 
         layoutMummyInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +47,14 @@ public class MommyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MommyProfileActivity.this, PregnancyExamRecordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cardViewMGTT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MommyProfileActivity.this, MGTTActivity.class);
                 startActivity(intent);
             }
         });

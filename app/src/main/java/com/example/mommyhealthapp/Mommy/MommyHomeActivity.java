@@ -23,7 +23,7 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.selfCheckFragment, R.id.navigation_pregnancy_record, R.id.navigation_notifications, R.id.navigation_mother_profile)
+                R.id.navigation_self_check, R.id.navigation_pregnancy_record, R.id.navigation_notifications, R.id.navigation_mother_profile)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

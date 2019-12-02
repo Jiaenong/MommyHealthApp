@@ -196,7 +196,7 @@
     <string name="mgtt_neotanal">d. Unexplained Neotanal Death</string>
     <string name="mgtt_recurrent">e. Recurrent miscarriages</string>
     <string name="mgtt_congenital">f. Congenital Abnormality(Previous child)</string>
-    <string name="mgtt_mascrosomic"><![CDATA[g. Previous mascrosomic baby >= 4kg]]></string>
+    <string name="mgtt_mascrosomic"><![CDATA[g. Previous mascrosomic baby 4kg & above]]></string>
     <string name="mgtt_diabetes">4. First degree relatives with Diabetes</string>
     <string name="title_activity_mommy_home">MommyHomeActivity</string>
     <string name="title_home">Home</string>
@@ -205,5 +205,17 @@
     <string name="self_check">Self Check</string>
     <string name="pregnancy_record">Pregnancy Record</string>
     <string name="mother_profile">Mother Profile</string>
+    <string name="mgtt_current_obstetric">5. Current Obstetric Problems</string>
+    <string name="mgtt_Glycosuria">a. Glycosuria in 1st trimester/2x glycosuria in 2nd or 3rd trimester</string>
+    <string name="mgtt_essential_hypertension">b. Essential Hypertension</string>
+    <string name="mgtt_pregnancy_hypertension">c. Pregnancy induced Hypertension</string>
+    <string name="mgtt_polyhydramanios">d. Polyhydramanios</string>
+    <string name="mgtt_uterus_large">e. Uterus larger than date</string>
+    <string name="mgtt_multiple_pregnancy">f. Multiple pregnancy</string>
+    <string name="mgtt_recurrent_UTI">g. Recurrent UTI or moniliasis</string>
+    <string name="mgttResult_poapog">POA/POG</string>
+    <string name="mgttResult_bloodsugar">Fasting Blood Sugar</string>
+    <string name="mgtt_2H">2H Postprandial</string>
+    <string name="mgttResult">MGTT Examination Result</string>
 
 </resources>
