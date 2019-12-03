@@ -217,5 +217,6 @@
     <string name="mgttResult_bloodsugar">Fasting Blood Sugar</string>
     <string name="mgtt_2H">2H Postprandial</string>
     <string name="mgttResult">MGTT Examination Result</string>
+    <string name="examination_date">12/03/2019</string>
 
 </resources>

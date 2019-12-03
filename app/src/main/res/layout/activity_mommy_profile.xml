@@ -93,8 +93,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@id/textViewMummyAge"
+                android:layout_alignParentRight="true"
                 app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp" />
         </RelativeLayout>
 
@@ -114,7 +113,6 @@
                     android:id="@+id/cardViewEarlyTest"
                     android:layout_width="170dp"
                     android:layout_height="170dp"
-                    android:layout_marginLeft="10dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa">
@@ -192,7 +190,6 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="170dp"
                     android:layout_height="170dp"
-                    android:layout_marginLeft="10dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa">
@@ -274,7 +271,6 @@
                     android:id="@+id/cardViewPE"
                     android:layout_width="170dp"
                     android:layout_height="170dp"
-                    android:layout_marginLeft="10dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa">
