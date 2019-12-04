@@ -20,19 +20,12 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:padding="10dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewMummy"
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/imageViewMummy"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                app:cardCornerRadius="60dp">
-
-                <ImageView
-                    android:id="@+id/imageViewMummy"
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/user" />
-
-            </androidx.cardview.widget.CardView>
+                android:scaleType="centerCrop"
+                android:src="@drawable/user" />
 
             <TextView
                 android:id="@+id/textViewMummyName"
@@ -40,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/cardViewMummy"
+                android:layout_toRightOf="@id/imageViewMummy"
                 android:text="@string/mummy_name"
                 android:textColor="@color/design_default_color_on_secondary"
                 android:textSize="22sp"
@@ -64,26 +57,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/cardViewMummy"
+                android:layout_toRightOf="@id/imageViewMummy"
                 android:text="@string/mummy_id"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textViewStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/textViewMummyID"
-                android:text="@string/status"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/textViewStatus"
                 android:text="Active"
                 android:textColor="@android:color/holo_green_dark"
                 android:textSize="18sp" />
@@ -115,7 +98,8 @@
                     android:layout_height="170dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fafafa">
+                    app:cardBackgroundColor="#fafafa"
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -150,7 +134,8 @@
                     android:layout_marginLeft="20dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fafafa">
+                    app:cardBackgroundColor="#fafafa"
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -192,7 +177,8 @@
                     android:layout_height="170dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fafafa">
+                    app:cardBackgroundColor="#fafafa"
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -229,7 +215,8 @@
                     android:layout_marginLeft="20dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fafafa">
+                    app:cardBackgroundColor="#fafafa"
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -273,7 +260,8 @@
                     android:layout_height="170dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fafafa">
+                    app:cardBackgroundColor="#fafafa"
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -309,7 +297,8 @@
                     android:layout_marginLeft="20dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fafafa">
+                    app:cardBackgroundColor="#fafafa"
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"

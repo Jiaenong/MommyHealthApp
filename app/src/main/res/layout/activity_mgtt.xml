@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/mgtt_congenital"
                     android:layout_centerVertical="true"
-                    android:maxWidth="350dp"
+                    android:maxWidth="300dp"
                     android:singleLine="false"
                     android:textSize="18sp" />
 

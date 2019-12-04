@@ -20,19 +20,12 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:padding="10dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewMummy"
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/imageViewMummy"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                app:cardCornerRadius="60dp">
-
-                <ImageView
-                    android:id="@+id/imageViewMummy"
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/user" />
-
-            </androidx.cardview.widget.CardView>
+                android:scaleType="centerCrop"
+                android:src="@drawable/user" />
 
             <TextView
                 android:id="@+id/textViewMummyName"
@@ -40,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/cardViewMummy"
+                android:layout_toRightOf="@id/imageViewMummy"
                 android:text="@string/mummy_name"
                 android:textColor="@color/design_default_color_on_secondary"
                 android:textSize="22sp"
@@ -64,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/cardViewMummy"
+                android:layout_toRightOf="@id/imageViewMummy"
                 android:text="@string/mummy_id"
                 android:textSize="18dp" />
 
