@@ -218,5 +218,6 @@
     <string name="mgtt_2H">2H Postprandial</string>
     <string name="mgttResult">MGTT Examination Result</string>
     <string name="examination_date">12/03/2019</string>
+    <string name="medical_personnel">Medical Personnel</string>
 
 </resources>

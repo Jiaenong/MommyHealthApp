@@ -11,20 +11,20 @@ import android.view.View;
 import com.example.mommyhealthapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class PregnancyExamRecordActivity extends AppCompatActivity {
+public class MGTTRecordActivity extends AppCompatActivity {
 
-    private FloatingActionButton btnAddNewPERecord;
+    private FloatingActionButton btnAddMGTTRecord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pregnancy_exam_record);
+        setContentView(R.layout.activity_mgttrecord);
 
-        btnAddNewPERecord = (FloatingActionButton)findViewById(R.id.btnAddPERecord);
+        btnAddMGTTRecord = (FloatingActionButton)findViewById(R.id.btnAddMGTTRecord);
 
-        btnAddNewPERecord.setOnClickListener(new View.OnClickListener() {
+        btnAddMGTTRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PregnancyExamRecordActivity.this, PregnancyExaminationActivity.class);
+                Intent intent = new Intent(MGTTRecordActivity.this, MGTTActivity.class);
                 startActivity(intent);
             }
         });

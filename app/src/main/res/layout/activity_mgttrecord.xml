@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Nurse.PregnancyExamRecordActivity">
+    tools:context=".Nurse.MGTTRecordActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -17,7 +17,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddPERecord"
+        android:id="@+id/btnAddMGTTRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"

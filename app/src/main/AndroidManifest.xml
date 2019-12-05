@@ -9,8 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Nurse.MGTTResultActivity"></activity>
-        <activity android:name=".Nurse.MGTTActivity" />
+        <activity android:name=".Nurse.MGTTRecordActivity"
+            android:label="MGTT Record"/>
+        <activity
+            android:name=".Nurse.MGTTResultActivity"
+            android:label="MGTT Result" />
+        <activity
+            android:name=".Nurse.MGTTActivity"
+            android:label="MGTT Examination" />
         <activity
             android:name=".Nurse.PregnancyExaminationActivity"
             android:label="Pregnancy Examination" />
