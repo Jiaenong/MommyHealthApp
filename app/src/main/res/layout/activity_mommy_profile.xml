@@ -175,13 +175,14 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewSectionN"
                     android:layout_width="170dp"
                     android:layout_height="170dp"
+                    android:layout_marginBottom="5dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa"
-                    app:cardCornerRadius="20dp"
-                    android:layout_marginBottom="5dp">
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
