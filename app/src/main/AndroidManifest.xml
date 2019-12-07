@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Nurse.SectionNActivity"
-            android:label="Section N"/>
+        <activity android:name=".Nurse.AntenatalActivity"
+            android:label="Antenatal Check"/>
+        <activity
+            android:name=".Nurse.SectionNActivity"
+            android:label="Section N" />
         <activity
             android:name=".Nurse.MGTTRecordActivity"
             android:label="MGTT Record" />

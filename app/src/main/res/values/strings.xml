@@ -224,5 +224,18 @@
     <string name="secN_unusual_circumstances">Unusual Circumstances</string>
     <string name="secN_breast_feeding">Breast Feeding</string>
     <string name="secN_others">Others</string>
+    <string name="sceN_anal_schedule_clinic">Antenatal care and schedule to the clinic</string>
+    <string name="secN_Date">Date</string>
+    <string name="secN_medicalPersonnale_name">Medical Personnel</string>
+    <string name="secN_anal_early">Importance of coming early to the clinic</string>
+    <string name="secN_anal_solve_problem">Solve problem during pregnancy</string>
+    <string name="secN_anal_balanced_nutrition">Balanced nutrition during pregnancy</string>
+    <string name="secN_anal_maternity">Maternity preparations</string>
+    <string name="secN_anal_antenatal_exercise">Antenatal exercise</string>
+    <string name="secN_anal_family_planner">Family planner</string>
+    <string name="secN_anal_sign_process">Signs of childbirth and birth process</string>
+    <string name="secN_anal_safebirth">Safe birth and danger of BBA</string>
+    <string name="secN_anal_earlybirth_notice">Early birth notice</string>
+    <string name="secN_anal_oral_healthCare">Oral health care</string>
 
 </resources>

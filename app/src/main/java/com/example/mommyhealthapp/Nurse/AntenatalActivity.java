@@ -1,33 +1,19 @@
 package com.example.mommyhealthapp.Nurse;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.mommyhealthapp.R;
 
-public class SectionNActivity extends AppCompatActivity {
+public class AntenatalActivity extends AppCompatActivity {
 
-    private CardView cardViewAntenatal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_section_n);
-
-        cardViewAntenatal = (CardView)findViewById(R.id.cardViewAntenatal);
-
-        cardViewAntenatal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SectionNActivity.this, AntenatalActivity.class);
-                startActivity(intent);
-            }
-        });
+        setContentView(R.layout.activity_antenatal);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
