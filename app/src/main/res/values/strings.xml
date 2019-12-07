@@ -237,5 +237,7 @@
     <string name="secN_anal_safebirth">Safe birth and danger of BBA</string>
     <string name="secN_anal_earlybirth_notice">Early birth notice</string>
     <string name="secN_anal_oral_healthCare">Oral health care</string>
+    <string name="KickCounter">Kick Counter</string>
+    <string name="MonitoringBP"><![CDATA[Monitoring of Blood Pressure and Signs & Symptoms of Preeclampsia]]></string>
 
 </resources>
