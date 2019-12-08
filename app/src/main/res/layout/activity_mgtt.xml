@@ -21,6 +21,7 @@
                 android:id="@+id/textView40"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="250dp"
                 android:text="@string/mgtt_Age"
                 android:layout_centerVertical="true"
                 android:textSize="18sp" />
@@ -42,6 +43,7 @@
                 android:id="@+id/textView41"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="250dp"
                 android:text="@string/mgtt_BMI"
                 android:layout_centerVertical="true"
                 android:textSize="18sp" />
@@ -64,6 +66,7 @@
                 android:id="@+id/textView42"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="250dp"
                 android:text="@string/mgtt_obstetric"
                 android:textSize="18sp" />
 
@@ -75,6 +78,7 @@
                     android:id="@+id/textView43"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
                     android:text="@string/mgtt_gestational"
                     android:layout_centerVertical="true"
                     android:textSize="18sp" />
@@ -93,6 +97,7 @@
                     android:id="@+id/textView44"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
                     android:text="@string/mgtt_intrauterine"
                     android:layout_centerVertical="true"
                     android:textSize="18sp" />
@@ -111,6 +116,7 @@
                     android:id="@+id/textView45"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
                     android:text="@string/mgtt_stillbirth"
                     android:layout_centerVertical="true"
                     android:textSize="18sp" />
@@ -129,6 +135,7 @@
                     android:id="@+id/textView46"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
                     android:text="@string/mgtt_neotanal"
                     android:layout_centerVertical="true"
                     android:textSize="18sp" />
@@ -147,6 +154,7 @@
                     android:id="@+id/textView47"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
                     android:text="@string/mgtt_recurrent"
                     android:layout_centerVertical="true"
                     android:textSize="18sp" />
@@ -167,7 +175,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/mgtt_congenital"
                     android:layout_centerVertical="true"
-                    android:maxWidth="300dp"
+                    android:maxWidth="250dp"
                     android:singleLine="false"
                     android:textSize="18sp" />
 
@@ -186,7 +194,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/mgtt_mascrosomic"
-                    android:maxWidth="300dp"
+                    android:maxWidth="250dp"
                     android:singleLine="false"
                     android:layout_centerVertical="true"
                     android:textSize="18sp" />
@@ -211,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/mgtt_diabetes"
                 android:layout_centerVertical="true"
-                android:maxWidth="300dp"
+                android:maxWidth="250dp"
                 android:singleLine="false"
                 android:textSize="18sp" />
 
@@ -245,7 +253,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/mgtt_Glycosuria"
                     android:layout_centerVertical="true"
-                    android:maxWidth="300dp"
+                    android:maxWidth="250dp"
                     android:singleLine="false"
                     android:textSize="18sp" />
 
@@ -264,6 +272,7 @@
                     android:id="@+id/textView54"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
                     android:layout_centerVertical="true"
                     android:text="@string/mgtt_essential_hypertension"
                     android:textSize="18sp" />
@@ -283,6 +292,7 @@
                     android:id="@+id/textView55"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
                     android:layout_centerVertical="true"
                     android:text="@string/mgtt_pregnancy_hypertension"
                     android:textSize="18sp" />
@@ -302,6 +312,7 @@
                     android:id="@+id/textView56"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
                     android:layout_centerVertical="true"
                     android:text="@string/mgtt_polyhydramanios"
                     android:textSize="18sp" />
@@ -321,6 +332,7 @@
                     android:id="@+id/textView57"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
                     android:layout_centerVertical="true"
                     android:text="@string/mgtt_uterus_large"
                     android:textSize="18sp" />
@@ -340,6 +352,7 @@
                     android:id="@+id/textView58"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
                     android:layout_centerVertical="true"
                     android:text="@string/mgtt_multiple_pregnancy"
                     android:textSize="18sp" />
@@ -359,6 +372,7 @@
                     android:id="@+id/textView59"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
                     android:layout_centerVertical="true"
                     android:text="@string/mgtt_recurrent_UTI"
                     android:textSize="18sp" />

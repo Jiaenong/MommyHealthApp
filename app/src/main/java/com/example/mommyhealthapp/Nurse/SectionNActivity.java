@@ -13,18 +13,53 @@ import com.example.mommyhealthapp.R;
 
 public class SectionNActivity extends AppCompatActivity {
 
-    private CardView cardViewAntenatal;
+    private CardView cardViewAntenatal, cardViewPostnatal, cardViewCircum, cardViewBreastFeeding, cardViewSectionNOthers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section_n);
 
         cardViewAntenatal = (CardView)findViewById(R.id.cardViewAntenatal);
+        cardViewPostnatal = (CardView)findViewById(R.id.cardViewPostnatal);
+        cardViewCircum = (CardView)findViewById(R.id.cardViewCircum);
+        cardViewBreastFeeding = (CardView)findViewById(R.id.cardViewBreastFeeding);
+        cardViewSectionNOthers = (CardView)findViewById(R.id.cardViewSectionNOthers);
 
         cardViewAntenatal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SectionNActivity.this, AntenatalActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cardViewPostnatal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SectionNActivity.this, PostnatalActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cardViewCircum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SectionNActivity.this, UnusualCircumtancesActivity.class);
+                startActivity(intent);
+            }
+        });
+        cardViewBreastFeeding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SectionNActivity.this, BreastFeedingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cardViewSectionNOthers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SectionNActivity.this, SectionNOthersActivity.class);
                 startActivity(intent);
             }
         });

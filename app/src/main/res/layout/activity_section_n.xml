@@ -15,11 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center_horizontal"
             android:padding="20dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewAntenatal"
-                android:layout_width="170dp"
+                android:layout_width="150dp"
                 android:layout_height="170dp"
                 android:layout_marginBottom="5dp"
                 android:clickable="true"
@@ -55,11 +56,12 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="170dp"
+                android:id="@+id/cardViewPostnatal"
+                android:layout_width="150dp"
                 android:layout_height="170dp"
-                android:clickable="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="5dp"
+                android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="#fafafa"
                 app:cardCornerRadius="20dp">
@@ -97,13 +99,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center_horizontal"
             android:padding="20dp">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="170dp"
+                android:id="@+id/cardViewCircum"
+                android:layout_width="150dp"
                 android:layout_height="170dp"
-                android:clickable="true"
                 android:layout_marginBottom="5dp"
+                android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="#fafafa"
                 app:cardCornerRadius="20dp">
@@ -136,11 +140,12 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="170dp"
+                android:id="@+id/cardViewBreastFeeding"
+                android:layout_width="150dp"
                 android:layout_height="170dp"
-                android:clickable="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="5dp"
+                android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="#fafafa"
                 app:cardCornerRadius="20dp">
@@ -179,10 +184,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center_horizontal"
             android:padding="20dp">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="170dp"
+                android:id="@+id/cardViewSectionNOthers"
+                android:layout_width="150dp"
                 android:layout_height="170dp"
                 android:layout_marginBottom="5dp"
                 android:clickable="true"

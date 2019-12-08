@@ -43,7 +43,7 @@
                 android:id="@+id/textViewMummyAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/textViewMummyName"
                 android:text="@string/age"
@@ -73,8 +73,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp" />
@@ -89,18 +89,19 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:padding="10dp"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewEarlyTest"
-                    android:layout_width="170dp"
+                    android:layout_width="150dp"
                     android:layout_height="170dp"
+                    android:layout_marginBottom="5dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa"
-                    app:cardCornerRadius="20dp"
-                    android:layout_marginBottom="5dp">
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -130,14 +131,14 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="170dp"
+                    android:layout_width="150dp"
                     android:layout_height="170dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="5dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa"
-                    app:cardCornerRadius="20dp"
-                    android:layout_marginBottom="5dp">
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -171,12 +172,13 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:padding="10dp"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewSectionN"
-                    android:layout_width="170dp"
+                    android:layout_width="150dp"
                     android:layout_height="170dp"
                     android:layout_marginBottom="5dp"
                     android:clickable="true"
@@ -214,14 +216,14 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewMGTT"
-                    android:layout_width="170dp"
+                    android:layout_width="150dp"
                     android:layout_height="170dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="5dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa"
-                    app:cardCornerRadius="20dp"
-                    android:layout_marginBottom="5dp">
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -256,18 +258,19 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:padding="10dp"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewPE"
-                    android:layout_width="170dp"
+                    android:layout_width="150dp"
                     android:layout_height="170dp"
+                    android:layout_marginBottom="5dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa"
-                    app:cardCornerRadius="20dp"
-                    android:layout_marginBottom="5dp">
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -298,14 +301,14 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="170dp"
+                    android:layout_width="150dp"
                     android:layout_height="170dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="5dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa"
-                    app:cardCornerRadius="20dp"
-                    android:layout_marginBottom="5dp">
+                    app:cardCornerRadius="20dp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"

@@ -239,5 +239,26 @@
     <string name="secN_anal_oral_healthCare">Oral health care</string>
     <string name="KickCounter">Kick Counter</string>
     <string name="MonitoringBP"><![CDATA[Monitoring of Blood Pressure and Signs & Symptoms of Preeclampsia]]></string>
+    <string name="secN_post_nutrition">Nutrition durng the meal</string>
+    <string name="secN_post_postnatal_exercise">Postnatal exercise</string>
+    <string name="secN_post_hygene_episitomy">Personal hygiene and episitomy</string>
+    <string name="secN_post_early_treatment">Importance of getting early treatment</string>
+    <string name="secN_circum_eclampsia">Pre-Eclampsia during pregnancy and signs of Impending Eclampsia</string>
+    <string name="secN_circum_diabetes">Diabetes during pregnancy</string>
+    <string name="secN_circum_anemia">Anemia and how to deal with it</string>
+    <string name="secN_circum_bleeding_pregnancy">Bleeding during pregnancy</string>
+    <string name="secN_breast_advantageBreastMilk">Advantage of breast milk</string>
+    <string name="secN_breast_exclusive_feeding">Breastfeeding exclusively</string>
+    <string name="secN_breast_early_breastfeeding">Early breastfeeding</string>
+    <string name="secN_breast_rooming_in">Importance of \"rooming in\"</string>
+    <string name="secN_breast_brestFedding_methods">Breastfeeding methods and techniques</string>
+    <string name="secN_breast_baby_needs">Breastfeeding according to the needs of the baby</string>
+    <string name="secN_breast_determine_milk">How to determine adequate breast milk production</string>
+    <string name="secN_breast_solve_breastfeeding_problem">The problem of breastfeeding and how to deal with it</string>
+    <string name="secN_breast_breastfeeding_work_mummy">Breastfeeding for working mothers (milking techniques)</string>
+    <string name="secN_others_care_newborn">Caring of newborn</string>
+    <string name="secN_others_Neonatal_Jaundice">Neonatal Jaundice</string>
+    <string name="secN_others_pap_smear">Pap Smear</string>
+    <string name="secN_others_breast_cancer">Breast cancer screening</string>
 
 </resources>

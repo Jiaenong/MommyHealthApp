@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Nur.EarlyTestActivity">
+    tools:context="Nurse.EarlyTestActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -139,16 +139,18 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewSectionA"
-                android:layout_width="170dp"
+                android:layout_width="150dp"
                 android:layout_height="170dp"
-                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="5dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#fafafa">
+                app:cardBackgroundColor="#fafafa"
+                app:cardCornerRadius="20dp">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -179,12 +181,14 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewSetionB"
-                android:layout_width="170dp"
+                android:layout_width="150dp"
                 android:layout_height="170dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginBottom="5dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#fafafa">
+                app:cardBackgroundColor="#fafafa"
+                app:cardCornerRadius="20dp">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -218,18 +222,20 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewSectionC"
-                android:layout_width="170dp"
+                android:layout_width="150dp"
                 android:layout_height="170dp"
-                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="5dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#fafafa">
+                app:cardBackgroundColor="#fafafa"
+                app:cardCornerRadius="20dp">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -261,12 +267,14 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewSectionD"
-                android:layout_width="170dp"
+                android:layout_width="150dp"
                 android:layout_height="170dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="20dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#fafafa">
+                app:cardBackgroundColor="#fafafa"
+                app:cardCornerRadius="20dp">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

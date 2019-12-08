@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mommyhealthapp">
 
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +16,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Nurse.AntenatalActivity"
-            android:label="Antenatal Check"/>
+        <activity android:name=".Nurse.SectionNOthersActivity"
+            android:label="Others Check"/>
+        <activity
+            android:name=".Nurse.BreastFeedingActivity"
+            android:label="Breast Feeding Check" />
+        <activity
+            android:name=".Nurse.UnusualCircumtancesActivity"
+            android:label="Unusual Circumstances Check" />
+        <activity
+            android:name=".Nurse.PostnatalActivity"
+            android:label="Postnatal Check" />
+        <activity
+            android:name=".Nurse.AntenatalActivity"
+            android:label="Antenatal Check" />
         <activity
             android:name=".Nurse.SectionNActivity"
             android:label="Section N" />
