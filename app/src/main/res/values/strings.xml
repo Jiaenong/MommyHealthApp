@@ -186,7 +186,7 @@
     <string name="motion">Motion</string>
     <string name="problem">Problem</string>
     <string name="treatment">Treatment</string>
-    <string name="due_date">Due Date</string>
+    <string name="due_date">Next Appointment Date</string>
     <string name="mgtt_Age">1. Age above 35 year</string>
     <string name="mgtt_BMI">2. <![CDATA[BMI > 27kg/m^2]]></string>
     <string name="mgtt_obstetric">3. Past Obstetric History</string>
@@ -260,5 +260,7 @@
     <string name="secN_others_Neonatal_Jaundice">Neonatal Jaundice</string>
     <string name="secN_others_pap_smear">Pap Smear</string>
     <string name="secN_others_breast_cancer">Breast cancer screening</string>
+    <string name="problem_edit">Edit</string>
+    <string name="lebelproblem_pregnancy_examination">Problem :</string>
 
 </resources>
