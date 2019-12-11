@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,6 +27,8 @@ import com.example.mommyhealthapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,10 +37,11 @@ import java.util.List;
 
 public class PregnancyExaminationActivity extends AppCompatActivity {
 
-    private EditText editTextDueDate, editTextProblem, editTextTreatment;
+    private EditText editTextDueDate, editTextProblem, editTextTreatment, bodyWeightEditText, bloodPressureEditText, pulseEditText;
     DatePickerDialog datePickerDialog;
+    private TextInputLayout bodyWeightInputLayout, bloodPressureInputLayout, pulseInputLayout;
     private FloatingActionButton btnAddProblem;
-    private Button btnProblemSave, btnProblemEdit;
+    private Button btnProblemSave, btnProblemEdit, btnSavePE;
     private ListView listViewProblem;
     private ProblemAdapter problemAdapter;
     private List<ProblemPE> problemList;
@@ -48,8 +52,15 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pregnancy_examination);
 
         editTextDueDate = (EditText)findViewById(R.id.editTextDueDate);
+        bodyWeightEditText = (EditText)findViewById(R.id.bodyWeightEditText);
+        bloodPressureEditText = (EditText)findViewById(R.id.bloodPressureEditText);
+        pulseEditText = (EditText)findViewById(R.id.pulseEditText);
         btnAddProblem = (FloatingActionButton)findViewById(R.id.btnAddProblem);
         listViewProblem = (ListView)findViewById(R.id.listViewProblem);
+        bodyWeightInputLayout = (TextInputLayout)findViewById(R.id.bodyWeightInputLayout);
+        bloodPressureInputLayout = (TextInputLayout)findViewById(R.id.bloodPressureInputLayout);
+        pulseInputLayout = (TextInputLayout)findViewById(R.id.pulseInputLayout);
+        btnSavePE = (Button)findViewById(R.id.btnSavePE);
 
         listViewProblem.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -70,6 +81,53 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 // Handle ListView touch events.
                 v.onTouchEvent(event);
                 return true;
+            }
+        });
+
+        listViewProblem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final ProblemPE problemPE = problemAdapter.getItem(position);
+
+                problemDialog = new Dialog(PregnancyExaminationActivity.this);
+                problemDialog.setContentView(R.layout.customize_problem_dialog);
+                problemDialog.setTitle("Problem Dialog");
+                editTextProblem = (EditText)problemDialog.findViewById(R.id.editTextProblem);
+                editTextTreatment = (EditText)problemDialog.findViewById(R.id.editTextTreatment);
+                btnProblemSave = (Button)problemDialog.findViewById(R.id.btnProblemSave);
+                btnProblemEdit = (Button)problemDialog.findViewById(R.id.btnProblemEdit);
+
+                btnProblemSave.setVisibility(View.GONE);
+                editTextProblem.setText(problemPE.getProblem());
+                editTextTreatment.setText(problemPE.getTreatment());
+
+                btnProblemEdit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        for(int i=0; i<problemList.size(); i++)
+                        {
+                            if(problemList.get(i).equals(problemPE))
+                            {
+                                String problem = editTextProblem.getText().toString();
+                                String treatment = editTextTreatment.getText().toString();
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                                Date date = new Date();
+                                String pDate = formatter.format(date);
+                                problemList.get(i).setProblem(problem);
+                                problemList.get(i).setTreatment(treatment);
+                                problemList.get(i).setDate(pDate);
+                                problemList.get(i).setPersonnel("Alicia OOng");
+                                problemAdapter.notifyDataSetChanged();
+                            }
+                        }
+                        problemDialog.cancel();
+                    }
+                });
+
+                problemDialog.show();
+                Window window =problemDialog.getWindow();
+                window.setLayout(800, 800);
+
             }
         });
 
@@ -106,6 +164,8 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 btnProblemSave = (Button)problemDialog.findViewById(R.id.btnProblemSave);
                 btnProblemEdit = (Button)problemDialog.findViewById(R.id.btnProblemEdit);
 
+                btnProblemEdit.setVisibility(View.GONE);
+
                 btnProblemSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -125,6 +185,34 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 problemDialog.show();
                 Window window =problemDialog.getWindow();
                 window.setLayout(800, 800);
+            }
+        });
+
+        btnSavePE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String bodyWeight = bodyWeightEditText.getText().toString();
+                String bloodPressure = bloodPressureEditText.getText().toString();
+                String pulse = pulseEditText.getText().toString();
+                if(bodyWeight == "")
+                {
+                    bodyWeightInputLayout.setError("This field is required!");
+                }else if(bloodPressure == "")
+                {
+                    bloodPressureInputLayout.setError("This field is required!");
+                }else if(pulse == "")
+                {
+                    pulseInputLayout.setError("This field is required!");
+                }else if(bodyWeight == "" && bloodPressure == "" && pulse == "")
+                {
+                    bodyWeightInputLayout.setError("This field is required!");
+                    bloodPressureInputLayout.setError("This field is required!");
+                    pulseInputLayout.setError("This field is required!");
+                }else{
+                    bodyWeightInputLayout.setError(null);
+                    bloodPressureInputLayout.setError(null);
+                    pulseInputLayout.setError(null);
+                }
             }
         });
 

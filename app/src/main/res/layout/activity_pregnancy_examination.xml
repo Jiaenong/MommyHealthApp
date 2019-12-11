@@ -143,38 +143,47 @@
             android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/bodyWeightInputLayout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            style="@style/TextInputLayout"
+            app:errorEnabled="true"
             android:hint="@string/body_weight">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/bodyWeightEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/bloodPressureInputLayout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            style="@style/TextInputLayout"
+            app:errorEnabled="true"
             android:hint="@string/blood_pressure">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/bloodPressureEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pulseInputLayout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            style="@style/TextInputLayout"
+            app:errorEnabled="true"
             android:hint="@string/pulse">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pulseEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -311,13 +320,13 @@
             <ListView
                 android:id="@+id/listViewProblem"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="false"
-                android:layout_toRightOf="@id/btnAddProblem" />
+                android:layout_height="150dp"
+                android:layout_toRightOf="@id/btnAddProblem"
+                android:clickable="false" />
         </RelativeLayout>
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/btnSavePE"
             style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
