@@ -7,6 +7,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,6 +64,28 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
         bloodPressureInputLayout = (TextInputLayout)findViewById(R.id.bloodPressureInputLayout);
         pulseInputLayout = (TextInputLayout)findViewById(R.id.pulseInputLayout);
         btnSavePE = (Button)findViewById(R.id.btnSavePE);
+
+        problemList = new ArrayList<>();
+
+        editTextDueDate.setFocusable(false);
+        editTextDueDate.setClickable(false);
+        editTextDueDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                datePickerDialog = new DatePickerDialog(PregnancyExaminationActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                editTextDueDate.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
 
         listViewProblem.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -131,28 +156,6 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
             }
         });
 
-        problemList = new ArrayList<>();
-
-        editTextDueDate.setFocusable(false);
-        editTextDueDate.setClickable(false);
-        editTextDueDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR); // current year
-                int mMonth = c.get(Calendar.MONTH); // current month
-                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-                datePickerDialog = new DatePickerDialog(PregnancyExaminationActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                editTextDueDate.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-            }
-        });
-
         btnAddProblem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,36 +191,107 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
             }
         });
 
+        CheckRequiredTextChange();
+
         btnSavePE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String bodyWeight = bodyWeightEditText.getText().toString();
                 String bloodPressure = bloodPressureEditText.getText().toString();
                 String pulse = pulseEditText.getText().toString();
-                if(bodyWeight == "")
+                if(bodyWeight.equals(""))
                 {
                     bodyWeightInputLayout.setError("This field is required!");
-                }else if(bloodPressure == "")
+                } else{
+                    bodyWeightInputLayout.setError(null);
+                }
+                if(bloodPressure.equals(""))
                 {
                     bloodPressureInputLayout.setError("This field is required!");
-                }else if(pulse == "")
+                }else{
+                    bloodPressureInputLayout.setError(null);
+                }
+                if(pulse.equals(""))
                 {
-                    pulseInputLayout.setError("This field is required!");
-                }else if(bodyWeight == "" && bloodPressure == "" && pulse == "")
-                {
-                    bodyWeightInputLayout.setError("This field is required!");
-                    bloodPressureInputLayout.setError("This field is required!");
                     pulseInputLayout.setError("This field is required!");
                 }else{
-                    bodyWeightInputLayout.setError(null);
-                    bloodPressureInputLayout.setError(null);
                     pulseInputLayout.setError(null);
                 }
+
             }
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    private void CheckRequiredTextChange()
+    {
+        bodyWeightEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(bodyWeightEditText.getText().toString().equals(""))
+                {
+                    bodyWeightInputLayout.setError("This field is required!");
+                } else{
+                    bodyWeightInputLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        bloodPressureEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(bloodPressureEditText.getText().toString().equals(""))
+                {
+                    bloodPressureInputLayout.setError("This field is required!");
+                }else{
+                    bloodPressureInputLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        pulseEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(pulseEditText.getText().toString().equals(""))
+                {
+                    pulseInputLayout.setError("This field is required!");
+                }else{
+                    pulseInputLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
