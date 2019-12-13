@@ -7,13 +7,17 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.mommyhealthapp.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -28,12 +32,13 @@ public class CreateMotherDetailFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr;
-    private EditText editTextEDD, editTextLNMP, editTextEDP;
+    private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtInputLayoutEDP, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr;
+    private EditText editTextEDD, editTextLNMP, editTextEDP, editTextHusbandName, editTextHusbandIC, editTextHusbandWork, editTextHusbandWorkAddress, editTextPhone;
     private EditText editTextDisease;
     DatePickerDialog datePickerDialog;
     private RadioGroup radioGroupYesNo, radioGroupMarriage;
     private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle;
+    private Button btnSaveMother;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -70,6 +75,7 @@ public class CreateMotherDetailFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_create_mother_detail, container, false);
         txtInputLayoutDisease = (TextInputLayout)v.findViewById(R.id.txtInputLayoutDisease);
         txtInputLayoutEDD = (TextInputLayout)v.findViewById(R.id.txtInputLayoutEDD);
+        txtInputLayoutEDP = (TextInputLayout)v.findViewById(R.id.txtInputLayoutEDP);
         txtLayoutHusbandPhone = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandPhone);
         txtLayoutHusbandName = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandName);
         txtLayoutHusbandIC = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandIC);
@@ -79,12 +85,18 @@ public class CreateMotherDetailFragment extends Fragment {
         editTextDisease = (EditText)v.findViewById(R.id.editTextDisease);
         editTextLNMP = (EditText)v.findViewById(R.id.editTextLNMP);
         editTextEDP = (EditText)v.findViewById(R.id.editTextEDP);
+        editTextHusbandName = (EditText)v.findViewById(R.id.editTextHusbandName);
+        editTextHusbandIC = (EditText)v.findViewById(R.id.editTextHusbandIC);
+        editTextHusbandWork = (EditText)v.findViewById(R.id.editTextHusbandWork);
+        editTextHusbandWorkAddress = (EditText)v.findViewById(R.id.editTextHusbandWorkAddress);
+        editTextPhone = (EditText)v.findViewById(R.id.editTextPhone);
         radioGroupYesNo = (RadioGroup)v.findViewById(R.id.radioGroupYesNo);
         radioGroupMarriage = (RadioGroup)v.findViewById(R.id.radioGroupMarriage);
         radioBtnNo = (RadioButton)v.findViewById(R.id.radioBtnNo);
         radioBtnYes = (RadioButton)v.findViewById(R.id.radioBtnYes);
         radioBtnMarried = (RadioButton)v.findViewById(R.id.radioBtnMarried);
         radioBtnSingle = (RadioButton)v.findViewById(R.id.radioBtnSingle);
+        btnSaveMother = (Button)v.findViewById(R.id.btnSaveMother);
 
         editTextEDD.setKeyListener(null);
         editTextLNMP.setKeyListener(null);
@@ -136,7 +148,7 @@ public class CreateMotherDetailFragment extends Fragment {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                editTextEDD.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
+                                editTextEDP.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -174,7 +186,243 @@ public class CreateMotherDetailFragment extends Fragment {
             }
         });
 
+        checkReuiredFieldTextChange();
+
+        btnSaveMother.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkRequiredField() == true)
+                {
+                    Toast.makeText(getContext(), "Field is empty!",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getContext(), "Save!",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         return v;
+    }
+
+    private void checkReuiredFieldTextChange()
+    {
+        editTextEDD.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextEDD.getText().toString().equals(""))
+                {
+                    txtInputLayoutEDD.setErrorEnabled(true);
+                    txtInputLayoutEDD.setError("This field is required!");
+                }else{
+                    txtInputLayoutEDD.setErrorEnabled(false);
+                    txtInputLayoutEDD.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextEDP.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextEDP.getText().toString().equals(""))
+                {
+                    txtInputLayoutEDP.setErrorEnabled(true);
+                    txtInputLayoutEDP.setError("This field is required!");
+                }else{
+                    txtInputLayoutEDP.setErrorEnabled(false);
+                    txtInputLayoutEDP.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextHusbandName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextHusbandName.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandName.setErrorEnabled(true);
+                    txtLayoutHusbandName.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandName.setErrorEnabled(false);
+                    txtLayoutHusbandName.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextHusbandIC.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextHusbandIC.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandIC.setErrorEnabled(true);
+                    txtLayoutHusbandIC.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandIC.setErrorEnabled(false);
+                    txtLayoutHusbandIC.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextHusbandWork.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextHusbandWork.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandWork.setErrorEnabled(true);
+                    txtLayoutHusbandWork.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandWork.setErrorEnabled(false);
+                    txtLayoutHusbandWork.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextPhone.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandPhone.setErrorEnabled(true);
+                    txtLayoutHusbandPhone.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandPhone.setErrorEnabled(false);
+                    txtLayoutHusbandPhone.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private boolean checkRequiredField()
+    {
+        boolean empty = true;
+        if(editTextEDD.getText().toString().equals(""))
+        {
+            txtInputLayoutEDD.setErrorEnabled(true);
+            txtInputLayoutEDD.setError("This field is required!");
+            empty = true;
+        }else{
+            txtInputLayoutEDD.setErrorEnabled(false);
+            txtInputLayoutEDD.setError(null);
+            empty = false;
+        }
+
+        if(editTextEDP.getText().toString().equals(""))
+        {
+            txtInputLayoutEDP.setErrorEnabled(true);
+            txtInputLayoutEDP.setError("This field is required!");
+            empty = true;
+        }else{
+            txtInputLayoutEDP.setErrorEnabled(false);
+            txtInputLayoutEDP.setError(null);
+            empty = false;
+        }
+
+        if(radioBtnMarried.isChecked())
+        {
+            if(editTextHusbandName.getText().toString().equals(""))
+            {
+                txtLayoutHusbandName.setErrorEnabled(true);
+                txtLayoutHusbandName.setError("This field is required!");
+                empty = true;
+            }else{
+                txtLayoutHusbandName.setErrorEnabled(false);
+                txtLayoutHusbandName.setError(null);
+                empty = false;
+            }
+
+            if(editTextHusbandIC.getText().toString().equals(""))
+            {
+                txtLayoutHusbandIC.setErrorEnabled(true);
+                txtLayoutHusbandIC.setError("This field is required!");
+                empty = true;
+            }else{
+                txtLayoutHusbandIC.setErrorEnabled(false);
+                txtLayoutHusbandIC.setError(null);
+                empty = false;
+            }
+
+            if(editTextHusbandWork.getText().toString().equals(""))
+            {
+                txtLayoutHusbandWork.setErrorEnabled(true);
+                txtLayoutHusbandWork.setError("This field is required!");
+                empty = true;
+            }else{
+                txtLayoutHusbandWork.setErrorEnabled(false);
+                txtLayoutHusbandWork.setError(null);
+                empty = false;
+            }
+
+            if(editTextPhone.getText().toString().equals(""))
+            {
+                txtLayoutHusbandPhone.setErrorEnabled(true);
+                txtLayoutHusbandPhone.setError("This field is required!");
+                empty = true;
+            }else{
+                txtLayoutHusbandPhone.setErrorEnabled(false);
+                txtLayoutHusbandPhone.setError(null);
+                empty = false;
+            }
+        }
+
+        return empty;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

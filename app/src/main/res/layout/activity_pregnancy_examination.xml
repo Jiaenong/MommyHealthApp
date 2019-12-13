@@ -148,7 +148,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            app:errorEnabled="true"
             android:hint="@string/body_weight">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -164,7 +163,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            app:errorEnabled="true"
             android:hint="@string/blood_pressure">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -179,7 +177,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            app:errorEnabled="true"
             android:hint="@string/pulse">
 
             <com.google.android.material.textfield.TextInputEditText

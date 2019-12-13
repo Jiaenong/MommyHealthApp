@@ -201,20 +201,26 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 String pulse = pulseEditText.getText().toString();
                 if(bodyWeight.equals(""))
                 {
+                    bodyWeightInputLayout.setErrorEnabled(true);
                     bodyWeightInputLayout.setError("This field is required!");
                 } else{
+                    bodyWeightInputLayout.setErrorEnabled(false);
                     bodyWeightInputLayout.setError(null);
                 }
                 if(bloodPressure.equals(""))
                 {
+                    bloodPressureInputLayout.setErrorEnabled(true);
                     bloodPressureInputLayout.setError("This field is required!");
                 }else{
+                    bloodPressureInputLayout.setErrorEnabled(false);
                     bloodPressureInputLayout.setError(null);
                 }
                 if(pulse.equals(""))
                 {
+                    pulseInputLayout.setErrorEnabled(true);
                     pulseInputLayout.setError("This field is required!");
                 }else{
+                    pulseInputLayout.setErrorEnabled(false);
                     pulseInputLayout.setError(null);
                 }
 
@@ -237,8 +243,10 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(bodyWeightEditText.getText().toString().equals(""))
                 {
+                    bodyWeightInputLayout.setErrorEnabled(true);
                     bodyWeightInputLayout.setError("This field is required!");
                 } else{
+                    bodyWeightInputLayout.setErrorEnabled(false);
                     bodyWeightInputLayout.setError(null);
                 }
             }
@@ -259,8 +267,10 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(bloodPressureEditText.getText().toString().equals(""))
                 {
+                    bloodPressureInputLayout.setErrorEnabled(true);
                     bloodPressureInputLayout.setError("This field is required!");
                 }else{
+                    bloodPressureInputLayout.setErrorEnabled(false);
                     bloodPressureInputLayout.setError(null);
                 }
             }
@@ -281,8 +291,10 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(pulseEditText.getText().toString().equals(""))
                 {
+                    pulseInputLayout.setErrorEnabled(true);
                     pulseInputLayout.setError("This field is required!");
                 }else{
+                    pulseInputLayout.setErrorEnabled(false);
                     pulseInputLayout.setError(null);
                 }
             }

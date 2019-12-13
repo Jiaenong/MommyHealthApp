@@ -262,5 +262,6 @@
     <string name="secN_others_breast_cancer">Breast cancer screening</string>
     <string name="problem_edit">Edit</string>
     <string name="lebelproblem_pregnancy_examination">Problem :</string>
+    <string name="nationality">Nationality</string>
 
 </resources>
