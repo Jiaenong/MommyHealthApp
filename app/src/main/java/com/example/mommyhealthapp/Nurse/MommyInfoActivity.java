@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -20,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import com.example.mommyhealthapp.R;
@@ -38,6 +40,7 @@ public class MommyInfoActivity extends AppCompatActivity {
     private EditText editTextEDD, editTextLNMP, editTextEDP, editTextDisease, editTextHeight, editTextWeight,
             editTextHusbandName, editTextHusbandIC, editTextHusbandWork, editTextHusbandWorkAddress, editTextHusbandPhone;
     private EditText editTextAppointment, editTextAppTime;
+    private Spinner spinnerNational;
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
     private RadioGroup radioGroupYesNo, radioGroupMarriage, radioGroupRace;
@@ -79,6 +82,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         radioBtnChinese = (RadioButton)findViewById(R.id.radioBtnChinese);
         radioBtnOtherRaces = (RadioButton)findViewById(R.id.radioBtnOtherRace);
         txtIinputLayoutOtherRace = (TextInputLayout)findViewById(R.id.txtIinputLayoutOtherRace);
+        spinnerNational = (Spinner)findViewById(R.id.spinnerNational);
 
         txtInputLayoutDisease = (TextInputLayout)findViewById(R.id.txtInputLayoutDisease);
         txtInputLayoutEDD = (TextInputLayout)findViewById(R.id.txtInputLayoutEDD);
@@ -135,6 +139,10 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextAppointment.setClickable(false);
         editTextAppTime.setFocusable(false);
         editTextAppTime.setClickable(false);
+
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MommyInfoActivity.this ,R.array.national, R.layout.support_simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinnerNational.setAdapter(adapter);
 
         radioGroupRace.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -409,6 +417,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextEducation.setEnabled(false);
         editTextEducation.setTextColor(Color.parseColor("#000000"));
         chkBoxStatus.setEnabled(false);
+        spinnerNational.setEnabled(false);
     }
 
     private void DisableDetailInfoEditText()
@@ -464,6 +473,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextOccupation.setEnabled(true);
         editTextEducation.setEnabled(true);
         chkBoxStatus.setEnabled(true);
+        spinnerNational.setEnabled(true);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
