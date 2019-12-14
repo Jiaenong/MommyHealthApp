@@ -71,7 +71,7 @@
     <string name="mummy_id">Mummy ID</string>
     <string name="early_test">Early Test</string>
     <string name="maternal_medical_examination">Routine Medical Examination</string>
-    <string name="sectionN">Section N</string>
+    <string name="sectionN">Health Tutorial</string>
     <string name="mgtt">MGTT Examination</string>
     <string name="pregnancy_examination">Pregnancy Examination</string>
     <string name="summary">Summary Report</string>
@@ -262,6 +262,40 @@
     <string name="secN_others_breast_cancer">Breast cancer screening</string>
     <string name="problem_edit">Edit</string>
     <string name="lebelproblem_pregnancy_examination">Problem :</string>
-    <string name="nationality">Nationality</string>
+    <string name="nationality">Nationality :</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="early_test_breast_examination">Breast Examination</string>
+    <string name="breast_exam_NumChildern">Number of Children</string>
+    <string name="breast_exam_menarche_age">Menarche age</string>
+    <string name="breast_exam_monopause_age">Monopause age</string>
+    <string name="breast_exam_history">Personal history of breast cancer :</string>
+    <string name="breast_exam_1stDegree">First degree relatives with breast cancer :</string>
+    <string name="breast_exam_previous_surgery">Previous breast surgery/ Trauma :</string>
+    <string name="breast_exam_HRT">Hormone repleacement therapy :</string>
+    <string name="breast_exam_hormon">Hormon contraceptive :</string>
+    <string name="breast_exam_breast_fed">Breast fed children :</string>
+    <string name="breast_exam_MMG">Any previous MMG :</string>
+    <string name="breast_exam_clinicalExam">Findings of clinical breast examination</string>
+    <string name="breast_exam_lump">Lump in breast :</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="breast_exam_nipple">Nipple discharge :</string>
+    <string name="breast_exam_nipple_retraction">Nipple retraction</string>
+    <string name="breast_exam_discomfort">Discomfort/ Tenderness/ pair</string>
+    <string name="breast_exam_axillary">Axillary nodes swelling :</string>
+    <string name="breast_exam_interpratation">Clinical Interpretation :</string>
+    <string name="normal">Normal</string>
+    <string name="abnormal">Abnormal</string>
+
+    <string-array name="national">
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
 
 </resources>

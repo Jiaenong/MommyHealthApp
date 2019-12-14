@@ -16,8 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Nurse.SectionNOthersActivity"
-            android:label="Others Check"/>
+        <activity android:name=".Nurse.BreastExamActivity"
+            android:label="Breast Examination"/>
+        <activity
+            android:name=".Nurse.SectionNOthersActivity"
+            android:label="Others Check" />
         <activity
             android:name=".Nurse.BreastFeedingActivity"
             android:label="Breast Feeding Check" />
@@ -32,7 +35,7 @@
             android:label="Antenatal Check" />
         <activity
             android:name=".Nurse.SectionNActivity"
-            android:label="Section N" />
+            android:label="Health Tutorial" />
         <activity
             android:name=".Nurse.MGTTRecordActivity"
             android:label="MGTT Record" />

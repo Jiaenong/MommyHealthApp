@@ -1,15 +1,18 @@
 package com.example.mommyhealthapp.Nurse.ui.CreateMother;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -27,9 +30,10 @@ import org.w3c.dom.Text;
 public class CreateMotherFragment extends Fragment {
     private Button btnNextStep;
     private RadioGroup radioGroupRace;
+    private Spinner spinnerNational;
     private RadioButton radioBtnMalay, radioBtnChinese, radioBtnIndian, radioBtnOtherRaces;
-    private TextInputLayout txtIinputLayoutOtherRace, firstNameLayout, lastNameLayout, IClayout, nationalLayout, phoneLayout, occupationLayout;
-    private EditText fistNameEdiTtext, lastNameEditText, ICEditText, nationalEditText, phoneEditTex, occupationEditText;
+    private TextInputLayout txtIinputLayoutOtherRace, firstNameLayout, lastNameLayout, IClayout, phoneLayout, occupationLayout, passwordLayout, confirmpassLayout;
+    private EditText fistNameEdiTtext, lastNameEditText, ICEditText, phoneEditTex, occupationEditText, passwordEditText, confirmPassEditText;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,13 +50,21 @@ public class CreateMotherFragment extends Fragment {
         lastNameEditText = (EditText)root.findViewById(R.id.lastNameEditText);
         IClayout = (TextInputLayout)root.findViewById(R.id.ICLayout);
         ICEditText = (EditText)root.findViewById(R.id.ICEditText);
-        nationalLayout = (TextInputLayout)root.findViewById(R.id.nationalLayout);
-        nationalEditText = (EditText)root.findViewById(R.id.nationalEditText);
         phoneLayout = (TextInputLayout)root.findViewById(R.id.phoneLayout);
         phoneEditTex = (EditText)root.findViewById(R.id.phoneEditText);
         occupationLayout = (TextInputLayout)root.findViewById(R.id.occupationLayout);
         occupationEditText = (EditText)root.findViewById(R.id.occupationEditText);
+        passwordLayout = (TextInputLayout)root.findViewById(R.id.passwordLayout);
+        passwordEditText = (EditText)root.findViewById(R.id.passwordEditText);
+        confirmpassLayout = (TextInputLayout)root.findViewById(R.id.confirmpassLayout);
+        confirmPassEditText = (EditText)root.findViewById(R.id.confirmPassEditText);
+        spinnerNational = (Spinner)root.findViewById(R.id.spinnerNational);
 
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity() ,R.array.national, R.layout.support_simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinnerNational.setAdapter(adapter);
+
+        EnableConfirmPassword();
         checkRequiredTextChange();
 
         btnNextStep.setOnClickListener(new View.OnClickListener() {
@@ -155,30 +167,6 @@ public class CreateMotherFragment extends Fragment {
             }
         });
 
-        nationalEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(nationalEditText.getText().toString().equals(""))
-                {
-                    nationalLayout.setErrorEnabled(true);
-                    nationalLayout.setError("This field is required!");
-                }else{
-                    nationalLayout.setErrorEnabled(false);
-                    nationalLayout.setError(null);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
         phoneEditTex.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -226,8 +214,58 @@ public class CreateMotherFragment extends Fragment {
 
             }
         });
-    }
 
+        passwordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(passwordEditText.getText().toString().equals(""))
+                {
+                    passwordLayout.setErrorEnabled(true);
+                    passwordLayout.setError("This field is required!");
+                    confirmPassEditText.setEnabled(false);
+                    confirmPassEditText.setTextColor(Color.parseColor("#000000"));
+                }else{
+                    passwordLayout.setErrorEnabled(false);
+                    passwordLayout.setError(null);
+                    confirmPassEditText.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        confirmPassEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(confirmPassEditText.getText().toString().equals(""))
+                {
+                    confirmpassLayout.setErrorEnabled(true);
+                    confirmpassLayout.setError("This field is required!");
+                }else{
+                    confirmpassLayout.setErrorEnabled(false);
+                    confirmpassLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
 
     private boolean checkRequiredFieldNextBtn()
     {
@@ -265,17 +303,6 @@ public class CreateMotherFragment extends Fragment {
             empty = false;
         }
 
-        if(nationalEditText.getText().toString().equals(""))
-        {
-            nationalLayout.setErrorEnabled(true);
-            nationalLayout.setError("This field is required!");
-            empty = true;
-        }else{
-            nationalLayout.setErrorEnabled(false);
-            nationalLayout.setError(null);
-            empty = false;
-        }
-
         if(phoneEditTex.getText().toString().equals(""))
         {
             phoneLayout.setErrorEnabled(true);
@@ -297,6 +324,41 @@ public class CreateMotherFragment extends Fragment {
             occupationLayout.setError(null);
             empty = false;
         }
+
+        if(passwordEditText.getText().toString().equals(""))
+        {
+            passwordLayout.setErrorEnabled(true);
+            passwordLayout.setError("This field is required!");
+            empty = true;
+        }else{
+            passwordLayout.setErrorEnabled(false);
+            passwordLayout.setError(null);
+            empty = false;
+
+            if(confirmPassEditText.getText().toString().equals(""))
+            {
+                confirmpassLayout.setErrorEnabled(true);
+                confirmpassLayout.setError("This field is required!");
+                empty = true;
+            }else{
+                confirmpassLayout.setErrorEnabled(false);
+                confirmpassLayout.setError(null);
+                empty = false;
+            }
+        }
+
         return empty;
     }
+
+    private void EnableConfirmPassword()
+    {
+        if(passwordEditText.getText().toString().equals(""))
+        {
+            confirmPassEditText.setEnabled(false);
+            confirmPassEditText.setTextColor(Color.parseColor("#000000"));
+        }else{
+            confirmPassEditText.setEnabled(true);
+        }
+    }
+
 }
