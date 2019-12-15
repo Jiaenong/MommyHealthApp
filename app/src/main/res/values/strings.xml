@@ -286,6 +286,34 @@
     <string name="breast_exam_interpratation">Clinical Interpretation :</string>
     <string name="normal">Normal</string>
     <string name="abnormal">Abnormal</string>
+    <string name="dass_questionnaire">Dass Questionnaire</string>
+    <string name="question_q1">I found it hard to wind down</string>
+    <string name="question_q2">I was aware of dryness of my mouth</string>
+    <string name="question_q3">I couldn\'t seem to experience any positive feeling at all</string>
+    <string name="question_q4">I experienced breathing difficulty (eg, excessively rapid breathing, breathlessness in the absence of physical excertion</string>
+    <string name="question_q5">I found it difficult to work up the initiative to do things</string>
+    <string name="question_q6">I tend to over-react to situation</string>
+    <string name="queation_q7">I experienced trembling (eg, in the hand)</string>
+    <string name="question_q8">I felt that i was using a lot of nervous energy</string>
+    <string name="question_q9">I was worried about the situations in which i might panic and make a fool of myself</string>
+    <string name="question_q10">I felt that i have nothing to look forward to</string>
+    <string name="question_q11">I found myself getting agigate</string>
+    <string name="question_q12">I found it difficult to relax</string>
+    <string name="question_q13">I felt down-hearted and blue</string>
+    <string name="question_q14">I was intolerant of anything that kept me from getting on with what i was doing</string>
+    <string name="question_q15">I felt i was close to panic</string>
+    <string name="question_q16">I was unable to become enthusiastic about anything</string>
+    <string name="question_q17">I felt i wasn\'t worth much as a person</string>
+    <string name="question_q18">I felt that i was rather touchy</string>
+    <string name="question_q19">I was aware of the action of my heart in the absence of physical exertion (eg, sense of heart rate increase, heart missing a beat)</string>
+    <string name="question_q20">I felt scare without any good reason</string>
+    <string name="question_q21">I felt that life was meaningless</string>
+    <string name="question_calculate_result">Calculate Result</string>
+    <string name="question_help_1star">Did not apply to me at all</string>
+    <string name="question_help_2star">Applied to me a considerable degree, or a good part of time</string>
+    <string name="question_help_3star">Applied to me to some degree, or some of the time</string>
+    <string name="question_help_4star">Applied to me very much, or most of the time</string>
+    <string name="noted">Noted</string>
 
     <string-array name="national">
         <item>Malaysia</item>

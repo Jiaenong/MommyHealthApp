@@ -2,18 +2,32 @@ package com.example.mommyhealthapp.Nurse;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.mommyhealthapp.R;
 
 public class BreastExamActivity extends AppCompatActivity {
 
+    private Button btnNextStep;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_breast_exam);
+
+        btnNextStep = (Button)findViewById(R.id.btnNextStep);
+
+        btnNextStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BreastExamActivity.this, HealthyMindFilterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
