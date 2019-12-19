@@ -1,63 +1,34 @@
 {
   "project_info": {
-    "project_number": "641720307905",
-    "firebase_url": "https://grabngo-b3b33.firebaseio.com",
-    "project_id": "grabngo-b3b33",
-    "storage_bucket": "grabngo-b3b33.appspot.com"
+    "project_number": "1024445684668",
+    "firebase_url": "https://mommyhealthapp.firebaseio.com",
+    "project_id": "mommyhealthapp",
+    "storage_bucket": "mommyhealthapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:641720307905:android:ff22c2edc0defc2e794440",
+        "mobilesdk_app_id": "1:1024445684668:android:7d60800e620afeb9c369b9",
         "android_client_info": {
           "package_name": "com.example.mommyhealthapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "641720307905-o2n0b6t71k9mkvqp1plevtftalqf1o77.apps.googleusercontent.com",
+          "client_id": "1024445684668-5ob96g77l9lmdq8tu8qfjdkma8ndk51d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCsqB-W9Adj33ZEYrXN7JEvapXglVrxhQQ"
+          "current_key": "AIzaSyCBmYqJDg3kntYSS42iHMhPoEtgzf0KVt8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "641720307905-o2n0b6t71k9mkvqp1plevtftalqf1o77.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:641720307905:android:68bf38ab9a51c324",
-        "android_client_info": {
-          "package_name": "com.example.user.grabngo"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "641720307905-o2n0b6t71k9mkvqp1plevtftalqf1o77.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCsqB-W9Adj33ZEYrXN7JEvapXglVrxhQQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "641720307905-o2n0b6t71k9mkvqp1plevtftalqf1o77.apps.googleusercontent.com",
+              "client_id": "1024445684668-5ob96g77l9lmdq8tu8qfjdkma8ndk51d.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

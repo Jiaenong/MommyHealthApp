@@ -2,13 +2,17 @@ package com.example.mommyhealthapp.Nurse.ui.CreateMother;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +23,24 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.mommyhealthapp.Class.Mommy;
+import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CreateMotherDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -33,12 +49,15 @@ public class CreateMotherDetailFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtInputLayoutEDP, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr;
-    private EditText editTextEDD, editTextLNMP, editTextEDP, editTextHusbandName, editTextHusbandIC, editTextHusbandWork, editTextHusbandWorkAddress, editTextPhone;
+    private EditText editTextEDD, editTextLNMP, editTextEDP, editTextHusbandName, editTextHusbandIC, editTextHusbandWork, editTextHusbandWorkAddress, editTextPhone, heightEditText, weightEditText;
     private EditText editTextDisease;
     DatePickerDialog datePickerDialog;
     private RadioGroup radioGroupYesNo, radioGroupMarriage;
     private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle;
     private Button btnSaveMother;
+
+    private FirebaseFirestore mFirebaseFirestore;
+    private CollectionReference mCollectionReference, mdCollectionReference;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -72,31 +91,36 @@ public class CreateMotherDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_create_mother_detail, container, false);
-        txtInputLayoutDisease = (TextInputLayout)v.findViewById(R.id.txtInputLayoutDisease);
-        txtInputLayoutEDD = (TextInputLayout)v.findViewById(R.id.txtInputLayoutEDD);
-        txtInputLayoutEDP = (TextInputLayout)v.findViewById(R.id.txtInputLayoutEDP);
-        txtLayoutHusbandPhone = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandPhone);
-        txtLayoutHusbandName = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandName);
-        txtLayoutHusbandIC = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandIC);
-        txtLayoutHusbandWork = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandWork);
-        txtLayoutHusbandWorkPlacr = (TextInputLayout)v.findViewById(R.id.txtLayoutHusbandWorkAddress);
-        editTextEDD = (EditText)v.findViewById(R.id.editTextEDD);
-        editTextDisease = (EditText)v.findViewById(R.id.editTextDisease);
-        editTextLNMP = (EditText)v.findViewById(R.id.editTextLNMP);
-        editTextEDP = (EditText)v.findViewById(R.id.editTextEDP);
-        editTextHusbandName = (EditText)v.findViewById(R.id.editTextHusbandName);
-        editTextHusbandIC = (EditText)v.findViewById(R.id.editTextHusbandIC);
-        editTextHusbandWork = (EditText)v.findViewById(R.id.editTextHusbandWork);
-        editTextHusbandWorkAddress = (EditText)v.findViewById(R.id.editTextHusbandWorkAddress);
-        editTextPhone = (EditText)v.findViewById(R.id.editTextPhone);
-        radioGroupYesNo = (RadioGroup)v.findViewById(R.id.radioGroupYesNo);
-        radioGroupMarriage = (RadioGroup)v.findViewById(R.id.radioGroupMarriage);
-        radioBtnNo = (RadioButton)v.findViewById(R.id.radioBtnNo);
-        radioBtnYes = (RadioButton)v.findViewById(R.id.radioBtnYes);
-        radioBtnMarried = (RadioButton)v.findViewById(R.id.radioBtnMarried);
-        radioBtnSingle = (RadioButton)v.findViewById(R.id.radioBtnSingle);
-        btnSaveMother = (Button)v.findViewById(R.id.btnSaveMother);
+        final View root = inflater.inflate(R.layout.fragment_create_mother_detail, container, false);
+        txtInputLayoutDisease = (TextInputLayout)root.findViewById(R.id.txtInputLayoutDisease);
+        txtInputLayoutEDD = (TextInputLayout)root.findViewById(R.id.txtInputLayoutEDD);
+        txtInputLayoutEDP = (TextInputLayout)root.findViewById(R.id.txtInputLayoutEDP);
+        txtLayoutHusbandPhone = (TextInputLayout)root.findViewById(R.id.txtLayoutHusbandPhone);
+        txtLayoutHusbandName = (TextInputLayout)root.findViewById(R.id.txtLayoutHusbandName);
+        txtLayoutHusbandIC = (TextInputLayout)root.findViewById(R.id.txtLayoutHusbandIC);
+        txtLayoutHusbandWork = (TextInputLayout)root.findViewById(R.id.txtLayoutHusbandWork);
+        txtLayoutHusbandWorkPlacr = (TextInputLayout)root.findViewById(R.id.txtLayoutHusbandWorkAddress);
+        editTextEDD = (EditText)root.findViewById(R.id.editTextEDD);
+        editTextDisease = (EditText)root.findViewById(R.id.editTextDisease);
+        editTextLNMP = (EditText)root.findViewById(R.id.editTextLNMP);
+        editTextEDP = (EditText)root.findViewById(R.id.editTextEDP);
+        editTextHusbandName = (EditText)root.findViewById(R.id.editTextHusbandName);
+        editTextHusbandIC = (EditText)root.findViewById(R.id.editTextHusbandIC);
+        editTextHusbandWork = (EditText)root.findViewById(R.id.editTextHusbandWork);
+        editTextHusbandWorkAddress = (EditText)root.findViewById(R.id.editTextHusbandWorkAddress);
+        editTextPhone = (EditText)root.findViewById(R.id.editTextPhone);
+        heightEditText = (EditText)root.findViewById(R.id.heightEditText);
+        weightEditText = (EditText)root.findViewById(R.id.weightEditText);
+        radioGroupYesNo = (RadioGroup)root.findViewById(R.id.radioGroupYesNo);
+        radioGroupMarriage = (RadioGroup)root.findViewById(R.id.radioGroupMarriage);
+        radioBtnNo = (RadioButton)root.findViewById(R.id.radioBtnNo);
+        radioBtnYes = (RadioButton)root.findViewById(R.id.radioBtnYes);
+        radioBtnMarried = (RadioButton)root.findViewById(R.id.radioBtnMarried);
+        radioBtnSingle = (RadioButton)root.findViewById(R.id.radioBtnSingle);
+        btnSaveMother = (Button)root.findViewById(R.id.btnSaveMother);
+
+        mFirebaseFirestore = FirebaseFirestore.getInstance();
+        mCollectionReference = mFirebaseFirestore.collection("Mommy");
 
         editTextEDD.setKeyListener(null);
         editTextLNMP.setKeyListener(null);
@@ -130,7 +154,7 @@ public class CreateMotherDetailFragment extends Fragment {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                editTextEDD.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
+                                editTextLNMP.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -190,17 +214,70 @@ public class CreateMotherDetailFragment extends Fragment {
 
         btnSaveMother.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
+                Date lnmp = null;
+                Date edd = null;
+                Date edp = null;
+                Double height = Double.parseDouble(heightEditText.getText().toString());
+                Double weight = Double.parseDouble(weightEditText.getText().toString());
+                String disease = "";
+                if(radioBtnYes.isChecked())
+                {
+                    disease = editTextDisease.getText().toString();
+                }
+                try {
+                     lnmp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextLNMP.getText().toString());
+                     edd = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
+                     edp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDP.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                int radioButtonID = radioGroupMarriage.getCheckedRadioButtonId();
+                RadioButton radioButtonSelected = (RadioButton) root.findViewById(radioButtonID);
+                String radioButtonText = radioButtonSelected.getText().toString();
+                String husbandName = editTextHusbandName.getText().toString();
+                String husbandIC = editTextHusbandIC.getText().toString();
+                String husbandWork = editTextHusbandWork.getText().toString();
+                String husbandWorkAddress = editTextHusbandWorkAddress.getText().toString();
+                String husbandPhone = editTextPhone.getText().toString();
+
+                Mommy mommy = getArguments().getParcelable("mommyinfo");
+                final MommyDetail mommyDetail = new MommyDetail(height, weight, disease, lnmp, edd, edp, radioButtonText, husbandName, husbandIC, husbandWork, husbandWorkAddress, husbandPhone);
+
                 if(checkRequiredField() == true)
                 {
                     Toast.makeText(getContext(), "Field is empty!",Toast.LENGTH_LONG).show();
                 }else{
-                    Toast.makeText(getContext(), "Save!",Toast.LENGTH_LONG).show();
+                    mCollectionReference.add(mommy).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+
+                            String id = documentReference.getId();
+                            mdCollectionReference = mFirebaseFirestore.collection("Mommy").document(id).collection("MommyDetail");
+                            mdCollectionReference.add(mommyDetail).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setTitle("Register Successfully");
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                            Navigation.findNavController(v).navigate(R.id.nav_home);
+                                        }
+                                    });
+                                    builder.setMessage("Account register successfully!");
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+                                }
+                            });
+                        }
+                    });
                 }
             }
         });
 
-        return v;
+        return root;
     }
 
     private void checkReuiredFieldTextChange()

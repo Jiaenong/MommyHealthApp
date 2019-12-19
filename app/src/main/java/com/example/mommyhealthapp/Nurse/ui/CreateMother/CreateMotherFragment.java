@@ -1,5 +1,6 @@
 package com.example.mommyhealthapp.Nurse.ui.CreateMother;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,8 +23,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
@@ -31,17 +39,20 @@ public class CreateMotherFragment extends Fragment {
     private Button btnNextStep;
     private RadioGroup radioGroupRace;
     private Spinner spinnerNational;
-    private RadioButton radioBtnMalay, radioBtnChinese, radioBtnIndian, radioBtnOtherRaces;
+    private RadioButton radioBtnOtherRaces;
     private TextInputLayout txtIinputLayoutOtherRace, firstNameLayout, lastNameLayout, IClayout, phoneLayout, occupationLayout, passwordLayout, confirmpassLayout;
-    private EditText fistNameEdiTtext, lastNameEditText, ICEditText, phoneEditTex, occupationEditText, passwordEditText, confirmPassEditText;
+    private EditText fistNameEdiTtext, lastNameEditText, ICEditText, phoneEditTex, occupationEditText, passwordEditText, confirmPassEditText, otherRaceEditText, addressEditText, ageEditText, educationEditText;
+    private String mommyId;
+    private int mommyNumber;
+
+    private FirebaseFirestore mFirebaseFirestore;
+    private CollectionReference mCollectionReference;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_create_mummy, container, false);
+        final View root = inflater.inflate(R.layout.fragment_create_mummy, container, false);
         btnNextStep = (Button)root.findViewById(R.id.btnNextStep);
         radioGroupRace = (RadioGroup)root.findViewById(R.id.radioGroupRace);
-        radioBtnMalay = (RadioButton)root.findViewById(R.id.radioBtnMalay);
-        radioBtnChinese = (RadioButton)root.findViewById(R.id.radioBtnChinese);
         radioBtnOtherRaces = (RadioButton)root.findViewById(R.id.radioBtnOtherRace);
         txtIinputLayoutOtherRace = (TextInputLayout)root.findViewById(R.id.txtIinputLayoutOtherRace);
         firstNameLayout = (TextInputLayout)root.findViewById(R.id.firstNameLayout);
@@ -56,6 +67,10 @@ public class CreateMotherFragment extends Fragment {
         occupationEditText = (EditText)root.findViewById(R.id.occupationEditText);
         passwordLayout = (TextInputLayout)root.findViewById(R.id.passwordLayout);
         passwordEditText = (EditText)root.findViewById(R.id.passwordEditText);
+        otherRaceEditText = (EditText)root.findViewById(R.id.otherRaceEditText);
+        addressEditText = (EditText)root.findViewById(R.id.addressEditText);
+        ageEditText = (EditText)root.findViewById(R.id.ageEditText);
+        educationEditText = (EditText)root.findViewById(R.id.educationEditText);
         confirmpassLayout = (TextInputLayout)root.findViewById(R.id.confirmpassLayout);
         confirmPassEditText = (EditText)root.findViewById(R.id.confirmPassEditText);
         spinnerNational = (Spinner)root.findViewById(R.id.spinnerNational);
@@ -64,16 +79,63 @@ public class CreateMotherFragment extends Fragment {
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnerNational.setAdapter(adapter);
 
+        mFirebaseFirestore = FirebaseFirestore.getInstance();
+        mCollectionReference = mFirebaseFirestore.collection("Mommy");
+
+        mCollectionReference.orderBy("mommyNumber", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    mommyNumber = 1;
+                    mommyId = "M1";
+                }else{
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        Mommy mommy = documentSnapshot.toObject(Mommy.class);
+                        int num = Integer.parseInt(mommy.getMommyId().substring(1));
+                        ++num;
+                        mommyId = "M"+num;
+                        mommyNumber = mommy.getMommyNumber();
+                        ++mommyNumber;
+                        break;
+                    }
+                }
+            }
+        });
+
         EnableConfirmPassword();
         checkRequiredTextChange();
 
         btnNextStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String firstName = fistNameEdiTtext.getText().toString();
+                String lastName = lastNameEditText.getText().toString();
+                String mommyName = firstName + " " + lastName;
+                String ic = ICEditText.getText().toString();
+                String nationality = spinnerNational.getSelectedItem().toString();
+                int radioButtonID = radioGroupRace.getCheckedRadioButtonId();
+                RadioButton RadioButtonRace = (RadioButton) root.findViewById(radioButtonID);
+                String selectedRadioButton = RadioButtonRace.getText().toString();
+                if(selectedRadioButton.equals("Other"))
+                {
+                    selectedRadioButton = otherRaceEditText.getText().toString();
+                }
+                String address = addressEditText.getText().toString();
+                String phoneNum = phoneEditTex.getText().toString();
+                String occupation = occupationEditText.getText().toString();
+                int age = Integer.parseInt(ageEditText.getText().toString());
+                String education = educationEditText.getText().toString();
+                String confirmPass = confirmPassEditText.getText().toString();
 
+                Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,occupation,age,education,confirmPass, mommyId, mommyNumber);
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("mommyinfo", mommy);
                 if(checkRequiredFieldNextBtn() == false)
                 {
-                    Navigation.findNavController(v).navigate(R.id.createMotherDetailFragment);
+                    Navigation.findNavController(v).navigate(R.id.createMotherDetailFragment, bundle);
                 }
             }
         });
@@ -262,7 +324,12 @@ public class CreateMotherFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if(confirmPassEditText.getText().toString().equals(passwordEditText.getText().toString()))
+                {
+                    confirmpassLayout.setError(null);
+                }else{
+                    confirmpassLayout.setError("Confirmation password are not same with the password");
+                }
             }
         });
     }
@@ -344,6 +411,16 @@ public class CreateMotherFragment extends Fragment {
                 confirmpassLayout.setErrorEnabled(false);
                 confirmpassLayout.setError(null);
                 empty = false;
+                if(!(confirmPassEditText.getText().toString().equals(passwordEditText.getText().toString())))
+                {
+                    confirmpassLayout.setErrorEnabled(true);
+                    confirmpassLayout.setError("Confirmation password are not same with the password");
+                    empty = true;
+                }else{
+                    confirmpassLayout.setErrorEnabled(false);
+                    confirmpassLayout.setError(null);
+                    empty = false;
+                }
             }
         }
 
