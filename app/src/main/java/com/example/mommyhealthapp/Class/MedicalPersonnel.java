@@ -8,10 +8,11 @@ public class MedicalPersonnel {
     private String address;
     private String email;
     private String medicalPersonnelId;
+    private String ImageUrl;
 
     public MedicalPersonnel(){}
 
-    public MedicalPersonnel(String name, String password, String IC, String address, String email, String medicalPersonnelId)
+    public MedicalPersonnel(String name, String password, String IC, String address, String email, String medicalPersonnelId, String ImageUrl)
     {
         this.name = name;
         this.password = password;
@@ -19,6 +20,15 @@ public class MedicalPersonnel {
         this.address = address;
         this.email = email;
         this.medicalPersonnelId = medicalPersonnelId;
+        this.ImageUrl = ImageUrl;
+    }
+
+    public String getImageUrl() {
+        return ImageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        ImageUrl = imageUrl;
     }
 
     public String getName() {

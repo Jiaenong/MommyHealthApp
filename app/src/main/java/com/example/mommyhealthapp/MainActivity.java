@@ -14,6 +14,8 @@ import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mommyhealthapp.Class.MedicalPersonnel;
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonLogin;
     private EditText editTextLoginName, editTextLoginPass;
     private TextInputLayout loginNameLayout, loginPassLayout;
+    private ProgressBar progressBarLogIn;
+    private TextView textForgetPass;
     private int check;
 
     private FirebaseFirestore mFirebaseFirestore;
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         editTextLoginPass = (EditText)findViewById(R.id.editTextLoginPass);
         loginNameLayout = (TextInputLayout)findViewById(R.id.loginNameLayout);
         loginPassLayout = (TextInputLayout)findViewById(R.id.loginPassLayout);
+        progressBarLogIn = (ProgressBar)findViewById(R.id.progressBarLogIn);
+        textForgetPass = (TextView)findViewById(R.id.textForgetPass);
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mdCollectionReference = mFirebaseFirestore.collection("MedicalPersonnel");
@@ -72,10 +78,11 @@ public class MainActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkRequiredFeildBtn() != true)
+                if(checkRequiredFieldBtn() != true)
                 {
                     Toast.makeText(MainActivity.this, "Field is empty", Toast.LENGTH_LONG).show();
                 }else{
+                    progressBarVisible();
                     mdCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -117,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         if(check == 0)
                                         {
+                                            progressBarGone();
                                             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                                             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                 @Override
@@ -141,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private boolean checkRequiredFeildBtn()
+    private boolean checkRequiredFieldBtn()
     {
         boolean empty = true;
         if(editTextLoginName.getText().toString().equals(""))
@@ -218,4 +226,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void progressBarVisible()
+    {
+        loginNameLayout.setVisibility(View.GONE);
+        loginPassLayout.setVisibility(View.GONE);
+        textForgetPass.setVisibility(View.GONE);
+        buttonLogin.setVisibility(View.GONE);
+        progressBarLogIn.setVisibility(View.VISIBLE);
+    }
+
+    private void progressBarGone()
+    {
+        loginNameLayout.setVisibility(View.VISIBLE);
+        loginPassLayout.setVisibility(View.VISIBLE);
+        textForgetPass.setVisibility(View.VISIBLE);
+        buttonLogin.setVisibility(View.VISIBLE);
+        progressBarLogIn.setVisibility(View.GONE);
+    }
+
 }

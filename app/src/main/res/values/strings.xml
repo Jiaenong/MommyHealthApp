@@ -21,7 +21,7 @@
     <string name="createMother">Create Mummy</string>
     <string name="searchMother">Search Mummy</string>
     <string name="logout">Log Out</string>
-    <string name="nurse_profile">Nurse Profile</string>
+    <string name="nurse_profile">Medical Personnel Profile</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="ic">IC</string>
@@ -44,7 +44,7 @@
     <string name="glucose_level">Glucose Level</string>
     <string name="protein_level">Protein Level</string>
     <string name="save_mother">Save</string>
-    <string name="nurse_id">Nurse ID :</string>
+    <string name="nurse_id">Medical Personnel ID :</string>
     <string name="value">value</string>
     <string name="nurse_name">Name :</string>
     <string name="nurse_ic">IC :</string>
