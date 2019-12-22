@@ -122,9 +122,12 @@ public class CreateMotherDetailFragment extends Fragment {
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("Mommy");
 
-        editTextEDD.setKeyListener(null);
-        editTextLNMP.setKeyListener(null);
-        editTextEDP.setKeyListener(null);
+        editTextEDD.setFocusable(false);
+        editTextEDD.setClickable(false);
+        editTextLNMP.setFocusable(false);
+        editTextLNMP.setClickable(false);
+        editTextEDP.setFocusable(false);
+        editTextEDP.setClickable(false);
         editTextEDD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
