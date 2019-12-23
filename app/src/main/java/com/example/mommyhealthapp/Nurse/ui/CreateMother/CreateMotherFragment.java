@@ -39,8 +39,8 @@ public class CreateMotherFragment extends Fragment {
     private Button btnNextStep;
     private RadioGroup radioGroupRace;
     private Spinner spinnerNational;
-    private RadioButton radioBtnOtherRaces;
-    private TextInputLayout txtIinputLayoutOtherRace, firstNameLayout, lastNameLayout, IClayout, phoneLayout, occupationLayout, passwordLayout, confirmpassLayout;
+    private RadioButton radioBtnOtherRaces, radioBtnMalay, radioBtnChinese, radioBtnIndian;
+    private TextInputLayout txtIinputLayoutOtherRace, firstNameLayout, lastNameLayout, IClayout, phoneLayout, occupationLayout, passwordLayout, confirmpassLayout, ageLayout;
     private EditText fistNameEdiTtext, lastNameEditText, ICEditText, phoneEditTex, occupationEditText, passwordEditText, confirmPassEditText, otherRaceEditText, addressEditText, ageEditText, educationEditText;
     private String mommyId;
     private int mommyNumber;
@@ -54,6 +54,9 @@ public class CreateMotherFragment extends Fragment {
         btnNextStep = (Button)root.findViewById(R.id.btnNextStep);
         radioGroupRace = (RadioGroup)root.findViewById(R.id.radioGroupRace);
         radioBtnOtherRaces = (RadioButton)root.findViewById(R.id.radioBtnOtherRace);
+        radioBtnMalay = (RadioButton)root.findViewById(R.id.radioBtnMalay);
+        radioBtnChinese = (RadioButton)root.findViewById(R.id.radioBtnChinese);
+        radioBtnIndian = (RadioButton)root.findViewById(R.id.radioBtnIndian);
         txtIinputLayoutOtherRace = (TextInputLayout)root.findViewById(R.id.txtIinputLayoutOtherRace);
         firstNameLayout = (TextInputLayout)root.findViewById(R.id.firstNameLayout);
         fistNameEdiTtext = (EditText)root.findViewById(R.id.firstNameEditText);
@@ -69,6 +72,7 @@ public class CreateMotherFragment extends Fragment {
         passwordEditText = (EditText)root.findViewById(R.id.passwordEditText);
         otherRaceEditText = (EditText)root.findViewById(R.id.otherRaceEditText);
         addressEditText = (EditText)root.findViewById(R.id.addressEditText);
+        ageLayout = (TextInputLayout)root.findViewById(R.id.ageLayout);
         ageEditText = (EditText)root.findViewById(R.id.ageEditText);
         educationEditText = (EditText)root.findViewById(R.id.educationEditText);
         confirmpassLayout = (TextInputLayout)root.findViewById(R.id.confirmpassLayout);
@@ -110,31 +114,31 @@ public class CreateMotherFragment extends Fragment {
         btnNextStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String firstName = fistNameEdiTtext.getText().toString();
-                String lastName = lastNameEditText.getText().toString();
-                String mommyName = firstName + " " + lastName;
-                String ic = ICEditText.getText().toString();
-                String nationality = spinnerNational.getSelectedItem().toString();
-                int radioButtonID = radioGroupRace.getCheckedRadioButtonId();
-                RadioButton RadioButtonRace = (RadioButton) root.findViewById(radioButtonID);
-                String selectedRadioButton = RadioButtonRace.getText().toString();
-                if(selectedRadioButton.equals("Other"))
-                {
-                    selectedRadioButton = otherRaceEditText.getText().toString();
-                }
-                String address = addressEditText.getText().toString();
-                String phoneNum = phoneEditTex.getText().toString();
-                String occupation = occupationEditText.getText().toString();
-                int age = Integer.parseInt(ageEditText.getText().toString());
-                String education = educationEditText.getText().toString();
-                String confirmPass = confirmPassEditText.getText().toString();
-
-                Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,occupation,age,education,confirmPass, mommyId, mommyNumber);
-
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("mommyinfo", mommy);
                 if(checkRequiredFieldNextBtn() == false)
                 {
+                    String firstName = fistNameEdiTtext.getText().toString();
+                    String lastName = lastNameEditText.getText().toString();
+                    String mommyName = firstName + " " + lastName;
+                    String ic = ICEditText.getText().toString();
+                    String nationality = spinnerNational.getSelectedItem().toString();
+                    int radioButtonID = radioGroupRace.getCheckedRadioButtonId();
+                    RadioButton RadioButtonRace = (RadioButton) root.findViewById(radioButtonID);
+                    String selectedRadioButton = RadioButtonRace.getText().toString();
+                    if(selectedRadioButton.equals("Other"))
+                    {
+                        selectedRadioButton = otherRaceEditText.getText().toString();
+                    }
+                    String address = addressEditText.getText().toString();
+                    String phoneNum = phoneEditTex.getText().toString();
+                    String occupation = occupationEditText.getText().toString();
+                    int age = Integer.parseInt(ageEditText.getText().toString());
+                    String education = educationEditText.getText().toString();
+                    String confirmPass = confirmPassEditText.getText().toString();
+
+                    Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,occupation,age,education,confirmPass, mommyId, mommyNumber);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("mommyinfo", mommy);
                     Navigation.findNavController(v).navigate(R.id.createMotherDetailFragment, bundle);
                 }
             }
@@ -332,6 +336,31 @@ public class CreateMotherFragment extends Fragment {
                 }
             }
         });
+
+        ageEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(ageEditText.getText().toString().equals(""))
+                {
+                    ageLayout.setErrorEnabled(true);
+                    ageLayout.setError("This field is required!");
+                }else {
+                    ageLayout.setErrorEnabled(false);
+                    ageLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private boolean checkRequiredFieldNextBtn()
@@ -422,6 +451,32 @@ public class CreateMotherFragment extends Fragment {
                     empty = false;
                 }
             }
+        }
+
+        if(ageEditText.getText().toString().equals(""))
+        {
+            ageLayout.setErrorEnabled(true);
+            ageLayout.setError("This field is required!");
+            empty = true;
+        }else {
+            ageLayout.setErrorEnabled(false);
+            ageLayout.setError(null);
+            empty = false;
+        }
+
+        if(radioGroupRace.getCheckedRadioButtonId() == -1)
+        {
+            radioBtnMalay.setError("Required!");
+            radioBtnChinese.setError("Required!");
+            radioBtnIndian.setError("Required!");
+            radioBtnOtherRaces.setError("Required!");
+            empty = true;
+        }else{
+            radioBtnMalay.setError(null);
+            radioBtnChinese.setError(null);
+            radioBtnIndian.setError(null);
+            radioBtnOtherRaces.setError(null);
+            empty = false;
         }
 
         return empty;

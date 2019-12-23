@@ -46,11 +46,11 @@
     <string name="save_mother">Save</string>
     <string name="nurse_id">Medical Personnel ID :</string>
     <string name="value">value</string>
-    <string name="nurse_name">Name :</string>
-    <string name="nurse_ic">IC :</string>
-    <string name="nurse_age">Age :</string>
-    <string name="nurse_email">Email :</string>
-    <string name="nurse_address">Address :</string>
+    <string name="nurse_name">Medical Personnel Name :</string>
+    <string name="nurse_ic">Medical Personnel IC :</string>
+    <string name="nurse_age">Medical Personnel Age :</string>
+    <string name="nurse_email">Medical Personnel Email :</string>
+    <string name="nurse_address">Medical Personnel Address :</string>
     <string name="nurse_account">Account Info</string>
     <string name="mummy_race">Race :</string>
     <string name="mummy_address">Address</string>
