@@ -48,7 +48,8 @@ public class CreateMotherDetailFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtInputLayoutEDP, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr;
+    private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtInputLayoutEDP, txtLayoutHusbandPhone, txtLayoutHusbandName,
+            txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr, heightLayout, weightLayout;
     private EditText editTextEDD, editTextLNMP, editTextEDP, editTextHusbandName, editTextHusbandIC, editTextHusbandWork, editTextHusbandWorkAddress, editTextPhone, heightEditText, weightEditText;
     private EditText editTextDisease;
     DatePickerDialog datePickerDialog;
@@ -109,7 +110,9 @@ public class CreateMotherDetailFragment extends Fragment {
         editTextHusbandWork = (EditText)root.findViewById(R.id.editTextHusbandWork);
         editTextHusbandWorkAddress = (EditText)root.findViewById(R.id.editTextHusbandWorkAddress);
         editTextPhone = (EditText)root.findViewById(R.id.editTextPhone);
+        heightLayout = (TextInputLayout)root.findViewById(R.id.heightLayout);
         heightEditText = (EditText)root.findViewById(R.id.heightEditText);
+        weightLayout = (TextInputLayout)root.findViewById(R.id.weightLayout);
         weightEditText = (EditText)root.findViewById(R.id.weightEditText);
         radioGroupYesNo = (RadioGroup)root.findViewById(R.id.radioGroupYesNo);
         radioGroupMarriage = (RadioGroup)root.findViewById(R.id.radioGroupMarriage);
@@ -218,39 +221,41 @@ public class CreateMotherDetailFragment extends Fragment {
         btnSaveMother.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                Date lnmp = null;
-                Date edd = null;
-                Date edp = null;
-                Double height = Double.parseDouble(heightEditText.getText().toString());
-                Double weight = Double.parseDouble(weightEditText.getText().toString());
-                String disease = "";
-                if(radioBtnYes.isChecked())
-                {
-                    disease = editTextDisease.getText().toString();
-                }
-                try {
-                     lnmp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextLNMP.getText().toString());
-                     edd = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
-                     edp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDP.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                int radioButtonID = radioGroupMarriage.getCheckedRadioButtonId();
-                RadioButton radioButtonSelected = (RadioButton) root.findViewById(radioButtonID);
-                String radioButtonText = radioButtonSelected.getText().toString();
-                String husbandName = editTextHusbandName.getText().toString();
-                String husbandIC = editTextHusbandIC.getText().toString();
-                String husbandWork = editTextHusbandWork.getText().toString();
-                String husbandWorkAddress = editTextHusbandWorkAddress.getText().toString();
-                String husbandPhone = editTextPhone.getText().toString();
-
-                Mommy mommy = getArguments().getParcelable("mommyinfo");
-                final MommyDetail mommyDetail = new MommyDetail(height, weight, disease, lnmp, edd, edp, radioButtonText, husbandName, husbandIC, husbandWork, husbandWorkAddress, husbandPhone);
 
                 if(checkRequiredField() == true)
                 {
                     Toast.makeText(getContext(), "Field is empty!",Toast.LENGTH_LONG).show();
                 }else{
+                    Date lnmp = null;
+                    Date edd = null;
+                    Date edp = null;
+                    Double height = Double.parseDouble(heightEditText.getText().toString());
+                    Double weight = Double.parseDouble(weightEditText.getText().toString());
+                    String disease = "";
+                    if(radioBtnYes.isChecked())
+                    {
+                        disease = editTextDisease.getText().toString();
+                    }
+                    try {
+                        lnmp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextLNMP.getText().toString());
+                        edd = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
+                        edp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDP.getText().toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    int radioButtonID = radioGroupMarriage.getCheckedRadioButtonId();
+                    RadioButton radioButtonSelected = (RadioButton) root.findViewById(radioButtonID);
+                    String radioButtonText = radioButtonSelected.getText().toString();
+                    String husbandName = editTextHusbandName.getText().toString();
+                    String husbandIC = editTextHusbandIC.getText().toString();
+                    String husbandWork = editTextHusbandWork.getText().toString();
+                    String husbandWorkAddress = editTextHusbandWorkAddress.getText().toString();
+                    String husbandPhone = editTextPhone.getText().toString();
+                    Date today = new Date();
+
+                    Mommy mommy = getArguments().getParcelable("mommyinfo");
+                    final MommyDetail mommyDetail = new MommyDetail(height, weight, disease, lnmp, edd, edp, radioButtonText, husbandName, husbandIC, husbandWork, husbandWorkAddress, husbandPhone, today);
+
                     mCollectionReference.add(mommy).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
@@ -276,6 +281,7 @@ public class CreateMotherDetailFragment extends Fragment {
                             });
                         }
                     });
+
                 }
             }
         });
@@ -285,6 +291,54 @@ public class CreateMotherDetailFragment extends Fragment {
 
     private void checkReuiredFieldTextChange()
     {
+        heightEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(heightEditText.getText().toString().equals(""))
+                {
+                    heightLayout.setErrorEnabled(true);
+                    heightLayout.setError("This field is required!");
+                }else{
+                    heightLayout.setErrorEnabled(false);
+                    heightLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        weightEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(weightEditText.getText().toString().equals(""))
+                {
+                    weightLayout.setErrorEnabled(true);
+                    weightLayout.setError("This field is required!");
+                }else{
+                    weightLayout.setErrorEnabled(false);
+                    weightLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         editTextEDD.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -433,6 +487,39 @@ public class CreateMotherDetailFragment extends Fragment {
     private boolean checkRequiredField()
     {
         boolean empty = true;
+        if(radioGroupMarriage.getCheckedRadioButtonId() == -1)
+        {
+            radioBtnMarried.setError("Required!");
+            radioBtnSingle.setError("Required!");
+            empty = true;
+        }else{
+            radioBtnMarried.setError(null);
+            radioBtnSingle.setError(null);
+            empty = false;
+        }
+
+        if(heightEditText.getText().toString().equals(""))
+        {
+            heightLayout.setErrorEnabled(true);
+            heightLayout.setError("This field is required!");
+            empty = true;
+        }else{
+            heightLayout.setErrorEnabled(false);
+            heightLayout.setError(null);
+            empty = false;
+        }
+
+        if(weightEditText.getText().toString().equals(""))
+        {
+            weightLayout.setErrorEnabled(true);
+            weightLayout.setError("This field is required!");
+            empty = true;
+        }else{
+            weightLayout.setErrorEnabled(false);
+            weightLayout.setError(null);
+            empty = false;
+        }
+
         if(editTextEDD.getText().toString().equals(""))
         {
             txtInputLayoutEDD.setErrorEnabled(true);

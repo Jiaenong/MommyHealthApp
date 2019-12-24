@@ -29,7 +29,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/progressBarMummyRecord"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleViewMummy"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone" />
@@ -42,7 +53,7 @@
             app:srcCompat="@drawable/norecordfound" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/textViewNoRecordFound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/imageViewNoRecordFound"

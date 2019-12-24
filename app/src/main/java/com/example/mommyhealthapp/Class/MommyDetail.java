@@ -9,6 +9,7 @@ public class MommyDetail {
     private Date lnmp;
     private Date edd;
     private Date edp;
+    private Date today;
     private String marriageStatus;
     private String husbandName;
     private String husbandIC;
@@ -19,7 +20,7 @@ public class MommyDetail {
     public MommyDetail(){}
 
     public MommyDetail (double height, double weight, String familyDisease, Date lnmp, Date edd, Date edp, String marriageStatus,
-                        String husbandName, String husbandIC, String husbandWork, String husbandWorkAddress, String husbandPhone)
+                        String husbandName, String husbandIC, String husbandWork, String husbandWorkAddress, String husbandPhone, Date today)
     {
         this.height = height;
         this.weight = weight;
@@ -33,6 +34,15 @@ public class MommyDetail {
         this.husbandWork = husbandWork;
         this.husbandWorkAddress = husbandWorkAddress;
         this.husbandPhone = husbandPhone;
+        this.today = today;
+    }
+
+    public Date getToday() {
+        return today;
+    }
+
+    public void setToday(Date today) {
+        this.today = today;
     }
 
     public double getHeight() {

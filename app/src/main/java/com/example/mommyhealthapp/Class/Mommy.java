@@ -19,11 +19,14 @@ public class Mommy implements Parcelable {
     private String password;
     private String mommyId;
     private int mommyNumber;
+    private String status;
+    private String mummyImage;
 
     public Mommy() { }
 
     public Mommy(String mommyName, String mommyIC, String nationality, String race, String address,
-                 String phoneNo, String occupation, int age, String education, String password, String mommyId, int mommyNumber)
+                 String phoneNo, String occupation, int age, String education, String password, String mommyId,
+                 int mommyNumber, String status, String mummyImage)
     {
         this.mommyName = mommyName;
         this.mommyIC = mommyIC;
@@ -37,6 +40,8 @@ public class Mommy implements Parcelable {
         this.password = password;
         this.mommyId = mommyId;
         this.mommyNumber = mommyNumber;
+        this.status = status;
+        this.mummyImage = mummyImage;
     }
 
     protected Mommy(Parcel in) {
@@ -52,6 +57,8 @@ public class Mommy implements Parcelable {
         password = in.readString();
         mommyId = in.readString();
         mommyNumber = in.readInt();
+        status = in.readString();
+        mummyImage = in.readString();
     }
 
     public static final Creator<Mommy> CREATOR = new Creator<Mommy>() {
@@ -65,6 +72,14 @@ public class Mommy implements Parcelable {
             return new Mommy[size];
         }
     };
+
+    public String getMummyImage() {
+        return mummyImage;
+    }
+
+    public void setMummyImage(String mummyImage) {
+        this.mummyImage = mummyImage;
+    }
 
     public String getMommyId() {
         return mommyId;
@@ -166,6 +181,13 @@ public class Mommy implements Parcelable {
         this.password = password;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public int describeContents() {
@@ -186,5 +208,7 @@ public class Mommy implements Parcelable {
         dest.writeString(password);
         dest.writeString(mommyId);
         dest.writeInt(mommyNumber);
+        dest.writeString(status);
+        dest.writeString(mummyImage);
     }
 }

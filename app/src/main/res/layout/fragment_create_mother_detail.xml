@@ -13,9 +13,10 @@
         android:padding="10dp">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/heightLayout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
             android:focusableInTouchMode="true"
             android:hint="@string/height">
 
@@ -26,9 +27,10 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/weightLayout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
             android:focusableInTouchMode="true"
             android:hint="@string/weight">
 
