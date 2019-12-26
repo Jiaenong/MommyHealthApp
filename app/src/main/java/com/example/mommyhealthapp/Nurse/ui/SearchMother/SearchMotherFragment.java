@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Nurse.MommyRecordActivity;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.RecyclerTouchListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -69,6 +70,21 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
         SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchViewMother.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchViewMother.setOnQueryTextListener(this);
+
+        recycleViewMummy.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recycleViewMummy, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Mommy mommy = mommyList.get(position);
+                Intent intent = new Intent(getActivity(), MommyRecordActivity.class);
+                intent.putExtra("MommyID", mommy.getMommyId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
 
         mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override

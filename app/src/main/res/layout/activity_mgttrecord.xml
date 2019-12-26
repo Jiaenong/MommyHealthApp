@@ -7,7 +7,7 @@
     tools:context=".Nurse.MGTTRecordActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewMommyRecord"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
@@ -33,7 +33,7 @@
         app:tint="@color/design_default_color_background" />
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/imgViewNoRecordFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
@@ -44,7 +44,7 @@
         app:srcCompat="@drawable/norecordfound" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/txtViewNoRecordFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/norecordfound"
