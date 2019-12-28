@@ -1,10 +1,13 @@
 package com.example.mommyhealthapp.Nurse.ui.CreateMother;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -25,15 +29,29 @@ import androidx.navigation.Navigation;
 
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.SaveSharedPreference;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import org.w3c.dom.Text;
+
+import java.io.ByteArrayOutputStream;
 
 public class CreateMotherFragment extends Fragment {
     private Button btnNextStep;
@@ -42,7 +60,7 @@ public class CreateMotherFragment extends Fragment {
     private RadioButton radioBtnOtherRaces, radioBtnMalay, radioBtnChinese, radioBtnIndian;
     private TextInputLayout txtIinputLayoutOtherRace, firstNameLayout, lastNameLayout, IClayout, phoneLayout, occupationLayout, passwordLayout, confirmpassLayout, ageLayout;
     private EditText fistNameEdiTtext, lastNameEditText, ICEditText, phoneEditTex, occupationEditText, passwordEditText, confirmPassEditText, otherRaceEditText, addressEditText, ageEditText, educationEditText;
-    private String mommyId;
+    private String mommyId, qrcode;
     private int mommyNumber;
 
     private FirebaseFirestore mFirebaseFirestore;
@@ -113,7 +131,7 @@ public class CreateMotherFragment extends Fragment {
 
         btnNextStep.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 if(checkRequiredFieldNextBtn() == false)
                 {
                     String firstName = fistNameEdiTtext.getText().toString();
@@ -136,8 +154,10 @@ public class CreateMotherFragment extends Fragment {
                     String confirmPass = confirmPassEditText.getText().toString();
                     String status = "Active";
                     String imagePic = "";
+                    qrcode = "";
+                    SaveSharedPreference.setMommyId(getActivity(), mommyId);
 
-                    Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,occupation,age,education,confirmPass, mommyId, mommyNumber,status,imagePic);
+                    Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,occupation,age,education,confirmPass, mommyId, mommyNumber,status,imagePic,qrcode);
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("mommyinfo", mommy);

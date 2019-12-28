@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                                     SaveSharedPreference.setUser(MainActivity.this, "medicalPersonnel");
                                     Intent intent = new Intent(MainActivity.this, NurseHomeActivity.class);
                                     startActivity(intent);
+                                    finish();
                                 }
                             }
                             if(check == 0)
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                                                 SaveSharedPreference.setUser(MainActivity.this, "Mommy");
                                                 Intent intent = new Intent(MainActivity.this, MommyHomeActivity.class);
                                                 startActivity(intent);
+                                                finish();
                                             }
                                         }
 
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                                             builder.setTitle("Log In Failed");
                                             builder.setMessage("Incorrect username and password !");
                                             AlertDialog alert = builder.create();
+                                            alert.setCanceledOnTouchOutside(false);
                                             alert.show();
                                         }
                                     }

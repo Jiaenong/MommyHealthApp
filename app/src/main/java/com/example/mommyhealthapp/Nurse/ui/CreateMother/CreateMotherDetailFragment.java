@@ -3,15 +3,19 @@ package com.example.mommyhealthapp.Nurse.ui.CreateMother;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -26,7 +31,11 @@ import android.widget.Toast;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.SaveSharedPreference;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -34,9 +43,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -56,9 +74,17 @@ public class CreateMotherDetailFragment extends Fragment {
     private RadioGroup radioGroupYesNo, radioGroupMarriage;
     private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle;
     private Button btnSaveMother;
+    private ProgressBar progressBarCreateMother;
+    private LinearLayoutCompat layoutCreateMother;
+
+    private Mommy mommy;
 
     private FirebaseFirestore mFirebaseFirestore;
     private CollectionReference mCollectionReference, mdCollectionReference;
+    private FirebaseStorage mFirebaseStorage;
+    private StorageReference mStorageReference;
+
+    private String QRimage;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -121,9 +147,15 @@ public class CreateMotherDetailFragment extends Fragment {
         radioBtnMarried = (RadioButton)root.findViewById(R.id.radioBtnMarried);
         radioBtnSingle = (RadioButton)root.findViewById(R.id.radioBtnSingle);
         btnSaveMother = (Button)root.findViewById(R.id.btnSaveMother);
+        progressBarCreateMother = (ProgressBar)root.findViewById(R.id.progressBarCreateMother);
+        layoutCreateMother = (LinearLayoutCompat)root.findViewById(R.id.layoutCreateMother);
+
+        mommy = getArguments().getParcelable("mommyinfo");
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("Mommy");
+        mFirebaseStorage = FirebaseStorage.getInstance();
+        mStorageReference = mFirebaseStorage.getReference().child("QRCode");
 
         editTextEDD.setFocusable(false);
         editTextEDD.setClickable(false);
@@ -216,6 +248,8 @@ public class CreateMotherDetailFragment extends Fragment {
             }
         });
 
+        progressBarCreateMother.setVisibility(View.GONE);
+        layoutCreateMother.setVisibility(View.VISIBLE);
         checkReuiredFieldTextChange();
 
         btnSaveMother.setOnClickListener(new View.OnClickListener() {
@@ -226,67 +260,115 @@ public class CreateMotherDetailFragment extends Fragment {
                 {
                     Toast.makeText(getContext(), "Field is empty!",Toast.LENGTH_LONG).show();
                 }else{
-                    Date lnmp = null;
-                    Date edd = null;
-                    Date edp = null;
-                    Double height = Double.parseDouble(heightEditText.getText().toString());
-                    Double weight = Double.parseDouble(weightEditText.getText().toString());
-                    String disease = "";
-                    if(radioBtnYes.isChecked())
-                    {
-                        disease = editTextDisease.getText().toString();
-                    }
-                    try {
-                        lnmp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextLNMP.getText().toString());
-                        edd = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
-                        edp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDP.getText().toString());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    int radioButtonID = radioGroupMarriage.getCheckedRadioButtonId();
-                    RadioButton radioButtonSelected = (RadioButton) root.findViewById(radioButtonID);
-                    String radioButtonText = radioButtonSelected.getText().toString();
-                    String husbandName = editTextHusbandName.getText().toString();
-                    String husbandIC = editTextHusbandIC.getText().toString();
-                    String husbandWork = editTextHusbandWork.getText().toString();
-                    String husbandWorkAddress = editTextHusbandWorkAddress.getText().toString();
-                    String husbandPhone = editTextPhone.getText().toString();
-                    Date today = new Date();
-
-                    Mommy mommy = getArguments().getParcelable("mommyinfo");
-                    final MommyDetail mommyDetail = new MommyDetail(height, weight, disease, lnmp, edd, edp, radioButtonText, husbandName, husbandIC, husbandWork, husbandWorkAddress, husbandPhone, today);
-
-                    mCollectionReference.add(mommy).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    progressBarCreateMother.setVisibility(View.VISIBLE);
+                    layoutCreateMother.setVisibility(View.GONE);
+                    getQRCodeImage(new MyCallBack() {
                         @Override
-                        public void onSuccess(DocumentReference documentReference) {
+                        public void onCallBack(Mommy mommy) {
+                            Date lnmp = null;
+                            Date edd = null;
+                            Date edp = null;
+                            Double height = Double.parseDouble(heightEditText.getText().toString());
+                            Double weight = Double.parseDouble(weightEditText.getText().toString());
+                            String disease = "";
+                            if(radioBtnYes.isChecked())
+                            {
+                                disease = editTextDisease.getText().toString();
+                            }
+                            try {
+                                lnmp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextLNMP.getText().toString());
+                                edd = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
+                                edp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDP.getText().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            int radioButtonID = radioGroupMarriage.getCheckedRadioButtonId();
+                            RadioButton radioButtonSelected = (RadioButton) root.findViewById(radioButtonID);
+                            String radioButtonText = radioButtonSelected.getText().toString();
+                            String husbandName = editTextHusbandName.getText().toString();
+                            String husbandIC = editTextHusbandIC.getText().toString();
+                            String husbandWork = editTextHusbandWork.getText().toString();
+                            String husbandWorkAddress = editTextHusbandWorkAddress.getText().toString();
+                            String husbandPhone = editTextPhone.getText().toString();
+                            Date today = new Date();
 
-                            String id = documentReference.getId();
-                            mdCollectionReference = mFirebaseFirestore.collection("Mommy").document(id).collection("MommyDetail");
-                            mdCollectionReference.add(mommyDetail).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            final MommyDetail mommyDetail = new MommyDetail(height, weight, disease, lnmp, edd, edp, radioButtonText, husbandName, husbandIC, husbandWork, husbandWorkAddress, husbandPhone, today);
+                            mCollectionReference.add(mommy).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                    builder.setTitle("Register Successfully");
-                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                                            Navigation.findNavController(v).navigate(R.id.nav_home);
+                                    String id = documentReference.getId();
+                                    mdCollectionReference = mFirebaseFirestore.collection("Mommy").document(id).collection("MommyDetail");
+                                    mdCollectionReference.add(mommyDetail).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            progressBarCreateMother.setVisibility(View.GONE);
+                                            layoutCreateMother.setVisibility(View.VISIBLE);
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                            builder.setTitle("Register Successfully");
+                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                                    Navigation.findNavController(v).navigate(R.id.nav_home);
+                                                }
+                                            });
+                                            builder.setMessage("Account register successfully!");
+                                            AlertDialog alert = builder.create();
+                                            alert.setCanceledOnTouchOutside(false);
+                                            alert.show();
                                         }
                                     });
-                                    builder.setMessage("Account register successfully!");
-                                    AlertDialog alert = builder.create();
-                                    alert.show();
                                 }
                             });
                         }
                     });
-
                 }
             }
         });
 
         return root;
+    }
+
+    public void getQRCodeImage(final MyCallBack myCallBack)
+    {
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        try {
+            BitMatrix bitMatrix = multiFormatWriter.encode(mommy.getMommyId(), BarcodeFormat.QR_CODE,200,200);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+            final StorageReference storeRef = mStorageReference.child("QRCode_"+mommy.getMommyId());
+            storeRef.putBytes(data).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return storeRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if(task.isSuccessful())
+                    {
+                        Uri downloadUri = task.getResult();
+                        mommy.setQrcodeImage(downloadUri.toString());
+                        myCallBack.onCallBack(mommy);
+                    }else{
+                        Toast.makeText(getActivity(),"Upload Failed: "+task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public interface MyCallBack{
+        void onCallBack(Mommy mommy);
     }
 
     private void checkReuiredFieldTextChange()
