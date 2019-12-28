@@ -68,10 +68,12 @@ public class MainActivity extends AppCompatActivity {
             {
                 Intent intent = new Intent(MainActivity.this, NurseHomeActivity.class);
                 startActivity(intent);
+                finish();
             }else if(SaveSharedPreference.getUser(MainActivity.this).equals("Mommy"))
             {
                 Intent intent = new Intent(MainActivity.this, MommyHomeActivity.class);
                 startActivity(intent);
+                finish();
             }
         }
 
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                                     Intent intent = new Intent(MainActivity.this, NurseHomeActivity.class);
                                     startActivity(intent);
                                     finish();
+                                    break;
                                 }
                             }
                             if(check == 0)
@@ -121,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                                                 Intent intent = new Intent(MainActivity.this, MommyHomeActivity.class);
                                                 startActivity(intent);
                                                 finish();
+                                                break;
                                             }
                                         }
 

@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Nurse.MommyRecordActivity;
+import com.example.mommyhealthapp.Nurse.ScanQRCodeActivity;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.RecyclerTouchListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -70,6 +71,14 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
         SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchViewMother.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchViewMother.setOnQueryTextListener(this);
+
+        imageViewQRCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ScanQRCodeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         recycleViewMummy.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recycleViewMummy, new RecyclerTouchListener.ClickListener() {
             @Override

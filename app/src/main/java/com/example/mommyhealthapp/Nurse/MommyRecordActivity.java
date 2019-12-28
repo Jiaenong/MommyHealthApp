@@ -63,13 +63,15 @@ public class MommyRecordActivity extends AppCompatActivity {
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
 
         mommyRecordList = new ArrayList<>();
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("MommyId");;
 
         progressBarMommyRecord.setVisibility(View.VISIBLE);
         recycleViewMommyRecord.setVisibility(View.GONE);
         imgViewNoRecordFound.setVisibility(View.GONE);
         txtViewNoRecordFound.setVisibility(View.GONE);
         btnAddNewRecord.setVisibility(View.GONE);
-        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        mCollectionReference.whereEqualTo("MommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
