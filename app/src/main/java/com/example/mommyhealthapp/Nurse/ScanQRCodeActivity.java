@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -60,7 +61,7 @@ public class ScanQRCodeActivity extends AppCompatActivity implements ZXingScanne
     }
 
     private void requestPermission(){
-        ActivityCompat.requestPermissions(this,new String[]{CAMERA}, REQUEST_CAMERA);
+        ActivityCompat.requestPermissions(ScanQRCodeActivity.this,new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
     }
 
     public void onRequestPermissionsResult(int requestCode, String permission[], int grantResults[]){
@@ -73,7 +74,9 @@ public class ScanQRCodeActivity extends AppCompatActivity implements ZXingScanne
                     }else{
                         Toast.makeText(ScanQRCodeActivity.this,"Permission denied",Toast.LENGTH_SHORT).show();
                         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                            Log.i("Testing", "test");
                             if(shouldShowRequestPermissionRationale(CAMERA)){
+                                Log.i("Testing", "test2");
                                 displayAlertMessage("You need to allow access for both permissions",
                                         new DialogInterface.OnClickListener() {
                                             @Override
@@ -131,7 +134,7 @@ public class ScanQRCodeActivity extends AppCompatActivity implements ZXingScanne
                     {
                         check++;
                         Intent intent = new Intent(ScanQRCodeActivity.this, MommyRecordActivity.class);
-                        intent.putExtra("MommyId", mommy.getMommyId());
+                        intent.putExtra("MommyID", mommy.getMommyId());
                         startActivity(intent);
                     }
                 }

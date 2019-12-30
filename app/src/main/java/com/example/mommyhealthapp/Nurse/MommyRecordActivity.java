@@ -48,6 +48,7 @@ public class MommyRecordActivity extends AppCompatActivity {
     private CollectionReference mCollectionReference;
 
     private List<MommyHealthInfo> mommyRecordList;
+    private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,14 +65,14 @@ public class MommyRecordActivity extends AppCompatActivity {
 
         mommyRecordList = new ArrayList<>();
         Intent intent = getIntent();
-        String id = intent.getStringExtra("MommyId");;
+        id = intent.getStringExtra("MommyID");;
 
         progressBarMommyRecord.setVisibility(View.VISIBLE);
         recycleViewMommyRecord.setVisibility(View.GONE);
         imgViewNoRecordFound.setVisibility(View.GONE);
         txtViewNoRecordFound.setVisibility(View.GONE);
         btnAddNewRecord.setVisibility(View.GONE);
-        mCollectionReference.whereEqualTo("MommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        mCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
@@ -104,6 +105,7 @@ public class MommyRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MommyRecordActivity.this, MommyProfileActivity.class);
+                intent.putExtra("MommyID", id);
                 startActivity(intent);
             }
         });
