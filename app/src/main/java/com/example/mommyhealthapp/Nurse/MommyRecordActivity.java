@@ -55,9 +55,9 @@ public class MommyRecordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mommy_record);
 
         btnAddNewRecord = (FloatingActionButton)findViewById(R.id.btnAddNewRecord);
-        imgViewNoRecordFound = (ImageView)findViewById(R.id.imgViewNoRecordFound);
-        txtViewNoRecordFound = (TextView)findViewById(R.id.txtViewNoRecordFound);
-        recycleViewMommyRecord = (RecyclerView)findViewById(R.id.recyclerViewMommyRecord);
+        imgViewNoRecordFound = (ImageView)findViewById(R.id.imgViewExamNoRecordFound);
+        txtViewNoRecordFound = (TextView)findViewById(R.id.txtViewExamNoRecordFound);
+        recycleViewMommyRecord = (RecyclerView)findViewById(R.id.recyclerViewPregnantRecord);
         progressBarMommyRecord = (ProgressBar)findViewById(R.id.progressBarMommyRecord);
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();

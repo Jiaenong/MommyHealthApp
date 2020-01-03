@@ -7,7 +7,7 @@
     tools:context=".Nurse.MGTTRecordActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMommyRecord"
+        android:id="@+id/recyclerViewMGTTRecord"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
@@ -24,7 +24,7 @@
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewMGTTRecord"
         app:layout_constraintHorizontal_bias="0.888"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,10 +33,10 @@
         app:tint="@color/design_default_color_background" />
 
     <ImageView
-        android:id="@+id/imgViewNoRecordFound"
+        android:id="@+id/imgViewMGTTNoRecordFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewMGTTRecord"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         app:srcCompat="@drawable/norecordfound" />
 
     <TextView
-        android:id="@+id/txtViewNoRecordFound"
+        android:id="@+id/txtViewMGTTNoRecordFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/norecordfound"
@@ -53,7 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView12"
+        app:layout_constraintTop_toBottomOf="@+id/imgViewMGTTNoRecordFound"
         app:layout_constraintVertical_bias="0.07" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

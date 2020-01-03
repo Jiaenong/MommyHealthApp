@@ -91,6 +91,7 @@ public class MommyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MommyProfileActivity.this, MommyInfoActivity.class);
+                intent.putExtra("MommyID", id);
                 startActivity(intent);
             }
         });

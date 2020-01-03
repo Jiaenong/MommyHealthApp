@@ -5,9 +5,11 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,24 +21,41 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.mommyhealthapp.Class.Mommy;
+import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 public class MommyInfoActivity extends AppCompatActivity {
 
     private LinearLayoutCompat layoutInfo, layoutDetailInfo, layoutAppointment, layoutAllView;
     private ImageView imageViewUp, imageViewUp1, imageViewDown, imageViewDown1, imageViewDownApp, imageViewAppUpApp;
-    private EditText editTextFirstName, editTextLastName, editTextIC, editTextRace, editTextAddress, editTextPhone, editTextAge, editTextOccupation, editTextEducation;
+    private EditText editTextMummyName, editTextIC, editTextRace, editTextAddress, editTextPhone, editTextAge, editTextOccupation, editTextEducation;
     private EditText editTextEDD, editTextLNMP, editTextEDP, editTextDisease, editTextHeight, editTextWeight,
             editTextHusbandName, editTextHusbandIC, editTextHusbandWork, editTextHusbandWorkAddress, editTextHusbandPhone;
     private EditText editTextAppointment, editTextAppTime;
@@ -47,12 +66,29 @@ public class MommyInfoActivity extends AppCompatActivity {
     private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle, radioBtnMalay, radioBtnChinese, radioBtnIndian, radioBtnOtherRaces;;
     private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr, txtIinputLayoutOtherRace;
     private CheckBox chkBoxStatus;
+    private TextView textViewMummyInfoName, textViewMummyInfoAge, textViewMummyInfoID;
+    private CircularImageView imageViewMummyInfo;
+    private ProgressBar progressBarMummyInfo;
+
+    private String id, key, keyDetail;
+    private FirebaseFirestore mFirebaseFirestore;
+    private CollectionReference mCollectionReference, nCollectionReference;
+    private DocumentReference mDocumentReference;
+
+    private int clickInfo = 0, clickInfoDetail = 0, clickApp = 0;
 
     private Button buttonCancel, buttonCancelInfo, buttonUpdateInfo, buttonUpdate, btnUpdateApp, btnCancelApp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mommy_info);
+
+        textViewMummyInfoName = (TextView)findViewById(R.id.textViewMummyInfoName);
+        textViewMummyInfoAge = (TextView)findViewById(R.id.textViewMummyInfoAge);
+        textViewMummyInfoID = (TextView)findViewById(R.id.textViewMummyInfoID);
+        imageViewMummyInfo = (CircularImageView)findViewById(R.id.imageViewMummyInfo);
+
+        progressBarMummyInfo = (ProgressBar)findViewById(R.id.progressBarMummyInfo);
 
         layoutAllView = (LinearLayoutCompat)findViewById(R.id.layoutAllView);
         layoutInfo = (LinearLayoutCompat)findViewById(R.id.layoutInfo);
@@ -65,8 +101,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         imageViewAppUpApp = (ImageView)findViewById(R.id.imageViewUpAp);
         imageViewDownApp = (ImageView)findViewById(R.id.imageViewDownAp);
 
-        editTextFirstName = (EditText)findViewById(R.id.editTextFirstName);
-        editTextLastName = (EditText)findViewById(R.id.editTextLastName);
+        editTextMummyName = (EditText)findViewById(R.id.editTextMummyName);
         editTextIC = (EditText)findViewById(R.id.editTextIC);
         editTextRace = (EditText)findViewById(R.id.editTextOtherRace);
         editTextAddress = (EditText)findViewById(R.id.editTextAddress);
@@ -77,37 +112,38 @@ public class MommyInfoActivity extends AppCompatActivity {
         chkBoxStatus = (CheckBox)findViewById(R.id.chkBoxStatus);
         editTextAppointment = (EditText)findViewById(R.id.editTextAppointment);
         editTextAppTime = (EditText)findViewById(R.id.editTextAppTime);
-        radioGroupRace = (RadioGroup)findViewById(R.id.radioGroupRace);
-        radioBtnMalay = (RadioButton)findViewById(R.id.radioBtnMalay);
-        radioBtnChinese = (RadioButton)findViewById(R.id.radioBtnChinese);
-        radioBtnOtherRaces = (RadioButton)findViewById(R.id.radioBtnOtherRace);
-        txtIinputLayoutOtherRace = (TextInputLayout)findViewById(R.id.txtIinputLayoutOtherRace);
-        spinnerNational = (Spinner)findViewById(R.id.spinnerNational);
+        radioGroupRace = (RadioGroup)findViewById(R.id.radioGrpRace);
+        radioBtnMalay = (RadioButton)findViewById(R.id.radioMalay);
+        radioBtnChinese = (RadioButton)findViewById(R.id.radioChinese);
+        radioBtnIndian = (RadioButton)findViewById(R.id.radioIndian);
+        radioBtnOtherRaces = (RadioButton)findViewById(R.id.radioOtherRace);
+        txtIinputLayoutOtherRace = (TextInputLayout)findViewById(R.id.txtInputLayoutOtherRace);
+        spinnerNational = (Spinner)findViewById(R.id.spinnerNationalInfo);
 
-        txtInputLayoutDisease = (TextInputLayout)findViewById(R.id.txtInputLayoutDisease);
-        txtInputLayoutEDD = (TextInputLayout)findViewById(R.id.txtInputLayoutEDD);
-        txtLayoutHusbandPhone = (TextInputLayout)findViewById(R.id.txtLayoutHusbandPhone);
-        txtLayoutHusbandName = (TextInputLayout)findViewById(R.id.txtLayoutHusbandName);
-        txtLayoutHusbandIC = (TextInputLayout)findViewById(R.id.txtLayoutHusbandIC);
-        txtLayoutHusbandWork = (TextInputLayout)findViewById(R.id.txtLayoutHusbandWork);
-        txtLayoutHusbandWorkPlacr = (TextInputLayout)findViewById(R.id.txtLayoutHusbandWorkAddress);
-        editTextEDD = (EditText)findViewById(R.id.editTextEDD);
-        editTextDisease = (EditText)findViewById(R.id.editTextDisease);
-        editTextLNMP = (EditText)findViewById(R.id.editTextLNMP);
-        editTextEDP = (EditText)findViewById(R.id.editTextEDP);
+        txtInputLayoutDisease = (TextInputLayout)findViewById(R.id.txtInputLayoutDiseaseInfo);
+        txtInputLayoutEDD = (TextInputLayout)findViewById(R.id.txtInputLayoutEDDInfo);
+        txtLayoutHusbandPhone = (TextInputLayout)findViewById(R.id.txtLayoutHusbandPhoneInfo);
+        txtLayoutHusbandName = (TextInputLayout)findViewById(R.id.txtLayoutHusbandNameInfo);
+        txtLayoutHusbandIC = (TextInputLayout)findViewById(R.id.txtLayoutHusbandICInfo);
+        txtLayoutHusbandWork = (TextInputLayout)findViewById(R.id.txtLayoutHusbandWorkInfo);
+        txtLayoutHusbandWorkPlacr = (TextInputLayout)findViewById(R.id.txtLayoutHusbandWorkAddressInfo);
+        editTextEDD = (EditText)findViewById(R.id.editTextEDDInfo);
+        editTextDisease = (EditText)findViewById(R.id.editTextDiseaseInfo);
+        editTextLNMP = (EditText)findViewById(R.id.editTextLNMPInfo);
+        editTextEDP = (EditText)findViewById(R.id.editTextEDPInfo);
         editTextHeight = (EditText)findViewById(R.id.editTextHeight);
         editTextWeight = (EditText)findViewById(R.id.editTextWeight);
-        editTextHusbandName = (EditText)findViewById(R.id.editTextHusbandName);
-        editTextHusbandIC = (EditText)findViewById(R.id.editTextHusbandIC);
-        editTextHusbandWork = (EditText)findViewById(R.id.editTextHusbandWork);
-        editTextHusbandWorkAddress = (EditText)findViewById(R.id.editTextHusbandWorkAddress);
-        editTextHusbandPhone = (EditText)findViewById(R.id.editTextHusbandPhone);
-        radioGroupYesNo = (RadioGroup)findViewById(R.id.radioGroupYesNo);
-        radioGroupMarriage = (RadioGroup)findViewById(R.id.radioGroupMarriage);
-        radioBtnNo = (RadioButton)findViewById(R.id.radioBtnNo);
-        radioBtnYes = (RadioButton)findViewById(R.id.radioBtnYes);
-        radioBtnMarried = (RadioButton)findViewById(R.id.radioBtnMarried);
-        radioBtnSingle = (RadioButton)findViewById(R.id.radioBtnSingle);
+        editTextHusbandName = (EditText)findViewById(R.id.editTextHusbandNameInfo);
+        editTextHusbandIC = (EditText)findViewById(R.id.editTextHusbandICInfo);
+        editTextHusbandWork = (EditText)findViewById(R.id.editTextHusbandWorkInfo);
+        editTextHusbandWorkAddress = (EditText)findViewById(R.id.editTextHusbandWorkAddressInfo);
+        editTextHusbandPhone = (EditText)findViewById(R.id.editTextHusbandPhoneInfo);
+        radioGroupYesNo = (RadioGroup)findViewById(R.id.radioGroupYesNoInfo);
+        radioGroupMarriage = (RadioGroup)findViewById(R.id.radioGroupMarriageInfo);
+        radioBtnNo = (RadioButton)findViewById(R.id.radioBtnNoInfo);
+        radioBtnYes = (RadioButton)findViewById(R.id.radioBtnYesInfo);
+        radioBtnMarried = (RadioButton)findViewById(R.id.radioBtnMarriedInfo);
+        radioBtnSingle = (RadioButton)findViewById(R.id.radioBtnSingleInfo);
 
         buttonCancel = (Button)findViewById(R.id.buttonCancel);
         buttonCancelInfo = (Button)findViewById(R.id.buttonCancelInfo);
@@ -152,6 +188,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                     txtIinputLayoutOtherRace.setVisibility(View.VISIBLE);
                 }else{
                     txtIinputLayoutOtherRace.setVisibility(View.GONE);
+                    editTextRace.setText("");
                 }
             }
         });
@@ -162,7 +199,6 @@ public class MommyInfoActivity extends AppCompatActivity {
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
                 timePickerDialog = new TimePickerDialog(MommyInfoActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
@@ -219,7 +255,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                editTextEDD.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
+                                editTextLNMP.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -237,7 +273,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                editTextEDD.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
+                                editTextEDP.setText(dayOfMonth + "/" +(month + 1) + "/" + year);
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -252,6 +288,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                     txtInputLayoutDisease.setVisibility(View.VISIBLE);
                 }else{
                     txtInputLayoutDisease.setVisibility(View.GONE);
+                    editTextDisease.setText("");
                 }
             }
         });
@@ -271,6 +308,71 @@ public class MommyInfoActivity extends AppCompatActivity {
                     txtLayoutHusbandWork.setVisibility(View.GONE);
                     txtLayoutHusbandWorkPlacr.setVisibility(View.GONE);
                     txtLayoutHusbandPhone.setVisibility(View.GONE);
+                    editTextHusbandName.setText("");
+                    editTextHusbandIC.setText("");
+                    editTextHusbandWork.setText("");
+                    editTextHusbandWorkAddress.setText("");
+                    editTextHusbandPhone.setText("");
+                }
+            }
+        });
+
+        Intent intent = getIntent();
+        id = intent.getStringExtra("MommyID");
+        mFirebaseFirestore = FirebaseFirestore.getInstance();
+        mCollectionReference = mFirebaseFirestore.collection("Mommy");
+
+        progressBarMummyInfo.setVisibility(View.VISIBLE);
+        layoutAllView.setVisibility(View.GONE);
+
+        mCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    int check = 0;
+                    Mommy mommy = documentSnapshot.toObject(Mommy.class);
+                    key = documentSnapshot.getId();
+                    textViewMummyInfoName.setText(mommy.getMommyName());
+                    textViewMummyInfoAge.setText(mommy.getAge()+"");
+                    textViewMummyInfoID.setText(mommy.getMommyId());
+                    if(mommy.getMummyImage().equals(""))
+                    {
+                        imageViewMummyInfo.setImageResource(R.drawable.user);
+                    }else{
+                        Glide.with(MommyInfoActivity.this).load(mommy.getMummyImage()).into(imageViewMummyInfo);
+                    }
+                    editTextMummyName.setText(mommy.getMommyName());
+                    editTextIC.setText(mommy.getMommyIC());
+                    ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(MommyInfoActivity.this ,R.array.national, R.layout.support_simple_spinner_dropdown_item);
+                    spinnerNational.setSelection(arrayAdapter.getPosition(mommy.getNationality()));
+                    for(int i=0; i<radioGroupRace.getChildCount();i++)
+                    {
+                        if(((RadioButton)radioGroupRace.getChildAt(i)).getText().toString().equals(mommy.getRace()))
+                        {
+                            check++;
+                            ((RadioButton)radioGroupRace.getChildAt(i)).setChecked(true);
+                        }
+                        if(check == 0){
+                            txtIinputLayoutOtherRace.setVisibility(View.VISIBLE);
+                            editTextRace.setText(mommy.getRace());
+                            radioBtnOtherRaces.setChecked(true);
+                        }
+
+                    }
+                    editTextAddress.setText(mommy.getAddress());
+                    editTextPhone.setText(mommy.getPhoneNo());
+                    editTextOccupation.setText(mommy.getOccupation());
+                    editTextAge.setText(mommy.getAge()+"");
+                    editTextEducation.setText(mommy.getEducation());
+                    if(mommy.getStatus().equals("Active"))
+                    {
+                        chkBoxStatus.setChecked(true);
+                    }else{
+                        chkBoxStatus.setChecked(false);
+                    }
+
+                    GetMummyDetail(key);
                 }
             }
         });
@@ -278,8 +380,44 @@ public class MommyInfoActivity extends AppCompatActivity {
         buttonUpdateInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EnableInfoEditText();
-                buttonCancelInfo.setVisibility(View.VISIBLE);
+                clickInfo++;
+                if(clickInfo == 1)
+                {
+                    EnableInfoEditText();
+                    buttonCancelInfo.setVisibility(View.VISIBLE);
+                }else if(clickInfo == 2)
+                {
+                    mDocumentReference = mFirebaseFirestore.document("Mommy/"+key);
+                    mDocumentReference.update("mommyName",editTextMummyName.getText().toString());
+                    mDocumentReference.update("mommyIC",editTextIC.getText().toString());
+                    mDocumentReference.update("nationality", spinnerNational.getSelectedItem().toString());
+                    if(radioBtnMalay.isChecked())
+                    {
+                        mDocumentReference.update("race", radioBtnMalay.getText().toString());
+                    }else if(radioBtnChinese.isChecked())
+                    {
+                        mDocumentReference.update("race", radioBtnChinese.getText().toString());
+                    }else if(radioBtnIndian.isChecked())
+                    {
+                        mDocumentReference.update("race", radioBtnIndian.getText().toString());
+                    }else{
+                        mDocumentReference.update("race", editTextRace.getText().toString());
+                    }
+                    mDocumentReference.update("address", editTextAddress.getText().toString());
+                    mDocumentReference.update("phoneNo", editTextPhone.getText().toString());
+                    mDocumentReference.update("occupation", editTextOccupation.getText().toString());
+                    mDocumentReference.update("age", Integer.parseInt(editTextAge.getText().toString()));
+                    mDocumentReference.update("education", editTextEducation.getText().toString());
+                    if(chkBoxStatus.isChecked()){
+                        mDocumentReference.update("status", "Active");
+                    }else{
+                        mDocumentReference.update("status", "Inactive");
+                    }
+                    clickInfo = 0;
+                    Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
+                    DisableInfoEditText();
+                    buttonCancelInfo.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -294,8 +432,47 @@ public class MommyInfoActivity extends AppCompatActivity {
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EnableDetailInfoEditText();
-                buttonCancel.setVisibility(View.VISIBLE);
+                clickInfoDetail++;
+                if(clickInfoDetail == 1)
+                {
+                    EnableDetailInfoEditText();
+                    buttonCancel.setVisibility(View.VISIBLE);
+                }else if(clickInfoDetail == 2){
+                    Date dateEDD = null, dateLNMP = null, dateEDP = null;
+                    mDocumentReference = mFirebaseFirestore.document("Mommy/"+key+"/MommyDetail/"+keyDetail);
+                    mDocumentReference.update("height",Double.parseDouble(editTextHeight.getText().toString()));
+                    mDocumentReference.update("weight", Double.parseDouble(editTextWeight.getText().toString()));
+                    if(radioBtnYes.isChecked()){
+                        mDocumentReference.update("familyDisease","");
+                    }else{
+                        mDocumentReference.update("familyDisease",editTextDisease.getText().toString());
+                    }
+                    try {
+                        dateEDD = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
+                        dateLNMP = new SimpleDateFormat("dd/MM/yyyy").parse(editTextLNMP.getText().toString());
+                        dateEDP = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDP.getText().toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    mDocumentReference.update("edd", dateEDD);
+                    mDocumentReference.update("lnmp", dateLNMP);
+                    mDocumentReference.update("edp", dateEDP);
+                    if(radioBtnSingle.isChecked())
+                    {
+                        mDocumentReference.update("marriageStatus", radioBtnSingle.getText().toString());
+                    }else{
+                        mDocumentReference.update("marriageStatus", radioBtnMarried.getText().toString());
+                    }
+                    mDocumentReference.update("husbandName", editTextHusbandName.getText().toString());
+                    mDocumentReference.update("husbandIC", editTextHusbandIC.getText().toString());
+                    mDocumentReference.update("husbandWork", editTextHusbandWork.getText().toString());
+                    mDocumentReference.update("husbandWorkAddress", editTextHusbandWorkAddress.getText().toString());
+                    mDocumentReference.update("husbandPhone", editTextHusbandPhone.getText().toString());
+                    Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
+                    clickInfoDetail = 0;
+                    DisableDetailInfoEditText();
+                    buttonCancel.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -310,8 +487,29 @@ public class MommyInfoActivity extends AppCompatActivity {
         btnUpdateApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EnableAppointmentText();
-                btnCancelApp.setVisibility(View.VISIBLE);
+                clickApp++;
+                if(clickApp == 1)
+                {
+                    EnableAppointmentText();
+                    btnCancelApp.setVisibility(View.VISIBLE);
+                }else if(clickApp == 2)
+                {
+                    mDocumentReference = mFirebaseFirestore.document("Mommy/"+key+"/MommyDetail/"+keyDetail);
+                    Date appDate = null;
+                    Date timeApp = null;
+                    try {
+                        appDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextAppointment.getText().toString());
+                        timeApp = new SimpleDateFormat("HH:mm").parse(editTextAppTime.getText().toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    mDocumentReference.update("appointDate", appDate);
+                    mDocumentReference.update("appointTime", timeApp);
+                    Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
+                    clickApp = 0;
+                    DisableAppointmentText();
+                    btnCancelApp.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -324,6 +522,65 @@ public class MommyInfoActivity extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void GetMummyDetail(String key)
+    {
+        nCollectionReference = mFirebaseFirestore.collection("Mommy").document(key).collection("MommyDetail");
+        nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    MommyDetail mommyDetail = documentSnapshot.toObject(MommyDetail.class);
+                    keyDetail = documentSnapshot.getId();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                    if(mommyDetail.getAppointDate() == null)
+                    {
+                        editTextAppointment.setText("No Appointment has been made");
+                    }else{
+                        editTextAppointment.setText(dateFormat.format(mommyDetail.getAppointDate()));
+                    }
+                    if(mommyDetail.getAppointTime() == null)
+                    {
+                        editTextAppTime.setText("No Appointment has been made");
+                    }else{
+                        editTextAppTime.setText(timeFormat.format(mommyDetail.getAppointTime()));
+                    }
+                    editTextHeight.setText(mommyDetail.getHeight()+"");
+                    editTextWeight.setText(mommyDetail.getWeight()+"");
+                    if(mommyDetail.getFamilyDisease().equals(""))
+                    {
+                        radioBtnNo.setChecked(true);
+                    }else{
+                        txtInputLayoutDisease.setVisibility(View.VISIBLE);
+                        editTextDisease.setText(mommyDetail.getFamilyDisease());
+                    }
+                    editTextEDD.setText(dateFormat.format(mommyDetail.getEdd()));
+                    editTextLNMP.setText(dateFormat.format(mommyDetail.getLnmp()));
+                    editTextEDP.setText(dateFormat.format(mommyDetail.getEdp()));
+                    if(mommyDetail.getMarriageStatus().equals("Single"))
+                    {
+                        radioBtnSingle.setChecked(true);
+                    }else{
+                        radioBtnMarried.setChecked(true);
+                        txtLayoutHusbandName.setVisibility(View.VISIBLE);
+                        txtLayoutHusbandIC.setVisibility(View.VISIBLE);
+                        txtLayoutHusbandWork.setVisibility(View.VISIBLE);
+                        txtLayoutHusbandWorkPlacr.setVisibility(View.VISIBLE);
+                        txtLayoutHusbandPhone.setVisibility(View.VISIBLE);
+                        editTextHusbandName.setText(mommyDetail.getHusbandName());
+                        editTextHusbandIC.setText(mommyDetail.getHusbandIC());
+                        editTextHusbandPhone.setText(mommyDetail.getHusbandPhone());
+                        editTextHusbandWork.setText(mommyDetail.getHusbandWork());
+                        editTextHusbandWorkAddress.setText(mommyDetail.getHusbandWorkAddress());
+                    }
+                    progressBarMummyInfo.setVisibility(View.GONE);
+                    layoutAllView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void SetVisibility()
@@ -398,10 +655,8 @@ public class MommyInfoActivity extends AppCompatActivity {
 
     private void DisableInfoEditText()
     {
-        editTextFirstName.setEnabled(false);
-        editTextFirstName.setTextColor(Color.parseColor("#000000"));
-        editTextLastName.setEnabled(false);
-        editTextLastName.setTextColor(Color.parseColor("#000000"));
+        editTextMummyName.setEnabled(false);
+        editTextMummyName.setTextColor(Color.parseColor("#000000"));
         editTextIC.setEnabled(false);
         editTextIC.setTextColor(Color.parseColor("#000000"));
         editTextRace.setEnabled(false);
@@ -418,6 +673,9 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextEducation.setTextColor(Color.parseColor("#000000"));
         chkBoxStatus.setEnabled(false);
         spinnerNational.setEnabled(false);
+        for(int i=0; i<radioGroupRace.getChildCount(); i++) {
+            ((RadioButton)radioGroupRace.getChildAt(i)).setEnabled(false);
+        }
     }
 
     private void DisableDetailInfoEditText()
@@ -444,6 +702,12 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextHusbandWorkAddress.setTextColor(Color.parseColor("#000000"));
         editTextHusbandPhone.setEnabled(false);
         editTextHusbandPhone.setTextColor(Color.parseColor("#000000"));
+        for(int i=0; i<radioGroupYesNo.getChildCount(); i++){
+            ((RadioButton)radioGroupYesNo.getChildAt(i)).setEnabled(false);
+        }
+        for(int i=0; i<radioGroupMarriage.getChildCount(); i++){
+            ((RadioButton)radioGroupMarriage.getChildAt(i)).setEnabled(false);
+        }
     }
 
     private void EnableDetailInfoEditText()
@@ -459,12 +723,17 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextHusbandWork.setEnabled(true);
         editTextHusbandWorkAddress.setEnabled(true);
         editTextHusbandPhone.setEnabled(true);
+        for(int i=0; i<radioGroupYesNo.getChildCount(); i++){
+            ((RadioButton)radioGroupYesNo.getChildAt(i)).setEnabled(true);
+        }
+        for(int i=0; i<radioGroupMarriage.getChildCount(); i++){
+            ((RadioButton)radioGroupMarriage.getChildAt(i)).setEnabled(true);
+        }
     }
 
     private void EnableInfoEditText()
     {
-        editTextFirstName.setEnabled(true);
-        editTextLastName.setEnabled(true);
+        editTextMummyName.setEnabled(true);
         editTextIC.setEnabled(true);
         editTextRace.setEnabled(true);
         editTextAddress.setEnabled(true);
@@ -474,6 +743,9 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextEducation.setEnabled(true);
         chkBoxStatus.setEnabled(true);
         spinnerNational.setEnabled(true);
+        for(int i=0; i<radioGroupRace.getChildCount(); i++) {
+            ((RadioButton)radioGroupRace.getChildAt(i)).setEnabled(true);
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

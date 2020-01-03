@@ -7,7 +7,7 @@
     tools:context=".Nurse.PregnancyExamRecordActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMommyRecord"
+        android:id="@+id/recyclerViewPregnantRecord"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
@@ -20,40 +20,45 @@
         android:id="@+id/btnAddPERecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="352dp"
+        android:layout_marginLeft="352dp"
         android:clickable="true"
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
-        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewPregnantRecord"
+        app:layout_constraintHorizontal_bias="0.132"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.902"
+        app:layout_constraintVertical_bias="0.865"
         app:srcCompat="@drawable/ic_add_black_24dp"
         app:tint="@color/design_default_color_background" />
 
     <ImageView
-        android:id="@+id/imgViewNoRecordFound"
+        android:id="@+id/imgViewExamNoRecordFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        android:layout_marginTop="244dp"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewPregnantRecord"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/norecordfound" />
 
     <TextView
-        android:id="@+id/txtViewNoRecordFound"
+        android:id="@+id/txtViewExamNoRecordFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="236dp"
         android:text="@string/norecordfound"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView12"
+        app:layout_constraintTop_toBottomOf="@+id/imgViewExamNoRecordFound"
         app:layout_constraintVertical_bias="0.07" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

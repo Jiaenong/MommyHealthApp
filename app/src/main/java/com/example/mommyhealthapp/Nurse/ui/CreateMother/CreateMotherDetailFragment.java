@@ -55,6 +55,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -291,8 +292,10 @@ public class CreateMotherDetailFragment extends Fragment {
                             String husbandWorkAddress = editTextHusbandWorkAddress.getText().toString();
                             String husbandPhone = editTextPhone.getText().toString();
                             Date today = new Date();
+                            Date appointDate = null;
+                            Date appointTime = null;
 
-                            final MommyDetail mommyDetail = new MommyDetail(height, weight, disease, lnmp, edd, edp, radioButtonText, husbandName, husbandIC, husbandWork, husbandWorkAddress, husbandPhone, today);
+                            final MommyDetail mommyDetail = new MommyDetail(height, weight, disease, lnmp, edd, edp, radioButtonText, husbandName, husbandIC, husbandWork, husbandWorkAddress, husbandPhone, today, appointDate, appointTime);
                             mCollectionReference.add(mommy).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
