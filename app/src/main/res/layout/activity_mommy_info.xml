@@ -89,25 +89,40 @@
                     android:layout_height="wrap_content"
                     android:text="@string/appointmentDate"
                     android:textColor="@color/design_default_color_on_secondary"
+                    android:layout_centerVertical="true"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnAppDateList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/textViewMummyApDate"
+                    android:clickable="true"
+                    app:backgroundTint="@color/colorAccent"
+                    app:fabSize="mini"
+                    app:tint="@color/design_default_color_background"
+                    app:srcCompat="@drawable/ic_format_list_bulleted_black_24dp" />
 
                 <ImageView
                     android:id="@+id/imageViewDownAp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="115dp"
                     android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@id/textViewMummyApDate"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/btnAppDateList"
                     app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
 
                 <ImageView
                     android:id="@+id/imageViewUpAp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="115dp"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@id/textViewMummyApDate"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/btnAppDateList"
                     app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
 
             </RelativeLayout>
@@ -193,7 +208,7 @@
                     android:id="@+id/imageViewDown1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="90dp"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/textViewMummyInfo"
                     app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
@@ -202,7 +217,7 @@
                     android:id="@+id/imageViewUp1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="90dp"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/textViewMummyInfo"
                     app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
@@ -425,7 +440,7 @@
                     android:id="@+id/imageViewDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/textViewMummyDetailInfo"
                     app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
@@ -434,7 +449,7 @@
                     android:id="@+id/imageViewUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/textViewMummyDetailInfo"
                     app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />

@@ -321,30 +321,32 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.nurse_home, menu);
         return true;
     }
+
+    public class ProblemAdapter extends ArrayAdapter<ProblemPE>{
+        private final List<ProblemPE> list;
+        private Activity context;
+
+        public ProblemAdapter(Activity context, int resource, List<ProblemPE> list)
+        {
+            super(context, resource, list);
+            this.list = list;
+            this.context = context;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.problem_listview, parent, false);
+
+            TextView textProblemDate = (TextView)view.findViewById(R.id.textProblemDate);
+            TextView textProblemPersonnel = (TextView)view.findViewById(R.id.textProblemPersonnel);
+
+            ProblemPE problemPE = getItem(position);
+            textProblemDate.setText(problemPE.getDate());
+            textProblemPersonnel.setText(problemPE.getPersonnel());
+
+            return view;
+        }
+    }
 }
 
-class ProblemAdapter extends ArrayAdapter<ProblemPE>{
-    private final List<ProblemPE> list;
-    private Activity context;
 
-    public ProblemAdapter(Activity context, int resource, List<ProblemPE> list)
-    {
-        super(context, resource, list);
-        this.list = list;
-        this.context = context;
-    }
-
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.problem_listview, parent, false);
-
-        TextView textProblemDate = (TextView)view.findViewById(R.id.textProblemDate);
-        TextView textProblemPersonnel = (TextView)view.findViewById(R.id.textProblemPersonnel);
-
-        ProblemPE problemPE = getItem(position);
-        textProblemDate.setText(problemPE.getDate());
-        textProblemPersonnel.setText(problemPE.getPersonnel());
-
-        return view;
-    }
-}

@@ -2,8 +2,12 @@ package com.example.mommyhealthapp.Nurse;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -34,6 +39,7 @@ import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
@@ -47,6 +53,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
@@ -68,14 +75,17 @@ public class MommyInfoActivity extends AppCompatActivity {
     private CheckBox chkBoxStatus;
     private TextView textViewMummyInfoName, textViewMummyInfoAge, textViewMummyInfoID;
     private CircularImageView imageViewMummyInfo;
-    private ProgressBar progressBarMummyInfo;
+    private ProgressBar progressBarMummyInfo, progressBarAppDateTime;
+    private FloatingActionButton btnAppDateList;
+    private RecyclerView recycleViewAppDateTime;
+    private List<MommyDetail> appointmentList;
 
     private String id, key, keyDetail;
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference, nCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference, pCollectionReference;
     private DocumentReference mDocumentReference;
 
-    private int clickInfo = 0, clickInfoDetail = 0, clickApp = 0;
+    private int clickInfo = 0, clickInfoDetail = 0, clickApp = 0, check = 0;
 
     private Button buttonCancel, buttonCancelInfo, buttonUpdateInfo, buttonUpdate, btnUpdateApp, btnCancelApp;
     @Override
@@ -89,6 +99,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         imageViewMummyInfo = (CircularImageView)findViewById(R.id.imageViewMummyInfo);
 
         progressBarMummyInfo = (ProgressBar)findViewById(R.id.progressBarMummyInfo);
+        btnAppDateList = (FloatingActionButton)findViewById(R.id.btnAppDateList);
 
         layoutAllView = (LinearLayoutCompat)findViewById(R.id.layoutAllView);
         layoutInfo = (LinearLayoutCompat)findViewById(R.id.layoutInfo);
@@ -179,6 +190,50 @@ public class MommyInfoActivity extends AppCompatActivity {
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MommyInfoActivity.this ,R.array.national, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnerNational.setAdapter(adapter);
+
+        appointmentList = new ArrayList<>();
+
+        btnAppDateList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog appointmentDateDialog = new Dialog(MommyInfoActivity.this);
+                appointmentDateDialog.setContentView(R.layout.appointment_date_time_dialog);
+                appointmentDateDialog.setTitle("Appointment Record");
+                recycleViewAppDateTime = (RecyclerView)appointmentDateDialog.findViewById(R.id.recycleViewAppDateTime);
+                progressBarAppDateTime = (ProgressBar)appointmentDateDialog.findViewById(R.id.progressBarAppDateTime);
+
+                progressBarAppDateTime.setVisibility(View.VISIBLE);
+                recycleViewAppDateTime.setVisibility(View.GONE);
+
+                getAppointmentRecord(new MyCallBack() {
+                    @Override
+                    public void OnCallBack(List<MommyDetail> appRecordList) {
+                        check++;
+                        if(appRecordList.isEmpty())
+                        {
+                            progressBarAppDateTime.setVisibility(View.GONE);
+                            recycleViewAppDateTime.setVisibility(View.VISIBLE);
+                        }else {
+                            AppointmentDateAdapter adapter = new AppointmentDateAdapter(appRecordList);
+                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(MommyInfoActivity.this);
+                            recycleViewAppDateTime.setLayoutManager(mLayoutManager);
+                            recycleViewAppDateTime.setItemAnimator(new DefaultItemAnimator());
+                            recycleViewAppDateTime.setAdapter(adapter);
+                            progressBarAppDateTime.setVisibility(View.GONE);
+                            recycleViewAppDateTime.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+                if(check == 0)
+                {
+                    progressBarAppDateTime.setVisibility(View.GONE);
+                    recycleViewAppDateTime.setVisibility(View.VISIBLE);
+                }
+                appointmentDateDialog.show();
+                Window window = appointmentDateDialog.getWindow();
+                window.setLayout(1000, 1000);
+            }
+        });
 
         radioGroupRace.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -522,6 +577,60 @@ public class MommyInfoActivity extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public interface MyCallBack{
+        void OnCallBack(List<MommyDetail> appRecordList);
+    }
+
+    public void getAppointmentRecord(final MyCallBack myCallBack){
+        appointmentList.clear();
+        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    String id = documentSnapshot.getId();
+                    pCollectionReference = mFirebaseFirestore.collection("Mommy").document(id).collection("MommyDetail");
+                    pCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for(QueryDocumentSnapshot documentSnapshot1 : queryDocumentSnapshots)
+                            {
+                                MommyDetail md = documentSnapshot1.toObject(MommyDetail.class);
+                                Date today = new Date();
+                                Date appDate = dateTime(md.getAppointDate(), md.getAppointTime());
+                                if(appDate.compareTo(today) > 0){
+                                    appointmentList.add(md);
+                                    myCallBack.OnCallBack(appointmentList);
+                                }
+                            }
+                            Log.i("Testing", appointmentList.size()+"");
+                        }
+                    });
+                }
+
+            }
+        });
+    }
+
+    public Date dateTime(Date date, Date time) {
+
+        Calendar aDate = Calendar.getInstance();
+        aDate.setTime(date);
+
+        Calendar aTime = Calendar.getInstance();
+        aTime.setTime(time);
+
+        Calendar aDateTime = Calendar.getInstance();
+        aDateTime.set(Calendar.DAY_OF_MONTH, aDate.get(Calendar.DAY_OF_MONTH));
+        aDateTime.set(Calendar.MONTH, aDate.get(Calendar.MONTH));
+        aDateTime.set(Calendar.YEAR, aDate.get(Calendar.YEAR));
+        aDateTime.set(Calendar.HOUR, aTime.get(Calendar.HOUR));
+        aDateTime.set(Calendar.MINUTE, aTime.get(Calendar.MINUTE));
+        aDateTime.set(Calendar.SECOND, aTime.get(Calendar.SECOND));
+
+        return aDateTime.getTime();
     }
 
     private void GetMummyDetail(String key)
