@@ -22,6 +22,8 @@ import com.example.mommyhealthapp.Class.MommyHealthInfo;
 import com.example.mommyhealthapp.Nurse.MommyProfileActivity;
 import com.example.mommyhealthapp.Nurse.ui.SearchMother.SearchMotherFragment;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.RecyclerTouchListener;
+import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
@@ -67,6 +69,22 @@ public class MommyRecordActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getStringExtra("MommyID");;
 
+        recycleViewMommyRecord.addOnItemTouchListener(new RecyclerTouchListener(MommyRecordActivity.this, recycleViewMommyRecord, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                MommyHealthInfo mi = mommyRecordList.get(position);
+                SaveSharedPreference.setEarlyTest(MommyRecordActivity.this, "Old");
+                Intent intent = new Intent(MommyRecordActivity.this, MommyProfileActivity.class);
+                intent.putExtra("MommyID", id);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
         progressBarMommyRecord.setVisibility(View.VISIBLE);
         recycleViewMommyRecord.setVisibility(View.GONE);
         imgViewNoRecordFound.setVisibility(View.GONE);
@@ -104,6 +122,7 @@ public class MommyRecordActivity extends AppCompatActivity {
         btnAddNewRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SaveSharedPreference.setEarlyTest(MommyRecordActivity.this, "New");
                 Intent intent = new Intent(MommyRecordActivity.this, MommyProfileActivity.class);
                 intent.putExtra("MommyID", id);
                 startActivity(intent);

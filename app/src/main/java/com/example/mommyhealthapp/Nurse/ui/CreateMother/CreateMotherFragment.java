@@ -155,7 +155,6 @@ public class CreateMotherFragment extends Fragment {
                     String status = "Active";
                     String imagePic = "";
                     qrcode = "";
-                    SaveSharedPreference.setMommyId(getActivity(), mommyId);
 
                     Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,occupation,age,education,confirmPass, mommyId, mommyNumber,status,imagePic,qrcode);
 

@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mommyhealthapp.Class.Mommy;
+import com.example.mommyhealthapp.Class.MommyHealthInfo;
 import com.example.mommyhealthapp.Nurse.MommyInfoActivity;
 import com.example.mommyhealthapp.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -99,7 +100,11 @@ public class MommyProfileActivity extends AppCompatActivity {
         cardViewEarlyTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MommyHealthInfo mi = new MommyHealthInfo(id, "", "", textViewMummyStatus.getText().toString());
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("MommyInfo", mi);
                 Intent intent = new Intent(MommyProfileActivity.this, EarlyTestActivity.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

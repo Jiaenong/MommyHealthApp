@@ -8,7 +8,7 @@ public class SaveSharedPreference {
     static final String PREF_USER_ID = "id";
     static final String PREF_CHECK_LOGIN = "logged";
     static final String USER_TYPE = "user";
-    static final String MOMMY_ID = "mommyId";
+    static final String EARLY_TEST = "earlyTest";
 
     static SharedPreferences getSharedPreference(Context context)
     {
@@ -27,16 +27,16 @@ public class SaveSharedPreference {
         return getSharedPreference(context).getString(USER_TYPE,"");
     }
 
-    public static void setMommyId(Context context, String mommyId)
+    public static void setEarlyTest(Context context, String earlyTest)
     {
         SharedPreferences.Editor editor = getSharedPreference(context).edit();
-        editor.putString(MOMMY_ID, mommyId);
+        editor.putString(EARLY_TEST, earlyTest);
         editor.commit();
     }
 
-    public static String getMommyId(Context context)
+    public static String getEarlyTest(Context context)
     {
-        return getSharedPreference(context).getString(MOMMY_ID,"");
+        return getSharedPreference(context).getString(EARLY_TEST,"");
     }
 
     public static void setID(Context context, String id)

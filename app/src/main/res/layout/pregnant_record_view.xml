@@ -29,18 +29,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/year"
                 android:layout_marginLeft="20dp"
-                android:textSize="30sp" />
+                android:text="@string/year"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/txtViewRecordMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/month"
                 android:layout_marginLeft="10dp"
-                android:textSize="30sp" />
+                android:text="@string/month"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/txtViewRecordStatus"

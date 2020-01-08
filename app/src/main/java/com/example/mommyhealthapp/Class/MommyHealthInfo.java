@@ -1,6 +1,9 @@
 package com.example.mommyhealthapp.Class;
 
-public class MommyHealthInfo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class MommyHealthInfo implements Parcelable {
     private String mommyId;
     private String year;
     private String month;
@@ -15,6 +18,25 @@ public class MommyHealthInfo {
         this.month = month;
         this.status = status;
     }
+
+    protected MommyHealthInfo(Parcel in) {
+        mommyId = in.readString();
+        year = in.readString();
+        month = in.readString();
+        status = in.readString();
+    }
+
+    public static final Creator<MommyHealthInfo> CREATOR = new Creator<MommyHealthInfo>() {
+        @Override
+        public MommyHealthInfo createFromParcel(Parcel in) {
+            return new MommyHealthInfo(in);
+        }
+
+        @Override
+        public MommyHealthInfo[] newArray(int size) {
+            return new MommyHealthInfo[size];
+        }
+    };
 
     public String getMommyId() {
         return mommyId;
@@ -46,5 +68,18 @@ public class MommyHealthInfo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mommyId);
+        dest.writeString(year);
+        dest.writeString(month);
+        dest.writeString(status);
     }
 }

@@ -314,6 +314,7 @@
     <string name="question_help_3star">Applied to me to some degree, or some of the time</string>
     <string name="question_help_4star">Applied to me very much, or most of the time</string>
     <string name="noted">Noted</string>
+    <string name="mummy_list">Mummy List</string>
 
     <string-array name="national">
         <item>Malaysia</item>

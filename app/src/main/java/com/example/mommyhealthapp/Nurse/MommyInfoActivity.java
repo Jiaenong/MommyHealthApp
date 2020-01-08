@@ -605,7 +605,6 @@ public class MommyInfoActivity extends AppCompatActivity {
                                     myCallBack.OnCallBack(appointmentList);
                                 }
                             }
-                            Log.i("Testing", appointmentList.size()+"");
                         }
                     });
                 }
