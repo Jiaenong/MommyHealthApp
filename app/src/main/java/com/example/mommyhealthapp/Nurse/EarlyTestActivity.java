@@ -257,7 +257,9 @@ public class EarlyTestActivity extends AppCompatActivity {
         cardViewSectionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EarlyTestActivity.this, SectionAActivity.class);
+                String path = "MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId;
+                Intent intent = new Intent(EarlyTestActivity.this, PregnantExperienceRecordActivity.class);
+                intent.putExtra("path", path);
                 startActivity(intent);
             }
         });
@@ -308,37 +310,28 @@ public class EarlyTestActivity extends AppCompatActivity {
                 radioBtnBTAB.setError("Required!");
                 radioBtnBTB.setError("Required!");
                 radioBtnBTO.setError("Required!");
-                unselected = true;
-            }else{
-                radioBtnBTA.setError(null);
-                radioBtnBTAB.setError(null);
-                radioBtnBTB.setError(null);
-                radioBtnBTO.setError(null);
-                unselected = false;
             }
-
             if(radioGroupRhd.getCheckedRadioButtonId() == -1)
             {
                 radioBtnBTPositive.setError("Required!");
                 radioBtnBTNegative.setError("Required!");
-                unselected = true;
-            }else{
-                radioBtnBTPositive.setError(null);
-                radioBtnBTNegative.setError(null);
-                unselected = false;
             }
-
             if(radioGroupRPR.getCheckedRadioButtonId() == -1)
             {
                 radioBtnNonReactive.setError("Required!");
                 radioBtnReactive.setError("Required!");
-                unselected = true;
-            }else{
-                radioBtnNonReactive.setError(null);
-                radioBtnReactive.setError(null);
-                unselected = false;
             }
-
+            unselected = true;
+        }else{
+            radioBtnBTA.setError(null);
+            radioBtnBTAB.setError(null);
+            radioBtnBTB.setError(null);
+            radioBtnBTO.setError(null);
+            radioBtnBTPositive.setError(null);
+            radioBtnBTNegative.setError(null);
+            radioBtnNonReactive.setError(null);
+            radioBtnReactive.setError(null);
+            unselected = false;
         }
         return unselected;
     }
