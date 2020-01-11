@@ -3,40 +3,31 @@ package com.example.mommyhealthapp.Class;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class MommyHealthInfo implements Parcelable {
+public class MommyHealthInfo {
     private String mommyId;
     private String year;
     private String month;
     private String status;
+    private String healthInfoId;
 
     public MommyHealthInfo(){}
 
-    public MommyHealthInfo(String mommyId, String year, String month, String status)
+    public MommyHealthInfo(String mommyId, String year, String month, String status, String healthInfoId)
     {
         this.mommyId = mommyId;
         this.year = year;
         this.month = month;
         this.status = status;
+        this.healthInfoId = healthInfoId;
     }
 
-    protected MommyHealthInfo(Parcel in) {
-        mommyId = in.readString();
-        year = in.readString();
-        month = in.readString();
-        status = in.readString();
+    public String getHealthInfoId() {
+        return healthInfoId;
     }
 
-    public static final Creator<MommyHealthInfo> CREATOR = new Creator<MommyHealthInfo>() {
-        @Override
-        public MommyHealthInfo createFromParcel(Parcel in) {
-            return new MommyHealthInfo(in);
-        }
-
-        @Override
-        public MommyHealthInfo[] newArray(int size) {
-            return new MommyHealthInfo[size];
-        }
-    };
+    public void setHealthInfoId(String healthInfoId) {
+        this.healthInfoId = healthInfoId;
+    }
 
     public String getMommyId() {
         return mommyId;
@@ -68,18 +59,5 @@ public class MommyHealthInfo implements Parcelable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mommyId);
-        dest.writeString(year);
-        dest.writeString(month);
-        dest.writeString(status);
     }
 }

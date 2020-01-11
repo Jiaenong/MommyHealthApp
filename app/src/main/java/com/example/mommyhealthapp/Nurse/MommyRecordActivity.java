@@ -73,9 +73,10 @@ public class MommyRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 MommyHealthInfo mi = mommyRecordList.get(position);
+                SaveSharedPreference.setHealthInfoId(MommyRecordActivity.this, mi.getHealthInfoId());
                 SaveSharedPreference.setEarlyTest(MommyRecordActivity.this, "Old");
                 Intent intent = new Intent(MommyRecordActivity.this, MommyProfileActivity.class);
-                intent.putExtra("MommyID", id);
+                intent.putExtra("MommyID", mi.getMommyId());
                 startActivity(intent);
             }
 

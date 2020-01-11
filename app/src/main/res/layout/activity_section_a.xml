@@ -1,182 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Nurse.SectionAActivity">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBarPP"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 
-        <com.google.android.material.textfield.TextInputLayout
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutPP"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/section_A_year">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="datetime"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                style="@style/TextInputLayout"
+                android:focusableInTouchMode="true"
+                android:hint="@string/section_A_year">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secA_contentResult">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPPYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="datetime" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secA_birthType">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secA_placeDiscoverBirth">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/secA_gender"
-            android:textSize="18sp" />
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioButton9"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/secA_Male" />
+                style="@style/TextInputLayout"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secA_contentResult">
 
-            <RadioButton
-                android:id="@+id/radioButton10"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPPResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/secA_Female" />
-        </RadioGroup>
+                style="@style/TextInputLayout"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secA_birthType">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secA_birthWeight">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPPBirthType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                style="@style/TextInputLayout"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secA_placeDiscoverBirth">
 
-        <View
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPlaceGiveBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView25"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/secA_complication"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/secA_gender"
+                android:textSize="18sp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secA_Mother">
+            <RadioGroup
+                android:id="@+id/radioGroupPPGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputEditText
+                <RadioButton
+                    android:id="@+id/radioButtonPPMale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/secA_Male" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonPPFemale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/secA_Female" />
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayout"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secA_birthWeight">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secA_Children">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPPWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <View
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
 
-        <View
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black" />
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/secA_complication"
+                android:textSize="18sp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secA_breastfeedingperiod">
-
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayout"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secA_Mother">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secA_ChildSituation">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPPMother"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayout"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secA_Children">
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            style="@style/Button"
-            android:text="@string/save"
-            app:cornerRadius="16dp"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPPChild"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <View
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
 
-</androidx.core.widget.NestedScrollView>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayout"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secA_breastfeedingperiod">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPPBFP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayout"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secA_ChildSituation">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextSituation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPPSave"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                style="@style/Button"
+                android:text="@string/save"
+                app:cornerRadius="16dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPPCancel"
+                style="@style/cancelButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:text="@string/cancel"
+                app:cornerRadius="16dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

@@ -20,6 +20,7 @@ import com.example.mommyhealthapp.Class.MommyHealthInfo;
 import com.example.mommyhealthapp.Class.PreviousPregnant;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.RecyclerTouchListener;
+import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
@@ -41,6 +42,7 @@ public class PregnantExperienceRecordActivity extends AppCompatActivity {
     private CollectionReference mCollectionReference;
 
     private List<PreviousPregnant> ppList;
+    private String healthInfoId, bloodTestId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,9 +56,10 @@ public class PregnantExperienceRecordActivity extends AppCompatActivity {
 
         ppList = new ArrayList<>();
         Intent intent = getIntent();
-        String path = intent.getStringExtra("path");
+        healthInfoId = intent.getStringExtra("healthInfoId");
+        bloodTestId = intent.getStringExtra("bloodTestId");
         mFirebaseFirestore = FirebaseFirestore.getInstance();
-        mCollectionReference = mFirebaseFirestore.collection(path+"/PreviousPregnant");
+        mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/PreviousPregnant");
 
         progressBarPPRecord.setVisibility(View.VISIBLE);
         imgViewPPNoRecordFound.setVisibility(View.GONE);
@@ -66,7 +69,12 @@ public class PregnantExperienceRecordActivity extends AppCompatActivity {
         recyclerViewPPRecord.addOnItemTouchListener(new RecyclerTouchListener(PregnantExperienceRecordActivity.this, recyclerViewPPRecord, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
+                SaveSharedPreference.setPreviousPregnant(PregnantExperienceRecordActivity.this, "Exist");
+                PreviousPregnant pp = ppList.get(position);
                 Intent intent = new Intent(PregnantExperienceRecordActivity.this, SectionAActivity.class);
+                intent.putExtra("healthInfoId", healthInfoId);
+                intent.putExtra("bloodTestId", bloodTestId);
+                intent.putExtra("ppId", pp.getPreviousPregnantId());
                 startActivity(intent);
             }
 
@@ -92,10 +100,12 @@ public class PregnantExperienceRecordActivity extends AppCompatActivity {
                 progressBarPPRecord.setVisibility(View.GONE);
                 if(ppList.isEmpty())
                 {
+                    recyclerViewPPRecord.setVisibility(View.GONE);
                     imgViewPPNoRecordFound.setVisibility(View.VISIBLE);
                     txtViewPPNoRecordFound.setVisibility(View.VISIBLE);
                     btnAddPPRecord.setVisibility(View.VISIBLE);
                 }else{
+                    recyclerViewPPRecord.setVisibility(View.VISIBLE);
                     imgViewPPNoRecordFound.setVisibility(View.GONE);
                     txtViewPPNoRecordFound.setVisibility(View.GONE);
                     btnAddPPRecord.setVisibility(View.VISIBLE);
@@ -106,7 +116,10 @@ public class PregnantExperienceRecordActivity extends AppCompatActivity {
         btnAddPPRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SaveSharedPreference.setPreviousPregnant(PregnantExperienceRecordActivity.this, "New");
                 Intent intent = new Intent(PregnantExperienceRecordActivity.this, SectionAActivity.class);
+                intent.putExtra("healthInfoId", healthInfoId);
+                intent.putExtra("bloodTestId", bloodTestId);
                 startActivity(intent);
             }
         });

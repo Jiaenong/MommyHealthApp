@@ -9,6 +9,9 @@ public class SaveSharedPreference {
     static final String PREF_CHECK_LOGIN = "logged";
     static final String USER_TYPE = "user";
     static final String EARLY_TEST = "earlyTest";
+    static final String PREVIOUS_PREGNANT = "previousPregnant";
+    static final String MUMMY_ID = "mummyId";
+    static final String HEALTHINFO_ID = "healthInfoId";
 
     static SharedPreferences getSharedPreference(Context context)
     {
@@ -27,6 +30,42 @@ public class SaveSharedPreference {
         return getSharedPreference(context).getString(USER_TYPE,"");
     }
 
+    public static void setHealthInfoId(Context context, String healthInfoId)
+    {
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(HEALTHINFO_ID, healthInfoId);
+        editor.commit();
+    }
+
+    public static String getHealthInfoId(Context context)
+    {
+        return getSharedPreference(context).getString(HEALTHINFO_ID,"");
+    }
+
+    public static void setMummyId(Context context, String mummyId)
+    {
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(MUMMY_ID, mummyId);
+        editor.commit();
+    }
+
+    public static String getMummyId(Context context)
+    {
+        return getSharedPreference(context).getString(MUMMY_ID,"");
+    }
+
+    public static void setPreviousPregnant(Context context, String previousPregnant)
+    {
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(PREVIOUS_PREGNANT, previousPregnant);
+        editor.commit();
+    }
+
+    public static String getPreviousPregnant(Context context)
+    {
+        return getSharedPreference(context).getString(PREVIOUS_PREGNANT,"");
+    }
+
     public static void setEarlyTest(Context context, String earlyTest)
     {
         SharedPreferences.Editor editor = getSharedPreference(context).edit();
@@ -38,6 +77,7 @@ public class SaveSharedPreference {
     {
         return getSharedPreference(context).getString(EARLY_TEST,"");
     }
+
 
     public static void setID(Context context, String id)
     {

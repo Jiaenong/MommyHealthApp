@@ -15,11 +15,12 @@ public class PreviousPregnant {
     private String childSituation;
     private Date today;
     private String createdBy;
+    private String previousPregnantId;
 
     public PreviousPregnant(){}
 
     public PreviousPregnant(String year, String pregnantResult, String birthType, String placeGiveBirth, String gender, double birthWeight, String complicationMother,
-                            String complicationChild, String breastFeedingPeriod, String childSituation, Date today, String createdBy)
+                            String complicationChild, String breastFeedingPeriod, String childSituation, Date today, String createdBy, String previousPregnantId)
     {
         this.year = year;
         this.pregnantResult = pregnantResult;
@@ -33,6 +34,15 @@ public class PreviousPregnant {
         this.childSituation = childSituation;
         this.today = today;
         this.createdBy = createdBy;
+        this.previousPregnantId = previousPregnantId;
+    }
+
+    public String getPreviousPregnantId() {
+        return previousPregnantId;
+    }
+
+    public void setPreviousPregnantId(String previousPregnantId) {
+        this.previousPregnantId = previousPregnantId;
     }
 
     public String getYear() {

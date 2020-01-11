@@ -100,11 +100,8 @@ public class MommyProfileActivity extends AppCompatActivity {
         cardViewEarlyTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MommyHealthInfo mi = new MommyHealthInfo(id, "", "", textViewMummyStatus.getText().toString());
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("MommyInfo", mi);
                 Intent intent = new Intent(MommyProfileActivity.this, EarlyTestActivity.class);
-                intent.putExtras(bundle);
+                intent.putExtra("Status", textViewMummyStatus.getText().toString());
                 startActivity(intent);
             }
         });

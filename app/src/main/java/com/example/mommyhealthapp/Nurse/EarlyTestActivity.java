@@ -33,8 +33,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.nio.charset.Charset;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 public class EarlyTestActivity extends AppCompatActivity {
 
@@ -50,7 +52,7 @@ public class EarlyTestActivity extends AppCompatActivity {
     private DocumentReference mDocumentReference;
 
     private MommyHealthInfo mi;
-    private String healthInfoId, bloodTestId;
+    private String healthInfoId, bloodTestId, status;
 
     private int check = 0;
 
@@ -82,16 +84,17 @@ public class EarlyTestActivity extends AppCompatActivity {
 
         btnBTCancel.setVisibility(View.GONE);
 
+        Intent intent = getIntent();
+        status = intent.getStringExtra("Status");
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
-        mi = getIntent().getExtras().getParcelable("MommyInfo");;
 
         if(SaveSharedPreference.getEarlyTest(EarlyTestActivity.this).equals("Old"))
         {
             layoutEarlyTest.setVisibility(View.GONE);
             progressBarEarlyTest.setVisibility(View.VISIBLE);
             DisableRadioButton();
-            mCollectionReference.whereEqualTo("mommyId", mi.getMommyId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(EarlyTestActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     for(final QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
@@ -165,9 +168,12 @@ public class EarlyTestActivity extends AppCompatActivity {
                         int month = cal.get(Calendar.MONTH);
                         int year = cal.get(Calendar.YEAR);
 
-                        mi = getIntent().getExtras().getParcelable("MommyInfo");
-                        mi.setMonth(GetMonth(month+1));
-                        mi.setYear(year+"");
+                        byte[] array = new byte[7]; // length is bounded by 7
+                        new Random().nextBytes(array);
+                        final String generatedString = new String(array, Charset.forName("UTF-8"));
+
+                        MommyHealthInfo mi = new MommyHealthInfo(SaveSharedPreference.getMummyId(EarlyTestActivity.this),
+                                GetMonth(month+1), year+"", status, generatedString);
                         final BloodTest bt = new BloodTest(bloodGroup, rhd, rpr, medicalPersonnelId, today);
 
                         mCollectionReference.add(mi).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -184,6 +190,7 @@ public class EarlyTestActivity extends AppCompatActivity {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 SaveSharedPreference.setEarlyTest(EarlyTestActivity.this, "Old");
+                                                SaveSharedPreference.setHealthInfoId(EarlyTestActivity.this, generatedString);
                                                 DisableRadioButton();
                                                 return;
                                             }
@@ -257,9 +264,9 @@ public class EarlyTestActivity extends AppCompatActivity {
         cardViewSectionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String path = "MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId;
                 Intent intent = new Intent(EarlyTestActivity.this, PregnantExperienceRecordActivity.class);
-                intent.putExtra("path", path);
+                intent.putExtra("healthInfoId", healthInfoId);
+                intent.putExtra("bloodTestId", bloodTestId);
                 startActivity(intent);
             }
         });

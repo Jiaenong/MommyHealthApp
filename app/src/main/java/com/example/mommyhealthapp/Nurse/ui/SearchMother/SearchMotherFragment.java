@@ -28,6 +28,7 @@ import com.example.mommyhealthapp.Nurse.MommyRecordActivity;
 import com.example.mommyhealthapp.Nurse.ScanQRCodeActivity;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.RecyclerTouchListener;
+import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -84,6 +85,7 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
             @Override
             public void onClick(View view, int position) {
                 Mommy mommy = mommyList.get(position);
+                SaveSharedPreference.setMummyId(getActivity(), mommy.getMommyId());
                 Intent intent = new Intent(getActivity(), MommyRecordActivity.class);
                 intent.putExtra("MommyID", mommy.getMommyId());
                 startActivity(intent);
