@@ -258,6 +258,7 @@ public class EarlyTestActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DisableRadioButton();
                 btnBTCancel.setVisibility(View.GONE);
+                check = 0;
             }
         });
 
