@@ -215,6 +215,7 @@ public class SectionBActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EnableField();
                 btnSTCancel.setVisibility(View.GONE);
+                check = 0;
             }
         });
 
