@@ -199,6 +199,15 @@ public class SectionAActivity extends AppCompatActivity {
             }
         });
 
+        btnPPCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DisableField();
+                btnPPCancel.setVisibility(View.GONE);
+                check = 0;
+            }
+        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

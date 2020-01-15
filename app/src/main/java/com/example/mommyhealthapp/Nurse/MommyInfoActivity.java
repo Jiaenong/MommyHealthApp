@@ -481,6 +481,7 @@ public class MommyInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DisableInfoEditText();
                 buttonCancelInfo.setVisibility(View.GONE);
+                clickInfo = 0;
             }
         });
 
@@ -536,6 +537,7 @@ public class MommyInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DisableDetailInfoEditText();
                 buttonCancel.setVisibility(View.GONE);
+                clickInfoDetail = 0;
             }
         });
 
@@ -573,6 +575,7 @@ public class MommyInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DisableAppointmentText();
                 btnCancelApp.setVisibility(View.GONE);
+                clickApp = 0;
             }
         });
 
