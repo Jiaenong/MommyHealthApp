@@ -35,7 +35,7 @@
             android:label="Scan QRCode" />
         <activity
             android:name=".Nurse.HealthyMindFilterActivity"
-            android:label="Healthy Mind Examination" />
+            android:label="Mental Examination" />
         <activity
             android:name=".Nurse.BreastExamActivity"
             android:label="Breast Examination" />
@@ -83,7 +83,7 @@
             android:label="Section C" />
         <activity
             android:name=".Nurse.SectionBActivity"
-            android:label="Section B" />
+            android:label="Screening Test" />
         <activity
             android:name=".Nurse.SectionAActivity"
             android:label="Pregnancy Experience" />

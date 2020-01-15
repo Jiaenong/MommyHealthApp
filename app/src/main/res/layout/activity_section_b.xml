@@ -1,104 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Nurse.SectionBActivity">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBarST"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 
-        <com.google.android.material.textfield.TextInputLayout
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutScreenTest"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secB_rhesusBloodGroup">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secB_rhesusBloodGroup">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secB_vdrl">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextRBG"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secB_vdrl">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secB_hivRepidTest">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTPHA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/secB_hivRepidTest"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/secB_rapidTest_test_1"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupTest1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioBtnNR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radioGrp_Test1_NR" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radioGrp_Test1_R" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/secB_rapidTest_ElizaTest"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupElizaTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radiobtnETPositive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radioGrp_Eliza_Positive" />
+
+                <RadioButton
+                    android:id="@+id/radiobtnETNegative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radioGrp_Eliza_negative" />
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secB_hivRepidTest">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secB_HepatitisB">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextRapidTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secB_HepatitisB">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secB_Thalassaemia">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextHepatitisB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secB_Thalassaemia">
 
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/secB_thalassaemia_guide" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextThalassaemia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/secB_BFMP">
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/secB_thalassaemia_guide" />
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:focusableInTouchMode="true"
+                android:hint="@string/secB_BFMP">
 
-        <Button
-            android:id="@+id/button4"
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            app:cornerRadius="16dp"
-            android:text="@string/save" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextBFMP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.core.widget.NestedScrollView>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSTSave"
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/save"
+                app:cornerRadius="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSTCancel"
+                style="@style/cancelButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:text="@string/cancel"
+                app:cornerRadius="16dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

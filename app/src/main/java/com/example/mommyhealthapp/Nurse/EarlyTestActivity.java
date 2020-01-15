@@ -40,7 +40,7 @@ import java.util.Random;
 
 public class EarlyTestActivity extends AppCompatActivity {
 
-    private CardView cardViewSectionA, cardViewSectionB, cardViewSectionC, cardViewSectionD, cardViewBreastCheck;
+    private CardView cardViewSectionA, cardViewSectionB, cardViewSectionC, cardViewSectionD, cardViewBreastCheck, cardViewMentalExamination;
     private RadioGroup radioGroupBloodGroup, radioGroupRhd, radioGroupRPR;
     private RadioButton radioBtnBTA, radioBtnBTAB, radioBtnBTB, radioBtnBTO, radioBtnBTPositive, radioBtnBTNegative, radioBtnNonReactive, radioBtnReactive;
     private Button btnBTUpdate, btnBTCancel;
@@ -66,6 +66,7 @@ public class EarlyTestActivity extends AppCompatActivity {
         cardViewSectionC = (CardView)findViewById(R.id.cardViewSectionC);
         cardViewSectionD = (CardView)findViewById(R.id.cardViewSectionD);
         cardViewBreastCheck = (CardView)findViewById(R.id.cardViewBreastCheck);
+        cardViewMentalExamination = (CardView)findViewById(R.id.cardViewMentalExamination);
         radioGroupBloodGroup = (RadioGroup)findViewById(R.id.radioGroupBloodGroup);
         radioGroupRhd = (RadioGroup)findViewById(R.id.radioGroupRhd);
         radioGroupRPR = (RadioGroup)findViewById(R.id.radioGroupRPR);
@@ -274,7 +275,18 @@ public class EarlyTestActivity extends AppCompatActivity {
         cardViewSectionB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String radioGroup = "";
+                for(int i=0; i<radioGroupBloodGroup.getChildCount(); i++)
+                {
+                    if(((RadioButton)radioGroupBloodGroup.getChildAt(i)).isChecked())
+                    {
+                        radioGroup = ((RadioButton)radioGroupBloodGroup.getChildAt(i)).getText().toString();
+                    }
+                }
                 Intent intent = new Intent(EarlyTestActivity.this, SectionBActivity.class);
+                intent.putExtra("healthInfoId", healthInfoId);
+                intent.putExtra("bloodTestId", bloodTestId);
+                intent.putExtra("radioGroup", radioGroup);
                 startActivity(intent);
             }
         });
@@ -299,6 +311,14 @@ public class EarlyTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EarlyTestActivity.this, BreastExamActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cardViewMentalExamination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EarlyTestActivity.this, HealthyMindFilterActivity.class);
                 startActivity(intent);
             }
         });
