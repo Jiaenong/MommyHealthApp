@@ -2,6 +2,7 @@ package com.example.mommyhealthapp.Nurse;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -96,6 +97,7 @@ public class PregnantExperienceRecordActivity extends AppCompatActivity {
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(PregnantExperienceRecordActivity.this);
                 recyclerViewPPRecord.setLayoutManager(mLayoutManager);
                 recyclerViewPPRecord.setItemAnimator(new DefaultItemAnimator());
+                recyclerViewPPRecord.addItemDecoration(new DividerItemDecoration(PregnantExperienceRecordActivity.this, LinearLayoutManager.VERTICAL));
                 recyclerViewPPRecord.setAdapter(adapter);
                 progressBarPPRecord.setVisibility(View.GONE);
                 if(ppList.isEmpty())

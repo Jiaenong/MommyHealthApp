@@ -296,6 +296,8 @@ public class EarlyTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EarlyTestActivity.this, SectionCActivity.class);
+                intent.putExtra("healthInfoId", healthInfoId);
+                intent.putExtra("bloodTestId", bloodTestId);
                 startActivity(intent);
             }
         });

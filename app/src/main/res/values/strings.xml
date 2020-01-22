@@ -81,7 +81,7 @@
     <string name="cancel">Cancel</string>
     <string name="bahagian_A">Pregnancy Experience</string>
     <string name="bahagian_B">Screening Test</string>
-    <string name="bahagian_C">Section C</string>
+    <string name="bahagian_C">Health History</string>
     <string name="bahagian_D">Section D</string>
     <string name="mommy_status">Mommy Status</string>
     <string name="status">Status :</string>
@@ -124,7 +124,7 @@
     <string name="secC_menstruation">Menstruation :</string>
     <string name="secC_dayNumber">Number of Days</string>
     <string name="secC_round">Rounds</string>
-    <string name="secC_familyPlanningPractice">Family Planning Practice :</string>
+    <string name="secC_familyPlanningPractice">Birth Control Practice :</string>
     <string name="secC_method">Method</string>
     <string name="secC_Period">Period (months or year)</string>
     <string name="secC_smoking">Smoke (Mother) :</string>

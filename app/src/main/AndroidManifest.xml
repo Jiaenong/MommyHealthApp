@@ -80,7 +80,7 @@
             android:label="Section D" />
         <activity
             android:name=".Nurse.SectionCActivity"
-            android:label="Section C" />
+            android:label="Health History" />
         <activity
             android:name=".Nurse.SectionBActivity"
             android:label="Screening Test" />

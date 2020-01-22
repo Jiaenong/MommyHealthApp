@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -111,6 +112,7 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                 recycleViewMummy.setLayoutManager(mLayoutManager);
                 recycleViewMummy.setItemAnimator(new DefaultItemAnimator());
+                recycleViewMummy.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
                 recycleViewMummy.setAdapter(adapter);
                 if(mommyList.isEmpty())
                 {
