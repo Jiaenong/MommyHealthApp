@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutBT"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="Nurse.EarlyTestActivity">
@@ -29,8 +30,8 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <TextView
                     android:id="@+id/textView10"
@@ -156,11 +157,11 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <View
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="@android:color/black" />
 
 
@@ -250,9 +251,9 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
@@ -297,8 +298,8 @@
                     android:id="@+id/cardViewSectionD"
                     android:layout_width="150dp"
                     android:layout_height="170dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="5dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa"
@@ -337,12 +338,12 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
                 android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:orientation="horizontal">
+                android:paddingRight="40dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewBreastCheck"
@@ -386,8 +387,8 @@
                     android:id="@+id/cardViewMentalExamination"
                     android:layout_width="150dp"
                     android:layout_height="170dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="5dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="#fafafa"

@@ -20,12 +20,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.mommyhealthapp.Class.HealthHistory;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -53,6 +55,7 @@ public class SectionCActivity extends AppCompatActivity {
             chkFamilyTuberculosis, checkBoxFamilyOther;
     private LinearLayoutCompat layoutMotherDisease1, layoutMotherDisease2, layoutMotherDisease3;
     private LinearLayoutCompat layoutFamilyDisease1, layoutFamilyDisease2, layoutFamilyDisease3, layoutHealthHistory;
+    private RelativeLayout relativeLayoutHH;
     private Button btnHealthHistorySave, btnHealthHistoryCancel;
     private ProgressBar progressBarHealthHistory;
     DatePickerDialog datePickerDialog;
@@ -87,6 +90,8 @@ public class SectionCActivity extends AppCompatActivity {
         layoutFamilyDisease1 = (LinearLayoutCompat)findViewById(R.id.layoutFamilyDisease1);
         layoutFamilyDisease2 = (LinearLayoutCompat)findViewById(R.id.layoutFamilyDisease2);
         layoutFamilyDisease3 = (LinearLayoutCompat)findViewById(R.id.layoutFamilyDisease3);
+
+        relativeLayoutHH = (RelativeLayout)findViewById(R.id.relativeLayoutHH);
 
         txtInputLayoutMethod = (TextInputLayout)findViewById(R.id.txtInputLayoutMethod);
         txtInputLayoutPeriod = (TextInputLayout)findViewById(R.id.txtInputLayotPeriod);
@@ -410,7 +415,8 @@ public class SectionCActivity extends AppCompatActivity {
                         mDocumentReference.update("createdDate", today);
                         check = 0;
                         btnHealthHistoryCancel.setVisibility(View.GONE);
-                        Toast.makeText(SectionCActivity.this,"Successfully Updated!",Toast.LENGTH_LONG).show();
+                        Snackbar snackbar = Snackbar.make(relativeLayoutHH, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                        snackbar.show();
                         DisableField();
                     }
                 }

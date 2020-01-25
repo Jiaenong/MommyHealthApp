@@ -2,7 +2,7 @@
     <string name="app_name">Mommy Health App</string>
     <string name="welcome">Welcome !</string>
     <string name="MommyHealthApp">Mommy Health App</string>
-    <string name="UserName">User Name</string>
+    <string name="UserName">User IC</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="forgetpassword">Forget Your Password?</string>
@@ -82,7 +82,7 @@
     <string name="bahagian_A">Pregnancy Experience</string>
     <string name="bahagian_B">Screening Test</string>
     <string name="bahagian_C">Health History</string>
-    <string name="bahagian_D">Section D</string>
+    <string name="bahagian_D">Current Health Status</string>
     <string name="mommy_status">Mommy Status</string>
     <string name="status">Status :</string>
     <string name="bloodtest_result">Blood Test :</string>

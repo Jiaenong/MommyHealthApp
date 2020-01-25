@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                                 MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
                                 String name = editTextLoginName.getText().toString();
                                 String pass = editTextLoginPass.getText().toString();
-                                if(name.equals(md.getName()) && pass.equals(md.getPassword()))
+                                if(name.equals(md.getIC()) && pass.equals(md.getPassword()))
                                 {
                                     check++;
                                     SaveSharedPreference.setID(MainActivity.this, documentSnapshot.getId());
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                                             Mommy mommy = documentSnapshot.toObject(Mommy.class);
                                             String name = editTextLoginName.getText().toString();
                                             String pass = editTextLoginPass.getText().toString();
-                                            if(name.equals(mommy.getMommyName()) && pass.equals(mommy.getPassword()))
+                                            if(name.equals(mommy.getMommyIC()) && pass.equals(mommy.getPassword()))
                                             {
                                                 check++;
                                                 SaveSharedPreference.setID(MainActivity.this, documentSnapshot.getId());

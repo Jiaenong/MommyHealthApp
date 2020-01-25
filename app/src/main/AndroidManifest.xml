@@ -77,7 +77,7 @@
             android:label="Examination Record" />
         <activity
             android:name=".Nurse.SectionDActivity"
-            android:label="Section D" />
+            android:label="Current Health Status" />
         <activity
             android:name=".Nurse.SectionCActivity"
             android:label="Health History" />

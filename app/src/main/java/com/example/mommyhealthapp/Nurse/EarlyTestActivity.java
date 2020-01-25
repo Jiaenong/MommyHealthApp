@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.Nurse.SectionAActivity;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,6 +48,7 @@ public class EarlyTestActivity extends AppCompatActivity {
     private Button btnBTUpdate, btnBTCancel;
     private ProgressBar progressBarEarlyTest;
     private LinearLayoutCompat layoutEarlyTest;
+    private RelativeLayout relativeLayoutBT;
 
     private FirebaseFirestore mFirebaseFirestore;
     private CollectionReference mCollectionReference, nCollectionReference;
@@ -82,6 +85,7 @@ public class EarlyTestActivity extends AppCompatActivity {
         btnBTCancel = (Button)findViewById(R.id.btnBTCancel);
         progressBarEarlyTest = (ProgressBar)findViewById(R.id.progressBarEarlyTest);
         layoutEarlyTest = (LinearLayoutCompat)findViewById(R.id.layoutEarlyTest);
+        relativeLayoutBT = (RelativeLayout)findViewById(R.id.relativeLayoutBT);
 
         btnBTCancel.setVisibility(View.GONE);
 
@@ -234,21 +238,11 @@ public class EarlyTestActivity extends AppCompatActivity {
                         mDocumentReference.update("rhd", rhd);
                         mDocumentReference.update("rpr", rpr);
                         mDocumentReference.update("createdDate", today);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(EarlyTestActivity.this);
-                        builder.setTitle("Update Successfully");
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                check = 0;
-                                DisableRadioButton();
-                                btnBTCancel.setVisibility(View.GONE);
-                                return;
-                            }
-                        });
-                        builder.setMessage("Update Successful!");
-                        AlertDialog alert = builder.create();
-                        alert.setCanceledOnTouchOutside(false);
-                        alert.show();
+                        Snackbar snackbar = Snackbar.make(relativeLayoutBT, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                        check = 0;
+                        DisableRadioButton();
+                        btnBTCancel.setVisibility(View.GONE);
                     }
                 }
             }
@@ -306,6 +300,8 @@ public class EarlyTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EarlyTestActivity.this, SectionDActivity.class);
+                intent.putExtra("healthInfoId", healthInfoId);
+                intent.putExtra("bloodTestId", bloodTestId);
                 startActivity(intent);
             }
         });

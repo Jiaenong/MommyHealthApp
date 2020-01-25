@@ -16,12 +16,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.mommyhealthapp.Class.ScreenTest;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,6 +37,7 @@ public class SectionBActivity extends AppCompatActivity {
     private RadioGroup radioGroupTest1, radioGroupElizaTest;
     private RadioButton radioBtnNR, radioBtnR, radiobtnETPositive, radiobtnETNegative;
     private LinearLayoutCompat layoutScreenTest;
+    private RelativeLayout relativeLayoutST;
     private ProgressBar progressBarST;
     private Button btnSTSave, btnSTCancel;
 
@@ -63,6 +66,7 @@ public class SectionBActivity extends AppCompatActivity {
         radiobtnETNegative = (RadioButton)findViewById(R.id.radiobtnETNegative);
         progressBarST = (ProgressBar)findViewById(R.id.progressBarST);
         layoutScreenTest = (LinearLayoutCompat)findViewById(R.id.layoutScreenTest);
+        relativeLayoutST = (RelativeLayout)findViewById(R.id.relativeLayoutST);
         btnSTSave = (Button)findViewById(R.id.btnSTSave);
         btnSTCancel = (Button)findViewById(R.id.btnSTCancel);
 
@@ -201,7 +205,8 @@ public class SectionBActivity extends AppCompatActivity {
                         mDocumentReference.update("bfmp", editTextBFMP.getText().toString());
                         mDocumentReference.update("createdDate", today);
                         mDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(SectionBActivity.this));
-                        Toast.makeText(SectionBActivity.this,"Update Successfully!", Toast.LENGTH_LONG).show();
+                        Snackbar snackbar = Snackbar.make(relativeLayoutST, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                        snackbar.show();
                         btnSTCancel.setVisibility(View.GONE);
                         DisableField();
                         check = 0;

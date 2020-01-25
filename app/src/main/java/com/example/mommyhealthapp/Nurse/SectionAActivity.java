@@ -17,12 +17,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.mommyhealthapp.Class.PreviousPregnant;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,6 +42,7 @@ public class SectionAActivity extends AppCompatActivity {
     private Button btnPPSave, btnPPCancel;
     private ProgressBar progressBarPP;
     private LinearLayoutCompat layoutPP;
+    private RelativeLayout relativeLayoutPP;
 
     private String healthInfoId, bloodTestId, ppId, key;
     private int check = 0;
@@ -68,6 +71,7 @@ public class SectionAActivity extends AppCompatActivity {
         btnPPCancel = (Button)findViewById(R.id.btnPPCancel);
         progressBarPP = (ProgressBar)findViewById(R.id.progressBarPP);
         layoutPP = (LinearLayoutCompat)findViewById(R.id.layoutPP);
+        relativeLayoutPP = (RelativeLayout)findViewById(R.id.relativeLayoutPP);
 
         Intent intent = getIntent();
         healthInfoId = intent.getStringExtra("healthInfoId");
@@ -193,7 +197,8 @@ public class SectionAActivity extends AppCompatActivity {
                         check = 0;
                         DisableField();
                         btnPPCancel.setVisibility(View.GONE);
-                        Toast.makeText(SectionAActivity.this, "Update Successful", Toast.LENGTH_LONG).show();
+                        Snackbar snackbar = Snackbar.make(relativeLayoutPP, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                        snackbar.show();
                     }
                 }
             }
