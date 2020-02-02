@@ -1,405 +1,483 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutBreastExamine"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Nurse.BreastExamActivity">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBarBreastExamine"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 
-        <com.google.android.material.textfield.TextInputLayout
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutBreastExamine"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/breast_exam_NumChildern">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:focusableInTouchMode="true"
+                android:hint="@string/breast_exam_NumChildern">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/breast_exam_menarche_age">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextNumOfChildren"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:focusableInTouchMode="true"
+                android:hint="@string/breast_exam_menarche_age">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextInputLayout"
-            android:focusableInTouchMode="true"
-            android:hint="@string/breast_exam_monopause_age">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMenarcheAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:focusableInTouchMode="true"
+                android:hint="@string/breast_exam_monopause_age">
 
-        <TextView
-            android:id="@+id/textView167"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_history"
-            android:textSize="18sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMonopauseAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioButton12"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView167"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/yes_disease" />
+                android:text="@string/breast_exam_history"
+                android:textSize="18sp" />
 
-            <RadioButton
-                android:id="@+id/radioButton11"
-                android:layout_width="match_parent"
+            <RadioGroup
+                android:id="@+id/radioGroupHistoryBC"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_disease" />
-        </RadioGroup>
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView168"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_1stDegree"
-            android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radioBtnHistoryBCYes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes_disease" />
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radioBtnHistoryBCNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_disease" />
+            </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/radioButton13"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView168"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/yes_disease" />
+                android:text="@string/breast_exam_1stDegree"
+                android:textSize="18sp" />
 
-            <RadioButton
-                android:id="@+id/radioButton14"
-                android:layout_width="match_parent"
+            <RadioGroup
+                android:id="@+id/radioGroupFDBC"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_disease" />
-        </RadioGroup>
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView169"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_previous_surgery"
-            android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radioBtnFDBCYes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes_disease" />
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radioBtnFDBCNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_disease" />
+            </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/radioButton15"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView169"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/yes_disease" />
+                android:text="@string/breast_exam_previous_surgery"
+                android:textSize="18sp" />
 
-            <RadioButton
-                android:id="@+id/radioButton16"
-                android:layout_width="match_parent"
+            <RadioGroup
+                android:id="@+id/radioGroupBreastSurgery"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_disease" />
-        </RadioGroup>
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView170"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_HRT"
-            android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radioBtnBreastSurgeryYes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes_disease" />
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radioBtnBreastSurgeryNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_disease" />
+            </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/radioButton17"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView170"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/yes_disease" />
+                android:text="@string/breast_exam_HRT"
+                android:textSize="18sp" />
 
-            <RadioButton
-                android:id="@+id/radioButton18"
-                android:layout_width="match_parent"
+            <RadioGroup
+                android:id="@+id/radioGroupHormone"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_disease" />
-        </RadioGroup>
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView171"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_hormon"
-            android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radioBtnHormoneYes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes_disease" />
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radioBtnHormoneNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_disease" />
+            </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/radioButton19"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView171"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/yes_disease" />
+                android:text="@string/breast_exam_hormon"
+                android:textSize="18sp" />
 
-            <RadioButton
-                android:id="@+id/radioButton20"
-                android:layout_width="match_parent"
+            <RadioGroup
+                android:id="@+id/radioGroupHormoneC"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_disease" />
-        </RadioGroup>
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView172"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_breast_fed"
-            android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radioBtnHormoneCYes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes_disease" />
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radioBtnHormoneCNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_disease" />
+            </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/radioButton21"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView172"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/yes_disease" />
+                android:text="@string/breast_exam_breast_fed"
+                android:textSize="18sp" />
 
-            <RadioButton
-                android:id="@+id/radioButton22"
-                android:layout_width="match_parent"
+            <RadioGroup
+                android:id="@+id/radioGroupBreastFed"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_disease" />
-        </RadioGroup>
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView173"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_MMG"
-            android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radioBtnBreastFedYes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes_disease" />
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radioBtnBreastFedNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_disease" />
+            </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/radioButton23"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView173"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/yes_disease" />
+                android:text="@string/breast_exam_MMG"
+                android:textSize="18sp" />
 
-            <RadioButton
-                android:id="@+id/radioButton24"
-                android:layout_width="match_parent"
+            <RadioGroup
+                android:id="@+id/radioGroupMMG"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_disease" />
-        </RadioGroup>
+                android:orientation="horizontal">
 
-        <View
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black" />
+                <RadioButton
+                    android:id="@+id/radioBtnMMGYes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes_disease" />
 
-        <TextView
-            android:id="@+id/textView174"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_clinicalExam"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/radioBtnMMGNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_disease" />
+            </RadioGroup>
 
-        <TextView
-            android:id="@+id/textView175"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/breast_exam_lump"
-            android:textSize="18sp" />
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioButton25"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/left" />
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/black" />
 
-            <RadioButton
-                android:id="@+id/radioButton26"
+            <TextView
+                android:id="@+id/textView174"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/breast_exam_clinicalExam"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView175"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/breast_exam_lump"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupLump"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioBtnLumpLeft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/left" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnLumpRight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/right" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnLumpNone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/none" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView176"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/breast_exam_nipple"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupNippleDischarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioBtnNippleDischargeLeft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/left" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnNippleDIschargeRight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/right" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnNippleDischargeNone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/none" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView177"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/breast_exam_nipple_retraction"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupNippleRetraction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioBtnNippleRetractionLeft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/left" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnNippleRetractionRight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/right" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnNippleRetractionNone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/none" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView178"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/breast_exam_discomfort"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupDiscomfort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioBtnDiscomfortLeft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/left" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnDiscomfortRight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/right" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnDiscomfortNone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/none" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView179"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/breast_exam_axillary"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupAxillary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioBtnAxillaryLeft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/left" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnAxillaryRight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/right" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnAxillaryNone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/none" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/breast_exam_interpratation"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupInterpretation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radioBtnInNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/normal" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnInAbnormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/abnormal" />
+            </RadioGroup>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBESave"
+                style="@style/Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/right" />
-        </RadioGroup>
+                android:layout_height="60dp"
+                android:text="@string/save"
+                app:cornerRadius="16dp" />
 
-        <TextView
-            android:id="@+id/textView176"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_nipple"
-            android:textSize="18sp" />
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioButton27"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBECancel"
+                style="@style/cancelButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/left" />
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:text="@string/cancel"
+                app:cornerRadius="16dp" />
 
-            <RadioButton
-                android:id="@+id/radioButton28"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/right" />
-        </RadioGroup>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <TextView
-            android:id="@+id/textView177"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_nipple_retraction"
-            android:textSize="18sp" />
+    </androidx.core.widget.NestedScrollView>
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioButton29"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/left" />
-
-            <RadioButton
-                android:id="@+id/radioButton30"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/right" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/textView178"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_discomfort"
-            android:textSize="18sp" />
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioButton31"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/left" />
-
-            <RadioButton
-                android:id="@+id/radioButton32"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/right" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/textView179"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/breast_exam_axillary"
-            android:textSize="18sp" />
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioButton33"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/left" />
-
-            <RadioButton
-                android:id="@+id/radioButton34"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/right" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/textView180"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/breast_exam_interpratation"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <RadioButton
-                android:id="@+id/radioButton35"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/normal" />
-
-            <RadioButton
-                android:id="@+id/radioButton36"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/abnormal" />
-        </RadioGroup>
-
-        <Button
-            android:id="@+id/btnNextStep"
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/next_step"
-            app:cornerRadius="16dp" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-</androidx.core.widget.NestedScrollView>
+</RelativeLayout>

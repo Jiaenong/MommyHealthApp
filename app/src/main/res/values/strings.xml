@@ -322,6 +322,7 @@
     <string name="radioGrp_Eliza_Positive">Positive</string>
     <string name="radioGrp_Eliza_negative">Negative</string>
     <string name="early_test_mentalExamination">Mental Examination</string>
+    <string name="none">None</string>
 
     <string-array name="national">
         <item>Malaysia</item>
