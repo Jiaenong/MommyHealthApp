@@ -243,11 +243,11 @@ public class SectionCActivity extends AppCompatActivity {
         });
 
         btnHealthHistoryCancel.setVisibility(View.GONE);
+        progressBarHealthHistory.setVisibility(View.VISIBLE);
+        layoutHealthHistory.setVisibility(View.GONE);
         mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                progressBarHealthHistory.setVisibility(View.VISIBLE);
-                layoutHealthHistory.setVisibility(View.GONE);
                 if(queryDocumentSnapshots.isEmpty()){
                     isEmpty = true;
                     progressBarHealthHistory.setVisibility(View.GONE);

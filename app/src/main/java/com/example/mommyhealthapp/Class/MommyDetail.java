@@ -17,13 +17,11 @@ public class MommyDetail {
     private String husbandWork;
     private String husbandWorkAddress;
     private String husbandPhone;
-    private Date appointDate;
-    private Date appointTime;
 
     public MommyDetail(){}
 
     public MommyDetail (double height, double weight, String familyDisease, Date lnmp, Date edd, Date edp, String marriageStatus,
-                        String husbandName, String husbandIC, String husbandWork, String husbandWorkAddress, String husbandPhone, Date today, Date appointDate, Date appointTime)
+                        String husbandName, String husbandIC, String husbandWork, String husbandWorkAddress, String husbandPhone, Date today)
     {
         this.height = height;
         this.weight = weight;
@@ -38,24 +36,6 @@ public class MommyDetail {
         this.husbandWorkAddress = husbandWorkAddress;
         this.husbandPhone = husbandPhone;
         this.today = today;
-        this.appointDate = appointDate;
-        this.appointTime = appointTime;
-    }
-
-    public Date getAppointDate() {
-        return appointDate;
-    }
-
-    public void setAppointDate(Date appointDate) {
-        this.appointDate = appointDate;
-    }
-
-    public Date getAppointTime() {
-        return appointTime;
-    }
-
-    public void setAppointTime(Date appointTime) {
-        this.appointTime = appointTime;
     }
 
     public Date getToday() {

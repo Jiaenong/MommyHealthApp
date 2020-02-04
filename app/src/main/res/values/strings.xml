@@ -323,6 +323,9 @@
     <string name="radioGrp_Eliza_negative">Negative</string>
     <string name="early_test_mentalExamination">Mental Examination</string>
     <string name="none">None</string>
+    <string name="mentalHealthStress">Stress</string>
+    <string name="mentalHealthAnxiety">Anxiety</string>
+    <string name="mentalHealthDepression">Depression</string>
 
     <string-array name="national">
         <item>Malaysia</item>

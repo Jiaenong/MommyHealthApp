@@ -1,509 +1,593 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutMentalHealth"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Nurse.HealthyMindFilterActivity">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBarMentalHealth"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 
-        <RelativeLayout
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutMentalHealth"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/textView182"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dass_questionnaire"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageViewHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/textView182"
+                    app:srcCompat="@drawable/ic_help_black_24dp" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q1"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ1"
+                    android:layout_alignParentBottom="true"
+                    android:numStars="4" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q2"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ2"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q3"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ3"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q4"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ4"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q5"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ5"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q6"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ6"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/queation_q7"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ7"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q8"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ8"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q9"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ9"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q10"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ10"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q11"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ11"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q12"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ12"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q13"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ13"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q14"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ14"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q15"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ15"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q16"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ16"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q17"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ17"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q18"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ18"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q19"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ19"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q20"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ20"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textViewQ21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q21"
+                    android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarQ21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewQ21"
+                    android:numStars="4"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/viewMentalHealth"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/black" />
 
             <TextView
-                android:id="@+id/textView182"
+                android:id="@+id/textViewMentelHealthResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dass_questionnaire"
-                android:textSize="24sp"
+                android:text="Result : "
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imageViewHint"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutStress"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/textView182"
-                app:srcCompat="@drawable/ic_help_black_24dp" />
+                android:focusableInTouchMode="true"
+                android:hint="@string/mentalHealthStress">
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMentalStress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/textViewQ1"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutAnxiety"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/question_q1"
-                android:textSize="18sp" />
+                android:focusableInTouchMode="true"
+                android:hint="@string/mentalHealthAnxiety">
 
-            <RatingBar
-                android:id="@+id/ratingBarQ1"
-                android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMentalAnxiety"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutDepression"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ1"
-                android:layout_alignParentBottom="true"
-                android:numStars="4" />
-        </RelativeLayout>
+                android:focusableInTouchMode="true"
+                android:hint="@string/mentalHealthDepression">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMentalDepression"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/textViewQ2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q2"
-                android:textSize="18sp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMentalSave"
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/question_calculate_result"
+                app:cornerRadius="16dp" />
 
-            <RatingBar
-                android:id="@+id/ratingBarQ2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ2"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMentalCancel"
+                style="@style/cancelButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:text="@string/cancel"
+                app:cornerRadius="16dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
+    </androidx.core.widget.NestedScrollView>
 
-            <TextView
-                android:id="@+id/textViewQ3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q3"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ3"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q4"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ4"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q5"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ5"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q6"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ6"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/queation_q7"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ7"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q8"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ8"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q9"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ9"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q10"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ10"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q11"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ11"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q12"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ12"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q13"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ13"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q14"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ14"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q15"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ15"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q16"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ16"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q17"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ17"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q18"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ18"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q19"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ19"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q20"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ20"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textViewQ21"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_q21"
-                android:textSize="18sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBarQ21"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewQ21"
-                android:numStars="4"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/button"
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/question_calculate_result"
-            app:cornerRadius="16dp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-</androidx.core.widget.NestedScrollView>
+</RelativeLayout>

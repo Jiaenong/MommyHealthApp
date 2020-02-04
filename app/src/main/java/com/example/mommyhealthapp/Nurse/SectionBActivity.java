@@ -70,6 +70,9 @@ public class SectionBActivity extends AppCompatActivity {
         btnSTSave = (Button)findViewById(R.id.btnSTSave);
         btnSTCancel = (Button)findViewById(R.id.btnSTCancel);
 
+        layoutScreenTest.setVisibility(View.GONE);
+        progressBarST.setVisibility(View.VISIBLE);
+
         Intent intent = getIntent();
         healthInfoId = intent.getStringExtra("healthInfoId");
         bloodTestId = intent.getStringExtra("bloodTestId");
@@ -81,8 +84,6 @@ public class SectionBActivity extends AppCompatActivity {
         mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                layoutScreenTest.setVisibility(View.GONE);
-                progressBarST.setVisibility(View.VISIBLE);
                 if(queryDocumentSnapshots.isEmpty())
                 {
                     isEmpty = true;

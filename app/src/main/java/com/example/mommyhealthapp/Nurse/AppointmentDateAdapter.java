@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mommyhealthapp.Class.AppointmentDate;
 import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.R;
 
@@ -15,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class AppointmentDateAdapter extends RecyclerView.Adapter<AppointmentDateAdapter.MyViewHolder> {
-    private List<MommyDetail> listMD;
+    private List<AppointmentDate> listMD;
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -25,12 +26,12 @@ public class AppointmentDateAdapter extends RecyclerView.Adapter<AppointmentDate
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        MommyDetail md = listMD.get(position);
+        AppointmentDate ad = listMD.get(position);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-        holder.txtViewAppointDate.setText(dateFormat.format(md.getAppointDate()));
-        holder.txtViewAppointTime.setText(timeFormat.format(md.getAppointTime()));
+        holder.txtViewAppointDate.setText(dateFormat.format(ad.getAppointmentDate()));
+        holder.txtViewAppointTime.setText(timeFormat.format(ad.getAppointmentTime()));
     }
 
     @Override
@@ -48,7 +49,7 @@ public class AppointmentDateAdapter extends RecyclerView.Adapter<AppointmentDate
         }
     }
 
-    public AppointmentDateAdapter(List<MommyDetail> listmd){
+    public AppointmentDateAdapter(List<AppointmentDate> listmd){
         listMD = listmd;
     }
 }

@@ -93,18 +93,6 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/btnAppDateList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@id/textViewMummyApDate"
-                    android:clickable="true"
-                    app:backgroundTint="@color/colorAccent"
-                    app:fabSize="mini"
-                    app:tint="@color/design_default_color_background"
-                    app:srcCompat="@drawable/ic_format_list_bulleted_black_24dp" />
-
                 <ImageView
                     android:id="@+id/imageViewDownAp"
                     android:layout_width="wrap_content"
@@ -112,7 +100,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/btnAppDateList"
+                    android:layout_toRightOf="@id/textViewMummyApDate"
                     app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
 
                 <ImageView
@@ -122,7 +110,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="5dp"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/btnAppDateList"
+                    android:layout_toRightOf="@id/textViewMummyApDate"
                     app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
 
             </RelativeLayout>

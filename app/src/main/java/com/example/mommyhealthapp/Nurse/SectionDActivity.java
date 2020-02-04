@@ -68,6 +68,8 @@ public class SectionDActivity extends AppCompatActivity {
         btnCurrentCancel = (Button)findViewById(R.id.btnCurrentCancel);
 
         btnCurrentCancel.setVisibility(View.GONE);
+        layoutCHS.setVisibility(View.GONE);
+        progressBarCurrentHealthStatus.setVisibility(View.VISIBLE);
 
         Intent intent = getIntent();
         healthInfoId = intent.getStringExtra("healthInfoId");
@@ -79,8 +81,6 @@ public class SectionDActivity extends AppCompatActivity {
         mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                layoutCHS.setVisibility(View.GONE);
-                progressBarCurrentHealthStatus.setVisibility(View.VISIBLE);
                 if(queryDocumentSnapshots.isEmpty())
                 {
                     isEmpty = true;

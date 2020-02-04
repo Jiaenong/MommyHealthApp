@@ -1,5 +1,6 @@
 package com.example.mommyhealthapp.Nurse;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
@@ -35,9 +37,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.mommyhealthapp.Class.AppointmentDate;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -75,12 +79,10 @@ public class MommyInfoActivity extends AppCompatActivity {
     private CheckBox chkBoxStatus;
     private TextView textViewMummyInfoName, textViewMummyInfoAge, textViewMummyInfoID;
     private CircularImageView imageViewMummyInfo;
-    private ProgressBar progressBarMummyInfo, progressBarAppDateTime;
-    private FloatingActionButton btnAppDateList;
-    private RecyclerView recycleViewAppDateTime;
-    private List<MommyDetail> appointmentList;
+    private ProgressBar progressBarMummyInfo;
 
-    private String id, key, keyDetail;
+    private String id, key, keyDetail, appointmentKey;
+    private Boolean isEmpty;
     private FirebaseFirestore mFirebaseFirestore;
     private CollectionReference mCollectionReference, nCollectionReference, pCollectionReference;
     private DocumentReference mDocumentReference;
@@ -99,7 +101,6 @@ public class MommyInfoActivity extends AppCompatActivity {
         imageViewMummyInfo = (CircularImageView)findViewById(R.id.imageViewMummyInfo);
 
         progressBarMummyInfo = (ProgressBar)findViewById(R.id.progressBarMummyInfo);
-        btnAppDateList = (FloatingActionButton)findViewById(R.id.btnAppDateList);
 
         layoutAllView = (LinearLayoutCompat)findViewById(R.id.layoutAllView);
         layoutInfo = (LinearLayoutCompat)findViewById(R.id.layoutInfo);
@@ -190,50 +191,6 @@ public class MommyInfoActivity extends AppCompatActivity {
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MommyInfoActivity.this ,R.array.national, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnerNational.setAdapter(adapter);
-
-        appointmentList = new ArrayList<>();
-
-        btnAppDateList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Dialog appointmentDateDialog = new Dialog(MommyInfoActivity.this);
-                appointmentDateDialog.setContentView(R.layout.appointment_date_time_dialog);
-                appointmentDateDialog.setTitle("Appointment Record");
-                recycleViewAppDateTime = (RecyclerView)appointmentDateDialog.findViewById(R.id.recycleViewAppDateTime);
-                progressBarAppDateTime = (ProgressBar)appointmentDateDialog.findViewById(R.id.progressBarAppDateTime);
-
-                progressBarAppDateTime.setVisibility(View.VISIBLE);
-                recycleViewAppDateTime.setVisibility(View.GONE);
-
-                getAppointmentRecord(new MyCallBack() {
-                    @Override
-                    public void OnCallBack(List<MommyDetail> appRecordList) {
-                        check++;
-                        if(appRecordList.isEmpty())
-                        {
-                            progressBarAppDateTime.setVisibility(View.GONE);
-                            recycleViewAppDateTime.setVisibility(View.VISIBLE);
-                        }else {
-                            AppointmentDateAdapter adapter = new AppointmentDateAdapter(appRecordList);
-                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(MommyInfoActivity.this);
-                            recycleViewAppDateTime.setLayoutManager(mLayoutManager);
-                            recycleViewAppDateTime.setItemAnimator(new DefaultItemAnimator());
-                            recycleViewAppDateTime.setAdapter(adapter);
-                            progressBarAppDateTime.setVisibility(View.GONE);
-                            recycleViewAppDateTime.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
-                if(check == 0)
-                {
-                    progressBarAppDateTime.setVisibility(View.GONE);
-                    recycleViewAppDateTime.setVisibility(View.VISIBLE);
-                }
-                appointmentDateDialog.show();
-                Window window = appointmentDateDialog.getWindow();
-                window.setLayout(1000, 1000);
-            }
-        });
 
         radioGroupRace.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -376,9 +333,33 @@ public class MommyInfoActivity extends AppCompatActivity {
         id = intent.getStringExtra("MommyID");
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("Mommy");
+        pCollectionReference = mFirebaseFirestore.collection("AppointmentDate");
 
         progressBarMummyInfo.setVisibility(View.VISIBLE);
         layoutAllView.setVisibility(View.GONE);
+
+        pCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isEmpty = true;
+                    editTextAppointment.setText("No appointment has been made yet");
+                    editTextAppTime.setText("No appointment has been made yet");
+                }else{
+                    isEmpty = false;
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        appointmentKey = documentSnapshot.getId();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                        AppointmentDate ad = documentSnapshot.toObject(AppointmentDate.class);
+                        editTextAppointment.setText(dateFormat.format(ad.getAppointmentDate()));
+                        editTextAppTime.setText(timeFormat.format(ad.getAppointmentTime()));
+                    }
+                }
+            }
+        });
 
         mCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -551,21 +532,55 @@ public class MommyInfoActivity extends AppCompatActivity {
                     btnCancelApp.setVisibility(View.VISIBLE);
                 }else if(clickApp == 2)
                 {
-                    mDocumentReference = mFirebaseFirestore.document("Mommy/"+key+"/MommyDetail/"+keyDetail);
-                    Date appDate = null;
-                    Date timeApp = null;
-                    try {
-                        appDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextAppointment.getText().toString());
-                        timeApp = new SimpleDateFormat("HH:mm").parse(editTextAppTime.getText().toString());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                    if(isEmpty == false)
+                    {
+                        mDocumentReference = mFirebaseFirestore.document("AppointmentDate/"+appointmentKey);
+                        Date appDate = null;
+                        Date timeApp = null;
+                        try {
+                            appDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextAppointment.getText().toString());
+                            timeApp = new SimpleDateFormat("HH:mm").parse(editTextAppTime.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        mDocumentReference.update("appointmentDate", appDate);
+                        mDocumentReference.update("appointmentTime", timeApp);
+                        Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
+                        clickApp = 0;
+                        DisableAppointmentText();
+                        btnCancelApp.setVisibility(View.GONE);
+                    }else{
+                        Date appDate = null;
+                        Date timeApp = null;
+                        try {
+                            appDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextAppointment.getText().toString());
+                            timeApp = new SimpleDateFormat("HH:mm").parse(editTextAppTime.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String medicalPersonnelId = SaveSharedPreference.getID(MommyInfoActivity.this);
+                        Date createdDate = new Date();
+                        AppointmentDate ad = new AppointmentDate(appDate, timeApp, id, medicalPersonnelId, createdDate);
+                        pCollectionReference.add(ad).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MommyInfoActivity.this);
+                                builder.setTitle("Save Successfully");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        return;
+                                    }
+                                });
+                                builder.setMessage("Appointment Save Successful!");
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+                        });
+                        clickApp = 0;
+                        DisableAppointmentText();
+                        btnCancelApp.setVisibility(View.GONE);
                     }
-                    mDocumentReference.update("appointDate", appDate);
-                    mDocumentReference.update("appointTime", timeApp);
-                    Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
-                    clickApp = 0;
-                    DisableAppointmentText();
-                    btnCancelApp.setVisibility(View.GONE);
                 }
             }
         });
@@ -582,58 +597,6 @@ public class MommyInfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public interface MyCallBack{
-        void OnCallBack(List<MommyDetail> appRecordList);
-    }
-
-    public void getAppointmentRecord(final MyCallBack myCallBack){
-        appointmentList.clear();
-        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-                {
-                    String id = documentSnapshot.getId();
-                    pCollectionReference = mFirebaseFirestore.collection("Mommy").document(id).collection("MommyDetail");
-                    pCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            for(QueryDocumentSnapshot documentSnapshot1 : queryDocumentSnapshots)
-                            {
-                                MommyDetail md = documentSnapshot1.toObject(MommyDetail.class);
-                                Date today = new Date();
-                                Date appDate = dateTime(md.getAppointDate(), md.getAppointTime());
-                                if(appDate.compareTo(today) > 0){
-                                    appointmentList.add(md);
-                                    myCallBack.OnCallBack(appointmentList);
-                                }
-                            }
-                        }
-                    });
-                }
-
-            }
-        });
-    }
-
-    public Date dateTime(Date date, Date time) {
-
-        Calendar aDate = Calendar.getInstance();
-        aDate.setTime(date);
-
-        Calendar aTime = Calendar.getInstance();
-        aTime.setTime(time);
-
-        Calendar aDateTime = Calendar.getInstance();
-        aDateTime.set(Calendar.DAY_OF_MONTH, aDate.get(Calendar.DAY_OF_MONTH));
-        aDateTime.set(Calendar.MONTH, aDate.get(Calendar.MONTH));
-        aDateTime.set(Calendar.YEAR, aDate.get(Calendar.YEAR));
-        aDateTime.set(Calendar.HOUR, aTime.get(Calendar.HOUR));
-        aDateTime.set(Calendar.MINUTE, aTime.get(Calendar.MINUTE));
-        aDateTime.set(Calendar.SECOND, aTime.get(Calendar.SECOND));
-
-        return aDateTime.getTime();
-    }
 
     private void GetMummyDetail(String key)
     {
@@ -647,18 +610,6 @@ public class MommyInfoActivity extends AppCompatActivity {
                     keyDetail = documentSnapshot.getId();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                    if(mommyDetail.getAppointDate() == null)
-                    {
-                        editTextAppointment.setText("No Appointment has been made");
-                    }else{
-                        editTextAppointment.setText(dateFormat.format(mommyDetail.getAppointDate()));
-                    }
-                    if(mommyDetail.getAppointTime() == null)
-                    {
-                        editTextAppTime.setText("No Appointment has been made");
-                    }else{
-                        editTextAppTime.setText(timeFormat.format(mommyDetail.getAppointTime()));
-                    }
                     editTextHeight.setText(mommyDetail.getHeight()+"");
                     editTextWeight.setText(mommyDetail.getWeight()+"");
                     if(mommyDetail.getFamilyDisease().equals(""))
