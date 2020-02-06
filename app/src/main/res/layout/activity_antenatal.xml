@@ -1,486 +1,524 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutAntenatalTutorial"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Nurse.AntenatalActivity">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBarAntenatalTutorial"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 
-        <RelativeLayout
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutAntenatal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <TextView
-                android:id="@+id/textView67"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/sceN_anal_schedule_clinic"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox34"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView67"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/sceN_anal_schedule_clinic"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxAntenatalCare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/txtViewAntenatalCareDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView67"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/txtViewAntenatalCarePerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView67"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/txtViewAntenatalCareDate"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView68"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView67"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark" />
-
-            <TextView
-                android:id="@+id/textView69"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView67"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView70"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="250dp"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:text="@string/secN_anal_early"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox35"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView70"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_anal_early"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxEarlyClinic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/txtViewEarlyClinicDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView70"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/txtViewEarlyClinicPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView70"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/txtViewEarlyClinicDate"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView71"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView70"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark" />
-
-            <TextView
-                android:id="@+id/textView72"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView70"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView73"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/secN_anal_solve_problem"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox36"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView73"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_anal_solve_problem"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxSolveProblem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/txtViewSolveProblemDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView73"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/txtViewSolveProblemPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView73"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/txtViewSolveProblemDate"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView74"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView73"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark" />
-
-            <TextView
-                android:id="@+id/textView75"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView73"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView76"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="250dp"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:text="@string/secN_anal_balanced_nutrition"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox37"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView76"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_anal_balanced_nutrition"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxNutrition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/txtViewNutritionDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView76"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/txtViewNutritionPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView76"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/txtViewNutritionDate"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView77"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView76"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark" />
-
-            <TextView
-                android:id="@+id/textView78"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView76"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView79"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/secN_anal_maternity"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox39"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView79"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_anal_maternity"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxMaternity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/txtViewMaternityDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView79"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/txtViewMaternityPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView79"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/txtViewMaternityDate"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView80"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView79"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark" />
-
-            <TextView
-                android:id="@+id/textView81"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView79"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView82"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/secN_anal_antenatal_exercise"
-                android:maxWidth="250dp"
                 android:layout_marginBottom="10dp"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox40"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView82"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_anal_antenatal_exercise"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxExercise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/txtViewExerciseDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView82"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/txtViewExercisePerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView82"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/txtViewExerciseDate"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView83"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView82"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark" />
-
-            <TextView
-                android:id="@+id/textView84"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView82"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView85"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/secN_anal_family_planner"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox41"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView85"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_anal_family_planner"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxFamilyPlanner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/txtViewFamilyPlannerDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView85"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/txtViewFamilyPlannerPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView85"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/txtViewFamilyPlannerDate"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView86"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView85"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark" />
-
-            <TextView
-                android:id="@+id/textView87"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView85"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView97"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/secN_anal_sign_process"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox45"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView97"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_anal_sign_process"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxChildBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/txtViewChildBirthDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView97"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/txtViewChildBirthPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView97"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/txtViewChildBirthDate"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView98"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView97"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark" />
-
-            <TextView
-                android:id="@+id/textView99"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView97"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView88"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/secN_anal_safebirth"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox42"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView88"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_anal_safebirth"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxSafeBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/txtViewSafeBirthDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView88"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/txtViewSafeBirthPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView88"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/txtViewSafeBirthDate"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView89"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView88"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark" />
-
-            <TextView
-                android:id="@+id/textView90"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView88"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView91"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/secN_anal_earlybirth_notice"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox43"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView91"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_anal_earlybirth_notice"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxEarlyBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/txtViewEarlyBirthDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView91"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/txtViewEarlyBirthPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView91"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/txtViewEarlyBirthDate"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView92"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView91"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark" />
-
-            <TextView
-                android:id="@+id/textView93"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView91"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView94"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/secN_anal_oral_healthCare"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox44"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
+                <TextView
+                    android:id="@+id/textView94"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_anal_oral_healthCare"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/textView95"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView94"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark" />
+                <CheckBox
+                    android:id="@+id/checkBoxOralHealth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
 
-            <TextView
-                android:id="@+id/textView96"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView94"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
+                <TextView
+                    android:id="@+id/txtViewOralHealthDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView94"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark" />
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/txtViewOralHealthPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView94"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/txtViewOralHealthDate"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
 
-        <Button
-            android:id="@+id/button8"
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/save"
-            app:cornerRadius="16dp" />
+            </RelativeLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAntenatalSave"
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/save"
+                app:cornerRadius="16dp" />
 
-</androidx.core.widget.NestedScrollView>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAntenatalCancel"
+                style="@style/cancelButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:text="@string/cancel"
+                app:cornerRadius="16dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

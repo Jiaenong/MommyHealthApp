@@ -225,7 +225,7 @@
     <string name="secN_breast_feeding">Breast Feeding</string>
     <string name="secN_others">Others</string>
     <string name="sceN_anal_schedule_clinic">Antenatal care and schedule to the clinic</string>
-    <string name="secN_Date">Date</string>
+    <string name="secN_Date">Select a date</string>
     <string name="secN_medicalPersonnale_name">Medical Personnel</string>
     <string name="secN_anal_early">Importance of coming early to the clinic</string>
     <string name="secN_anal_solve_problem">Solve problem during pregnancy</string>
