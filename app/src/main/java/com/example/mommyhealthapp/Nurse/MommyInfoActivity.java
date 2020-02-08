@@ -333,33 +333,9 @@ public class MommyInfoActivity extends AppCompatActivity {
         id = intent.getStringExtra("MommyID");
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("Mommy");
-        pCollectionReference = mFirebaseFirestore.collection("AppointmentDate");
 
         progressBarMummyInfo.setVisibility(View.VISIBLE);
         layoutAllView.setVisibility(View.GONE);
-
-        pCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.isEmpty())
-                {
-                    isEmpty = true;
-                    editTextAppointment.setText("No appointment has been made yet");
-                    editTextAppTime.setText("No appointment has been made yet");
-                }else{
-                    isEmpty = false;
-                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-                    {
-                        appointmentKey = documentSnapshot.getId();
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                        AppointmentDate ad = documentSnapshot.toObject(AppointmentDate.class);
-                        editTextAppointment.setText(dateFormat.format(ad.getAppointmentDate()));
-                        editTextAppTime.setText(timeFormat.format(ad.getAppointmentTime()));
-                    }
-                }
-            }
-        });
 
         mCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -409,6 +385,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                     }
 
                     GetMummyDetail(key);
+                    GetAppointmentDate(key);
                 }
             }
         });
@@ -534,7 +511,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                 {
                     if(isEmpty == false)
                     {
-                        mDocumentReference = mFirebaseFirestore.document("AppointmentDate/"+appointmentKey);
+                        mDocumentReference = mFirebaseFirestore.document("Mommy/"+key+"/AppointmentDate/"+appointmentKey);
                         Date appDate = null;
                         Date timeApp = null;
                         try {
@@ -597,6 +574,32 @@ public class MommyInfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void GetAppointmentDate(String key)
+    {
+        pCollectionReference = mFirebaseFirestore.collection("Mommy/"+key+"/AppointmentDate");
+        pCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isEmpty = true;
+                    editTextAppointment.setText("No appointment has been made yet");
+                    editTextAppTime.setText("No appointment has been made yet");
+                }else{
+                    isEmpty = false;
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        appointmentKey = documentSnapshot.getId();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                        AppointmentDate ad = documentSnapshot.toObject(AppointmentDate.class);
+                        editTextAppointment.setText(dateFormat.format(ad.getAppointmentDate()));
+                        editTextAppTime.setText(timeFormat.format(ad.getAppointmentTime()));
+                    }
+                }
+            }
+        });
+    }
 
     private void GetMummyDetail(String key)
     {

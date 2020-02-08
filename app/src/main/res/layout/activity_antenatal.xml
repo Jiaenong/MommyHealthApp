@@ -56,6 +56,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView67"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="@string/secN_Date"
                     android:textColor="@android:color/holo_green_dark" />
 
@@ -98,6 +100,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView70"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="@string/secN_Date"
                     android:textColor="@android:color/holo_green_dark" />
 
@@ -141,6 +145,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView73"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="@string/secN_Date"
                     android:textColor="@android:color/holo_green_dark" />
 
@@ -184,6 +190,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView76"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="@string/secN_Date"
                     android:textColor="@android:color/holo_green_dark" />
 
@@ -227,6 +235,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView79"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="@string/secN_Date"
                     android:textColor="@android:color/holo_green_dark" />
 
@@ -270,6 +280,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView82"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="@string/secN_Date"
                     android:textColor="@android:color/holo_green_dark" />
 
@@ -313,6 +325,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView85"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="@string/secN_Date"
                     android:textColor="@android:color/holo_green_dark" />
 
@@ -356,6 +370,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView97"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="@string/secN_Date"
                     android:textColor="@android:color/holo_green_dark" />
 
@@ -399,6 +415,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView88"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="@string/secN_Date"
                     android:textColor="@android:color/holo_green_dark" />
 
@@ -442,6 +460,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView91"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="@string/secN_Date"
                     android:textColor="@android:color/holo_green_dark" />
 
@@ -485,6 +505,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView94"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="@string/secN_Date"
                     android:textColor="@android:color/holo_green_dark" />
 

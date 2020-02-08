@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,8 +35,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import io.grpc.internal.SharedResourceHolder;
 
@@ -228,6 +231,7 @@ public class AntenatalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isEmpty == true)
                 {
+                    List<TextView> dateText = new ArrayList<>();
                     nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("AntenatalTutorial");
                     String antenatalCareStatus = "",earlyClinicStatus = "", solveProblemStatus = "", nutritionStatus = "", maternityStatus = "", exerciseStatus = "",
                             familyPlannerStatus = "", childBirthStatus = "", saveBirthStatus = "", earlyBirthStatus = "", oralHealthStatus = "";
@@ -244,6 +248,7 @@ public class AntenatalActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        dateText.add(txtViewAntenatalCareDate);
                     }else{
                         antenatalCareStatus = "No";
                         antenatalCarePerson = txtViewAntenatalCarePerson.getText().toString();
@@ -258,6 +263,7 @@ public class AntenatalActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        dateText.add(txtViewEarlyClinicDate);
                     }else{
                         earlyClinicStatus = "No";
                         earlyClinicPerson = txtViewEarlyClinicPerson.getText().toString();
@@ -272,6 +278,7 @@ public class AntenatalActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        dateText.add(txtViewSolveProblemDate);
                     }else{
                         solveProblemStatus = "No";
                         solveProblemPerson = txtViewSolveProblemPerson.getText().toString();
@@ -286,6 +293,7 @@ public class AntenatalActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        dateText.add(txtViewNutritionDate);
                     }else{
                         nutritionStatus = "No";
                         nutritionPerson = txtViewNutritionPerson.getText().toString();
@@ -300,6 +308,7 @@ public class AntenatalActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        dateText.add(txtViewMaternityDate);
                     }else{
                         maternityStatus = "No";
                         maternityPerson = txtViewMaternityPerson.getText().toString();
@@ -314,6 +323,7 @@ public class AntenatalActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        dateText.add(txtViewExerciseDate);
                     }else{
                         exerciseStatus = "No";
                         exercisePerson = txtViewExercisePerson.getText().toString();
@@ -328,6 +338,7 @@ public class AntenatalActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        dateText.add(txtViewFamilyPlannerDate);
                     }else{
                         familyPlannerStatus = "No";
                         familyPlannerPerson = txtViewFamilyPlannerPerson.getText().toString();
@@ -342,6 +353,7 @@ public class AntenatalActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        dateText.add(txtViewChildBirthDate);
                     }else{
                         childBirthStatus = "No";
                         childBirthPerson = txtViewChildBirthPerson.getText().toString();
@@ -356,6 +368,7 @@ public class AntenatalActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        dateText.add(txtViewSafeBirthDate);
                     }else{
                         saveBirthStatus = "No";
                         saveBirthPerson = txtViewSafeBirthPerson.getText().toString();
@@ -370,6 +383,7 @@ public class AntenatalActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        dateText.add(txtViewEarlyBirthDate);
                     }else{
                         earlyBirthStatus = "No";
                         earlyBirthPerson = txtViewEarlyBirthPerson.getText().toString();
@@ -384,35 +398,40 @@ public class AntenatalActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        dateText.add(txtViewOralHealthDate);
                     }else{
                         oralHealthStatus = "No";
                         oralHealthPerson = txtViewOralHealthPerson.getText().toString();
                         oralHealthDate = null;
                     }
+                    boolean checkDate = CheckDateSelected(dateText);
                     AntenatalTutorial at = new AntenatalTutorial(antenatalCareStatus, antenatalCareDate, antenatalCarePerson, earlyClinicStatus, earlyClinicDate,
                             earlyClinicPerson, solveProblemStatus, solveProblemDate, solveProblemPerson, nutritionStatus,
                             nutritionDate, nutritionPerson, maternityStatus, maternityDate, maternityPerson, exerciseStatus,
                             exerciseDate, exercisePerson, familyPlannerStatus, familyPlannerDate, familyPlannerPerson,
                             childBirthStatus, childBirthDate, childBirthPerson, saveBirthStatus, saveBirthDate, saveBirthPerson,
                             earlyBirthStatus, earlyBirthDate, earlyBirthPerson, oralHealthStatus, oralHealthDate, oralHealthPerson);
-                    nCollectionReference.add(at).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(AntenatalActivity.this);
-                            builder.setTitle("Save Successfully");
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent intent = new Intent(AntenatalActivity.this, SectionNActivity.class);
-                                    startActivity(intent);
-                                }
-                            });
-                            builder.setMessage("Save Successful!");
-                            AlertDialog alert = builder.create();
-                            alert.setCanceledOnTouchOutside(false);
-                            alert.show();
-                        }
-                    });
+                    if(checkDate == true)
+                    {
+                        nCollectionReference.add(at).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(AntenatalActivity.this);
+                                builder.setTitle("Save Successfully");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent = new Intent(AntenatalActivity.this, SectionNActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                                builder.setMessage("Save Successful!");
+                                AlertDialog alert = builder.create();
+                                alert.setCanceledOnTouchOutside(false);
+                                alert.show();
+                            }
+                        });
+                    }
                 }else{
                     check++;
                     if(check == 1)
@@ -421,6 +440,7 @@ public class AntenatalActivity extends AppCompatActivity {
                         EnableField();
                     }else if(check == 2)
                     {
+                        List<TextView> dateText = new ArrayList<>();
                         DocumentReference nDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("AntenatalTutorial").document(key);
                         String antenatalCareStatus = "",earlyClinicStatus = "", solveProblemStatus = "", nutritionStatus = "", maternityStatus = "", exerciseStatus = "",
                                 familyPlannerStatus = "", childBirthStatus = "", saveBirthStatus = "", earlyBirthStatus = "", oralHealthStatus = "";
@@ -428,6 +448,7 @@ public class AntenatalActivity extends AppCompatActivity {
                                 familyPlannerPerson = "", childBirthPerson = "", saveBirthPerson = "", earlyBirthPerson = "", oralHealthPerson = "";
                         Date antenatalCareDate = null, earlyClinicDate = null, solveProblemDate = null, nutritionDate = null, maternityDate = null, exerciseDate = null,
                                 familyPlannerDate = null, childBirthDate = null, saveBirthDate = null, earlyBirthDate = null, oralHealthDate = null;
+
                         if(checkBoxAntenatalCare.isChecked())
                         {
                             antenatalCareStatus = "Yes";
@@ -437,6 +458,7 @@ public class AntenatalActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            dateText.add(txtViewAntenatalCareDate);
                         }else{
                             antenatalCareStatus = "No";
                             antenatalCarePerson = txtViewAntenatalCarePerson.getText().toString();
@@ -451,6 +473,7 @@ public class AntenatalActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            dateText.add(txtViewEarlyClinicDate);
                         }else{
                             earlyClinicStatus = "No";
                             earlyClinicPerson = txtViewEarlyClinicPerson.getText().toString();
@@ -465,6 +488,7 @@ public class AntenatalActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            dateText.add(txtViewSolveProblemDate);
                         }else{
                             solveProblemStatus = "No";
                             solveProblemPerson = txtViewSolveProblemPerson.getText().toString();
@@ -479,6 +503,7 @@ public class AntenatalActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            dateText.add(txtViewNutritionDate);
                         }else{
                             nutritionStatus = "No";
                             nutritionPerson = txtViewNutritionPerson.getText().toString();
@@ -493,6 +518,7 @@ public class AntenatalActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            dateText.add(txtViewMaternityDate);
                         }else{
                             maternityStatus = "No";
                             maternityPerson = txtViewMaternityPerson.getText().toString();
@@ -507,6 +533,7 @@ public class AntenatalActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            dateText.add(txtViewExerciseDate);
                         }else{
                             exerciseStatus = "No";
                             exercisePerson = txtViewExercisePerson.getText().toString();
@@ -521,6 +548,7 @@ public class AntenatalActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            dateText.add(txtViewFamilyPlannerDate);
                         }else{
                             familyPlannerStatus = "No";
                             familyPlannerPerson = txtViewFamilyPlannerPerson.getText().toString();
@@ -535,6 +563,7 @@ public class AntenatalActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            dateText.add(txtViewChildBirthDate);
                         }else{
                             childBirthStatus = "No";
                             childBirthPerson = txtViewChildBirthPerson.getText().toString();
@@ -549,6 +578,7 @@ public class AntenatalActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            dateText.add(txtViewSafeBirthDate);
                         }else{
                             saveBirthStatus = "No";
                             saveBirthPerson = txtViewSafeBirthPerson.getText().toString();
@@ -563,6 +593,7 @@ public class AntenatalActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            dateText.add(txtViewEarlyBirthDate);
                         }else{
                             earlyBirthStatus = "No";
                             earlyBirthPerson = txtViewEarlyBirthPerson.getText().toString();
@@ -577,49 +608,57 @@ public class AntenatalActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            dateText.add(txtViewOralHealthDate);
                         }else{
                             oralHealthStatus = "No";
                             oralHealthPerson = txtViewOralHealthPerson.getText().toString();
                             oralHealthDate = null;
                         }
-                        nDocumentReference.update("antenatalCareStatus", antenatalCareStatus);
-                        nDocumentReference.update("antenatalCareDate", antenatalCareDate);
-                        nDocumentReference.update("antenatalCarePerson", antenatalCarePerson);
-                        nDocumentReference.update("earlyClinicStatus", earlyClinicStatus);
-                        nDocumentReference.update("earlyClinicDate", earlyClinicDate);
-                        nDocumentReference.update("earlyClinicPerson", earlyClinicPerson);
-                        nDocumentReference.update("solveProblemStatus", solveProblemStatus);
-                        nDocumentReference.update("solveProblemDate", solveProblemDate);
-                        nDocumentReference.update("solveProblemPerson", solveProblemPerson);
-                        nDocumentReference.update("nutritionStatus", nutritionStatus);
-                        nDocumentReference.update("nutritionDate", nutritionDate);
-                        nDocumentReference.update("nutritionPerson", nutritionPerson);
-                        nDocumentReference.update("maternityStatus", maternityStatus);
-                        nDocumentReference.update("maternityDate", maternityDate);
-                        nDocumentReference.update("maternityPerson", maternityPerson);
-                        nDocumentReference.update("exerciseStatus", exerciseStatus);
-                        nDocumentReference.update("exerciseDate", exerciseDate);
-                        nDocumentReference.update("exercisePerson", exercisePerson);
-                        nDocumentReference.update("familyPlannerStatus", familyPlannerStatus);
-                        nDocumentReference.update("familyPlannerDate", familyPlannerDate);
-                        nDocumentReference.update("familyPlannerPerson", familyPlannerPerson);
-                        nDocumentReference.update("childBirthStatus", childBirthStatus);
-                        nDocumentReference.update("childBirthDate", childBirthDate);
-                        nDocumentReference.update("childBirthPerson", childBirthPerson);
-                        nDocumentReference.update("saveBirthStatus", saveBirthStatus);
-                        nDocumentReference.update("saveBirthDate", saveBirthDate);
-                        nDocumentReference.update("saveBirthPerson", saveBirthPerson);
-                        nDocumentReference.update("earlyBirthStatus", earlyBirthStatus);
-                        nDocumentReference.update("earlyBirthDate", earlyBirthDate);
-                        nDocumentReference.update("earlyBirthPerson", earlyBirthPerson);
-                        nDocumentReference.update("oralHealthStatus", oralHealthStatus);
-                        nDocumentReference.update("oralHealthDate", oralHealthDate);
-                        nDocumentReference.update("oralHealthPerson", oralHealthPerson);
-                        DisableField();
-                        btnAntenatalCancel.setVisibility(View.GONE);
-                        check = 0;
-                        Snackbar snackbar = Snackbar.make(relativeLayoutAntenatalTutorial, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                        snackbar.show();
+                        boolean checkDate = CheckDateSelected(dateText);
+                        Log.i("Testing2", checkDate+"");
+                        if(checkDate == true)
+                        {
+                            nDocumentReference.update("antenatalCareStatus", antenatalCareStatus);
+                            nDocumentReference.update("antenatalCareDate", antenatalCareDate);
+                            nDocumentReference.update("antenatalCarePerson", antenatalCarePerson);
+                            nDocumentReference.update("earlyClinicStatus", earlyClinicStatus);
+                            nDocumentReference.update("earlyClinicDate", earlyClinicDate);
+                            nDocumentReference.update("earlyClinicPerson", earlyClinicPerson);
+                            nDocumentReference.update("solveProblemStatus", solveProblemStatus);
+                            nDocumentReference.update("solveProblemDate", solveProblemDate);
+                            nDocumentReference.update("solveProblemPerson", solveProblemPerson);
+                            nDocumentReference.update("nutritionStatus", nutritionStatus);
+                            nDocumentReference.update("nutritionDate", nutritionDate);
+                            nDocumentReference.update("nutritionPerson", nutritionPerson);
+                            nDocumentReference.update("maternityStatus", maternityStatus);
+                            nDocumentReference.update("maternityDate", maternityDate);
+                            nDocumentReference.update("maternityPerson", maternityPerson);
+                            nDocumentReference.update("exerciseStatus", exerciseStatus);
+                            nDocumentReference.update("exerciseDate", exerciseDate);
+                            nDocumentReference.update("exercisePerson", exercisePerson);
+                            nDocumentReference.update("familyPlannerStatus", familyPlannerStatus);
+                            nDocumentReference.update("familyPlannerDate", familyPlannerDate);
+                            nDocumentReference.update("familyPlannerPerson", familyPlannerPerson);
+                            nDocumentReference.update("childBirthStatus", childBirthStatus);
+                            nDocumentReference.update("childBirthDate", childBirthDate);
+                            nDocumentReference.update("childBirthPerson", childBirthPerson);
+                            nDocumentReference.update("saveBirthStatus", saveBirthStatus);
+                            nDocumentReference.update("saveBirthDate", saveBirthDate);
+                            nDocumentReference.update("saveBirthPerson", saveBirthPerson);
+                            nDocumentReference.update("earlyBirthStatus", earlyBirthStatus);
+                            nDocumentReference.update("earlyBirthDate", earlyBirthDate);
+                            nDocumentReference.update("earlyBirthPerson", earlyBirthPerson);
+                            nDocumentReference.update("oralHealthStatus", oralHealthStatus);
+                            nDocumentReference.update("oralHealthDate", oralHealthDate);
+                            nDocumentReference.update("oralHealthPerson", oralHealthPerson);
+                            DisableField();
+                            btnAntenatalCancel.setVisibility(View.GONE);
+                            check = 0;
+                            Snackbar snackbar = Snackbar.make(relativeLayoutAntenatalTutorial, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                        }else{
+                            check = 1;
+                        }
                     }
                 }
             }
@@ -635,6 +674,33 @@ public class AntenatalActivity extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private boolean CheckDateSelected(List<TextView> dateText)
+    {
+        boolean dateSelected;
+        List<TextView> dateNotSelected = new ArrayList<>();
+        for(int i=0; i<dateText.size(); i++)
+        {
+            Log.i("Testing", dateText.get(i).getText().toString());
+            if(dateText.get(i).getText().toString().equals(getResources().getString(R.string.secN_Date)))
+            {
+                dateNotSelected.add(dateText.get(i));
+            }
+        }
+        Log.i("Testing1.5", dateNotSelected.size()+"");
+        if(dateNotSelected.isEmpty())
+        {
+            dateSelected = true;
+        }else{
+            dateSelected = false;
+            for(int n=0; n<dateNotSelected.size(); n++)
+            {
+                dateNotSelected.get(n).requestFocus();
+                dateNotSelected.get(n).setError("This field is required");
+            }
+        }
+        return dateSelected;
     }
 
     private void DisableField()
@@ -683,10 +749,12 @@ public class AntenatalActivity extends AppCompatActivity {
                     txtViewAntenatalCareDate.setVisibility(View.VISIBLE);
                     txtViewAntenatalCarePerson.setVisibility(View.VISIBLE);
                     txtViewAntenatalCarePerson.setText(medicalPersonName);
+                    txtViewAntenatalCareDate.setText(getResources().getString(R.string.secN_Date));
                 }else{
                     txtViewAntenatalCareDate.setVisibility(View.GONE);
                     txtViewAntenatalCarePerson.setVisibility(View.GONE);
                     txtViewAntenatalCarePerson.setText(R.string.secN_medicalPersonnale_name);
+                    txtViewAntenatalCareDate.setText("");
                 }
             }
         });
@@ -698,10 +766,12 @@ public class AntenatalActivity extends AppCompatActivity {
                     txtViewEarlyClinicDate.setVisibility(View.VISIBLE);
                     txtViewEarlyClinicPerson.setVisibility(View.VISIBLE);
                     txtViewEarlyClinicPerson.setText(medicalPersonName);
+                    txtViewEarlyClinicDate.setText(getResources().getString(R.string.secN_Date));
                 }else{
                     txtViewEarlyClinicDate.setVisibility(View.GONE);
                     txtViewEarlyClinicPerson.setVisibility(View.GONE);
                     txtViewEarlyClinicPerson.setText(R.string.secN_medicalPersonnale_name);
+                    txtViewEarlyClinicDate.setText("");
                 }
             }
         });
@@ -713,10 +783,12 @@ public class AntenatalActivity extends AppCompatActivity {
                     txtViewSolveProblemDate.setVisibility(View.VISIBLE);
                     txtViewSolveProblemPerson.setVisibility(View.VISIBLE);
                     txtViewSolveProblemPerson.setText(medicalPersonName);
+                    txtViewSolveProblemDate.setText(getResources().getString(R.string.secN_Date));
                 }else{
                     txtViewSolveProblemDate.setVisibility(View.GONE);
                     txtViewSolveProblemPerson.setVisibility(View.GONE);
                     txtViewSolveProblemPerson.setText(R.string.secN_medicalPersonnale_name);
+                    txtViewSolveProblemDate.setText("");
                 }
             }
         });
@@ -728,10 +800,12 @@ public class AntenatalActivity extends AppCompatActivity {
                     txtViewNutritionDate.setVisibility(View.VISIBLE);
                     txtViewNutritionPerson.setVisibility(View.VISIBLE);
                     txtViewNutritionPerson.setText(medicalPersonName);
+                    txtViewNutritionDate.setText(getResources().getString(R.string.secN_Date));
                 }else{
                     txtViewNutritionDate.setVisibility(View.GONE);
                     txtViewNutritionPerson.setVisibility(View.GONE);
                     txtViewNutritionPerson.setText(R.string.secN_medicalPersonnale_name);
+                    txtViewNutritionDate.setText("");
                 }
             }
         });
@@ -743,10 +817,12 @@ public class AntenatalActivity extends AppCompatActivity {
                     txtViewMaternityDate.setVisibility(View.VISIBLE);
                     txtViewMaternityPerson.setVisibility(View.VISIBLE);
                     txtViewMaternityPerson.setText(medicalPersonName);
+                    txtViewMaternityDate.setText(getResources().getString(R.string.secN_Date));
                 }else{
                     txtViewMaternityDate.setVisibility(View.GONE);
                     txtViewMaternityPerson.setVisibility(View.GONE);
                     txtViewMaternityPerson.setText(R.string.secN_medicalPersonnale_name);
+                    txtViewMaternityDate.setText("");
                 }
             }
         });
@@ -758,10 +834,12 @@ public class AntenatalActivity extends AppCompatActivity {
                     txtViewExerciseDate.setVisibility(View.VISIBLE);
                     txtViewExercisePerson.setVisibility(View.VISIBLE);
                     txtViewExercisePerson.setText(medicalPersonName);
+                    txtViewExerciseDate.setText(getResources().getString(R.string.secN_Date));
                 }else{
                     txtViewExerciseDate.setVisibility(View.GONE);
                     txtViewExercisePerson.setVisibility(View.GONE);
                     txtViewExercisePerson.setText(R.string.secN_medicalPersonnale_name);
+                    txtViewExerciseDate.setText("");
                 }
             }
         });
@@ -773,10 +851,12 @@ public class AntenatalActivity extends AppCompatActivity {
                     txtViewFamilyPlannerDate.setVisibility(View.VISIBLE);
                     txtViewFamilyPlannerPerson.setVisibility(View.VISIBLE);
                     txtViewFamilyPlannerPerson.setText(medicalPersonName);
+                    txtViewFamilyPlannerDate.setText(getResources().getString(R.string.secN_Date));
                 }else{
                     txtViewFamilyPlannerDate.setVisibility(View.GONE);
                     txtViewFamilyPlannerPerson.setVisibility(View.GONE);
                     txtViewFamilyPlannerPerson.setText(R.string.secN_medicalPersonnale_name);
+                    txtViewFamilyPlannerDate.setText("");
                 }
             }
         });
@@ -788,10 +868,12 @@ public class AntenatalActivity extends AppCompatActivity {
                     txtViewChildBirthDate.setVisibility(View.VISIBLE);
                     txtViewChildBirthPerson.setVisibility(View.VISIBLE);
                     txtViewChildBirthPerson.setText(medicalPersonName);
+                    txtViewChildBirthDate.setText(getResources().getString(R.string.secN_Date));
                 }else{
                     txtViewChildBirthDate.setVisibility(View.GONE);
                     txtViewChildBirthPerson.setVisibility(View.GONE);
                     txtViewChildBirthPerson.setText(R.string.secN_medicalPersonnale_name);
+                    txtViewChildBirthDate.setText("");
                 }
             }
         });
@@ -803,10 +885,12 @@ public class AntenatalActivity extends AppCompatActivity {
                     txtViewSafeBirthDate.setVisibility(View.VISIBLE);
                     txtViewSafeBirthPerson.setVisibility(View.VISIBLE);
                     txtViewSafeBirthPerson.setText(medicalPersonName);
+                    txtViewSafeBirthDate.setText(getResources().getString(R.string.secN_Date));
                 }else{
                     txtViewSafeBirthDate.setVisibility(View.GONE);
                     txtViewSafeBirthPerson.setVisibility(View.GONE);
                     txtViewSafeBirthPerson.setText(R.string.secN_medicalPersonnale_name);
+                    txtViewSafeBirthDate.setText("");
                 }
             }
         });
@@ -818,10 +902,12 @@ public class AntenatalActivity extends AppCompatActivity {
                     txtViewEarlyBirthDate.setVisibility(View.VISIBLE);
                     txtViewEarlyBirthPerson.setVisibility(View.VISIBLE);
                     txtViewEarlyBirthPerson.setText(medicalPersonName);
+                    txtViewEarlyBirthDate.setText(getResources().getString(R.string.secN_Date));
                 }else{
                     txtViewEarlyBirthDate.setVisibility(View.GONE);
                     txtViewEarlyBirthPerson.setVisibility(View.GONE);
                     txtViewEarlyBirthPerson.setText(R.string.secN_medicalPersonnale_name);
+                    txtViewEarlyBirthDate.setText("");
                 }
             }
         });
@@ -833,10 +919,12 @@ public class AntenatalActivity extends AppCompatActivity {
                     txtViewOralHealthDate.setVisibility(View.VISIBLE);
                     txtViewOralHealthPerson.setVisibility(View.VISIBLE);
                     txtViewOralHealthPerson.setText(medicalPersonName);
+                    txtViewOralHealthDate.setText(getResources().getString(R.string.secN_Date));
                 }else{
                     txtViewOralHealthDate.setVisibility(View.GONE);
                     txtViewOralHealthPerson.setVisibility(View.GONE);
                     txtViewOralHealthPerson.setText(R.string.secN_medicalPersonnale_name);
+                    txtViewOralHealthDate.setText("");
                 }
             }
         });
