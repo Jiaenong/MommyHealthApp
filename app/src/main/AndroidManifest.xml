@@ -28,8 +28,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Nurse.PregnantExperienceRecordActivity"
-            android:label="Pregnancy Experience"/>
+        <activity android:name=".Mommy.KickCounterActivity"></activity>
+        <activity
+            android:name=".Nurse.PregnantExperienceRecordActivity"
+            android:label="Pregnancy Experience" />
         <activity
             android:name=".Nurse.ScanQRCodeActivity"
             android:label="Scan QRCode" />

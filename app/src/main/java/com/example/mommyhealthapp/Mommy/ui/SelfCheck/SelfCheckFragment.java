@@ -1,15 +1,18 @@
 package com.example.mommyhealthapp.Mommy.ui.SelfCheck;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mommyhealthapp.Mommy.KickCounterActivity;
 import com.example.mommyhealthapp.R;
 
 /**
@@ -25,6 +28,8 @@ public class SelfCheckFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private CardView kickCounterMain;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -66,8 +71,17 @@ public class SelfCheckFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_self_check, container, false);
+        View v = inflater.inflate(R.layout.fragment_self_check, container, false);
+        kickCounterMain = (CardView)v.findViewById(R.id.kickCounterMain);
+
+        kickCounterMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), KickCounterActivity.class);
+                startActivity(intent);
+            }
+        });
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

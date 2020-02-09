@@ -238,7 +238,7 @@
     <string name="secN_anal_earlybirth_notice">Early birth notice</string>
     <string name="secN_anal_oral_healthCare">Oral health care</string>
     <string name="KickCounter">Kick Counter</string>
-    <string name="MonitoringBP"><![CDATA[Monitoring of Blood Pressure and Signs & Symptoms of Preeclampsia]]></string>
+    <string name="MonitoringBP">Pregnancy Weight Gain Graph</string>
     <string name="secN_post_nutrition">Nutrition during the meal</string>
     <string name="secN_post_postnatal_exercise">Postnatal exercise</string>
     <string name="secN_post_hygene_episitomy">Personal hygiene and episitomy</string>
@@ -326,6 +326,8 @@
     <string name="mentalHealthStress">Stress</string>
     <string name="mentalHealthAnxiety">Anxiety</string>
     <string name="mentalHealthDepression">Depression</string>
+    <string name="FirstRecord">First Kick Time:</string>
+    <string name="LastRecord">Last Kick Time:</string>
 
     <string-array name="national">
         <item>Malaysia</item>
