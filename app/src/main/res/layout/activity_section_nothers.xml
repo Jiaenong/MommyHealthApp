@@ -1,189 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutOtherTutorial"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Nurse.SectionNOthersActivity">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBarOtherTutorial"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 
-        <RelativeLayout
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutOtherTutorial"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <TextView
-                android:id="@+id/textView153"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/secN_others_care_newborn"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox59"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView153"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_others_care_newborn"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxCaringNewBorn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+
+                <TextView
+                    android:id="@+id/txtViewCaringNewBornDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView153"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark"/>
+
+                <TextView
+                    android:id="@+id/txtViewCaringNewBornPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView153"
+                    android:layout_toRightOf="@+id/txtViewCaringNewBornDate"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView154"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView153"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark"/>
-
-            <TextView
-                android:id="@+id/textView155"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView153"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView156"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/secN_others_Neonatal_Jaundice"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox60"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView156"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_others_Neonatal_Jaundice"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxJaundice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+
+                <TextView
+                    android:id="@+id/txtViewJaundiceDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView156"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark"/>
+
+                <TextView
+                    android:id="@+id/txtViewJaundicePerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView156"
+                    android:layout_toRightOf="@id/txtViewJaundiceDate"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView157"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView156"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark"/>
-
-            <TextView
-                android:id="@+id/textView158"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView156"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView159"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/secN_others_pap_smear"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox61"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView159"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_others_pap_smear"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxPapSmear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+
+                <TextView
+                    android:id="@+id/txtViewPapSmearDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView159"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark"/>
+
+                <TextView
+                    android:id="@+id/txtViewPapSmearPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView159"
+                    android:layout_toRightOf="@id/txtViewPapSmearDate"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/textView160"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView159"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark"/>
-
-            <TextView
-                android:id="@+id/textView161"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView159"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView162"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
-                android:maxWidth="250dp"
-                android:text="@string/secN_others_breast_cancer"
-                android:textSize="18sp" />
+                android:background="@drawable/customborder">
 
-            <CheckBox
-                android:id="@+id/checkBox62"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
+                <TextView
+                    android:id="@+id/textView162"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:maxWidth="250dp"
+                    android:text="@string/secN_others_breast_cancer"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/textView163"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView162"
-                android:text="@string/secN_Date"
-                android:textColor="@android:color/holo_green_dark"/>
+                <CheckBox
+                    android:id="@+id/checkBoxBreastCancer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
 
-            <TextView
-                android:id="@+id/textView164"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView162"
-                android:layout_marginLeft="40dp"
-                android:text="@string/secN_medicalPersonnale_name"
-                android:textColor="@color/colorAccent" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/txtViewBreastCancerDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView162"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:text="@string/secN_Date"
+                    android:textColor="@android:color/holo_green_dark"/>
 
-        <Button
-            android:id="@+id/button13"
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/save"
-            app:cornerRadius="16dp" />
+                <TextView
+                    android:id="@+id/txtViewBreastCancerPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView162"
+                    android:layout_toRightOf="@id/txtViewBreastCancerDate"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/secN_medicalPersonnale_name"
+                    android:textColor="@color/colorAccent" />
+            </RelativeLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOtherTutorialSave"
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/save"
+                app:cornerRadius="16dp" />
 
-</androidx.core.widget.NestedScrollView>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOtherTutorialCancel"
+                style="@style/cancelButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:text="@string/cancel"
+                app:cornerRadius="16dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>
