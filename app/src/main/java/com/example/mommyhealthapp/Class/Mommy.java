@@ -22,12 +22,13 @@ public class Mommy implements Parcelable {
     private String status;
     private String mummyImage;
     private String qrcodeImage;
+    private String healthInfoId;
 
     public Mommy() { }
 
     public Mommy(String mommyName, String mommyIC, String nationality, String race, String address,
                  String phoneNo, String occupation, int age, String education, String password, String mommyId,
-                 int mommyNumber, String status, String mummyImage, String qrcodeImage)
+                 int mommyNumber, String status, String mummyImage, String qrcodeImage, String healthInfoId)
     {
         this.mommyName = mommyName;
         this.mommyIC = mommyIC;
@@ -44,6 +45,7 @@ public class Mommy implements Parcelable {
         this.status = status;
         this.mummyImage = mummyImage;
         this.qrcodeImage = qrcodeImage;
+        this.healthInfoId = healthInfoId;
     }
 
     protected Mommy(Parcel in) {
@@ -62,6 +64,7 @@ public class Mommy implements Parcelable {
         status = in.readString();
         mummyImage = in.readString();
         qrcodeImage = in.readString();
+        healthInfoId = in.readString();
     }
 
     public static final Creator<Mommy> CREATOR = new Creator<Mommy>() {
@@ -200,6 +203,14 @@ public class Mommy implements Parcelable {
         this.status = status;
     }
 
+    public String getHealthInfoId() {
+        return healthInfoId;
+    }
+
+    public void setHealthInfoId(String healthInfoId) {
+        this.healthInfoId = healthInfoId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -222,5 +233,6 @@ public class Mommy implements Parcelable {
         dest.writeString(status);
         dest.writeString(mummyImage);
         dest.writeString(qrcodeImage);
+        dest.writeString(healthInfoId);
     }
 }

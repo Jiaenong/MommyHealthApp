@@ -92,6 +92,7 @@ public class NurseProfileFragment extends Fragment {
                 SaveSharedPreference.clearUser(getActivity());
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 

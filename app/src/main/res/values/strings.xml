@@ -70,7 +70,7 @@
     <string name="mummy_name">Mummy Name</string>
     <string name="mummy_id">Mummy ID</string>
     <string name="early_test">Early Test</string>
-    <string name="maternal_medical_examination">Routine Medical Examination</string>
+    <string name="maternal_medical_examination">Baby Kicks Record</string>
     <string name="sectionN">Health Tutorial</string>
     <string name="mgtt">MGTT Examination</string>
     <string name="pregnancy_examination">Pregnancy Examination</string>
@@ -326,8 +326,15 @@
     <string name="mentalHealthStress">Stress</string>
     <string name="mentalHealthAnxiety">Anxiety</string>
     <string name="mentalHealthDepression">Depression</string>
-    <string name="FirstRecord">First Kick Time:</string>
-    <string name="LastRecord">Last Kick Time:</string>
+    <string name="FirstRecord">First Kick Time: </string>
+    <string name="LastRecord">Last Kick Time: </string>
+    <string name="firstKickCount">First Kick times</string>
+    <string name="latestKickCount">Latest Kick times</string>
+    <string name="babyKick">Baby Kicks</string>
+    <string name="Count">Count</string>
+    <string name="babyKickGuide">Tap to record baby\'s kicks count</string>
+    <string name="firstKickDate">First Kick Date</string>
+    <string name="lastKickDate">Latest Kick Date</string>
 
     <string-array name="national">
         <item>Malaysia</item>

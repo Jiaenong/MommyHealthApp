@@ -154,9 +154,10 @@ public class CreateMotherFragment extends Fragment {
                     String confirmPass = confirmPassEditText.getText().toString();
                     String status = "Active";
                     String imagePic = "";
+                    String healthInfoId = "";
                     qrcode = "";
 
-                    Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,occupation,age,education,confirmPass, mommyId, mommyNumber,status,imagePic,qrcode);
+                    Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,occupation,age,education,confirmPass, mommyId, mommyNumber,status,imagePic,qrcode, healthInfoId);
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("mommyinfo", mommy);

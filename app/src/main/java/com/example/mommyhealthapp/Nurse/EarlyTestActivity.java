@@ -180,7 +180,19 @@ public class EarlyTestActivity extends AppCompatActivity {
                         MommyHealthInfo mi = new MommyHealthInfo(SaveSharedPreference.getMummyId(EarlyTestActivity.this),
                                 GetMonth(month+1), year+"", status, generatedString);
                         final BloodTest bt = new BloodTest(bloodGroup, rhd, rpr, medicalPersonnelId, today);
-
+                        CollectionReference pCollectionReference = mFirebaseFirestore.collection("Mommy");
+                        pCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(EarlyTestActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                String id = "";
+                                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                                {
+                                    id = documentSnapshot.getId();
+                                }
+                                DocumentReference pDocumentReference = mFirebaseFirestore.collection("Mommy").document(id);
+                                pDocumentReference.update("healthInfoId", generatedString);
+                            }
+                        });
                         mCollectionReference.add(mi).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {

@@ -12,7 +12,7 @@ public class SaveSharedPreference {
     static final String PREVIOUS_PREGNANT = "previousPregnant";
     static final String MUMMY_ID = "mummyId";
     static final String HEALTHINFO_ID = "healthInfoId";
-    static final String BABYKICKINFO_ID = "babyKickInfoId";
+    static final String BABYKICK_TIME = "babyKickTime";
 
     static SharedPreferences getSharedPreference(Context context)
     {
@@ -31,16 +31,16 @@ public class SaveSharedPreference {
         return getSharedPreference(context).getString(USER_TYPE,"");
     }
 
-    public static void setBabykickinfoId(Context context, String babyKickInfoId)
+    public static void setBabyKickTime(Context context, String babyKickTime)
     {
         SharedPreferences.Editor editor = getSharedPreference(context).edit();
-        editor.putString(BABYKICKINFO_ID, babyKickInfoId);
+        editor.putString(BABYKICK_TIME, babyKickTime);
         editor.commit();
     }
 
-    public static String getBabykickinfoId(Context context)
+    public static String getBabyKickTime(Context context)
     {
-        return getSharedPreference(context).getString(BABYKICKINFO_ID,"");
+        return getSharedPreference(context).getString(BABYKICK_TIME,"");
     }
 
     public static void setHealthInfoId(Context context, String healthInfoId)

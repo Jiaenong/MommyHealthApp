@@ -1,59 +1,63 @@
 package com.example.mommyhealthapp.Mommy;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.cardview.widget.CardView;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.SafeBrowsingResponse;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.mommyhealthapp.Class.BabyKickCount;
 import com.example.mommyhealthapp.Class.KickCount;
+import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
 
 public class KickCounterActivity extends AppCompatActivity {
-    private ImageButton kickCount;
-    private TextView firstRecord, kickTime, lastRecord, lastKicksTime;
+    private CardView kickCount;
+    private TextView firstRecord, kickTime, lastRecord, lastKicksTime, txtViewKickTimes, txtViewFirstKickDate, txtViewLastKickDate;
     private LinearLayoutCompat layoutKickCount;
     private ProgressBar progressBarKickCount;
     private int counter = 0, counterKick;
-    private String IdKey;
+    private String healthInfoId;
     private Boolean isEmpty;
 
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference, nCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference, pCollectionReference;
+    private DocumentReference mDocumentReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kick_counter);
-        kickCount = (ImageButton)findViewById(R.id.kickCount);
+        kickCount = (CardView)findViewById(R.id.kickCount);
+        txtViewKickTimes = (TextView)findViewById(R.id.txtViewKickTimes);
         firstRecord = (TextView)findViewById(R.id.firstRecord);
         kickTime = (TextView)findViewById(R.id.kickTime);
         lastRecord = (TextView)findViewById(R.id.lastRecord);
         lastKicksTime = (TextView)findViewById(R.id.lastKicksTime);
+        txtViewFirstKickDate = (TextView)findViewById(R.id.txtViewFirstKickDate);
+        txtViewLastKickDate = (TextView)findViewById(R.id.txtViewLastKickDate);
         layoutKickCount = (LinearLayoutCompat)findViewById(R.id.layoutKickCount);
         progressBarKickCount = (ProgressBar)findViewById(R.id.progressBarKickCount);
 
@@ -61,44 +65,62 @@ public class KickCounterActivity extends AppCompatActivity {
         layoutKickCount.setVisibility(View.GONE);
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
-        nCollectionReference = mFirebaseFirestore.collection("BabyKickCount");
-        nCollectionReference.whereEqualTo("BabyKickInfoId", SaveSharedPreference.getBabykickinfoId(KickCounterActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        mDocumentReference = mFirebaseFirestore.collection("Mommy").document(SaveSharedPreference.getID(KickCounterActivity.this));
+        Log.i("Testing", SaveSharedPreference.getID(KickCounterActivity.this));
+        mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.isEmpty())
-                {
-                    isEmpty = true;
-                }else{
-                    isEmpty = false;
-                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-                    {
-                        IdKey = documentSnapshot.getId();
-                    }
-                    mCollectionReference = mFirebaseFirestore.collection("BabyKickCount").document(IdKey).collection("KickCount");
-                    mCollectionReference.orderBy("lastKickTime", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-                            {
-                                KickCount kc = documentSnapshot.toObject(KickCount.class);
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                                kickTime.setText(kc.getFirstKick()+" "+dateFormat.format(kc.getFirstKickDate())+" "+timeFormat.format(kc.getFirstKickTime()));
-                                if(kc.getLastKick() == 0 || kc.getLastKickDate() == null || kc.getLastKickTime() == null)
-                                {
-                                    lastKicksTime.setText("");
-                                }else{
-                                    counterKick = kc.getLastKick();
-                                    Log.i("Testing", counterKick+"");
-                                    lastKicksTime.setText(kc.getLastKick()+" "+dateFormat.format(kc.getLastKickDate())+" "+timeFormat.format(kc.getLastKickTime()));
-                                }
-                                progressBarKickCount.setVisibility(View.GONE);
-                                layoutKickCount.setVisibility(View.VISIBLE);
-                                break;
-                            }
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Mommy mommy = documentSnapshot.toObject(Mommy.class);
+                healthInfoId = mommy.getHealthInfoId();
+                Log.i("Testing1", healthInfoId);
+                mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
+                mCollectionReference.whereEqualTo("healthInfoId", healthInfoId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        String id = "";
+                        for(QueryDocumentSnapshot documentSnapshots: queryDocumentSnapshots)
+                        {
+                            id = documentSnapshots.getId();
                         }
-                    });
-                }
+                        pCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(id).collection("KickCount");
+                        pCollectionReference.orderBy("lastKickTime", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                if(queryDocumentSnapshots.isEmpty())
+                                {
+                                    isEmpty = true;
+                                    progressBarKickCount.setVisibility(View.GONE);
+                                    layoutKickCount.setVisibility(View.VISIBLE);
+                                }else{
+                                    isEmpty = false;
+                                    for(QueryDocumentSnapshot documentSnapshotss : queryDocumentSnapshots)
+                                    {
+                                        KickCount kc = documentSnapshotss.toObject(KickCount.class);
+                                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                                        kickTime.setText(timeFormat.format(kc.getFirstKickTime()));
+                                        txtViewFirstKickDate.setText(dateFormat.format(kc.getFirstKickDate()));
+                                        if(kc.getLastKick() == 0 || kc.getLastKickDate() == null || kc.getLastKickTime() == null)
+                                        {
+                                            txtViewKickTimes.setText(kc.getFirstKick());
+                                            lastKicksTime.setText(getResources().getString(R.string.latestKickCount));
+                                            txtViewLastKickDate.setText(getResources().getString(R.string.lastKickDate));
+                                        }else{
+                                            txtViewKickTimes.setText(kc.getLastKick()+"");
+                                            counterKick = kc.getLastKick();
+                                            txtViewLastKickDate.setText(dateFormat.format(kc.getLastKickDate()));
+                                            lastKicksTime.setText(timeFormat.format(kc.getLastKickTime()));
+                                        }
+                                        break;
+                                    }
+                                    CheckTime();
+                                    progressBarKickCount.setVisibility(View.GONE);
+                                    layoutKickCount.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
+                    }
+                });
             }
         });
 
@@ -109,72 +131,129 @@ public class KickCounterActivity extends AppCompatActivity {
                     counter++;
                     if(counter == 1)
                     {
-                        GetBabyInfoId(new BabyInfoIdCallBack() {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                        int firstKick = counter;
+                        Date firstKickDate = new Date();
+                        Date firstKickTime = new Date();
+                        int lastKick = 0;
+                        Date lastKickDate = null;
+                        Date lastKickTime = null;
+                        final KickCount kc = new KickCount(firstKick, firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime);
+                        txtViewKickTimes.setText(firstKick+"");
+                        kickTime.setText(timeFormat.format(firstKickTime));
+                        txtViewFirstKickDate.setText(dateFormat.format(firstKickDate));
+                        mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
+                        mCollectionReference.whereEqualTo("healthInfoId", healthInfoId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
-                            public void onBabyInfoIdCallBack(String key) {
-                                IdKey = key;
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                String id = "";
+                                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                                {
+                                    id = documentSnapshot.getId();
+                                }
+                                nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(id).collection("KickCount");
+                                nCollectionReference.add(kc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Snackbar snackbar = Snackbar.make(layoutKickCount, "First Kick Saved", Snackbar.LENGTH_LONG);
+                                        snackbar.show();
+                                    }
+                                });
                             }
                         });
                     }else{
                         if(counter == 10)
                         {
                             kickCount.setEnabled(false);
-                            Snackbar snackbar = Snackbar.make(layoutKickCount, "10 record has been added", Snackbar.LENGTH_LONG);
-                            snackbar.show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(KickCounterActivity.this);
+                            builder.setTitle("Count Complete");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                            builder.setMessage("Maximum 10 count per day");
+                            AlertDialog alert = builder.create();
+                            alert.show();
                         }else{
-                            mCollectionReference = mFirebaseFirestore.collection("BabyKickCount").document(IdKey).collection("KickCount");
                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                            String[] firstKickElement = kickTime.getText().toString().split(" ",0);
-                            String firstKick = firstKickElement[0];
+                            String firstKick = txtViewKickTimes.getText().toString();
                             Date firstKickDate = null;
                             Date firstKickTime = null;
                             try {
-                                firstKickDate = new SimpleDateFormat("dd/MM/yyyy").parse(firstKickElement[1]);
-                                firstKickTime = new SimpleDateFormat("HH:mm").parse(firstKickElement[2]);
+                                firstKickTime = new SimpleDateFormat("HH:mm").parse(kickTime.getText().toString());
+                                firstKickDate = new SimpleDateFormat("dd/MM/yyyy").parse(txtViewFirstKickDate.getText().toString());
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                             int lastKick = counter;
                             Date lastKickDate = new Date();
                             Date lastKickTime = new Date();
-                            KickCount kc = new KickCount(Integer.parseInt(firstKick), firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime);
-                            lastKicksTime.setText(lastKick+" "+dateFormat.format(lastKickDate)+" "+timeFormat.format(lastKickTime));
-                            mCollectionReference.add(kc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            final KickCount kc = new KickCount(Integer.parseInt(firstKick), firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime);
+                            txtViewKickTimes.setText(lastKick+"");
+                            txtViewLastKickDate.setText(dateFormat.format(lastKickDate));
+                            lastKicksTime.setText(timeFormat.format(lastKickTime));
+                            mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
+                            mCollectionReference.whereEqualTo("healthInfoId", healthInfoId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                 @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Snackbar snackbar = Snackbar.make(layoutKickCount, "Latest Kick Updated", Snackbar.LENGTH_LONG);
-                                    snackbar.show();
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    String id = "";
+                                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                                    {
+                                        id = documentSnapshot.getId();
+                                    }
+                                    nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(id).collection("KickCount");
+                                    nCollectionReference.add(kc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Snackbar snackbar = Snackbar.make(layoutKickCount, "Latest Kick Saved", Snackbar.LENGTH_LONG);
+                                            snackbar.show();
+                                        }
+                                    });
                                 }
                             });
                         }
                     }
                 }else{
-                    if(counterKick == 10)
+                    int latestKickCount = Integer.parseInt(txtViewKickTimes.getText().toString());
+                    if(latestKickCount == 10)
                     {
                         kickCount.setEnabled(false);
-                        Snackbar snackbar = Snackbar.make(layoutKickCount, "10 record has been added", Snackbar.LENGTH_LONG);
-                        snackbar.show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(KickCounterActivity.this);
+                        builder.setTitle("Count Complete");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
+                            }
+                        });
+                        builder.setMessage("Maximum 10 count per day");
+                        AlertDialog alert = builder.create();
+                        alert.show();
                     }else{
                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                        String[] firstKickElement = kickTime.getText().toString().split(" ",0);
-                        String firstKick = firstKickElement[0];
+                        String firstKick = txtViewKickTimes.getText().toString();
                         Date firstKickDate = null;
                         Date firstKickTime = null;
                         try {
-                            firstKickDate = new SimpleDateFormat("dd/MM/yyyy").parse(firstKickElement[1]);
-                            firstKickTime = new SimpleDateFormat("HH:mm").parse(firstKickElement[2]);
+                            firstKickTime = new SimpleDateFormat("HH:mm").parse(kickTime.getText().toString());
+                            firstKickDate = new SimpleDateFormat("dd/MM/yyyy").parse(txtViewFirstKickDate.getText().toString());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        int lastKick = ++counterKick;
+                        int lastKick = ++latestKickCount;
                         Log.i("Testing1", lastKick+"");
                         Date lastKickDate = new Date();
                         Date lastKickTime = new Date();
                         KickCount kc = new KickCount(Integer.parseInt(firstKick), firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime);
-                        lastKicksTime.setText(lastKick+" "+dateFormat.format(lastKickDate)+" "+timeFormat.format(lastKickTime));
-                        mCollectionReference.add(kc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        txtViewKickTimes.setText(lastKick+"");
+                        txtViewLastKickDate.setText(dateFormat.format(lastKickDate));
+                        lastKicksTime.setText(timeFormat.format(lastKickTime));
+                        pCollectionReference.add(kc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Snackbar snackbar = Snackbar.make(layoutKickCount, "Latest Kick Updated", Snackbar.LENGTH_LONG);
@@ -189,66 +268,33 @@ public class KickCounterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public interface BabyInfoIdCallBack{
-        void onBabyInfoIdCallBack(String key);
-    }
 
-    public void GetBabyInfoId(final BabyInfoIdCallBack callBack)
+    private void CheckTime()
     {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        int firstKick = counter;
-        Date firstKickDate = new Date();
-        Date firstKickTime = new Date();
-        int lastKick = 0;
-        Date lastKickDate = null;
-        Date lastKickTime = null;
-        Date today = new Date();
-        String babyKickInfoId = UUID.randomUUID().toString().replace("-", "");
-        SaveSharedPreference.setBabykickinfoId(KickCounterActivity.this, babyKickInfoId);
-        BabyKickCount bkc = new BabyKickCount(babyKickInfoId, SaveSharedPreference.getID(KickCounterActivity.this), today);
-        final KickCount kc = new KickCount(firstKick, firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime);
-        kickTime.setText(firstKick+" "+dateFormat.format(firstKickDate)+ " "+timeFormat.format(firstKickTime));
-        nCollectionReference.add(bkc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                String key = documentReference.getId();
-                callBack.onBabyInfoIdCallBack(key);
-                mCollectionReference = mFirebaseFirestore.collection("BabyKickCount").document(documentReference.getId()).collection("KickCount");
-                mCollectionReference.add(kc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Snackbar snackbar = Snackbar.make(layoutKickCount, "First Kick Saved", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                    }
-                });
-            }
-        });
-    }
-
-    private Boolean CheckTime()
-    {
-        Boolean timeReach;
         Date dat  = new Date();//initializes to now
         Calendar cal_alarm = Calendar.getInstance();
         Calendar cal_now = Calendar.getInstance();
         cal_now.setTime(dat);
-        cal_alarm.setTime(dat);
         cal_alarm.set(Calendar.HOUR_OF_DAY,9);//set the alarm time
         cal_alarm.set(Calendar.MINUTE,0);
         cal_alarm.set(Calendar.SECOND,0);
-        if(cal_alarm.before(cal_now)){//if its in the past increment
-            cal_alarm.add(Calendar.DATE,1);
-        }
-        if(cal_alarm.equals(cal_now) || cal_alarm.after(cal_now))
+        String currentDate = dateFormat.format(dat);
+        Log.i("TestingDate", SaveSharedPreference.getBabyKickTime(KickCounterActivity.this));
+        if(!currentDate.equals(SaveSharedPreference.getBabyKickTime(KickCounterActivity.this)))
         {
-            counterKick = 0;
-            kickCount.setEnabled(true);
-            timeReach = true;
-        }else{
-            timeReach = false;
+            if(cal_now.equals(cal_alarm) || cal_now.after(cal_alarm))
+            {
+                txtViewKickTimes.setText("0");
+                kickTime.setText(getResources().getString(R.string.firstKickCount));
+                txtViewFirstKickDate.setText(getResources().getString(R.string.firstKickDate));
+                txtViewLastKickDate.setText(getResources().getString(R.string.lastKickDate));
+                lastKicksTime.setText(getResources().getString(R.string.latestKickCount));
+                kickCount.setEnabled(true);
+                SaveSharedPreference.setBabyKickTime(KickCounterActivity.this, currentDate);
+            }
         }
-        return timeReach;
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
@@ -60,22 +61,23 @@ public class MainActivity extends AppCompatActivity {
         mdCollectionReference = mFirebaseFirestore.collection("MedicalPersonnel");
         motherCollectionReference = mFirebaseFirestore.collection("Mommy");
 
-        checkRequiredField();
 
         if(SaveSharedPreference.getCheckLogin(MainActivity.this))
         {
+            Log.i("TestingMain", SaveSharedPreference.getUser(MainActivity.this));
             if(SaveSharedPreference.getUser(MainActivity.this).equals("medicalPersonnel"))
             {
                 Intent intent = new Intent(MainActivity.this, NurseHomeActivity.class);
                 startActivity(intent);
-                finish();
             }else if(SaveSharedPreference.getUser(MainActivity.this).equals("Mommy"))
             {
                 Intent intent = new Intent(MainActivity.this, MommyHomeActivity.class);
                 startActivity(intent);
-                finish();
             }
+            finish();
         }
+
+        checkRequiredField();
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
