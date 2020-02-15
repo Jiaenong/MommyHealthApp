@@ -237,7 +237,7 @@
 
                 </RelativeLayout>
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLogout"
                     style="@style/Button"
                     android:layout_width="match_parent"
