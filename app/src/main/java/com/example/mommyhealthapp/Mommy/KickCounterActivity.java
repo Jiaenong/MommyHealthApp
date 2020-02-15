@@ -89,7 +89,7 @@ public class KickCounterActivity extends AppCompatActivity {
                                 if(queryDocumentSnapshots.isEmpty())
                                 {
                                     isEmpty = true;
-                                    babyKickNumber = 1;
+                                    babyKickNumber = 0;
                                     progressBarKickCount.setVisibility(View.GONE);
                                     layoutKickCount.setVisibility(View.VISIBLE);
                                 }else{
@@ -100,7 +100,6 @@ public class KickCounterActivity extends AppCompatActivity {
                                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
                                         babyKickNumber = kc.getBabyKickNumber();
-                                        babyKickNumber++;
                                         kickTime.setText(timeFormat.format(kc.getFirstKickTime()));
                                         txtViewFirstKickDate.setText(dateFormat.format(kc.getFirstKickDate()));
                                         if(kc.getLastKick() == 0 || kc.getLastKickDate() == null || kc.getLastKickTime() == null)
@@ -142,6 +141,7 @@ public class KickCounterActivity extends AppCompatActivity {
                         int lastKick = 0;
                         Date lastKickDate = null;
                         Date lastKickTime = null;
+                        babyKickNumber++;
                         final KickCount kc = new KickCount(firstKick, firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime, babyKickNumber);
                         txtViewKickTimes.setText(firstKick+"");
                         kickTime.setText(timeFormat.format(firstKickTime));
@@ -166,7 +166,7 @@ public class KickCounterActivity extends AppCompatActivity {
                             }
                         });
                     }else{
-                        if(counter == 10)
+                        if(counter == 11)
                         {
                             kickCount.setEnabled(false);
                             AlertDialog.Builder builder = new AlertDialog.Builder(KickCounterActivity.this);
@@ -195,6 +195,7 @@ public class KickCounterActivity extends AppCompatActivity {
                             int lastKick = counter;
                             Date lastKickDate = new Date();
                             Date lastKickTime = new Date();
+                            babyKickNumber++;
                             final KickCount kc = new KickCount(firstKick, firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime, babyKickNumber);
                             txtViewKickTimes.setText(lastKick+"");
                             txtViewLastKickDate.setText(dateFormat.format(lastKickDate));
@@ -233,6 +234,7 @@ public class KickCounterActivity extends AppCompatActivity {
                         int lastKick = 0;
                         Date lastKickDate = null;
                         Date lastKickTime = null;
+                        babyKickNumber++;
                         final KickCount kc = new KickCount(firstKick, firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime, babyKickNumber);
                         txtViewKickTimes.setText(firstKick+"");
                         kickTime.setText(timeFormat.format(firstKickTime));
@@ -245,7 +247,7 @@ public class KickCounterActivity extends AppCompatActivity {
                             }
                         });
                     }else{
-                        if(latestKickCount == 10)
+                        if(latestKickCount == 11)
                         {
                             kickCount.setEnabled(false);
                             AlertDialog.Builder builder = new AlertDialog.Builder(KickCounterActivity.this);
@@ -275,6 +277,7 @@ public class KickCounterActivity extends AppCompatActivity {
                             Log.i("Testing1", lastKick+"");
                             Date lastKickDate = new Date();
                             Date lastKickTime = new Date();
+                            babyKickNumber++;
                             KickCount kc = new KickCount(firstKick, firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime, babyKickNumber);
                             txtViewKickTimes.setText(lastKick+"");
                             txtViewLastKickDate.setText(dateFormat.format(lastKickDate));

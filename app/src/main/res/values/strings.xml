@@ -335,6 +335,9 @@
     <string name="babyKickGuide">Tap to record baby\'s kicks count</string>
     <string name="firstKickDate">First Kick Date</string>
     <string name="lastKickDate">Latest Kick Date</string>
+    <string name="babyReocrdKickCount">Kicks Count</string>
+    <string name="babyRecordKickTime">Time</string>
+    <string name="babyRecordKickDate">Date</string>
 
     <string-array name="national">
         <item>Malaysia</item>
