@@ -9,16 +9,18 @@ public class KickCount {
     private int lastKick;
     private Date lastKickDate;
     private Date lastKickTime;
+    private int babyKickNumber;
 
     public KickCount(){};
 
-    public KickCount(int firstKick, Date firstKickDate, Date firstKickTime, int lastKick, Date lastKickDate, Date lastKickTime) {
+    public KickCount(int firstKick, Date firstKickDate, Date firstKickTime, int lastKick, Date lastKickDate, Date lastKickTime, int babyKickNumber) {
         this.firstKick = firstKick;
         this.firstKickDate = firstKickDate;
         this.firstKickTime = firstKickTime;
         this.lastKick = lastKick;
         this.lastKickTime = lastKickTime;
         this.lastKickDate = lastKickDate;
+        this.babyKickNumber = babyKickNumber;
     }
 
     public int getFirstKick() {
@@ -67,5 +69,13 @@ public class KickCount {
 
     public void setLastKickDate(Date lastKickDate) {
         this.lastKickDate = lastKickDate;
+    }
+
+    public int getBabyKickNumber() {
+        return babyKickNumber;
+    }
+
+    public void setBabyKickNumber(int babyKickNumber) {
+        this.babyKickNumber = babyKickNumber;
     }
 }

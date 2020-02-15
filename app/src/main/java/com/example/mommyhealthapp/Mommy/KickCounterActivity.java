@@ -39,7 +39,7 @@ public class KickCounterActivity extends AppCompatActivity {
     private TextView firstRecord, kickTime, lastRecord, lastKicksTime, txtViewKickTimes, txtViewFirstKickDate, txtViewLastKickDate;
     private LinearLayoutCompat layoutKickCount;
     private ProgressBar progressBarKickCount;
-    private int counter = 0, counterKick;
+    private int counter = 0, counterKick, babyKickNumber;
     private String healthInfoId;
     private Boolean isEmpty;
 
@@ -83,12 +83,13 @@ public class KickCounterActivity extends AppCompatActivity {
                             id = documentSnapshots.getId();
                         }
                         pCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(id).collection("KickCount");
-                        pCollectionReference.orderBy("lastKickTime", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        pCollectionReference.orderBy("babyKickNumber", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 if(queryDocumentSnapshots.isEmpty())
                                 {
                                     isEmpty = true;
+                                    babyKickNumber = 1;
                                     progressBarKickCount.setVisibility(View.GONE);
                                     layoutKickCount.setVisibility(View.VISIBLE);
                                 }else{
@@ -98,11 +99,13 @@ public class KickCounterActivity extends AppCompatActivity {
                                         KickCount kc = documentSnapshotss.toObject(KickCount.class);
                                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                                        babyKickNumber = kc.getBabyKickNumber();
+                                        babyKickNumber++;
                                         kickTime.setText(timeFormat.format(kc.getFirstKickTime()));
                                         txtViewFirstKickDate.setText(dateFormat.format(kc.getFirstKickDate()));
                                         if(kc.getLastKick() == 0 || kc.getLastKickDate() == null || kc.getLastKickTime() == null)
                                         {
-                                            txtViewKickTimes.setText(kc.getFirstKick());
+                                            txtViewKickTimes.setText(kc.getFirstKick()+"");
                                             lastKicksTime.setText(getResources().getString(R.string.latestKickCount));
                                             txtViewLastKickDate.setText(getResources().getString(R.string.lastKickDate));
                                         }else{
@@ -139,7 +142,7 @@ public class KickCounterActivity extends AppCompatActivity {
                         int lastKick = 0;
                         Date lastKickDate = null;
                         Date lastKickTime = null;
-                        final KickCount kc = new KickCount(firstKick, firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime);
+                        final KickCount kc = new KickCount(firstKick, firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime, babyKickNumber);
                         txtViewKickTimes.setText(firstKick+"");
                         kickTime.setText(timeFormat.format(firstKickTime));
                         txtViewFirstKickDate.setText(dateFormat.format(firstKickDate));
@@ -180,7 +183,7 @@ public class KickCounterActivity extends AppCompatActivity {
                         }else{
                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                            String firstKick = txtViewKickTimes.getText().toString();
+                            int firstKick = 1;
                             Date firstKickDate = null;
                             Date firstKickTime = null;
                             try {
@@ -192,7 +195,7 @@ public class KickCounterActivity extends AppCompatActivity {
                             int lastKick = counter;
                             Date lastKickDate = new Date();
                             Date lastKickTime = new Date();
-                            final KickCount kc = new KickCount(Integer.parseInt(firstKick), firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime);
+                            final KickCount kc = new KickCount(firstKick, firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime, babyKickNumber);
                             txtViewKickTimes.setText(lastKick+"");
                             txtViewLastKickDate.setText(dateFormat.format(lastKickDate));
                             lastKicksTime.setText(timeFormat.format(lastKickTime));
@@ -219,47 +222,71 @@ public class KickCounterActivity extends AppCompatActivity {
                     }
                 }else{
                     int latestKickCount = Integer.parseInt(txtViewKickTimes.getText().toString());
-                    if(latestKickCount == 10)
+                    ++latestKickCount;
+                    if(latestKickCount == 1)
                     {
-                        kickCount.setEnabled(false);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(KickCounterActivity.this);
-                        builder.setTitle("Count Complete");
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                return;
-                            }
-                        });
-                        builder.setMessage("Maximum 10 count per day");
-                        AlertDialog alert = builder.create();
-                        alert.show();
-                    }else{
                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                        String firstKick = txtViewKickTimes.getText().toString();
-                        Date firstKickDate = null;
-                        Date firstKickTime = null;
-                        try {
-                            firstKickTime = new SimpleDateFormat("HH:mm").parse(kickTime.getText().toString());
-                            firstKickDate = new SimpleDateFormat("dd/MM/yyyy").parse(txtViewFirstKickDate.getText().toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        int lastKick = ++latestKickCount;
-                        Log.i("Testing1", lastKick+"");
-                        Date lastKickDate = new Date();
-                        Date lastKickTime = new Date();
-                        KickCount kc = new KickCount(Integer.parseInt(firstKick), firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime);
-                        txtViewKickTimes.setText(lastKick+"");
-                        txtViewLastKickDate.setText(dateFormat.format(lastKickDate));
-                        lastKicksTime.setText(timeFormat.format(lastKickTime));
+                        int firstKick = latestKickCount;
+                        Date firstKickDate = new Date();
+                        Date firstKickTime = new Date();
+                        int lastKick = 0;
+                        Date lastKickDate = null;
+                        Date lastKickTime = null;
+                        final KickCount kc = new KickCount(firstKick, firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime, babyKickNumber);
+                        txtViewKickTimes.setText(firstKick+"");
+                        kickTime.setText(timeFormat.format(firstKickTime));
+                        txtViewFirstKickDate.setText(dateFormat.format(firstKickDate));
                         pCollectionReference.add(kc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                Snackbar snackbar = Snackbar.make(layoutKickCount, "Latest Kick Updated", Snackbar.LENGTH_LONG);
+                                Snackbar snackbar = Snackbar.make(layoutKickCount, "First Kick Saved", Snackbar.LENGTH_LONG);
                                 snackbar.show();
                             }
                         });
+                    }else{
+                        if(latestKickCount == 10)
+                        {
+                            kickCount.setEnabled(false);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(KickCounterActivity.this);
+                            builder.setTitle("Count Complete");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                            builder.setMessage("Maximum 10 count per day");
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }else{
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                            int firstKick = 1;
+                            Date firstKickDate = null;
+                            Date firstKickTime = null;
+                            try {
+                                firstKickTime = new SimpleDateFormat("HH:mm").parse(kickTime.getText().toString());
+                                firstKickDate = new SimpleDateFormat("dd/MM/yyyy").parse(txtViewFirstKickDate.getText().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            int lastKick = latestKickCount;
+                            Log.i("Testing1", lastKick+"");
+                            Date lastKickDate = new Date();
+                            Date lastKickTime = new Date();
+                            KickCount kc = new KickCount(firstKick, firstKickDate, firstKickTime, lastKick, lastKickDate, lastKickTime, babyKickNumber);
+                            txtViewKickTimes.setText(lastKick+"");
+                            txtViewLastKickDate.setText(dateFormat.format(lastKickDate));
+                            lastKicksTime.setText(timeFormat.format(lastKickTime));
+                            pCollectionReference.add(kc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Snackbar snackbar = Snackbar.make(layoutKickCount, "Latest Kick Updated", Snackbar.LENGTH_LONG);
+                                    snackbar.show();
+                                }
+                            });
+                        }
                     }
                 }
             }
