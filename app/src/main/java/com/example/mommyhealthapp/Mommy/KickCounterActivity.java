@@ -313,15 +313,20 @@ public class KickCounterActivity extends AppCompatActivity {
         Log.i("TestingDate", SaveSharedPreference.getBabyKickTime(KickCounterActivity.this));
         if(!currentDate.equals(SaveSharedPreference.getBabyKickTime(KickCounterActivity.this)))
         {
-            if(cal_now.equals(cal_alarm) || cal_now.after(cal_alarm))
+            if(SaveSharedPreference.getBabyKickTime(KickCounterActivity.this).equals(""))
             {
-                txtViewKickTimes.setText("0");
-                kickTime.setText(getResources().getString(R.string.firstKickCount));
-                txtViewFirstKickDate.setText(getResources().getString(R.string.firstKickDate));
-                txtViewLastKickDate.setText(getResources().getString(R.string.lastKickDate));
-                lastKicksTime.setText(getResources().getString(R.string.latestKickCount));
-                kickCount.setEnabled(true);
                 SaveSharedPreference.setBabyKickTime(KickCounterActivity.this, currentDate);
+            }else{
+                if(cal_now.equals(cal_alarm) || cal_now.after(cal_alarm))
+                {
+                    txtViewKickTimes.setText("0");
+                    kickTime.setText(getResources().getString(R.string.firstKickCount));
+                    txtViewFirstKickDate.setText(getResources().getString(R.string.firstKickDate));
+                    txtViewLastKickDate.setText(getResources().getString(R.string.lastKickDate));
+                    lastKicksTime.setText(getResources().getString(R.string.latestKickCount));
+                    kickCount.setEnabled(true);
+                    SaveSharedPreference.setBabyKickTime(KickCounterActivity.this, currentDate);
+                }
             }
         }
 

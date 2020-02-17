@@ -338,6 +338,7 @@
     <string name="babyReocrdKickCount">Kicks Count</string>
     <string name="babyRecordKickTime">Time</string>
     <string name="babyRecordKickDate">Date</string>
+    <string name="queryDate">Search Date</string>
 
     <string-array name="national">
         <item>Malaysia</item>
