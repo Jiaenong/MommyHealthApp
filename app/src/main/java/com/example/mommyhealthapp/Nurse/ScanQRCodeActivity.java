@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -134,6 +135,7 @@ public class ScanQRCodeActivity extends AppCompatActivity implements ZXingScanne
                     {
                         check++;
                         Intent intent = new Intent(ScanQRCodeActivity.this, MommyRecordActivity.class);
+                        SaveSharedPreference.setMummyId(ScanQRCodeActivity.this, mommy.getMommyId());
                         intent.putExtra("MommyID", mommy.getMommyId());
                         startActivity(intent);
                     }

@@ -338,7 +338,7 @@
     <string name="babyReocrdKickCount">Kicks Count</string>
     <string name="babyRecordKickTime">Time</string>
     <string name="babyRecordKickDate">Date</string>
-    <string name="queryDate">Search Date</string>
+    <string name="MGTTResult">MGTT Result</string>
 
     <string-array name="national">
         <item>Malaysia</item>

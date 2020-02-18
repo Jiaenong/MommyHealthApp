@@ -118,7 +118,7 @@ public class MommyProfileActivity extends AppCompatActivity {
         cardViewMGTT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MommyProfileActivity.this, MGTTRecordActivity.class);
+                Intent intent = new Intent(MommyProfileActivity.this, MGTTActivity.class);
                 startActivity(intent);
             }
         });

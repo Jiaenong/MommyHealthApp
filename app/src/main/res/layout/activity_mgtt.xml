@@ -1,400 +1,471 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutMGTT"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Nurse.MGTTActivity">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBarMGTT"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView40"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="250dp"
-                android:text="@string/mgtt_Age"
-                android:layout_centerVertical="true"
-                android:textSize="18sp" />
-
-            <CheckBox
-                android:id="@+id/checkBox18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/customborder">
-
-            <TextView
-                android:id="@+id/textView41"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="250dp"
-                android:text="@string/mgtt_BMI"
-                android:layout_centerVertical="true"
-                android:textSize="18sp" />
-
-            <CheckBox
-                android:id="@+id/checkBox19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"/>
-        </RelativeLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutMGTT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/customborder"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView42"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="250dp"
-                android:text="@string/mgtt_obstetric"
-                android:textSize="18sp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView43"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:text="@string/mgtt_gestational"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView44"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:text="@string/mgtt_intrauterine"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView45"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:text="@string/mgtt_stillbirth"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView46"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:text="@string/mgtt_neotanal"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox23"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView47"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:text="@string/mgtt_recurrent"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView48"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mgtt_congenital"
-                    android:layout_centerVertical="true"
-                    android:maxWidth="250dp"
-                    android:singleLine="false"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox25"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView49"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mgtt_mascrosomic"
-                    android:maxWidth="250dp"
-                    android:singleLine="false"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox26"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:id="@+id/textView50"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mgtt_diabetes"
-                android:layout_centerVertical="true"
-                android:maxWidth="250dp"
-                android:singleLine="false"
-                android:textSize="18sp" />
-
-            <CheckBox
-                android:id="@+id/checkBox17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"/>
-        </RelativeLayout>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@drawable/customborder"
-            android:layout_marginTop="10dp">
+            android:padding="10dp">
 
-            <TextView
-                android:id="@+id/textView52"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mgtt_current_obstetric"
-                android:textSize="18sp" />
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder">
 
                 <TextView
-                    android:id="@+id/textView53"
+                    android:id="@+id/textView40"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mgtt_Glycosuria"
+                    android:layout_centerVertical="true"
+                    android:maxWidth="250dp"
+                    android:text="@string/mgtt_Age"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxAge35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textView41"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:maxWidth="250dp"
+                    android:text="@string/mgtt_BMI"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxBMI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customborder"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView42"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
+                    android:text="@string/mgtt_obstetric"
+                    android:textSize="18sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView43"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/mgtt_gestational"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxGestational"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView44"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/mgtt_intrauterine"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxInstrauterine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView45"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/mgtt_stillbirth"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxStillBirth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView46"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/mgtt_neotanal"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxNeotanalDeath"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView47"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/mgtt_recurrent"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxMiscarriages"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView48"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:singleLine="false"
+                        android:text="@string/mgtt_congenital"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCongenital"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView49"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:singleLine="false"
+                        android:text="@string/mgtt_mascrosomic"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxMascrosomic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customborder">
+
+                <TextView
+                    android:id="@+id/textView50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:maxWidth="250dp"
                     android:singleLine="false"
+                    android:text="@string/mgtt_diabetes"
                     android:textSize="18sp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox27"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView54"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:layout_centerVertical="true"
-                    android:text="@string/mgtt_essential_hypertension"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox28"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView55"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:layout_centerVertical="true"
-                    android:text="@string/mgtt_pregnancy_hypertension"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox29"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView56"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:layout_centerVertical="true"
-                    android:text="@string/mgtt_polyhydramanios"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox30"
+                    android:id="@+id/checkBoxFirstDegreeDiabetes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customborder"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView57"
+                    android:id="@+id/textView52"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:layout_centerVertical="true"
-                    android:text="@string/mgtt_uterus_large"
+                    android:text="@string/mgtt_current_obstetric"
                     android:textSize="18sp" />
 
-                <CheckBox
-                    android:id="@+id/checkBox31"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true" />
-            </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <RelativeLayout
+                    <TextView
+                        android:id="@+id/textView53"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:singleLine="false"
+                        android:text="@string/mgtt_Glycosuria"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxGlycosuria"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView54"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/mgtt_essential_hypertension"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxEssentialHypertension"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView55"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/mgtt_pregnancy_hypertension"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxInducedHypertension"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView56"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/mgtt_polyhydramanios"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxPolyhydramanios"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView57"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/mgtt_uterus_large"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxUterus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView58"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/mgtt_multiple_pregnancy"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxMultiplePregnancy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView59"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/mgtt_recurrent_UTI"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxUTI"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewMGTTResult"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="#fafafa"
+                app:cardCornerRadius="10dp">
 
-                <TextView
-                    android:id="@+id/textView58"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:layout_centerVertical="true"
-                    android:text="@string/mgtt_multiple_pregnancy"
-                    android:textSize="18sp" />
+                    android:padding="10dp">
 
-                <CheckBox
-                    android:id="@+id/checkBox32"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/textView68"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="@string/MGTTResult"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
-            <RelativeLayout
+                    <ImageView
+                        android:id="@+id/imageView26"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center_vertical"
+                        app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSaveMGTT"
+                style="@style/Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/save"
+                app:cornerRadius="16dp" />
 
-                <TextView
-                    android:id="@+id/textView59"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:layout_centerVertical="true"
-                    android:text="@string/mgtt_recurrent_UTI"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBox33"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonCancelMGTT"
+                style="@style/cancelButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:text="@string/cancel"
+                app:cornerRadius="16dp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <Button
-            android:id="@+id/buttonSaveMGTT"
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            app:cornerRadius="16dp"
-            android:text="@string/save" />
+    </androidx.core.widget.NestedScrollView>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
-</androidx.core.widget.NestedScrollView>
+</RelativeLayout>

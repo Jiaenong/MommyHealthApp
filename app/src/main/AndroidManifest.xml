@@ -63,9 +63,6 @@
             android:name=".Nurse.SectionNActivity"
             android:label="Health Tutorial" />
         <activity
-            android:name=".Nurse.MGTTRecordActivity"
-            android:label="MGTT Record" />
-        <activity
             android:name=".Nurse.MGTTResultActivity"
             android:label="MGTT Result" />
         <activity
