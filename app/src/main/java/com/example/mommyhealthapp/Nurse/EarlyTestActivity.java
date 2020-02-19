@@ -105,41 +105,41 @@ public class EarlyTestActivity extends AppCompatActivity {
                     for(final QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                     {
                         healthInfoId = documentSnapshot.getId();
-                        nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("BloodTest");
-                        nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
-                                {
-                                    bloodTestId = documentSnapshots.getId();
-                                    BloodTest bt = documentSnapshots.toObject(BloodTest.class);
-                                    for(int i=0; i<radioGroupBloodGroup.getChildCount(); i++)
-                                    {
-                                        if(((RadioButton)radioGroupBloodGroup.getChildAt(i)).getText().toString().equals(bt.getBloodGroup()))
-                                        {
-                                            ((RadioButton)radioGroupBloodGroup.getChildAt(i)).setChecked(true);
-                                        }
-                                    }
-                                    for(int i=0; i<radioGroupRhd.getChildCount(); i++)
-                                    {
-                                        if(((RadioButton)radioGroupRhd.getChildAt(i)).getText().toString().equals(bt.getRhd()))
-                                        {
-                                            ((RadioButton)radioGroupRhd.getChildAt(i)).setChecked(true);
-                                        }
-                                    }
-                                    for(int i=0; i<radioGroupRPR.getChildCount(); i++)
-                                    {
-                                        if(((RadioButton)radioGroupRPR.getChildAt(i)).getText().toString().equals(bt.getRpr()))
-                                        {
-                                            ((RadioButton)radioGroupRPR.getChildAt(i)).setChecked(true);
-                                        }
-                                    }
-                                    layoutEarlyTest.setVisibility(View.VISIBLE);
-                                    progressBarEarlyTest.setVisibility(View.GONE);
-                                }
-                            }
-                        });
                     }
+                    nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("BloodTest");
+                    nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
+                            {
+                                bloodTestId = documentSnapshots.getId();
+                                BloodTest bt = documentSnapshots.toObject(BloodTest.class);
+                                for(int i=0; i<radioGroupBloodGroup.getChildCount(); i++)
+                                {
+                                    if(((RadioButton)radioGroupBloodGroup.getChildAt(i)).getText().toString().equals(bt.getBloodGroup()))
+                                    {
+                                        ((RadioButton)radioGroupBloodGroup.getChildAt(i)).setChecked(true);
+                                    }
+                                }
+                                for(int i=0; i<radioGroupRhd.getChildCount(); i++)
+                                {
+                                    if(((RadioButton)radioGroupRhd.getChildAt(i)).getText().toString().equals(bt.getRhd()))
+                                    {
+                                        ((RadioButton)radioGroupRhd.getChildAt(i)).setChecked(true);
+                                    }
+                                }
+                                for(int i=0; i<radioGroupRPR.getChildCount(); i++)
+                                {
+                                    if(((RadioButton)radioGroupRPR.getChildAt(i)).getText().toString().equals(bt.getRpr()))
+                                    {
+                                        ((RadioButton)radioGroupRPR.getChildAt(i)).setChecked(true);
+                                    }
+                                }
+                                layoutEarlyTest.setVisibility(View.VISIBLE);
+                                progressBarEarlyTest.setVisibility(View.GONE);
+                            }
+                        }
+                    });
                 }
             });
         }

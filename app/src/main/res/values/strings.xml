@@ -339,6 +339,10 @@
     <string name="babyRecordKickTime">Time</string>
     <string name="babyRecordKickDate">Date</string>
     <string name="MGTTResult">MGTT Result</string>
+    <string name="mgtt1stTrimester">1st trimester :</string>
+    <string name="mgttTrimesterDate">Trimester Date</string>
+    <string name="mgtt2ndTrimester">2nd Trimester :</string>
+    <string name="mgtt3rdTrimester">3rd Trimester :</string>
 
     <string-array name="national">
         <item>Malaysia</item>
