@@ -113,6 +113,7 @@ public class PregnancyExamRecordActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                 PregnancyExamination pe = peList.get(position);
                 Intent intent = new Intent(PregnancyExamRecordActivity.this, PregnancyExaminationActivity.class);
+                intent.putExtra("healthInfoId", healthInfoId);
                 intent.putExtra("pregnancyExamId", pe.getPregnancyExamId());
                 startActivity(intent);
             }
@@ -127,6 +128,7 @@ public class PregnancyExamRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PregnancyExamRecordActivity.this, PregnancyExaminationActivity.class);
+                intent.putExtra("healthInfoId", healthInfoId);
                 startActivity(intent);
             }
         });

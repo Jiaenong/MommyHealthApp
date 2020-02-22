@@ -343,6 +343,8 @@
     <string name="mgttTrimesterDate">Trimester Date</string>
     <string name="mgtt2ndTrimester">2nd Trimester :</string>
     <string name="mgtt3rdTrimester">3rd Trimester :</string>
+    <string name="PregnancyExamNextAppTime">Next Appointment Time</string>
+    <string name="NotificationAppointment">Next Appointment has been scheduled to </string>
 
     <string-array name="national">
         <item>Malaysia</item>

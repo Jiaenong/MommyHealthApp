@@ -40,6 +40,7 @@ import com.bumptech.glide.Glide;
 import com.example.mommyhealthapp.Class.AppointmentDate;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.MommyDetail;
+import com.example.mommyhealthapp.Class.Notification;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -81,10 +82,10 @@ public class MommyInfoActivity extends AppCompatActivity {
     private CircularImageView imageViewMummyInfo;
     private ProgressBar progressBarMummyInfo;
 
-    private String id, key, keyDetail, appointmentKey;
+    private String id, key, keyDetail, appointmentKey, healthInfoId;
     private Boolean isEmpty;
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference, nCollectionReference, pCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference, pCollectionReference, oCollectionReference, qCollectionReference;
     private DocumentReference mDocumentReference;
 
     private int clickInfo = 0, clickInfoDetail = 0, clickApp = 0, check = 0;
@@ -333,10 +334,20 @@ public class MommyInfoActivity extends AppCompatActivity {
         id = intent.getStringExtra("MommyID");
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("Mommy");
+        oCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
 
         progressBarMummyInfo.setVisibility(View.VISIBLE);
         layoutAllView.setVisibility(View.GONE);
 
+        oCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(MommyInfoActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
+                {
+                    healthInfoId = documentSnapshots.getId();
+                }
+            }
+        });
         mCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -509,6 +520,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                     btnCancelApp.setVisibility(View.VISIBLE);
                 }else if(clickApp == 2)
                 {
+                    qCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("Notification");
                     if(isEmpty == false)
                     {
                         mDocumentReference = mFirebaseFirestore.document("Mommy/"+key+"/AppointmentDate/"+appointmentKey);
@@ -520,9 +532,19 @@ public class MommyInfoActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        String medicalPersonnelId = SaveSharedPreference.getID(MommyInfoActivity.this);
+                        Date createdDate = new Date();
                         mDocumentReference.update("appointmentDate", appDate);
                         mDocumentReference.update("appointmentTime", timeApp);
-                        Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
+                        String notificationDetai = getResources().getString(R.string.NotificationAppointment) + editTextAppointment.getText().toString() + " " + editTextAppTime.getText().toString();
+                        Date notificationDate = new Date();
+                        Notification notification = new Notification(notificationDetai, notificationDate, medicalPersonnelId, createdDate, "new");
+                        qCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         clickApp = 0;
                         DisableAppointmentText();
                         btnCancelApp.setVisibility(View.GONE);
@@ -537,21 +559,29 @@ public class MommyInfoActivity extends AppCompatActivity {
                         }
                         String medicalPersonnelId = SaveSharedPreference.getID(MommyInfoActivity.this);
                         Date createdDate = new Date();
-                        AppointmentDate ad = new AppointmentDate(appDate, timeApp, id, medicalPersonnelId, createdDate);
-                        pCollectionReference.add(ad).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        String notificationDetai = getResources().getString(R.string.NotificationAppointment) + editTextAppointment.getText().toString() + " " + editTextAppTime.getText().toString();
+                        Date notificationDate = new Date();
+                        final AppointmentDate ad = new AppointmentDate(appDate, timeApp, id, medicalPersonnelId, createdDate);
+                        Notification notification = new Notification(notificationDetai, notificationDate, medicalPersonnelId, createdDate, "new");
+                        qCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(MommyInfoActivity.this);
-                                builder.setTitle("Save Successfully");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                pCollectionReference.add(ad).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        return;
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(MommyInfoActivity.this);
+                                        builder.setTitle("Save Successfully");
+                                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                return;
+                                            }
+                                        });
+                                        builder.setMessage("Appointment Save Successful!");
+                                        AlertDialog alert = builder.create();
+                                        alert.show();
                                     }
                                 });
-                                builder.setMessage("Appointment Save Successful!");
-                                AlertDialog alert = builder.create();
-                                alert.show();
                             }
                         });
                         clickApp = 0;
@@ -577,7 +607,7 @@ public class MommyInfoActivity extends AppCompatActivity {
     private void GetAppointmentDate(String key)
     {
         pCollectionReference = mFirebaseFirestore.collection("Mommy/"+key+"/AppointmentDate");
-        pCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        pCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if(queryDocumentSnapshots.isEmpty())
