@@ -32,7 +32,7 @@ public class MommyProfileActivity extends AppCompatActivity {
     private RelativeLayout layoutMummyInfo;
     private LinearLayoutCompat layoutMommyProfilell;
     private ProgressBar progressBarProfile;
-    private CardView cardViewEarlyTest, cardViewPE, cardViewMGTT, cardViewSectionN, cardViewBabyKick;
+    private CardView cardViewEarlyTest, cardViewPE, cardViewMGTT, cardViewSectionN, cardViewBabyKick, cardViewSummaryReport;
     private TextView textViewMummyName, textViewMummyAge, textViewMummyID, textViewMummyStatus;
     private CircularImageView imageViewMummy;
 
@@ -51,6 +51,7 @@ public class MommyProfileActivity extends AppCompatActivity {
         cardViewMGTT = (CardView)findViewById(R.id.cardViewMGTT);
         cardViewSectionN = (CardView)findViewById(R.id.cardViewSectionN);
         cardViewBabyKick = (CardView)findViewById(R.id.cardViewBabyKick);
+        cardViewSummaryReport = (CardView)findViewById(R.id.cardViewSummaryReport);
         textViewMummyName = (TextView)findViewById(R.id.textViewMummyName);
         textViewMummyAge = (TextView)findViewById(R.id.textViewMummyAge);
         textViewMummyID = (TextView)findViewById(R.id.textViewMummyID);
@@ -135,6 +136,14 @@ public class MommyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MommyProfileActivity.this, BabyKickRecordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cardViewSummaryReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MommyProfileActivity.this, SummaryReportActivity.class);
                 startActivity(intent);
             }
         });

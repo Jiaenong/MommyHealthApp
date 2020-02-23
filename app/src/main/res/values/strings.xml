@@ -345,6 +345,8 @@
     <string name="mgtt3rdTrimester">3rd Trimester :</string>
     <string name="PregnancyExamNextAppTime">Next Appointment Time</string>
     <string name="NotificationAppointment">Next Appointment has been scheduled to </string>
+    <string name="summaryReport_bloodPressure">Blood Pressure Report (Pregnancy Examination)</string>
+    <string name="summaryReport_Hemoglobin">Hemoglobin Concentration (gm %)</string>
 
     <string-array name="national">
         <item>Malaysia</item>
