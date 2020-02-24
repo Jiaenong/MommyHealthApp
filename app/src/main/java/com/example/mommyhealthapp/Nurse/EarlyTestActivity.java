@@ -94,54 +94,59 @@ public class EarlyTestActivity extends AppCompatActivity {
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
 
-        if(SaveSharedPreference.getEarlyTest(EarlyTestActivity.this).equals("Old"))
+        if(SaveSharedPreference.getEarlyTest(EarlyTestActivity.this).equals("Old") || SaveSharedPreference.getUser(EarlyTestActivity.this).equals("Mommy"))
         {
             layoutEarlyTest.setVisibility(View.GONE);
             progressBarEarlyTest.setVisibility(View.VISIBLE);
             DisableRadioButton();
-            mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(EarlyTestActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    for(final QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-                    {
-                        healthInfoId = documentSnapshot.getId();
-                    }
-                    nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("BloodTest");
-                    nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
-                            {
-                                bloodTestId = documentSnapshots.getId();
-                                BloodTest bt = documentSnapshots.toObject(BloodTest.class);
-                                for(int i=0; i<radioGroupBloodGroup.getChildCount(); i++)
-                                {
-                                    if(((RadioButton)radioGroupBloodGroup.getChildAt(i)).getText().toString().equals(bt.getBloodGroup()))
-                                    {
-                                        ((RadioButton)radioGroupBloodGroup.getChildAt(i)).setChecked(true);
-                                    }
-                                }
-                                for(int i=0; i<radioGroupRhd.getChildCount(); i++)
-                                {
-                                    if(((RadioButton)radioGroupRhd.getChildAt(i)).getText().toString().equals(bt.getRhd()))
-                                    {
-                                        ((RadioButton)radioGroupRhd.getChildAt(i)).setChecked(true);
-                                    }
-                                }
-                                for(int i=0; i<radioGroupRPR.getChildCount(); i++)
-                                {
-                                    if(((RadioButton)radioGroupRPR.getChildAt(i)).getText().toString().equals(bt.getRpr()))
-                                    {
-                                        ((RadioButton)radioGroupRPR.getChildAt(i)).setChecked(true);
-                                    }
-                                }
-                                layoutEarlyTest.setVisibility(View.VISIBLE);
-                                progressBarEarlyTest.setVisibility(View.GONE);
-                            }
+            if(SaveSharedPreference.getUser(EarlyTestActivity.this).equals("Mommy"))
+            {
+                MommyLogIn();
+            }else{
+                mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(EarlyTestActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(final QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                        {
+                            healthInfoId = documentSnapshot.getId();
                         }
-                    });
-                }
-            });
+                        nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("BloodTest");
+                        nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
+                                {
+                                    bloodTestId = documentSnapshots.getId();
+                                    BloodTest bt = documentSnapshots.toObject(BloodTest.class);
+                                    for(int i=0; i<radioGroupBloodGroup.getChildCount(); i++)
+                                    {
+                                        if(((RadioButton)radioGroupBloodGroup.getChildAt(i)).getText().toString().equals(bt.getBloodGroup()))
+                                        {
+                                            ((RadioButton)radioGroupBloodGroup.getChildAt(i)).setChecked(true);
+                                        }
+                                    }
+                                    for(int i=0; i<radioGroupRhd.getChildCount(); i++)
+                                    {
+                                        if(((RadioButton)radioGroupRhd.getChildAt(i)).getText().toString().equals(bt.getRhd()))
+                                        {
+                                            ((RadioButton)radioGroupRhd.getChildAt(i)).setChecked(true);
+                                        }
+                                    }
+                                    for(int i=0; i<radioGroupRPR.getChildCount(); i++)
+                                    {
+                                        if(((RadioButton)radioGroupRPR.getChildAt(i)).getText().toString().equals(bt.getRpr()))
+                                        {
+                                            ((RadioButton)radioGroupRPR.getChildAt(i)).setChecked(true);
+                                        }
+                                    }
+                                    layoutEarlyTest.setVisibility(View.VISIBLE);
+                                    progressBarEarlyTest.setVisibility(View.GONE);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
         }
 
         btnBTUpdate.setOnClickListener(new View.OnClickListener() {
@@ -339,6 +344,59 @@ public class EarlyTestActivity extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void MommyLogIn()
+    {
+        String mommyhealthInfoId = "";
+        btnBTUpdate.setVisibility(View.GONE);
+        btnBTCancel.setVisibility(View.GONE);
+        Intent intentss = getIntent();
+        mommyhealthInfoId = intentss.getStringExtra("healthInfoId");
+        mCollectionReference.whereEqualTo("healthInfoId", mommyhealthInfoId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(final QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    healthInfoId = documentSnapshot.getId();
+                }
+                nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("BloodTest");
+                nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
+                        {
+                            bloodTestId = documentSnapshots.getId();
+                            BloodTest bt = documentSnapshots.toObject(BloodTest.class);
+                            for(int i=0; i<radioGroupBloodGroup.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupBloodGroup.getChildAt(i)).getText().toString().equals(bt.getBloodGroup()))
+                                {
+                                    ((RadioButton)radioGroupBloodGroup.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupRhd.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupRhd.getChildAt(i)).getText().toString().equals(bt.getRhd()))
+                                {
+                                    ((RadioButton)radioGroupRhd.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupRPR.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupRPR.getChildAt(i)).getText().toString().equals(bt.getRpr()))
+                                {
+                                    ((RadioButton)radioGroupRPR.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            layoutEarlyTest.setVisibility(View.VISIBLE);
+                            progressBarEarlyTest.setVisibility(View.GONE);
+                        }
+                    }
+                });
+            }
+        });
+
     }
 
     private Boolean checkRequired()

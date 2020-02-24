@@ -3,6 +3,7 @@ package com.example.mommyhealthapp.Nurse.ui.SearchMother;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -194,7 +195,15 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
             holder.textViewName.setText(mommy.getMommyName());
             holder.textViewAge.setText(mommy.getAge()+"");
             holder.textViewId.setText(mommy.getMommyId());
-            holder.textViewStatusActive.setText(mommy.getStatus());
+            if(mommy.getStatus().equals("Active"))
+            {
+                holder.textViewStatusActive.setText(mommy.getStatus());
+                holder.textViewStatusActive.setTextColor(Color.parseColor("#FF0000"));
+            }else if(mommy.getStatus().equals("Inactive"))
+            {
+                holder.textViewStatusActive.setText(mommy.getStatus());
+                holder.textViewStatusActive.setTextColor(Color.parseColor("#008000"));
+            }
 
             if(mommy.getMummyImage().equals(""))
             {
