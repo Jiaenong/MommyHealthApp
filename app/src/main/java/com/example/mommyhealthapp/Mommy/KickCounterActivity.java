@@ -133,6 +133,7 @@ public class KickCounterActivity extends AppCompatActivity {
                     counter++;
                     if(counter == 1)
                     {
+                        SaveSharedPreference.setBabyKickCheck(KickCounterActivity.this, true);
                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
                         int firstKick = counter;
@@ -226,6 +227,7 @@ public class KickCounterActivity extends AppCompatActivity {
                     ++latestKickCount;
                     if(latestKickCount == 1)
                     {
+                        SaveSharedPreference.setBabyKickCheck(KickCounterActivity.this, true);
                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
                         int firstKick = latestKickCount;
@@ -327,6 +329,16 @@ public class KickCounterActivity extends AppCompatActivity {
                     kickCount.setEnabled(true);
                     SaveSharedPreference.setBabyKickTime(KickCounterActivity.this, currentDate);
                 }
+            }
+        }else{
+            if(SaveSharedPreference.getBabyKickCheck(KickCounterActivity.this) == false)
+            {
+                txtViewKickTimes.setText("0");
+                kickTime.setText(getResources().getString(R.string.firstKickCount));
+                txtViewFirstKickDate.setText(getResources().getString(R.string.firstKickDate));
+                txtViewLastKickDate.setText(getResources().getString(R.string.lastKickDate));
+                lastKicksTime.setText(getResources().getString(R.string.latestKickCount));
+                kickCount.setEnabled(true);
             }
         }
 
