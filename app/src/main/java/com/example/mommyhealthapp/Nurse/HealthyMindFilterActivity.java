@@ -137,56 +137,61 @@ public class HealthyMindFilterActivity extends AppCompatActivity {
             }
         });
 
-        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.isEmpty())
-                {
-                    isEmpty = true;
-                    layoutMentalHealth.setVisibility(View.VISIBLE);
-                    progressBarMentalHealth.setVisibility(View.GONE);
-                }else{
-                    isEmpty = false;
-                    layoutStress.setVisibility(View.VISIBLE);
-                    layoutAnxiety.setVisibility(View.VISIBLE);
-                    layoutDepression.setVisibility(View.VISIBLE);
-                    viewMentalHealth.setVisibility(View.VISIBLE);
-                    textViewMentelHealthResult.setVisibility(View.VISIBLE);
-                    DisableField();
-                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+        if (SaveSharedPreference.getUser(HealthyMindFilterActivity.this).equals("Mommy")){
+            MommyLogIn();
+        }
+        else{
+            mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if(queryDocumentSnapshots.isEmpty())
                     {
-                        key = documentSnapshot.getId();
-                        MentalHealth mh = documentSnapshot.toObject(MentalHealth.class);
-                        ratingBarQ1.setRating(mh.getRatingHardToWindDown());
-                        ratingBarQ2.setRating(mh.getRatingDrynessMouth());
-                        ratingBarQ3.setRating(mh.getRatingNotExperiencePositive());
-                        ratingBarQ4.setRating(mh.getRatingBreathDifficult());
-                        ratingBarQ5.setRating(mh.getRatingNoInitiative());
-                        ratingBarQ6.setRating(mh.getRatingOverReact());
-                        ratingBarQ7.setRating(mh.getRatingExperienceTrembling());
-                        ratingBarQ8.setRating(mh.getRatingNervousEnergy());
-                        ratingBarQ9.setRating(mh.getRatingWorriedSituation());
-                        ratingBarQ10.setRating(mh.getRatingNothingToLookForward());
-                        ratingBarQ11.setRating(mh.getRatingAgigate());
-                        ratingBarQ12.setRating(mh.getRatingDifficultRelax());
-                        ratingBarQ13.setRating(mh.getRatingDownHearted());
-                        ratingBarQ14.setRating(mh.getRatingIntolerant());
-                        ratingBarQ15.setRating(mh.getRatingPanic());
-                        ratingBarQ16.setRating(mh.getRatingLackEnthusiastic());
-                        ratingBarQ17.setRating(mh.getRatingFeelNotWorth());
-                        ratingBarQ18.setRating(mh.getRatingTouchy());
-                        ratingBarQ19.setRating(mh.getRatingSenseHeartRateIncrease());
-                        ratingBarQ20.setRating(mh.getRatingScared());
-                        ratingBarQ21.setRating(mh.getRatingLifeMeaningLess());
-                        editTextMentalStress.setText(mh.getStress());
-                        editTextMentalAnxiety.setText(mh.getAnxiety());
-                        editTextMentalDepression.setText(mh.getDepression());
+                        isEmpty = true;
+                        layoutMentalHealth.setVisibility(View.VISIBLE);
+                        progressBarMentalHealth.setVisibility(View.GONE);
+                    }else{
+                        isEmpty = false;
+                        layoutStress.setVisibility(View.VISIBLE);
+                        layoutAnxiety.setVisibility(View.VISIBLE);
+                        layoutDepression.setVisibility(View.VISIBLE);
+                        viewMentalHealth.setVisibility(View.VISIBLE);
+                        textViewMentelHealthResult.setVisibility(View.VISIBLE);
+                        DisableField();
+                        for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                        {
+                            key = documentSnapshot.getId();
+                            MentalHealth mh = documentSnapshot.toObject(MentalHealth.class);
+                            ratingBarQ1.setRating(mh.getRatingHardToWindDown());
+                            ratingBarQ2.setRating(mh.getRatingDrynessMouth());
+                            ratingBarQ3.setRating(mh.getRatingNotExperiencePositive());
+                            ratingBarQ4.setRating(mh.getRatingBreathDifficult());
+                            ratingBarQ5.setRating(mh.getRatingNoInitiative());
+                            ratingBarQ6.setRating(mh.getRatingOverReact());
+                            ratingBarQ7.setRating(mh.getRatingExperienceTrembling());
+                            ratingBarQ8.setRating(mh.getRatingNervousEnergy());
+                            ratingBarQ9.setRating(mh.getRatingWorriedSituation());
+                            ratingBarQ10.setRating(mh.getRatingNothingToLookForward());
+                            ratingBarQ11.setRating(mh.getRatingAgigate());
+                            ratingBarQ12.setRating(mh.getRatingDifficultRelax());
+                            ratingBarQ13.setRating(mh.getRatingDownHearted());
+                            ratingBarQ14.setRating(mh.getRatingIntolerant());
+                            ratingBarQ15.setRating(mh.getRatingPanic());
+                            ratingBarQ16.setRating(mh.getRatingLackEnthusiastic());
+                            ratingBarQ17.setRating(mh.getRatingFeelNotWorth());
+                            ratingBarQ18.setRating(mh.getRatingTouchy());
+                            ratingBarQ19.setRating(mh.getRatingSenseHeartRateIncrease());
+                            ratingBarQ20.setRating(mh.getRatingScared());
+                            ratingBarQ21.setRating(mh.getRatingLifeMeaningLess());
+                            editTextMentalStress.setText(mh.getStress());
+                            editTextMentalAnxiety.setText(mh.getAnxiety());
+                            editTextMentalDepression.setText(mh.getDepression());
+                        }
+                        layoutMentalHealth.setVisibility(View.VISIBLE);
+                        progressBarMentalHealth.setVisibility(View.GONE);
                     }
-                    layoutMentalHealth.setVisibility(View.VISIBLE);
-                    progressBarMentalHealth.setVisibility(View.GONE);
                 }
-            }
-        });
+            });
+        }
 
         btnMentalSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -443,6 +448,61 @@ public class HealthyMindFilterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void MommyLogIn(){
+        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isEmpty = true;
+                    layoutMentalHealth.setVisibility(View.VISIBLE);
+                    progressBarMentalHealth.setVisibility(View.GONE);
+                }else{
+                    isEmpty = false;
+                    layoutStress.setVisibility(View.VISIBLE);
+                    layoutAnxiety.setVisibility(View.VISIBLE);
+                    layoutDepression.setVisibility(View.VISIBLE);
+                    viewMentalHealth.setVisibility(View.VISIBLE);
+                    textViewMentelHealthResult.setVisibility(View.VISIBLE);
+                    DisableField();
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        key = documentSnapshot.getId();
+                        MentalHealth mh = documentSnapshot.toObject(MentalHealth.class);
+                        ratingBarQ1.setRating(mh.getRatingHardToWindDown());
+                        ratingBarQ2.setRating(mh.getRatingDrynessMouth());
+                        ratingBarQ3.setRating(mh.getRatingNotExperiencePositive());
+                        ratingBarQ4.setRating(mh.getRatingBreathDifficult());
+                        ratingBarQ5.setRating(mh.getRatingNoInitiative());
+                        ratingBarQ6.setRating(mh.getRatingOverReact());
+                        ratingBarQ7.setRating(mh.getRatingExperienceTrembling());
+                        ratingBarQ8.setRating(mh.getRatingNervousEnergy());
+                        ratingBarQ9.setRating(mh.getRatingWorriedSituation());
+                        ratingBarQ10.setRating(mh.getRatingNothingToLookForward());
+                        ratingBarQ11.setRating(mh.getRatingAgigate());
+                        ratingBarQ12.setRating(mh.getRatingDifficultRelax());
+                        ratingBarQ13.setRating(mh.getRatingDownHearted());
+                        ratingBarQ14.setRating(mh.getRatingIntolerant());
+                        ratingBarQ15.setRating(mh.getRatingPanic());
+                        ratingBarQ16.setRating(mh.getRatingLackEnthusiastic());
+                        ratingBarQ17.setRating(mh.getRatingFeelNotWorth());
+                        ratingBarQ18.setRating(mh.getRatingTouchy());
+                        ratingBarQ19.setRating(mh.getRatingSenseHeartRateIncrease());
+                        ratingBarQ20.setRating(mh.getRatingScared());
+                        ratingBarQ21.setRating(mh.getRatingLifeMeaningLess());
+                        editTextMentalStress.setText(mh.getStress());
+                        editTextMentalAnxiety.setText(mh.getAnxiety());
+                        editTextMentalDepression.setText(mh.getDepression());
+                    }
+                    layoutMentalHealth.setVisibility(View.VISIBLE);
+                    progressBarMentalHealth.setVisibility(View.GONE);
+                    btnMentalSave.setVisibility(View.GONE);
+                    btnMentalCancel.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
     private void DisableField()
     {
         ratingBarQ1.setEnabled(false);

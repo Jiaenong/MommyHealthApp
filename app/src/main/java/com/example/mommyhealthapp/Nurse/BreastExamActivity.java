@@ -120,122 +120,126 @@ public class BreastExamActivity extends AppCompatActivity {
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/BreastExamine");
-
-        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.isEmpty())
-                {
-                    isEmpty = true;
-                    progressBarBreastExamine.setVisibility(View.GONE);
-                    layoutBreastExamine.setVisibility(View.VISIBLE);
-                }else{
-                    isEmpty = false;
-                    DisableField();
-                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+        if(SaveSharedPreference.getUser(BreastExamActivity.this).equals("Mommy")){
+            MommyLogIn();
+        }
+        else{
+            mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if(queryDocumentSnapshots.isEmpty())
                     {
-                        key = documentSnapshot.getId();
-                        BreastExamine be = documentSnapshot.toObject(BreastExamine.class);
-                        editTextNumOfChildren.setText(be.getNumOfChildren()+"");
-                        editTextMenarcheAge.setText(be.getMenarcheAge()+"");
-                        editTextMonopauseAge.setText(be.getMonopauseAge()+"");
-                        for(int i=0; i<radioGroupHistoryBC.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupHistoryBC.getChildAt(i)).getText().toString().equals(be.getBreastCancelHistory()))
-                            {
-                                ((RadioButton)radioGroupHistoryBC.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupFDBC.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupFDBC.getChildAt(i)).getText().toString().equals(be.getFirstDegreeBreastCancel()))
-                            {
-                                ((RadioButton)radioGroupFDBC.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupBreastSurgery.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupBreastSurgery.getChildAt(i)).getText().toString().equals(be.getPreviousBreastSurgery()))
-                            {
-                                ((RadioButton)radioGroupBreastSurgery.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupHormone.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupHormone.getChildAt(i)).getText().toString().equals(be.getHormoneReplacementTherapy()))
-                            {
-                                ((RadioButton)radioGroupHormone.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupHormoneC.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupHormoneC.getChildAt(i)).getText().toString().equals(be.getHormoneContraceptive()))
-                            {
-                                ((RadioButton)radioGroupHormoneC.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupBreastFed.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupBreastFed.getChildAt(i)).getText().toString().equals(be.getBreastFed()))
-                            {
-                                ((RadioButton)radioGroupBreastFed.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupMMG.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupMMG.getChildAt(i)).getText().toString().equals(be.getPreviousMMG()))
-                            {
-                                ((RadioButton)radioGroupMMG.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupLump.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupLump.getChildAt(i)).getText().toString().equals(be.getLump()))
-                            {
-                                ((RadioButton)radioGroupLump.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupNippleDischarge.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupNippleDischarge.getChildAt(i)).getText().toString().equals(be.getNippleDischarge()))
-                            {
-                                ((RadioButton)radioGroupNippleDischarge.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupNippleRetraction.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupNippleRetraction.getChildAt(i)).getText().toString().equals(be.getNippleRetraction()))
-                            {
-                                ((RadioButton)radioGroupNippleRetraction.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupDiscomfort.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupDiscomfort.getChildAt(i)).getText().toString().equals(be.getDiscomfort()))
-                            {
-                                ((RadioButton)radioGroupDiscomfort.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupAxillary.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupAxillary.getChildAt(i)).getText().toString().equals(be.getAxillaryNodesSwelling()))
-                            {
-                                ((RadioButton)radioGroupAxillary.getChildAt(i)).setChecked(true);
-                            }
-                        }
-                        for(int i=0; i<radioGroupInterpretation.getChildCount(); i++)
-                        {
-                            if(((RadioButton)radioGroupInterpretation.getChildAt(i)).getText().toString().equals(be.getClinicalInterpretation()))
-                            {
-                                ((RadioButton)radioGroupInterpretation.getChildAt(i)).setChecked(true);
-                            }
-                        }
+                        isEmpty = true;
                         progressBarBreastExamine.setVisibility(View.GONE);
                         layoutBreastExamine.setVisibility(View.VISIBLE);
+                    }else{
+                        isEmpty = false;
+                        DisableField();
+                        for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                        {
+                            key = documentSnapshot.getId();
+                            BreastExamine be = documentSnapshot.toObject(BreastExamine.class);
+                            editTextNumOfChildren.setText(be.getNumOfChildren()+"");
+                            editTextMenarcheAge.setText(be.getMenarcheAge()+"");
+                            editTextMonopauseAge.setText(be.getMonopauseAge()+"");
+                            for(int i=0; i<radioGroupHistoryBC.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupHistoryBC.getChildAt(i)).getText().toString().equals(be.getBreastCancelHistory()))
+                                {
+                                    ((RadioButton)radioGroupHistoryBC.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupFDBC.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupFDBC.getChildAt(i)).getText().toString().equals(be.getFirstDegreeBreastCancel()))
+                                {
+                                    ((RadioButton)radioGroupFDBC.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupBreastSurgery.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupBreastSurgery.getChildAt(i)).getText().toString().equals(be.getPreviousBreastSurgery()))
+                                {
+                                    ((RadioButton)radioGroupBreastSurgery.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupHormone.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupHormone.getChildAt(i)).getText().toString().equals(be.getHormoneReplacementTherapy()))
+                                {
+                                    ((RadioButton)radioGroupHormone.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupHormoneC.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupHormoneC.getChildAt(i)).getText().toString().equals(be.getHormoneContraceptive()))
+                                {
+                                    ((RadioButton)radioGroupHormoneC.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupBreastFed.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupBreastFed.getChildAt(i)).getText().toString().equals(be.getBreastFed()))
+                                {
+                                    ((RadioButton)radioGroupBreastFed.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupMMG.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupMMG.getChildAt(i)).getText().toString().equals(be.getPreviousMMG()))
+                                {
+                                    ((RadioButton)radioGroupMMG.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupLump.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupLump.getChildAt(i)).getText().toString().equals(be.getLump()))
+                                {
+                                    ((RadioButton)radioGroupLump.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupNippleDischarge.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupNippleDischarge.getChildAt(i)).getText().toString().equals(be.getNippleDischarge()))
+                                {
+                                    ((RadioButton)radioGroupNippleDischarge.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupNippleRetraction.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupNippleRetraction.getChildAt(i)).getText().toString().equals(be.getNippleRetraction()))
+                                {
+                                    ((RadioButton)radioGroupNippleRetraction.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupDiscomfort.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupDiscomfort.getChildAt(i)).getText().toString().equals(be.getDiscomfort()))
+                                {
+                                    ((RadioButton)radioGroupDiscomfort.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupAxillary.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupAxillary.getChildAt(i)).getText().toString().equals(be.getAxillaryNodesSwelling()))
+                                {
+                                    ((RadioButton)radioGroupAxillary.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            for(int i=0; i<radioGroupInterpretation.getChildCount(); i++)
+                            {
+                                if(((RadioButton)radioGroupInterpretation.getChildAt(i)).getText().toString().equals(be.getClinicalInterpretation()))
+                                {
+                                    ((RadioButton)radioGroupInterpretation.getChildAt(i)).setChecked(true);
+                                }
+                            }
+                            progressBarBreastExamine.setVisibility(View.GONE);
+                            layoutBreastExamine.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
 
         btnBESave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -427,6 +431,125 @@ public class BreastExamActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void MommyLogIn(){
+        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isEmpty = true;
+                    progressBarBreastExamine.setVisibility(View.GONE);
+                    layoutBreastExamine.setVisibility(View.VISIBLE);
+                }else{
+                    isEmpty = false;
+                    DisableField();
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        key = documentSnapshot.getId();
+                        BreastExamine be = documentSnapshot.toObject(BreastExamine.class);
+                        editTextNumOfChildren.setText(be.getNumOfChildren()+"");
+                        editTextMenarcheAge.setText(be.getMenarcheAge()+"");
+                        editTextMonopauseAge.setText(be.getMonopauseAge()+"");
+                        for(int i=0; i<radioGroupHistoryBC.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupHistoryBC.getChildAt(i)).getText().toString().equals(be.getBreastCancelHistory()))
+                            {
+                                ((RadioButton)radioGroupHistoryBC.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupFDBC.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupFDBC.getChildAt(i)).getText().toString().equals(be.getFirstDegreeBreastCancel()))
+                            {
+                                ((RadioButton)radioGroupFDBC.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupBreastSurgery.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupBreastSurgery.getChildAt(i)).getText().toString().equals(be.getPreviousBreastSurgery()))
+                            {
+                                ((RadioButton)radioGroupBreastSurgery.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupHormone.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupHormone.getChildAt(i)).getText().toString().equals(be.getHormoneReplacementTherapy()))
+                            {
+                                ((RadioButton)radioGroupHormone.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupHormoneC.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupHormoneC.getChildAt(i)).getText().toString().equals(be.getHormoneContraceptive()))
+                            {
+                                ((RadioButton)radioGroupHormoneC.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupBreastFed.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupBreastFed.getChildAt(i)).getText().toString().equals(be.getBreastFed()))
+                            {
+                                ((RadioButton)radioGroupBreastFed.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupMMG.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupMMG.getChildAt(i)).getText().toString().equals(be.getPreviousMMG()))
+                            {
+                                ((RadioButton)radioGroupMMG.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupLump.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupLump.getChildAt(i)).getText().toString().equals(be.getLump()))
+                            {
+                                ((RadioButton)radioGroupLump.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupNippleDischarge.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupNippleDischarge.getChildAt(i)).getText().toString().equals(be.getNippleDischarge()))
+                            {
+                                ((RadioButton)radioGroupNippleDischarge.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupNippleRetraction.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupNippleRetraction.getChildAt(i)).getText().toString().equals(be.getNippleRetraction()))
+                            {
+                                ((RadioButton)radioGroupNippleRetraction.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupDiscomfort.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupDiscomfort.getChildAt(i)).getText().toString().equals(be.getDiscomfort()))
+                            {
+                                ((RadioButton)radioGroupDiscomfort.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupAxillary.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupAxillary.getChildAt(i)).getText().toString().equals(be.getAxillaryNodesSwelling()))
+                            {
+                                ((RadioButton)radioGroupAxillary.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        for(int i=0; i<radioGroupInterpretation.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupInterpretation.getChildAt(i)).getText().toString().equals(be.getClinicalInterpretation()))
+                            {
+                                ((RadioButton)radioGroupInterpretation.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                        progressBarBreastExamine.setVisibility(View.GONE);
+                        layoutBreastExamine.setVisibility(View.VISIBLE);
+                        btnBESave.setVisibility(View.GONE);
+                        btnBECancel.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+    }
     private void DisableField()
     {
         editTextNumOfChildren.setEnabled(false);

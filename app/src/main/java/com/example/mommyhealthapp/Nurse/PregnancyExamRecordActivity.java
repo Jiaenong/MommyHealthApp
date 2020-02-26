@@ -67,6 +67,81 @@ public class PregnancyExamRecordActivity extends AppCompatActivity {
         peList = new ArrayList<>();
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
+        if(SaveSharedPreference.getUser(PregnancyExamRecordActivity.this).equals("Mommy")){
+            MommyLogIn();
+        }
+        else{
+            mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(PregnancyExamRecordActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        healthInfoId = documentSnapshot.getId();
+                    }
+                    nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination");
+                    nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
+                            {
+                                PregnancyExamination pe = documentSnapshots.toObject(PregnancyExamination.class);
+                                peList.add(pe);
+                            }
+                            PregnancyExamRecordAdapter adapter = new PregnancyExamRecordAdapter(peList);
+                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(PregnancyExamRecordActivity.this);
+                            recyclerViewPregnantRecord.setLayoutManager(mLayoutManager);
+                            recyclerViewPregnantRecord.setItemAnimator(new DefaultItemAnimator());
+                            recyclerViewPregnantRecord.addItemDecoration(new DividerItemDecoration(PregnancyExamRecordActivity.this, LinearLayoutManager.VERTICAL));
+                            recyclerViewPregnantRecord.setAdapter(adapter);
+                            if(peList.isEmpty())
+                            {
+                                recyclerViewPregnantRecord.setVisibility(View.GONE);
+                                imgViewExamNoRecordFound.setVisibility(View.VISIBLE);
+                                txtViewExamNoRecordFound.setVisibility(View.VISIBLE);
+                                progressBarPregRecord.setVisibility(View.GONE);
+                                btnAddNewPERecord.setVisibility(View.VISIBLE);
+                            }else{
+                                recyclerViewPregnantRecord.setVisibility(View.VISIBLE);
+                                imgViewExamNoRecordFound.setVisibility(View.GONE);
+                                txtViewExamNoRecordFound.setVisibility(View.GONE);
+                                progressBarPregRecord.setVisibility(View.GONE);
+                                btnAddNewPERecord.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        recyclerViewPregnantRecord.addOnItemTouchListener(new RecyclerTouchListener(PregnancyExamRecordActivity.this, recyclerViewPregnantRecord, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                PregnancyExamination pe = peList.get(position);
+                Intent intent = new Intent(PregnancyExamRecordActivity.this, PregnancyExaminationActivity.class);
+                intent.putExtra("healthInfoId", healthInfoId);
+                intent.putExtra("pregnancyExamId", pe.getPregnancyExamId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+        btnAddNewPERecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PregnancyExamRecordActivity.this, PregnancyExaminationActivity.class);
+                intent.putExtra("healthInfoId", healthInfoId);
+                startActivity(intent);
+            }
+        });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void MommyLogIn(){
         mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(PregnancyExamRecordActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -95,45 +170,18 @@ public class PregnancyExamRecordActivity extends AppCompatActivity {
                             imgViewExamNoRecordFound.setVisibility(View.VISIBLE);
                             txtViewExamNoRecordFound.setVisibility(View.VISIBLE);
                             progressBarPregRecord.setVisibility(View.GONE);
-                            btnAddNewPERecord.setVisibility(View.VISIBLE);
+                            btnAddNewPERecord.setVisibility(View.GONE);
                         }else{
                             recyclerViewPregnantRecord.setVisibility(View.VISIBLE);
                             imgViewExamNoRecordFound.setVisibility(View.GONE);
                             txtViewExamNoRecordFound.setVisibility(View.GONE);
                             progressBarPregRecord.setVisibility(View.GONE);
-                            btnAddNewPERecord.setVisibility(View.VISIBLE);
+                            btnAddNewPERecord.setVisibility(View.GONE);
                         }
                     }
                 });
             }
         });
-
-        recyclerViewPregnantRecord.addOnItemTouchListener(new RecyclerTouchListener(PregnancyExamRecordActivity.this, recyclerViewPregnantRecord, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                PregnancyExamination pe = peList.get(position);
-                Intent intent = new Intent(PregnancyExamRecordActivity.this, PregnancyExaminationActivity.class);
-                intent.putExtra("healthInfoId", healthInfoId);
-                intent.putExtra("pregnancyExamId", pe.getPregnancyExamId());
-                startActivity(intent);
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
-
-        btnAddNewPERecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PregnancyExamRecordActivity.this, PregnancyExaminationActivity.class);
-                intent.putExtra("healthInfoId", healthInfoId);
-                startActivity(intent);
-            }
-        });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

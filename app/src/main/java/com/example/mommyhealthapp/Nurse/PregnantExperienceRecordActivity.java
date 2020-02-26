@@ -85,6 +85,56 @@ public class PregnantExperienceRecordActivity extends AppCompatActivity {
             }
         }));
 
+        if(SaveSharedPreference.getUser(PregnantExperienceRecordActivity.this).equals("Mommy")){
+            MommyLogIn();
+        }
+        else{
+            mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        PreviousPregnant pp = documentSnapshot.toObject(PreviousPregnant.class);
+                        ppList.add(pp);
+                    }
+                    PregnantExperienceAdapter adapter = new PregnantExperienceAdapter(ppList);
+                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(PregnantExperienceRecordActivity.this);
+                    recyclerViewPPRecord.setLayoutManager(mLayoutManager);
+                    recyclerViewPPRecord.setItemAnimator(new DefaultItemAnimator());
+                    recyclerViewPPRecord.addItemDecoration(new DividerItemDecoration(PregnantExperienceRecordActivity.this, LinearLayoutManager.VERTICAL));
+                    recyclerViewPPRecord.setAdapter(adapter);
+                    progressBarPPRecord.setVisibility(View.GONE);
+                    if(ppList.isEmpty())
+                    {
+                        recyclerViewPPRecord.setVisibility(View.GONE);
+                        imgViewPPNoRecordFound.setVisibility(View.VISIBLE);
+                        txtViewPPNoRecordFound.setVisibility(View.VISIBLE);
+                        btnAddPPRecord.setVisibility(View.VISIBLE);
+                    }else{
+                        recyclerViewPPRecord.setVisibility(View.VISIBLE);
+                        imgViewPPNoRecordFound.setVisibility(View.GONE);
+                        txtViewPPNoRecordFound.setVisibility(View.GONE);
+                        btnAddPPRecord.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+        }
+
+        btnAddPPRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SaveSharedPreference.setPreviousPregnant(PregnantExperienceRecordActivity.this, "New");
+                Intent intent = new Intent(PregnantExperienceRecordActivity.this, SectionAActivity.class);
+                intent.putExtra("healthInfoId", healthInfoId);
+                intent.putExtra("bloodTestId", bloodTestId);
+                startActivity(intent);
+            }
+        });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void MommyLogIn(){
         mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -105,28 +155,15 @@ public class PregnantExperienceRecordActivity extends AppCompatActivity {
                     recyclerViewPPRecord.setVisibility(View.GONE);
                     imgViewPPNoRecordFound.setVisibility(View.VISIBLE);
                     txtViewPPNoRecordFound.setVisibility(View.VISIBLE);
-                    btnAddPPRecord.setVisibility(View.VISIBLE);
+                    btnAddPPRecord.setVisibility(View.GONE);
                 }else{
                     recyclerViewPPRecord.setVisibility(View.VISIBLE);
                     imgViewPPNoRecordFound.setVisibility(View.GONE);
                     txtViewPPNoRecordFound.setVisibility(View.GONE);
-                    btnAddPPRecord.setVisibility(View.VISIBLE);
+                    btnAddPPRecord.setVisibility(View.GONE);
                 }
             }
         });
-
-        btnAddPPRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SaveSharedPreference.setPreviousPregnant(PregnantExperienceRecordActivity.this, "New");
-                Intent intent = new Intent(PregnantExperienceRecordActivity.this, SectionAActivity.class);
-                intent.putExtra("healthInfoId", healthInfoId);
-                intent.putExtra("bloodTestId", bloodTestId);
-                startActivity(intent);
-            }
-        });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

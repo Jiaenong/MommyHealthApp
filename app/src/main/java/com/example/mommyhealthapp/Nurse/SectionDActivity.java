@@ -77,39 +77,43 @@ public class SectionDActivity extends AppCompatActivity {
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/CurrentHealthStatus");
-
-        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.isEmpty())
-                {
-                    isEmpty = true;
-                    layoutCHS.setVisibility(View.VISIBLE);
-                    progressBarCurrentHealthStatus.setVisibility(View.GONE);
-                }else{
-                    isEmpty = false;
-                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+        if (SaveSharedPreference.getUser(SectionDActivity.this).equals("Mommy")){
+            MommyLogIn();
+        }
+        else{
+            mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if(queryDocumentSnapshots.isEmpty())
                     {
-                        key = documentSnapshot.getId();
-                        CurrentHealthStatus chs = documentSnapshot.toObject(CurrentHealthStatus.class);
-                        editTextHeightCurrent.setText(chs.getCurrentHeight()+"");
-                        editTextCurrentBMI.setText(chs.getCurrentBMI()+"");
-                        editTextCurrentThyroid.setText(chs.getCurrentThyroid());
-                        editTextCurrentJaundice.setText(chs.getCurrentJaundice());
-                        editTextCurrentPallor.setText(chs.getCurrentPallor());
-                        editTextCLeftBreast.setText(chs.getCurrentLeftBreast());
-                        editTextCRightBreast.setText(chs.getCurrentRightBreast());
-                        editTextCVVLeft.setText(chs.getCurrentLeftVein());
-                        editTextCVVRight.setText(chs.getCurrentRightVein());
-                        editTextCAbdomen.setText(chs.getCurrentAbdomen());
-                        editTextCurrentOthers.setText(chs.getCurrentOthers());
+                        isEmpty = true;
                         layoutCHS.setVisibility(View.VISIBLE);
                         progressBarCurrentHealthStatus.setVisibility(View.GONE);
+                    }else{
+                        isEmpty = false;
+                        DisableField();
+                        for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                        {
+                            key = documentSnapshot.getId();
+                            CurrentHealthStatus chs = documentSnapshot.toObject(CurrentHealthStatus.class);
+                            editTextHeightCurrent.setText(chs.getCurrentHeight()+"");
+                            editTextCurrentBMI.setText(chs.getCurrentBMI()+"");
+                            editTextCurrentThyroid.setText(chs.getCurrentThyroid());
+                            editTextCurrentJaundice.setText(chs.getCurrentJaundice());
+                            editTextCurrentPallor.setText(chs.getCurrentPallor());
+                            editTextCLeftBreast.setText(chs.getCurrentLeftBreast());
+                            editTextCRightBreast.setText(chs.getCurrentRightBreast());
+                            editTextCVVLeft.setText(chs.getCurrentLeftVein());
+                            editTextCVVRight.setText(chs.getCurrentRightVein());
+                            editTextCAbdomen.setText(chs.getCurrentAbdomen());
+                            editTextCurrentOthers.setText(chs.getCurrentOthers());
+                            layoutCHS.setVisibility(View.VISIBLE);
+                            progressBarCurrentHealthStatus.setVisibility(View.GONE);
+                        }
                     }
                 }
-            }
-        });
-
+            });
+        }
 
         btnCurrentSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,6 +200,43 @@ public class SectionDActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void MommyLogIn()
+    {
+        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isEmpty = true;
+                    layoutCHS.setVisibility(View.VISIBLE);
+                    progressBarCurrentHealthStatus.setVisibility(View.GONE);
+                }else{
+                    isEmpty = false;
+                    DisableField();
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        key = documentSnapshot.getId();
+                        CurrentHealthStatus chs = documentSnapshot.toObject(CurrentHealthStatus.class);
+                        editTextHeightCurrent.setText(chs.getCurrentHeight()+"");
+                        editTextCurrentBMI.setText(chs.getCurrentBMI()+"");
+                        editTextCurrentThyroid.setText(chs.getCurrentThyroid());
+                        editTextCurrentJaundice.setText(chs.getCurrentJaundice());
+                        editTextCurrentPallor.setText(chs.getCurrentPallor());
+                        editTextCLeftBreast.setText(chs.getCurrentLeftBreast());
+                        editTextCRightBreast.setText(chs.getCurrentRightBreast());
+                        editTextCVVLeft.setText(chs.getCurrentLeftVein());
+                        editTextCVVRight.setText(chs.getCurrentRightVein());
+                        editTextCAbdomen.setText(chs.getCurrentAbdomen());
+                        editTextCurrentOthers.setText(chs.getCurrentOthers());
+                        layoutCHS.setVisibility(View.VISIBLE);
+                        progressBarCurrentHealthStatus.setVisibility(View.GONE);
+                        btnCurrentSave.setVisibility(View.GONE);
+                        btnCurrentCancel.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+    }
     private void DisableField()
     {
         editTextHeightCurrent.setEnabled(false);

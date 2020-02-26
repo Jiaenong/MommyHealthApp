@@ -48,7 +48,7 @@ public class SectionAActivity extends AppCompatActivity {
     private int check = 0;
 
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference;
     private DocumentReference mDocumentReference;
 
     @Override
@@ -83,39 +83,45 @@ public class SectionAActivity extends AppCompatActivity {
 
         btnPPCancel.setVisibility(View.GONE);
 
-        if(SaveSharedPreference.getPreviousPregnant(SectionAActivity.this).equals("Exist"))
-        {
+        if(SaveSharedPreference.getPreviousPregnant(SectionAActivity.this).equals("Exist")) {
             layoutPP.setVisibility(View.GONE);
             progressBarPP.setVisibility(View.VISIBLE);
             DisableField();
-            mCollectionReference.whereEqualTo("previousPregnantId", ppId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-                    {
-                        key = documentSnapshot.getId();
-                        PreviousPregnant pp = documentSnapshot.toObject(PreviousPregnant.class);
-                        editTextPPYear.setText(pp.getYear());
-                        editTextPPResult.setText(pp.getPregnantResult());
-                        editTextPPBirthType.setText(pp.getBirthType());
-                        editTextPlaceGiveBirth.setText(pp.getPlaceGiveBirth());
-                        editTextPPWeight.setText(pp.getBirthWeight()+"");
-                        editTextPPMother.setText(pp.getComplicationMother());
-                        editTextPPChild.setText(pp.getComplicationChild());
-                        editTextPPBFP.setText(pp.getBreastFeedingPeriod());
-                        editTextSituation.setText(pp.getChildSituation());
-                        if(radioButtonPPMale.getText().toString().equals(pp.getGender()))
+
+            if(SaveSharedPreference.getUser(SectionAActivity.this).equals("Mommy"))
+            {
+                MommyLogIn();
+            }else{
+                mCollectionReference.whereEqualTo("previousPregnantId", ppId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                         {
-                            radioButtonPPMale.setChecked(true);
-                        }else if(radioButtonPPFemale.getText().toString().equals(pp.getGender()))
-                        {
-                            radioButtonPPFemale.setChecked(true);
+                            key = documentSnapshot.getId();
+                            PreviousPregnant pp = documentSnapshot.toObject(PreviousPregnant.class);
+                            editTextPPYear.setText(pp.getYear());
+                            editTextPPResult.setText(pp.getPregnantResult());
+                            editTextPPBirthType.setText(pp.getBirthType());
+                            editTextPlaceGiveBirth.setText(pp.getPlaceGiveBirth());
+                            editTextPPWeight.setText(pp.getBirthWeight()+"");
+                            editTextPPMother.setText(pp.getComplicationMother());
+                            editTextPPChild.setText(pp.getComplicationChild());
+                            editTextPPBFP.setText(pp.getBreastFeedingPeriod());
+                            editTextSituation.setText(pp.getChildSituation());
+                            if(radioButtonPPMale.getText().toString().equals(pp.getGender()))
+                            {
+                                radioButtonPPMale.setChecked(true);
+                            }else if(radioButtonPPFemale.getText().toString().equals(pp.getGender()))
+                            {
+                                radioButtonPPFemale.setChecked(true);
+                            }
+                            layoutPP.setVisibility(View.VISIBLE);
+                            progressBarPP.setVisibility(View.GONE);
                         }
-                        layoutPP.setVisibility(View.VISIBLE);
-                        progressBarPP.setVisibility(View.GONE);
                     }
-                }
-            });
+                });
+            }
+
         }
 
         btnPPSave.setOnClickListener(new View.OnClickListener() {
@@ -214,6 +220,51 @@ public class SectionAActivity extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void MommyLogIn()
+    {
+        String healthInfoId = "";
+        String bloodTestId = "";
+        String ppId = "";
+        btnPPSave.setVisibility(View.GONE);
+        btnPPCancel.setVisibility(View.GONE);
+        Intent intentss = getIntent();
+        healthInfoId = intentss.getStringExtra("healthInfoId");
+        bloodTestId = intentss.getStringExtra("bloodTestId");
+        ppId = intentss.getStringExtra("ppId");
+
+        mFirebaseFirestore = FirebaseFirestore.getInstance();
+        mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/PreviousPregnant");
+
+        mCollectionReference.whereEqualTo("previousPregnantId", ppId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    key = documentSnapshot.getId();
+                    PreviousPregnant pp = documentSnapshot.toObject(PreviousPregnant.class);
+                    editTextPPYear.setText(pp.getYear());
+                    editTextPPResult.setText(pp.getPregnantResult());
+                    editTextPPBirthType.setText(pp.getBirthType());
+                    editTextPlaceGiveBirth.setText(pp.getPlaceGiveBirth());
+                    editTextPPWeight.setText(pp.getBirthWeight()+"");
+                    editTextPPMother.setText(pp.getComplicationMother());
+                    editTextPPChild.setText(pp.getComplicationChild());
+                    editTextPPBFP.setText(pp.getBreastFeedingPeriod());
+                    editTextSituation.setText(pp.getChildSituation());
+                    if(radioButtonPPMale.getText().toString().equals(pp.getGender()))
+                    {
+                        radioButtonPPMale.setChecked(true);
+                    }else if(radioButtonPPFemale.getText().toString().equals(pp.getGender()))
+                    {
+                        radioButtonPPFemale.setChecked(true);
+                    }
+                    layoutPP.setVisibility(View.VISIBLE);
+                    progressBarPP.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private void DisableField()

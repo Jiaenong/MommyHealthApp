@@ -15,7 +15,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.mommyhealthapp.Class.Mommy;
+import com.example.mommyhealthapp.Nurse.BabyKickRecordActivity;
 import com.example.mommyhealthapp.Nurse.EarlyTestActivity;
+import com.example.mommyhealthapp.Nurse.MGTTActivity;
+import com.example.mommyhealthapp.Nurse.PregnancyExaminationActivity;
+import com.example.mommyhealthapp.Nurse.SectionNActivity;
+import com.example.mommyhealthapp.Nurse.SummaryReportActivity;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -68,6 +73,56 @@ public class PregnancyRecordFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), EarlyTestActivity.class);
                 intent.putExtra("Status", status);
                 intent.putExtra("healthInfoId", healthInfoId);
+                startActivity(intent);
+            }
+        });
+
+        mgtt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MGTTActivity.class);
+                intent.putExtra("Status", status);
+                intent.putExtra("HealthInfoId", healthInfoId);
+                startActivity(intent);
+            }
+        });
+
+        pregnantExamination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PregnancyExaminationActivity.class);
+                intent.putExtra("Status", status);
+                intent.putExtra("HealthInfoId", healthInfoId);
+                startActivity(intent);
+            }
+        });
+
+        healthTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SectionNActivity.class);
+                intent.putExtra("Status", status);
+                intent.putExtra("HealthInfoId", healthInfoId);
+                startActivity(intent);
+            }
+        });
+
+        babyKicks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BabyKickRecordActivity.class);
+                intent.putExtra("Status", status);
+                intent.putExtra("HealthInfoId", healthInfoId);
+                startActivity(intent);
+            }
+        });
+
+        graphReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SummaryReportActivity.class);
+                intent.putExtra("Status", status);
+                intent.putExtra("HealthInfoId", healthInfoId);
                 startActivity(intent);
             }
         });

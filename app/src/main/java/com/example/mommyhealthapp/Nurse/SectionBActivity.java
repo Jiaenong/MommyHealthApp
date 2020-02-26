@@ -80,8 +80,11 @@ public class SectionBActivity extends AppCompatActivity {
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/ScreenTest");
-
-        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        if (SaveSharedPreference.getUser(SectionBActivity.this).equals("Mommy")){
+            MommyLogIn();
+        }
+        else {
+            mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if(queryDocumentSnapshots.isEmpty())
@@ -120,7 +123,9 @@ public class SectionBActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
+            });
+        }
+
 
         radioGroupTest1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -228,6 +233,50 @@ public class SectionBActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void MommyLogIn()
+    {
+        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isEmpty = true;
+                    layoutScreenTest.setVisibility(View.VISIBLE);
+                    progressBarST.setVisibility(View.GONE);
+                }else{
+                    isEmpty = false;
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        key = documentSnapshot.getId();
+                        ScreenTest st = documentSnapshot.toObject(ScreenTest.class);
+                        editTextRBG.setText(st.getRhesusBloodGroup());
+                        editTextTPHA.setText(st.getTpha());
+                        for(int i=0; i<radioGroupTest1.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupTest1.getChildAt(i)).getText().toString().equals(st.getRapidTest()))
+                            {
+                                ((RadioButton)radioGroupTest1.getChildAt(i)).setChecked(true);
+                            }((RadioButton)radioGroupTest1.getChildAt(i)).setEnabled(false);
+                        }
+                        for(int i=0; i<radioGroupElizaTest.getChildCount(); i++)
+                        {
+                            if(((RadioButton)radioGroupElizaTest.getChildAt(i)).getText().toString().equals(st.getRapidTest()))
+                            {
+                                ((RadioButton)radioGroupElizaTest.getChildAt(i)).setChecked(true);
+                            }((RadioButton)radioGroupElizaTest.getChildAt(i)).setEnabled(false);
+                        }
+                        editTextHepatitisB.setText(st.getHepatitisB());
+                        editTextThalassaemia.setText(st.getThalassaemia());
+                        editTextBFMP.setText(st.getBfmp());
+                        layoutScreenTest.setVisibility(View.VISIBLE);
+                        progressBarST.setVisibility(View.GONE);
+                        btnSTSave.setVisibility(View.GONE);
+                        btnSTCancel.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+    }
     private void DisableField()
     {
         editTextRBG.setEnabled(false);

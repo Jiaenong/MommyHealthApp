@@ -245,58 +245,64 @@ public class SectionCActivity extends AppCompatActivity {
         btnHealthHistoryCancel.setVisibility(View.GONE);
         progressBarHealthHistory.setVisibility(View.VISIBLE);
         layoutHealthHistory.setVisibility(View.GONE);
-        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.isEmpty()){
-                    isEmpty = true;
-                    progressBarHealthHistory.setVisibility(View.GONE);
-                    layoutHealthHistory.setVisibility(View.VISIBLE);
-                }else{
-                    isEmpty = false;
-                    DisableField();
-                    for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots)
-                    {
-                        key = documentSnapshot.getId();
-                        HealthHistory hh = documentSnapshot.toObject(HealthHistory.class);
-                        editTextMenstrDays.setText(hh.getMenstruationDays());
-                        editTextMenstrRounds.setText(hh.getMenstruationRound());
-                        if(hh.getBirthControl().equals("Yes"))
-                        {
-                            radioButtonPracYes.setChecked(true);
-                            editTextBCMethod.setText(hh.getBirthControlMethod());
-                            editTextBCPeriod.setText(hh.getBirthControlPeriod());
-                        }else{
-                            radioButtonPracNo.setChecked(true);
-                        }
-                        if(hh.getMotherSmoke().equals("Yes"))
-                        {
-                            radioBtnMotherSmokeYes.setChecked(true);
-                        }else{
-                            radioBtnMotherSmokeNo.setChecked(true);
-                        }
-                        if(hh.getFatherSmoke().equals("Yes"))
-                        {
-                            radioBtnFatherSmokeYes.setChecked(true);
-                        }else{
-                            radioBtnFatherSmokeNo.setChecked(true);
-                        }
-                        List<String> motherDisease = hh.getMotherDisease();
-                        List<String> familyDisease = hh.getFamilyDisease();
-                        getMotherDisease(motherDisease);
-                        getFamilyDisease(familyDisease);
 
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        editTextDos1.setText(dateFormat.format(hh.getDos1()));
-                        editTextDos2.setText(dateFormat.format(hh.getDos2()));
-                        editTextDosAddOn.setText(dateFormat.format(hh.getDosAddOn()));
-
+        if(SaveSharedPreference.getUser(SectionCActivity.this).equals("Mommy")) {
+            MommyLogIn();
+        }
+        else{
+            mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if(queryDocumentSnapshots.isEmpty()){
+                        isEmpty = true;
                         progressBarHealthHistory.setVisibility(View.GONE);
                         layoutHealthHistory.setVisibility(View.VISIBLE);
+                    }else{
+                        isEmpty = false;
+                        DisableField();
+                        for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots)
+                        {
+                            key = documentSnapshot.getId();
+                            HealthHistory hh = documentSnapshot.toObject(HealthHistory.class);
+                            editTextMenstrDays.setText(hh.getMenstruationDays());
+                            editTextMenstrRounds.setText(hh.getMenstruationRound());
+                            if(hh.getBirthControl().equals("Yes"))
+                            {
+                                radioButtonPracYes.setChecked(true);
+                                editTextBCMethod.setText(hh.getBirthControlMethod());
+                                editTextBCPeriod.setText(hh.getBirthControlPeriod());
+                            }else{
+                                radioButtonPracNo.setChecked(true);
+                            }
+                            if(hh.getMotherSmoke().equals("Yes"))
+                            {
+                                radioBtnMotherSmokeYes.setChecked(true);
+                            }else{
+                                radioBtnMotherSmokeNo.setChecked(true);
+                            }
+                            if(hh.getFatherSmoke().equals("Yes"))
+                            {
+                                radioBtnFatherSmokeYes.setChecked(true);
+                            }else{
+                                radioBtnFatherSmokeNo.setChecked(true);
+                            }
+                            List<String> motherDisease = hh.getMotherDisease();
+                            List<String> familyDisease = hh.getFamilyDisease();
+                            getMotherDisease(motherDisease);
+                            getFamilyDisease(familyDisease);
+
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            editTextDos1.setText(dateFormat.format(hh.getDos1()));
+                            editTextDos2.setText(dateFormat.format(hh.getDos2()));
+                            editTextDosAddOn.setText(dateFormat.format(hh.getDosAddOn()));
+
+                            progressBarHealthHistory.setVisibility(View.GONE);
+                            layoutHealthHistory.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
 
         btnHealthHistorySave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -434,6 +440,63 @@ public class SectionCActivity extends AppCompatActivity {
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void MommyLogIn(){
+        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty()){
+                    isEmpty = true;
+                    progressBarHealthHistory.setVisibility(View.GONE);
+                    layoutHealthHistory.setVisibility(View.VISIBLE);
+                }else{
+                    isEmpty = false;
+                    DisableField();
+                    for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots)
+                    {
+                        key = documentSnapshot.getId();
+                        HealthHistory hh = documentSnapshot.toObject(HealthHistory.class);
+                        editTextMenstrDays.setText(hh.getMenstruationDays());
+                        editTextMenstrRounds.setText(hh.getMenstruationRound());
+                        if(hh.getBirthControl().equals("Yes"))
+                        {
+                            radioButtonPracYes.setChecked(true);
+                            editTextBCMethod.setText(hh.getBirthControlMethod());
+                            editTextBCPeriod.setText(hh.getBirthControlPeriod());
+                        }else{
+                            radioButtonPracNo.setChecked(true);
+                        }
+                        if(hh.getMotherSmoke().equals("Yes"))
+                        {
+                            radioBtnMotherSmokeYes.setChecked(true);
+                        }else{
+                            radioBtnMotherSmokeNo.setChecked(true);
+                        }
+                        if(hh.getFatherSmoke().equals("Yes"))
+                        {
+                            radioBtnFatherSmokeYes.setChecked(true);
+                        }else{
+                            radioBtnFatherSmokeNo.setChecked(true);
+                        }
+                        List<String> motherDisease = hh.getMotherDisease();
+                        List<String> familyDisease = hh.getFamilyDisease();
+                        getMotherDisease(motherDisease);
+                        getFamilyDisease(familyDisease);
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        editTextDos1.setText(dateFormat.format(hh.getDos1()));
+                        editTextDos2.setText(dateFormat.format(hh.getDos2()));
+                        editTextDosAddOn.setText(dateFormat.format(hh.getDosAddOn()));
+
+                        progressBarHealthHistory.setVisibility(View.GONE);
+                        layoutHealthHistory.setVisibility(View.VISIBLE);
+                        btnHealthHistorySave.setVisibility(View.GONE);
+                        btnHealthHistoryCancel.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
     }
 
     private void getMotherDisease(List<String> motherDisease)
@@ -611,6 +674,10 @@ public class SectionCActivity extends AppCompatActivity {
         editTextDos2.setTextColor(Color.parseColor("#000000"));
         editTextDosAddOn.setEnabled(false);
         editTextDosAddOn.setTextColor(Color.parseColor("#000000"));
+        editTextMotherDiseaseOthers.setEnabled(false);
+        editTextMotherDiseaseOthers.setTextColor(Color.parseColor("#000000"));
+        editTextFamilyDiseaseOthers.setEnabled(false);
+        editTextFamilyDiseaseOthers.setTextColor(Color.parseColor("#000000"));
         for(int i=0; i<radioGroupPractice.getChildCount(); i++)
         {
             ((RadioButton)radioGroupPractice.getChildAt(i)).setEnabled(false);
