@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -32,6 +34,8 @@ public class PregnancyRecordFragment extends Fragment {
 
     private PregnancyRecordViewModel dashboardViewModel;
     private CardView earlyTest, mgtt, pregnantExamination, healthTutorial, babyKicks, graphReport;
+    private ProgressBar progressBarPregnancyRecord;
+    private LinearLayoutCompat layoutPregnancyRecord;
 
     private FirebaseFirestore mFirebaseFirestore;
     private DocumentReference mDocumentReference;
@@ -55,6 +59,11 @@ public class PregnancyRecordFragment extends Fragment {
         healthTutorial = (CardView)root.findViewById(R.id.healthTutorial);
         babyKicks = (CardView)root.findViewById(R.id.babyKicks);
         graphReport = (CardView)root.findViewById(R.id.graphReport);
+        progressBarPregnancyRecord = (ProgressBar)root.findViewById(R.id.progressBarPregnancyRecord);
+        layoutPregnancyRecord = (LinearLayoutCompat)root.findViewById(R.id.layoutPregnancyRecord);
+
+        progressBarPregnancyRecord.setVisibility(View.VISIBLE);
+        layoutPregnancyRecord.setVisibility(View.GONE);
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mDocumentReference = mFirebaseFirestore.collection("Mommy").document(SaveSharedPreference.getID(getActivity()));
@@ -64,6 +73,8 @@ public class PregnancyRecordFragment extends Fragment {
                 Mommy mommy = documentSnapshot.toObject(Mommy.class);
                 status = mommy.getStatus();
                 healthInfoId = mommy.getHealthInfoId();
+                progressBarPregnancyRecord.setVisibility(View.GONE);
+                layoutPregnancyRecord.setVisibility(View.VISIBLE);
             }
         });
 
