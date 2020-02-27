@@ -53,8 +53,11 @@
     <string name="nurse_address">Medical Personnel Address :</string>
     <string name="nurse_account">Account Info</string>
     <string name="mummy_race">Race :</string>
+    <string name="mommy_race">Race</string>
+    <string name="mommy_nationality">Nationality</string>
     <string name="mummy_address">Address</string>
     <string name="mummy_phone">Phone No.</string>
+    <string name="mummy_email">Email</string>
     <string name="mummy_ocupation">Occupation</string>
     <string name="mummy_education">Education</string>
     <string name="mummy_lnmp">THA (LNMP)</string>

@@ -13,6 +13,7 @@ public class Mommy implements Parcelable {
     private String race;
     private String address;
     private String phoneNo;
+    private String email;
     private String occupation;
     private int age;
     private String education;
@@ -27,7 +28,7 @@ public class Mommy implements Parcelable {
     public Mommy() { }
 
     public Mommy(String mommyName, String mommyIC, String nationality, String race, String address,
-                 String phoneNo, String occupation, int age, String education, String password, String mommyId,
+                 String phoneNo, String email, String occupation, int age, String education, String password, String mommyId,
                  int mommyNumber, String status, String mummyImage, String qrcodeImage, String healthInfoId)
     {
         this.mommyName = mommyName;
@@ -36,6 +37,7 @@ public class Mommy implements Parcelable {
         this.race = race;
         this.address = address;
         this.phoneNo = phoneNo;
+        this.email = email;
         this.occupation = occupation;
         this.age = age;
         this.education = education;
@@ -55,6 +57,7 @@ public class Mommy implements Parcelable {
         race = in.readString();
         address = in.readString();
         phoneNo = in.readString();
+        email = in.readString();
         occupation = in.readString();
         age = in.readInt();
         education = in.readString();
@@ -163,6 +166,14 @@ public class Mommy implements Parcelable {
         this.phoneNo = phoneNo;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getOccupation() {
         return occupation;
     }
@@ -224,6 +235,7 @@ public class Mommy implements Parcelable {
         dest.writeString(race);
         dest.writeString(address);
         dest.writeString(phoneNo);
+        dest.writeString(email);
         dest.writeString(occupation);
         dest.writeInt(age);
         dest.writeString(education);

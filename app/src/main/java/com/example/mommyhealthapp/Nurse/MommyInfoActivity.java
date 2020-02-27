@@ -67,7 +67,7 @@ public class MommyInfoActivity extends AppCompatActivity {
 
     private LinearLayoutCompat layoutInfo, layoutDetailInfo, layoutAppointment, layoutAllView;
     private ImageView imageViewUp, imageViewUp1, imageViewDown, imageViewDown1, imageViewDownApp, imageViewAppUpApp;
-    private EditText editTextMummyName, editTextIC, editTextRace, editTextAddress, editTextPhone, editTextAge, editTextOccupation, editTextEducation;
+    private EditText editTextMummyName, editTextIC, editTextRace, editTextAddress, editTextPhone, editTextEmail, editTextAge, editTextOccupation, editTextEducation;
     private EditText editTextEDD, editTextLNMP, editTextEDP, editTextDisease, editTextHeight, editTextWeight,
             editTextHusbandName, editTextHusbandIC, editTextHusbandWork, editTextHusbandWorkAddress, editTextHusbandPhone;
     private EditText editTextAppointment, editTextAppTime;
@@ -119,6 +119,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextRace = (EditText)findViewById(R.id.editTextOtherRace);
         editTextAddress = (EditText)findViewById(R.id.editTextAddress);
         editTextPhone = (EditText)findViewById(R.id.editTextPhone);
+        editTextEmail = (EditText)findViewById(R.id.editTextEmail);
         editTextAge = (EditText)findViewById(R.id.editTextAge);
         editTextOccupation = (EditText)findViewById(R.id.editTextOccupation);
         editTextEducation = (EditText)findViewById(R.id.editTextEducation);
@@ -385,6 +386,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                     }
                     editTextAddress.setText(mommy.getAddress());
                     editTextPhone.setText(mommy.getPhoneNo());
+                    editTextEmail.setText(mommy.getEmail());
                     editTextOccupation.setText(mommy.getOccupation());
                     editTextAge.setText(mommy.getAge()+"");
                     editTextEducation.setText(mommy.getEducation());
@@ -429,6 +431,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                     }
                     mDocumentReference.update("address", editTextAddress.getText().toString());
                     mDocumentReference.update("phoneNo", editTextPhone.getText().toString());
+                    mDocumentReference.update("email", editTextEmail.getText().toString());
                     mDocumentReference.update("occupation", editTextOccupation.getText().toString());
                     mDocumentReference.update("age", Integer.parseInt(editTextAge.getText().toString()));
                     mDocumentReference.update("education", editTextEducation.getText().toString());
@@ -760,6 +763,8 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextAddress.setTextColor(Color.parseColor("#000000"));
         editTextPhone.setEnabled(false);
         editTextPhone.setTextColor(Color.parseColor("#000000"));
+        editTextEmail.setEnabled(false);
+        editTextEmail.setTextColor(Color.parseColor("#000000"));
         editTextAge.setEnabled(false);
         editTextAge.setTextColor(Color.parseColor("#000000"));
         editTextOccupation.setEnabled(false);
@@ -833,6 +838,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         editTextRace.setEnabled(true);
         editTextAddress.setEnabled(true);
         editTextPhone.setEnabled(true);
+        editTextEmail.setEnabled(true);
         editTextAge.setEnabled(true);
         editTextOccupation.setEnabled(true);
         editTextEducation.setEnabled(true);
