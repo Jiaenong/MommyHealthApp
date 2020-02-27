@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                                                 SaveSharedPreference.setID(MainActivity.this, documentSnapshot.getId());
                                                 SaveSharedPreference.setCheckLogin(MainActivity.this, true);
                                                 SaveSharedPreference.setUser(MainActivity.this, "Mommy");
+                                                SaveSharedPreference.setMummyId(MainActivity.this, mommy.getMommyId());
                                                 Intent intent = new Intent(MainActivity.this, MommyHomeActivity.class);
                                                 startActivity(intent);
                                                 finish();

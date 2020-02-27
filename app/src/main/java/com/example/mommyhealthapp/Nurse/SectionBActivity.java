@@ -245,6 +245,7 @@ public class SectionBActivity extends AppCompatActivity {
                     progressBarST.setVisibility(View.GONE);
                 }else{
                     isEmpty = false;
+                    DisableField();
                     for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                     {
                         key = documentSnapshot.getId();

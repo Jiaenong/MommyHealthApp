@@ -90,145 +90,150 @@ public class MGTTActivity extends AppCompatActivity {
                     healthInfoId = documentSnapshot.getId();
                 }
                 nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("MGTT");
-                nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if(queryDocumentSnapshots.isEmpty())
-                        {
-                            isEmpty = true;
-                            progressBarMGTT.setVisibility(View.GONE);
-                            layoutMGTT.setVisibility(View.VISIBLE);
-                        }else{
-                            isEmpty = false;
-                            DisableField();
-                            for(QueryDocumentSnapshot documentSnapshots: queryDocumentSnapshots)
+                if(SaveSharedPreference.getUser(MGTTActivity.this).equals("Mommy")){
+                    MommyLogIn();
+                }
+                else{
+                    nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if(queryDocumentSnapshots.isEmpty())
                             {
-                                key = documentSnapshots.getId();
-                                MGTT mgtt = documentSnapshots.toObject(MGTT.class);
-                                if(mgtt.isAgeAbove35() == true)
+                                isEmpty = true;
+                                progressBarMGTT.setVisibility(View.GONE);
+                                layoutMGTT.setVisibility(View.VISIBLE);
+                            }else{
+                                isEmpty = false;
+                                DisableField();
+                                for(QueryDocumentSnapshot documentSnapshots: queryDocumentSnapshots)
                                 {
-                                    checkBoxAge35.setChecked(true);
-                                }else{
-                                    checkBoxAge35.setChecked(false);
-                                }
+                                    key = documentSnapshots.getId();
+                                    MGTT mgtt = documentSnapshots.toObject(MGTT.class);
+                                    if(mgtt.isAgeAbove35() == true)
+                                    {
+                                        checkBoxAge35.setChecked(true);
+                                    }else{
+                                        checkBoxAge35.setChecked(false);
+                                    }
 
-                                if(mgtt.isBMI() == true)
-                                {
-                                    checkBoxBMI.setChecked(true);
-                                }else{
-                                    checkBoxBMI.setChecked(false);
-                                }
+                                    if(mgtt.isBMI() == true)
+                                    {
+                                        checkBoxBMI.setChecked(true);
+                                    }else{
+                                        checkBoxBMI.setChecked(false);
+                                    }
 
-                                if(mgtt.isGestationalDiabetes() == true)
-                                {
-                                    checkBoxGestational.setChecked(true);
-                                }else{
-                                    checkBoxGestational.setChecked(false);
-                                }
+                                    if(mgtt.isGestationalDiabetes() == true)
+                                    {
+                                        checkBoxGestational.setChecked(true);
+                                    }else{
+                                        checkBoxGestational.setChecked(false);
+                                    }
 
-                                if(mgtt.isInstrauterineDeath() == true)
-                                {
-                                    checkBoxInstrauterine.setChecked(true);
-                                }else{
-                                    checkBoxInstrauterine.setChecked(false);
-                                }
+                                    if(mgtt.isInstrauterineDeath() == true)
+                                    {
+                                        checkBoxInstrauterine.setChecked(true);
+                                    }else{
+                                        checkBoxInstrauterine.setChecked(false);
+                                    }
 
-                                if(mgtt.isStillBirth() == true)
-                                {
-                                    checkBoxStillBirth.setChecked(true);
-                                }else{
-                                    checkBoxStillBirth.setChecked(false);
-                                }
+                                    if(mgtt.isStillBirth() == true)
+                                    {
+                                        checkBoxStillBirth.setChecked(true);
+                                    }else{
+                                        checkBoxStillBirth.setChecked(false);
+                                    }
 
-                                if(mgtt.isNeotanalDeath() == true)
-                                {
-                                    checkBoxNeotanalDeath.setChecked(true);
-                                }else{
-                                    checkBoxNeotanalDeath.setChecked(false);
-                                }
+                                    if(mgtt.isNeotanalDeath() == true)
+                                    {
+                                        checkBoxNeotanalDeath.setChecked(true);
+                                    }else{
+                                        checkBoxNeotanalDeath.setChecked(false);
+                                    }
 
-                                if(mgtt.isRecurrentMiscarriage() == true)
-                                {
-                                    checkBoxMiscarriages.setChecked(true);
-                                }else{
-                                    checkBoxMiscarriages.setChecked(false);
-                                }
+                                    if(mgtt.isRecurrentMiscarriage() == true)
+                                    {
+                                        checkBoxMiscarriages.setChecked(true);
+                                    }else{
+                                        checkBoxMiscarriages.setChecked(false);
+                                    }
 
-                                if(mgtt.isCongenitalAbnormality() == true)
-                                {
-                                    checkBoxCongenital.setChecked(true);
-                                }else{
-                                    checkBoxCongenital.setChecked(false);
-                                }
+                                    if(mgtt.isCongenitalAbnormality() == true)
+                                    {
+                                        checkBoxCongenital.setChecked(true);
+                                    }else{
+                                        checkBoxCongenital.setChecked(false);
+                                    }
 
-                                if(mgtt.isMascrosomicBaby() == true)
-                                {
-                                    checkBoxMascrosomic.setChecked(true);
-                                }else{
-                                    checkBoxMascrosomic.setChecked(false);
-                                }
+                                    if(mgtt.isMascrosomicBaby() == true)
+                                    {
+                                        checkBoxMascrosomic.setChecked(true);
+                                    }else{
+                                        checkBoxMascrosomic.setChecked(false);
+                                    }
 
-                                if(mgtt.isFirstDegreeRelativeDiabetes() == true)
-                                {
-                                    checkBoxFirstDegreeDiabetes.setChecked(true);
-                                }else{
-                                    checkBoxFirstDegreeDiabetes.setChecked(false);
-                                }
+                                    if(mgtt.isFirstDegreeRelativeDiabetes() == true)
+                                    {
+                                        checkBoxFirstDegreeDiabetes.setChecked(true);
+                                    }else{
+                                        checkBoxFirstDegreeDiabetes.setChecked(false);
+                                    }
 
-                                if(mgtt.isGlycosuria() == true)
-                                {
-                                    checkBoxGlycosuria.setChecked(true);
-                                }else{
-                                    checkBoxGlycosuria.setChecked(false);
-                                }
+                                    if(mgtt.isGlycosuria() == true)
+                                    {
+                                        checkBoxGlycosuria.setChecked(true);
+                                    }else{
+                                        checkBoxGlycosuria.setChecked(false);
+                                    }
 
-                                if(mgtt.isEssentialHypertension() == true)
-                                {
-                                    checkBoxEssentialHypertension.setChecked(true);
-                                }else{
-                                    checkBoxEssentialHypertension.setChecked(false);
-                                }
+                                    if(mgtt.isEssentialHypertension() == true)
+                                    {
+                                        checkBoxEssentialHypertension.setChecked(true);
+                                    }else{
+                                        checkBoxEssentialHypertension.setChecked(false);
+                                    }
 
-                                if(mgtt.isPregnancyInducedHypertension() == true)
-                                {
-                                    checkBoxInducedHypertension.setChecked(true);
-                                }else{
-                                    checkBoxInducedHypertension.setChecked(false);
-                                }
+                                    if(mgtt.isPregnancyInducedHypertension() == true)
+                                    {
+                                        checkBoxInducedHypertension.setChecked(true);
+                                    }else{
+                                        checkBoxInducedHypertension.setChecked(false);
+                                    }
 
-                                if(mgtt.isPolyhydramanios() == true)
-                                {
-                                    checkBoxPolyhydramanios.setChecked(true);
-                                }else{
-                                    checkBoxPolyhydramanios.setChecked(false);
-                                }
+                                    if(mgtt.isPolyhydramanios() == true)
+                                    {
+                                        checkBoxPolyhydramanios.setChecked(true);
+                                    }else{
+                                        checkBoxPolyhydramanios.setChecked(false);
+                                    }
 
-                                if(mgtt.isUterusLargerThanDate() == true)
-                                {
-                                    checkBoxUterus.setChecked(true);
-                                }else{
-                                    checkBoxUterus.setChecked(false);
-                                }
+                                    if(mgtt.isUterusLargerThanDate() == true)
+                                    {
+                                        checkBoxUterus.setChecked(true);
+                                    }else{
+                                        checkBoxUterus.setChecked(false);
+                                    }
 
-                                if(mgtt.isMultiplePregnancy() == true)
-                                {
-                                    checkBoxMultiplePregnancy.setChecked(true);
-                                }else{
-                                    checkBoxMultiplePregnancy.setChecked(false);
-                                }
+                                    if(mgtt.isMultiplePregnancy() == true)
+                                    {
+                                        checkBoxMultiplePregnancy.setChecked(true);
+                                    }else{
+                                        checkBoxMultiplePregnancy.setChecked(false);
+                                    }
 
-                                if(mgtt.isRecurrentUTI() == true)
-                                {
-                                    checkBoxUTI.setChecked(true);
-                                }else{
-                                    checkBoxUTI.setChecked(true);
+                                    if(mgtt.isRecurrentUTI() == true)
+                                    {
+                                        checkBoxUTI.setChecked(true);
+                                    }else{
+                                        checkBoxUTI.setChecked(true);
+                                    }
                                 }
+                                progressBarMGTT.setVisibility(View.GONE);
+                                layoutMGTT.setVisibility(View.VISIBLE);
                             }
-                            progressBarMGTT.setVisibility(View.GONE);
-                            layoutMGTT.setVisibility(View.VISIBLE);
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 
@@ -576,6 +581,151 @@ public class MGTTActivity extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void MommyLogIn()
+    {
+        nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isEmpty = true;
+                    progressBarMGTT.setVisibility(View.GONE);
+                    layoutMGTT.setVisibility(View.VISIBLE);
+                }else{
+                    isEmpty = false;
+                    DisableField();
+                    for(QueryDocumentSnapshot documentSnapshots: queryDocumentSnapshots)
+                    {
+                        key = documentSnapshots.getId();
+                        MGTT mgtt = documentSnapshots.toObject(MGTT.class);
+                        if(mgtt.isAgeAbove35() == true)
+                        {
+                            checkBoxAge35.setChecked(true);
+                        }else{
+                            checkBoxAge35.setChecked(false);
+                        }
+
+                        if(mgtt.isBMI() == true)
+                        {
+                            checkBoxBMI.setChecked(true);
+                        }else{
+                            checkBoxBMI.setChecked(false);
+                        }
+
+                        if(mgtt.isGestationalDiabetes() == true)
+                        {
+                            checkBoxGestational.setChecked(true);
+                        }else{
+                            checkBoxGestational.setChecked(false);
+                        }
+
+                        if(mgtt.isInstrauterineDeath() == true)
+                        {
+                            checkBoxInstrauterine.setChecked(true);
+                        }else{
+                            checkBoxInstrauterine.setChecked(false);
+                        }
+
+                        if(mgtt.isStillBirth() == true)
+                        {
+                            checkBoxStillBirth.setChecked(true);
+                        }else{
+                            checkBoxStillBirth.setChecked(false);
+                        }
+
+                        if(mgtt.isNeotanalDeath() == true)
+                        {
+                            checkBoxNeotanalDeath.setChecked(true);
+                        }else{
+                            checkBoxNeotanalDeath.setChecked(false);
+                        }
+
+                        if(mgtt.isRecurrentMiscarriage() == true)
+                        {
+                            checkBoxMiscarriages.setChecked(true);
+                        }else{
+                            checkBoxMiscarriages.setChecked(false);
+                        }
+
+                        if(mgtt.isCongenitalAbnormality() == true)
+                        {
+                            checkBoxCongenital.setChecked(true);
+                        }else{
+                            checkBoxCongenital.setChecked(false);
+                        }
+
+                        if(mgtt.isMascrosomicBaby() == true)
+                        {
+                            checkBoxMascrosomic.setChecked(true);
+                        }else{
+                            checkBoxMascrosomic.setChecked(false);
+                        }
+
+                        if(mgtt.isFirstDegreeRelativeDiabetes() == true)
+                        {
+                            checkBoxFirstDegreeDiabetes.setChecked(true);
+                        }else{
+                            checkBoxFirstDegreeDiabetes.setChecked(false);
+                        }
+
+                        if(mgtt.isGlycosuria() == true)
+                        {
+                            checkBoxGlycosuria.setChecked(true);
+                        }else{
+                            checkBoxGlycosuria.setChecked(false);
+                        }
+
+                        if(mgtt.isEssentialHypertension() == true)
+                        {
+                            checkBoxEssentialHypertension.setChecked(true);
+                        }else{
+                            checkBoxEssentialHypertension.setChecked(false);
+                        }
+
+                        if(mgtt.isPregnancyInducedHypertension() == true)
+                        {
+                            checkBoxInducedHypertension.setChecked(true);
+                        }else{
+                            checkBoxInducedHypertension.setChecked(false);
+                        }
+
+                        if(mgtt.isPolyhydramanios() == true)
+                        {
+                            checkBoxPolyhydramanios.setChecked(true);
+                        }else{
+                            checkBoxPolyhydramanios.setChecked(false);
+                        }
+
+                        if(mgtt.isUterusLargerThanDate() == true)
+                        {
+                            checkBoxUterus.setChecked(true);
+                        }else{
+                            checkBoxUterus.setChecked(false);
+                        }
+
+                        if(mgtt.isMultiplePregnancy() == true)
+                        {
+                            checkBoxMultiplePregnancy.setChecked(true);
+                        }else{
+                            checkBoxMultiplePregnancy.setChecked(false);
+                        }
+
+                        if(mgtt.isRecurrentUTI() == true)
+                        {
+                            checkBoxUTI.setChecked(true);
+                        }else{
+                            checkBoxUTI.setChecked(true);
+                        }
+                    }
+                    progressBarMGTT.setVisibility(View.GONE);
+                    layoutMGTT.setVisibility(View.VISIBLE);
+                    buttonSaveMGTT.setVisibility(View.GONE);
+                    buttonCancelMGTT.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private void DisableField()
