@@ -103,59 +103,64 @@ public class MGTTResultActivity extends AppCompatActivity {
         MGTTKey = intent.getStringExtra("MGTTKey");
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("MGTT").document(MGTTKey).collection("MGTTResult");
-        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.isEmpty())
-                {
-                    isEmpty = true;
-                    progressBarMGTTResult.setVisibility(View.GONE);
-                    layoutMGTTResult.setVisibility(View.VISIBLE);
-                }else{
-                    isEmpty = false;
-                    DisableField();
-                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+        if(SaveSharedPreference.getUser(MGTTResultActivity.this).equals("Mommy")){
+            MommyLogIn();
+        }
+        else {
+            mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if(queryDocumentSnapshots.isEmpty())
                     {
-                        key = documentSnapshot.getId();
-                        MGTTResult result = documentSnapshot.toObject(MGTTResult.class);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        if(result.getFirstTrimesterDate() == null)
+                        isEmpty = true;
+                        progressBarMGTTResult.setVisibility(View.GONE);
+                        layoutMGTTResult.setVisibility(View.VISIBLE);
+                    }else{
+                        isEmpty = false;
+                        DisableField();
+                        for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                         {
-                            editTextFirstTrimesterDate.setText("");
-                        }else{
-                            editTextFirstTrimesterDate.setText(dateFormat.format(result.getFirstTrimesterDate()));
+                            key = documentSnapshot.getId();
+                            MGTTResult result = documentSnapshot.toObject(MGTTResult.class);
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            if(result.getFirstTrimesterDate() == null)
+                            {
+                                editTextFirstTrimesterDate.setText("");
+                            }else{
+                                editTextFirstTrimesterDate.setText(dateFormat.format(result.getFirstTrimesterDate()));
+                            }
+
+                            if(result.getSecTrimesterDate() == null)
+                            {
+                                editTextSecTrimesterDate.setText("");
+                            }else{
+                                editTextSecTrimesterDate.setText(dateFormat.format(result.getSecTrimesterDate()));
+                            }
+
+                            if(result.getThirdTrimesterDate() == null)
+                            {
+                                editTextThirdTrimesterDate.setText("");
+                            }else{
+                                editTextThirdTrimesterDate.setText(dateFormat.format(result.getThirdTrimesterDate()));
+                            }
+                            editTextFirstPOA.setText(result.getFirstPOA());
+                            editTextFirstBloodSugar.setText(result.getFirstBloodSugar());
+                            editTextFirstPostprandial.setText(result.getFirstPostprandial());
+
+                            editTextSecPOA.setText(result.getSecPOA());
+                            editTextSecBloodSugar.setText(result.getSecBloodSugar());
+                            editTextSecPostprandial.setText(result.getSecPostprandial());
+
+                            editTextThirdPOA.setText(result.getThirdPOA());
+                            editTextThirdBloodSugar.setText(result.getThirdBloodSugar());
+                            editTextThirdPostprandial.setText(result.getThirdPostprandial());
                         }
-
-                        if(result.getSecTrimesterDate() == null)
-                        {
-                            editTextSecTrimesterDate.setText("");
-                        }else{
-                            editTextSecTrimesterDate.setText(dateFormat.format(result.getSecTrimesterDate()));
-                        }
-
-                        if(result.getThirdTrimesterDate() == null)
-                        {
-                            editTextThirdTrimesterDate.setText("");
-                        }else{
-                            editTextThirdTrimesterDate.setText(dateFormat.format(result.getThirdTrimesterDate()));
-                        }
-                        editTextFirstPOA.setText(result.getFirstPOA());
-                        editTextFirstBloodSugar.setText(result.getFirstBloodSugar());
-                        editTextFirstPostprandial.setText(result.getFirstPostprandial());
-
-                        editTextSecPOA.setText(result.getSecPOA());
-                        editTextSecBloodSugar.setText(result.getSecBloodSugar());
-                        editTextSecPostprandial.setText(result.getSecPostprandial());
-
-                        editTextThirdPOA.setText(result.getThirdPOA());
-                        editTextThirdBloodSugar.setText(result.getThirdBloodSugar());
-                        editTextThirdPostprandial.setText(result.getThirdPostprandial());
+                        progressBarMGTTResult.setVisibility(View.GONE);
+                        layoutMGTTResult.setVisibility(View.VISIBLE);
                     }
-                    progressBarMGTTResult.setVisibility(View.GONE);
-                    layoutMGTTResult.setVisibility(View.VISIBLE);
                 }
-            }
-        });
+            });
+        }
 
         btnMGTTResultSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,6 +274,64 @@ public class MGTTResultActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void MommyLogIn()
+    {
+        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isEmpty = true;
+                    progressBarMGTTResult.setVisibility(View.GONE);
+                    layoutMGTTResult.setVisibility(View.VISIBLE);
+                }else{
+                    isEmpty = false;
+                    DisableField();
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        key = documentSnapshot.getId();
+                        MGTTResult result = documentSnapshot.toObject(MGTTResult.class);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        if(result.getFirstTrimesterDate() == null)
+                        {
+                            editTextFirstTrimesterDate.setText("");
+                        }else{
+                            editTextFirstTrimesterDate.setText(dateFormat.format(result.getFirstTrimesterDate()));
+                        }
+
+                        if(result.getSecTrimesterDate() == null)
+                        {
+                            editTextSecTrimesterDate.setText("");
+                        }else{
+                            editTextSecTrimesterDate.setText(dateFormat.format(result.getSecTrimesterDate()));
+                        }
+
+                        if(result.getThirdTrimesterDate() == null)
+                        {
+                            editTextThirdTrimesterDate.setText("");
+                        }else{
+                            editTextThirdTrimesterDate.setText(dateFormat.format(result.getThirdTrimesterDate()));
+                        }
+                        editTextFirstPOA.setText(result.getFirstPOA());
+                        editTextFirstBloodSugar.setText(result.getFirstBloodSugar());
+                        editTextFirstPostprandial.setText(result.getFirstPostprandial());
+
+                        editTextSecPOA.setText(result.getSecPOA());
+                        editTextSecBloodSugar.setText(result.getSecBloodSugar());
+                        editTextSecPostprandial.setText(result.getSecPostprandial());
+
+                        editTextThirdPOA.setText(result.getThirdPOA());
+                        editTextThirdBloodSugar.setText(result.getThirdBloodSugar());
+                        editTextThirdPostprandial.setText(result.getThirdPostprandial());
+                    }
+                    progressBarMGTTResult.setVisibility(View.GONE);
+                    layoutMGTTResult.setVisibility(View.VISIBLE);
+                    btnMGTTResultSave.setVisibility(View.GONE);
+                    btnMGTTResultCancel.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
     private void GetDateText()
     {
         editTextFirstTrimesterDate.setOnClickListener(new View.OnClickListener() {
