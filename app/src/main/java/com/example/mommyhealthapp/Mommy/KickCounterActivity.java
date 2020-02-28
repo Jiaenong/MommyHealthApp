@@ -328,6 +328,7 @@ public class KickCounterActivity extends AppCompatActivity {
                     lastKicksTime.setText(getResources().getString(R.string.latestKickCount));
                     kickCount.setEnabled(true);
                     SaveSharedPreference.setBabyKickTime(KickCounterActivity.this, currentDate);
+                    SaveSharedPreference.setBabyKickCheck(KickCounterActivity.this, false);
                 }
             }
         }else{

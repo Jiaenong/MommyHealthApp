@@ -33,6 +33,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -86,14 +88,17 @@ public class PostnatalActivity extends AppCompatActivity {
         layoutPostnatal.setVisibility(View.GONE);
 
         mFirebaseFirestroe = FirebaseFirestore.getInstance();
-        mDocumentReference = mFirebaseFirestroe.collection("MedicalPersonnel").document(SaveSharedPreference.getID(PostnatalActivity.this));
-        mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
-                medicalPersonName = md.getName();
-            }
-        });
+        if(!SaveSharedPreference.getUser(PostnatalActivity.this).equals("Mommy"))
+        {
+            mDocumentReference = mFirebaseFirestroe.collection("MedicalPersonnel").document(SaveSharedPreference.getID(PostnatalActivity.this));
+            mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
+                    medicalPersonName = md.getName();
+                }
+            });
+        }
         mCollectionReference = mFirebaseFirestroe.collection("MommyHealthInfo");
         mCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(PostnatalActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -114,6 +119,11 @@ public class PostnatalActivity extends AppCompatActivity {
                         }else{
                             isEmpty = false;
                             DisableField();
+                            if(SaveSharedPreference.getUser(PostnatalActivity.this).equals("Mommy"))
+                            {
+                                btnPostnatalCancel.setVisibility(View.GONE);
+                                btnPostnatalSave.setVisibility(View.GONE);
+                            }
                             for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
                             {
                                 key = documentSnapshots.getId();
@@ -441,6 +451,10 @@ public class PostnatalActivity extends AppCompatActivity {
                     {
                         ((CheckBox)v).setEnabled(false);
                     }
+                    if(v instanceof TextView)
+                    {
+                        ((TextView)v).setClickable(false);
+                    }
                 }
             }
         }
@@ -458,6 +472,10 @@ public class PostnatalActivity extends AppCompatActivity {
                     if(v instanceof CheckBox)
                     {
                         ((CheckBox)v).setEnabled(true);
+                    }
+                    if(v instanceof TextView)
+                    {
+                        ((TextView)v).setClickable(true);
                     }
                 }
             }

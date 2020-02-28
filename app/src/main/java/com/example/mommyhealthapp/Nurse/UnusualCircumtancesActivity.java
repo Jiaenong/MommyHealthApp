@@ -88,15 +88,17 @@ public class UnusualCircumtancesActivity extends AppCompatActivity {
         progressBarUC.setVisibility(View.VISIBLE);
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
-        mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(UnusualCircumtancesActivity.this));
-        mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
-                medicalPersonName = md.getName();
-            }
-        });
-
+        if(!SaveSharedPreference.getUser(UnusualCircumtancesActivity.this).equals("Mommy"))
+        {
+            mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(UnusualCircumtancesActivity.this));
+            mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
+                    medicalPersonName = md.getName();
+                }
+            });
+        }
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
         mCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(UnusualCircumtancesActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -117,6 +119,11 @@ public class UnusualCircumtancesActivity extends AppCompatActivity {
                         }else {
                             isEmpty = false;
                             DisableField();
+                            if(SaveSharedPreference.getUser(UnusualCircumtancesActivity.this).equals("Mommy"))
+                            {
+                                btnUCCancel.setVisibility(View.GONE);
+                                btnUCSave.setVisibility(View.GONE);
+                            }
                             for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
                             {
                                 key = documentSnapshots.getId();
@@ -415,6 +422,10 @@ public class UnusualCircumtancesActivity extends AppCompatActivity {
                     {
                         ((CheckBox)v).setEnabled(false);
                     }
+                    if(v instanceof TextView)
+                    {
+                        ((TextView)v).setClickable(false);
+                    }
                 }
             }
         }
@@ -432,6 +443,10 @@ public class UnusualCircumtancesActivity extends AppCompatActivity {
                     if(v instanceof CheckBox)
                     {
                         ((CheckBox)v).setEnabled(true);
+                    }
+                    if(v instanceof TextView)
+                    {
+                        ((TextView)v).setClickable(true);
                     }
                 }
             }

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -165,7 +166,16 @@ public class MommyRecordActivity extends AppCompatActivity {
             MommyHealthInfo mhi = listP.get(position);
             holder.txtViewRecordYear.setText(mhi.getYear());
             holder.txtViewRecordMonth.setText(mhi.getMonth());
-            holder.txtViewRecordStatus.setText(mhi.getStatus());
+            if(mhi.getStatus().equals("Active"))
+            {
+                holder.txtViewRecordStatus.setText(mhi.getStatus());
+                holder.txtViewRecordStatus.setTextColor(Color.parseColor("#008000"));
+            }else if(mhi.getStatus().equals("Inactive"))
+            {
+                holder.txtViewRecordStatus.setText(mhi.getStatus());
+                holder.txtViewRecordStatus.setTextColor(Color.parseColor("#FF0000"));
+            }
+
         }
 
         @Override

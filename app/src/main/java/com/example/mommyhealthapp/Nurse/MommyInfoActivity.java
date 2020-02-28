@@ -86,7 +86,7 @@ public class MommyInfoActivity extends AppCompatActivity {
     private Boolean isEmpty;
     private FirebaseFirestore mFirebaseFirestore;
     private CollectionReference mCollectionReference, nCollectionReference, pCollectionReference, oCollectionReference, qCollectionReference;
-    private DocumentReference mDocumentReference;
+    private DocumentReference mDocumentReference, nDocumentReference;
 
     private int clickInfo = 0, clickInfoDetail = 0, clickApp = 0, check = 0;
 
@@ -412,6 +412,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                 }else if(clickInfo == 2)
                 {
                     mDocumentReference = mFirebaseFirestore.document("Mommy/"+key);
+                    nDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId);
                     mDocumentReference.update("mommyName",editTextMummyName.getText().toString());
                     mDocumentReference.update("mommyIC",editTextIC.getText().toString());
                     mDocumentReference.update("nationality", spinnerNational.getSelectedItem().toString());
@@ -434,8 +435,10 @@ public class MommyInfoActivity extends AppCompatActivity {
                     mDocumentReference.update("education", editTextEducation.getText().toString());
                     if(chkBoxStatus.isChecked()){
                         mDocumentReference.update("status", "Active");
+                        nDocumentReference.update("status", "Active");
                     }else{
                         mDocumentReference.update("status", "Inactive");
+                        nDocumentReference.update("status", "Inactive");
                     }
                     clickInfo = 0;
                     Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();

@@ -5,6 +5,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -77,7 +78,16 @@ public class MommyProfileActivity extends AppCompatActivity {
                     textViewMummyName.setText(mommy.getMommyName());
                     textViewMummyAge.setText(mommy.getAge()+"");
                     textViewMummyID.setText(mommy.getMommyId());
-                    textViewMummyStatus.setText(mommy.getStatus());
+                    if(mommy.getStatus().equals("Active"))
+                    {
+                        textViewMummyStatus.setText(mommy.getStatus());
+                        textViewMummyStatus.setTextColor(Color.parseColor("#008000"));
+                    }else if(mommy.getStatus().equals("Inactive"))
+                    {
+                        textViewMummyStatus.setText(mommy.getStatus());
+                        textViewMummyStatus.setTextColor(Color.parseColor("#FF0000"));
+                    }
+
                     if(mommy.getMummyImage().equals(""))
                     {
                         imageViewMummy.setImageResource(R.drawable.user);

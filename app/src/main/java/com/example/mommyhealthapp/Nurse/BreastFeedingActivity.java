@@ -105,15 +105,17 @@ public class BreastFeedingActivity extends AppCompatActivity {
         layoutBF.setVisibility(View.GONE);
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
-        mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(BreastFeedingActivity.this));
-        mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
-                medicalPersonName = md.getName();
-            }
-        });
-
+        if(!SaveSharedPreference.getUser(BreastFeedingActivity.this).equals("Mommy"))
+        {
+            mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(BreastFeedingActivity.this));
+            mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
+                    medicalPersonName = md.getName();
+                }
+            });
+        }
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
         mCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(BreastFeedingActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -134,6 +136,11 @@ public class BreastFeedingActivity extends AppCompatActivity {
                         }else{
                             isEmpty = false;
                             DisableField();
+                            if(SaveSharedPreference.getUser(BreastFeedingActivity.this).equals("Mommy"))
+                            {
+                                btnBFCancel.setVisibility(View.GONE);
+                                btnBFSave.setVisibility(View.GONE);
+                            }
                             for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
                             {
                                 key = documentSnapshots.getId();
@@ -646,6 +653,10 @@ public class BreastFeedingActivity extends AppCompatActivity {
                     {
                         ((CheckBox)v).setEnabled(false);
                     }
+                    if(v instanceof TextView)
+                    {
+                        ((TextView)v).setClickable(false);
+                    }
                 }
             }
         }
@@ -663,6 +674,10 @@ public class BreastFeedingActivity extends AppCompatActivity {
                     if(v instanceof CheckBox)
                     {
                         ((CheckBox)v).setEnabled(true);
+                    }
+                    if(v instanceof TextView)
+                    {
+                        ((TextView)v).setClickable(true);
                     }
                 }
             }

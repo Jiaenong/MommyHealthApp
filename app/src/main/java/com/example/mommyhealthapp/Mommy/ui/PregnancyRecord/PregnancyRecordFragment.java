@@ -92,8 +92,6 @@ public class PregnancyRecordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MGTTActivity.class);
-                intent.putExtra("Status", status);
-                intent.putExtra("HealthInfoId", healthInfoId);
                 startActivity(intent);
             }
         });
@@ -102,8 +100,6 @@ public class PregnancyRecordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PregnancyExaminationActivity.class);
-                intent.putExtra("Status", status);
-                intent.putExtra("HealthInfoId", healthInfoId);
                 startActivity(intent);
             }
         });
@@ -112,8 +108,6 @@ public class PregnancyRecordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SectionNActivity.class);
-                intent.putExtra("Status", status);
-                intent.putExtra("HealthInfoId", healthInfoId);
                 startActivity(intent);
             }
         });
@@ -122,8 +116,6 @@ public class PregnancyRecordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), BabyKickRecordActivity.class);
-                intent.putExtra("Status", status);
-                intent.putExtra("HealthInfoId", healthInfoId);
                 startActivity(intent);
             }
         });
@@ -132,8 +124,6 @@ public class PregnancyRecordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SummaryReportActivity.class);
-                intent.putExtra("Status", status);
-                intent.putExtra("HealthInfoId", healthInfoId);
                 startActivity(intent);
             }
         });

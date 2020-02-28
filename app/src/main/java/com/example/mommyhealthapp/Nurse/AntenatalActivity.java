@@ -113,14 +113,17 @@ public class AntenatalActivity extends AppCompatActivity {
         layoutAntenatal.setVisibility(View.GONE);
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
-        mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(AntenatalActivity.this));
-        mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
-                medicalPersonName = md.getName();
-            }
-        });
+        if(!SaveSharedPreference.getUser(AntenatalActivity.this).equals("Mommy"))
+        {
+            mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(AntenatalActivity.this));
+            mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
+                    medicalPersonName = md.getName();
+                }
+            });
+        }
 
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
         mCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(AntenatalActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -142,6 +145,11 @@ public class AntenatalActivity extends AppCompatActivity {
                         }else{
                             isEmpty = false;
                             DisableField();
+                            if(SaveSharedPreference.getUser(AntenatalActivity.this).equals("Mommy"))
+                            {
+                                btnAntenatalCancel.setVisibility(View.GONE);
+                                btnAntenatalSave.setVisibility(View.GONE);
+                            }
                             for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
                             {
                                 key = documentSnapshots.getId();
@@ -716,6 +724,10 @@ public class AntenatalActivity extends AppCompatActivity {
                     {
                         ((CheckBox)v).setEnabled(false);
                     }
+                    if(v instanceof TextView)
+                    {
+                        ((TextView)v).setClickable(false);
+                    }
                 }
             }
         }
@@ -733,6 +745,10 @@ public class AntenatalActivity extends AppCompatActivity {
                     if(v instanceof CheckBox)
                     {
                         ((CheckBox)v).setEnabled(true);
+                    }
+                    if(v instanceof TextView)
+                    {
+                        ((TextView)v).setClickable(true);
                     }
                 }
             }

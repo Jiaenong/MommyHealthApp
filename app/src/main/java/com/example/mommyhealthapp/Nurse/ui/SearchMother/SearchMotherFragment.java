@@ -198,11 +198,11 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
             if(mommy.getStatus().equals("Active"))
             {
                 holder.textViewStatusActive.setText(mommy.getStatus());
-                holder.textViewStatusActive.setTextColor(Color.parseColor("#FF0000"));
+                holder.textViewStatusActive.setTextColor(Color.parseColor("#008000"));
             }else if(mommy.getStatus().equals("Inactive"))
             {
                 holder.textViewStatusActive.setText(mommy.getStatus());
-                holder.textViewStatusActive.setTextColor(Color.parseColor("#008000"));
+                holder.textViewStatusActive.setTextColor(Color.parseColor("#FF0000"));
             }
 
             if(mommy.getMummyImage().equals(""))

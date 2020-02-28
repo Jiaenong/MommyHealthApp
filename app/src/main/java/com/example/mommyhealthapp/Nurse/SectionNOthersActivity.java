@@ -88,14 +88,17 @@ public class SectionNOthersActivity extends AppCompatActivity {
         progressBarOtherTutorial.setVisibility(View.VISIBLE);
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
-        mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(SectionNOthersActivity.this));
-        mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
-                medicalPersonName = md.getName();
-            }
-        });
+        if(!SaveSharedPreference.getUser(SectionNOthersActivity.this).equals("Mommy"))
+        {
+            mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(SectionNOthersActivity.this));
+            mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
+                    medicalPersonName = md.getName();
+                }
+            });
+        }
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
         mCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(SectionNOthersActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -116,6 +119,11 @@ public class SectionNOthersActivity extends AppCompatActivity {
                         }else{
                             isEmpty = false;
                             DisableField();
+                            if(SaveSharedPreference.getUser(SectionNOthersActivity.this).equals("Mommy"))
+                            {
+                                btnOtherTutorialCancel.setVisibility(View.GONE);
+                                btnOtherTutorialSave.setVisibility(View.GONE);
+                            }
                             for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
                             {
                                 key = documentSnapshots.getId();
@@ -415,6 +423,10 @@ public class SectionNOthersActivity extends AppCompatActivity {
                     {
                         ((CheckBox)v).setEnabled(false);
                     }
+                    if(v instanceof TextView)
+                    {
+                        ((TextView)v).setClickable(false);
+                    }
                 }
             }
         }
@@ -432,6 +444,10 @@ public class SectionNOthersActivity extends AppCompatActivity {
                     if(v instanceof CheckBox)
                     {
                         ((CheckBox)v).setEnabled(true);
+                    }
+                    if(v instanceof TextView)
+                    {
+                        ((TextView)v).setClickable(true);
                     }
                 }
             }
