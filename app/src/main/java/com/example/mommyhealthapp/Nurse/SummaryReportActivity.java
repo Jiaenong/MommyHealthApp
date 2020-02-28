@@ -60,7 +60,7 @@ public class SummaryReportActivity extends AppCompatActivity {
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
-        mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(SummaryReportActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        mCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(SummaryReportActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)

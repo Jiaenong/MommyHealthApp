@@ -20,6 +20,7 @@ import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Nurse.BabyKickRecordActivity;
 import com.example.mommyhealthapp.Nurse.EarlyTestActivity;
 import com.example.mommyhealthapp.Nurse.MGTTActivity;
+import com.example.mommyhealthapp.Nurse.PregnancyExamRecordActivity;
 import com.example.mommyhealthapp.Nurse.PregnancyExaminationActivity;
 import com.example.mommyhealthapp.Nurse.SectionNActivity;
 import com.example.mommyhealthapp.Nurse.SummaryReportActivity;
@@ -99,7 +100,7 @@ public class PregnancyRecordFragment extends Fragment {
         pregnantExamination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PregnancyExaminationActivity.class);
+                Intent intent = new Intent(getActivity(), PregnancyExamRecordActivity.class);
                 startActivity(intent);
             }
         });

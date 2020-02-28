@@ -168,14 +168,17 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 });
             }
         });
-        mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(PregnancyExaminationActivity.this));
-        mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
-                medicalPersonnelname = md.getName();
-            }
-        });
+        if(!SaveSharedPreference.getUser(PregnancyExaminationActivity.this).equals("Mommy"))
+        {
+            mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(PregnancyExaminationActivity.this));
+            mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
+                    medicalPersonnelname = md.getName();
+                }
+            });
+        }
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination");
         mCollectionReference.whereEqualTo("pregnancyExamId", pregnancyExamId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -188,6 +191,12 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 }else{
                     isEmpty = false;
                     DisableField();
+                    if(SaveSharedPreference.getUser(PregnancyExaminationActivity.this).equals("Mommy"))
+                    {
+                        btnSavePE.setVisibility(View.GONE);
+                        btnCancelPE.setVisibility(View.GONE);
+                        btnAddProblem.setVisibility(View.GONE);
+                    }
                     for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                     {
                         key = documentSnapshot.getId();
@@ -284,7 +293,7 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
         listViewProblem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(check == 1)
+                if(check == 1 || SaveSharedPreference.getUser(PregnancyExaminationActivity.this).equals("Mommy"))
                 {
                     final ProblemPE problemPE = problemAdapter.getItem(position);
 
@@ -299,7 +308,14 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                     btnProblemSave.setVisibility(View.GONE);
                     editTextProblem.setText(problemPE.getProblem());
                     editTextTreatment.setText(problemPE.getTreatment());
-
+                    if(SaveSharedPreference.getUser(PregnancyExaminationActivity.this).equals("Mommy"))
+                    {
+                        btnProblemEdit.setVisibility(View.GONE);
+                        editTextProblem.setEnabled(false);
+                        editTextProblem.setTextColor(Color.parseColor("#000000"));
+                        editTextTreatment.setEnabled(false);
+                        editTextTreatment.setTextColor(Color.parseColor("#000000"));
+                    }
                     btnProblemEdit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

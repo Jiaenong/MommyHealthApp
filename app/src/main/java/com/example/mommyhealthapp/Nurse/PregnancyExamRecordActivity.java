@@ -142,7 +142,7 @@ public class PregnancyExamRecordActivity extends AppCompatActivity {
     }
 
     private void MommyLogIn(){
-        mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(PregnancyExamRecordActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        mCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(PregnancyExamRecordActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
