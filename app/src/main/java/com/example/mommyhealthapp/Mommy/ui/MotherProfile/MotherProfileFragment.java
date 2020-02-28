@@ -30,7 +30,7 @@ public class MotherProfileFragment extends Fragment {
 
     private MotherProfileModel motherProfileModel;
     private ImageView qrcodeDisplay;
-    private TextView motherName, motherIC, motherNationality, motherRace, motherAddress, motherPhone, motherOccupation, motherEducation;
+    private TextView motherName, motherIC, motherNationality, motherRace, motherAddress, motherPhone, motherEmail, motherOccupation, motherEducation;
     private Button buttonLogOut;
     private ProgressBar progressBarLogOut;
     private LinearLayoutCompat myProfile;
@@ -53,6 +53,7 @@ public class MotherProfileFragment extends Fragment {
         motherRace = (TextView)root.findViewById(R.id.motherRace);
         motherAddress = (TextView)root.findViewById(R.id.motherAddress);
         motherPhone = (TextView)root.findViewById(R.id.motherPhone);
+        motherEmail = (TextView)root.findViewById(R.id.motherEmail);
         motherOccupation = (TextView)root.findViewById(R.id.motherOccupation);
         motherEducation = (TextView)root.findViewById(R.id.motherEducation);
         myProfile = (LinearLayoutCompat)root.findViewById(R.id.myProfile);
@@ -77,6 +78,7 @@ public class MotherProfileFragment extends Fragment {
                 motherRace.setText(mommy.getRace());
                 motherAddress.setText(mommy.getAddress());
                 motherPhone.setText(mommy.getPhoneNo());
+                motherEmail.setText(mommy.getEmail());
                 motherOccupation.setText(mommy.getOccupation());
                 motherEducation.setText(mommy.getEducation());
                 Glide.with(getContext()).load(mommy.getQrcodeImage()).into(qrcodeDisplay);

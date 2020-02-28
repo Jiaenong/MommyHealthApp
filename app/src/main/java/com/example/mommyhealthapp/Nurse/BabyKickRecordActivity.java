@@ -76,6 +76,56 @@ public class BabyKickRecordActivity extends AppCompatActivity implements SearchV
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
+        if(SaveSharedPreference.getUser(BabyKickRecordActivity.this).equals("Mommy")){
+            MommyLogIn();
+        }
+        else
+        {
+            mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(BabyKickRecordActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    for(QueryDocumentSnapshot documentSnapshots: queryDocumentSnapshots)
+                    {
+                        healthInfoId = documentSnapshots.getId();
+                    }
+                    nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("KickCount");
+                    nCollectionReference.orderBy("babyKickNumber", Query.Direction.ASCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if(queryDocumentSnapshots.isEmpty())
+                            {
+                                progressBarBabyKickRecord.setVisibility(View.GONE);
+                                recyclerViewBabyKick.setVisibility(View.GONE);
+                                imgViewBabyKickNoRecord.setVisibility(View.VISIBLE);
+                                txtViewBabyKickNoRecord.setVisibility(View.VISIBLE);
+                            }else{
+                                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                                {
+                                    KickCount kc = documentSnapshot.toObject(KickCount.class);
+                                    kickCountList.add(kc);
+                                }
+                                adapter = new BabyKickRecordAdapter(kickCountList);
+                                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(BabyKickRecordActivity.this);
+                                recyclerViewBabyKick.setLayoutManager(mLayoutManager);
+                                recyclerViewBabyKick.setItemAnimator(new DefaultItemAnimator());
+                                recyclerViewBabyKick.addItemDecoration(new DividerItemDecoration(BabyKickRecordActivity.this, LinearLayoutManager.VERTICAL));
+                                recyclerViewBabyKick.setAdapter(adapter);
+                                progressBarBabyKickRecord.setVisibility(View.GONE);
+                                recyclerViewBabyKick.setVisibility(View.VISIBLE);
+                                imgViewBabyKickNoRecord.setVisibility(View.GONE);
+                                txtViewBabyKickNoRecord.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void MommyLogIn()
+    {
         mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(BabyKickRecordActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -114,10 +164,7 @@ public class BabyKickRecordActivity extends AppCompatActivity implements SearchV
                 });
             }
         });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {

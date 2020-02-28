@@ -58,8 +58,8 @@ public class CreateMotherFragment extends Fragment {
     private RadioGroup radioGroupRace;
     private Spinner spinnerNational;
     private RadioButton radioBtnOtherRaces, radioBtnMalay, radioBtnChinese, radioBtnIndian;
-    private TextInputLayout txtIinputLayoutOtherRace, firstNameLayout, lastNameLayout, IClayout, phoneLayout, occupationLayout, passwordLayout, confirmpassLayout, ageLayout;
-    private EditText fistNameEdiTtext, lastNameEditText, ICEditText, phoneEditTex, occupationEditText, passwordEditText, confirmPassEditText, otherRaceEditText, addressEditText, ageEditText, educationEditText;
+    private TextInputLayout txtIinputLayoutOtherRace, firstNameLayout, lastNameLayout, IClayout, phoneLayout, emailLayout, occupationLayout, passwordLayout, confirmpassLayout, ageLayout;
+    private EditText fistNameEdiTtext, lastNameEditText, ICEditText, phoneEditText, emailEditText, occupationEditText, passwordEditText, confirmPassEditText, otherRaceEditText, addressEditText, ageEditText, educationEditText;
     private String mommyId, qrcode;
     private int mommyNumber;
 
@@ -83,7 +83,9 @@ public class CreateMotherFragment extends Fragment {
         IClayout = (TextInputLayout)root.findViewById(R.id.ICLayout);
         ICEditText = (EditText)root.findViewById(R.id.ICEditText);
         phoneLayout = (TextInputLayout)root.findViewById(R.id.phoneLayout);
-        phoneEditTex = (EditText)root.findViewById(R.id.phoneEditText);
+        phoneEditText = (EditText)root.findViewById(R.id.phoneEditText);
+        emailLayout = (TextInputLayout)root.findViewById(R.id.emailLayout);
+        emailEditText = (EditText)root.findViewById(R.id.emailEditText);
         occupationLayout = (TextInputLayout)root.findViewById(R.id.occupationLayout);
         occupationEditText = (EditText)root.findViewById(R.id.occupationEditText);
         passwordLayout = (TextInputLayout)root.findViewById(R.id.passwordLayout);
@@ -147,7 +149,8 @@ public class CreateMotherFragment extends Fragment {
                         selectedRadioButton = otherRaceEditText.getText().toString();
                     }
                     String address = addressEditText.getText().toString();
-                    String phoneNum = phoneEditTex.getText().toString();
+                    String phoneNum = phoneEditText.getText().toString();
+                    String email = emailEditText.getText().toString();
                     String occupation = occupationEditText.getText().toString();
                     int age = Integer.parseInt(ageEditText.getText().toString());
                     String education = educationEditText.getText().toString();
@@ -157,7 +160,7 @@ public class CreateMotherFragment extends Fragment {
                     String healthInfoId = "";
                     qrcode = "";
 
-                    Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,occupation,age,education,confirmPass, mommyId, mommyNumber,status,imagePic,qrcode, healthInfoId);
+                    Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,email,occupation,age,education,confirmPass, mommyId, mommyNumber,status,imagePic,qrcode, healthInfoId);
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("mommyinfo", mommy);
@@ -255,7 +258,7 @@ public class CreateMotherFragment extends Fragment {
             }
         });
 
-        phoneEditTex.addTextChangedListener(new TextWatcher() {
+        phoneEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -263,7 +266,7 @@ public class CreateMotherFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(phoneEditTex.getText().toString().equals(""))
+                if(phoneEditText.getText().toString().equals(""))
                 {
                     phoneLayout.setErrorEnabled(true);
                     phoneLayout.setError("This field is required!");
@@ -278,6 +281,31 @@ public class CreateMotherFragment extends Fragment {
 
             }
         });
+
+        emailEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(emailEditText.getText().toString().equals(""))
+                {
+                    emailLayout.setErrorEnabled(true);
+                    emailLayout.setError("This field is required!");
+                }else{
+                    emailLayout.setErrorEnabled(false);
+                    emailLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
         occupationEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -421,7 +449,7 @@ public class CreateMotherFragment extends Fragment {
             empty = false;
         }
 
-        if(phoneEditTex.getText().toString().equals(""))
+        if(phoneEditText.getText().toString().equals(""))
         {
             phoneLayout.setErrorEnabled(true);
             phoneLayout.setError("This field is required!");
@@ -431,6 +459,19 @@ public class CreateMotherFragment extends Fragment {
             phoneLayout.setError(null);
             empty = false;
         }
+
+        if(emailEditText.getText().toString().equals(""))
+        {
+            emailLayout.setErrorEnabled(true);
+            emailLayout.setError("This field is required!");
+            empty = true;
+        }
+        else{
+            emailLayout.setErrorEnabled(false);
+            emailLayout.setError(null);
+            empty = false;
+        }
+
 
         if(occupationEditText.getText().toString().equals(""))
         {
