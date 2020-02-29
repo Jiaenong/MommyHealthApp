@@ -109,6 +109,7 @@ public class SectionDActivity extends AppCompatActivity {
                             editTextCurrentOthers.setText(chs.getCurrentOthers());
                             layoutCHS.setVisibility(View.VISIBLE);
                             progressBarCurrentHealthStatus.setVisibility(View.GONE);
+                            btnCurrentSave.setText("Update");
                         }
                     }
                 }

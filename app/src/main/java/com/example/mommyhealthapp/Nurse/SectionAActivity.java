@@ -117,6 +117,7 @@ public class SectionAActivity extends AppCompatActivity {
                             }
                             layoutPP.setVisibility(View.VISIBLE);
                             progressBarPP.setVisibility(View.GONE);
+                            btnPPSave.setText("Update");
                         }
                     }
                 });

@@ -31,7 +31,7 @@
                 android:layout_toRightOf="@+id/imageView14"
                 android:layout_marginLeft="10dp"
                 android:text="Next appointment date has been scheduled"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/notidate"

@@ -156,6 +156,7 @@ public class UnusualCircumtancesActivity extends AppCompatActivity {
                             }
                             layoutUC.setVisibility(View.VISIBLE);
                             progressBarUC.setVisibility(View.GONE);
+                            btnUCSave.setText("Update");
                         }
                     }
                 });

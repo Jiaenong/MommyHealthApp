@@ -229,6 +229,7 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                     }
                     progressBarPE.setVisibility(View.GONE);
                     layoutPE.setVisibility(View.VISIBLE);
+                    btnSavePE.setText("Update");
                 }
             }
         });

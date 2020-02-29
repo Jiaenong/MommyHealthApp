@@ -120,6 +120,7 @@ public class SectionBActivity extends AppCompatActivity {
                         editTextBFMP.setText(st.getBfmp());
                         layoutScreenTest.setVisibility(View.VISIBLE);
                         progressBarST.setVisibility(View.GONE);
+                        btnSTSave.setText("Update");
                     }
                 }
             }

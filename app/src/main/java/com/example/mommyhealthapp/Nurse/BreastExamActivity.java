@@ -235,6 +235,7 @@ public class BreastExamActivity extends AppCompatActivity {
                             }
                             progressBarBreastExamine.setVisibility(View.GONE);
                             layoutBreastExamine.setVisibility(View.VISIBLE);
+                            btnBESave.setText("Update");
                         }
                     }
                 }

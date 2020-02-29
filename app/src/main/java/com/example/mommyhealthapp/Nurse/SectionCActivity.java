@@ -298,6 +298,7 @@ public class SectionCActivity extends AppCompatActivity {
 
                             progressBarHealthHistory.setVisibility(View.GONE);
                             layoutHealthHistory.setVisibility(View.VISIBLE);
+                            btnHealthHistorySave.setText("Update");
                         }
                     }
                 }
