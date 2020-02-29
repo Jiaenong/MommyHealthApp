@@ -203,6 +203,7 @@ public class BreastFeedingActivity extends AppCompatActivity {
                             }
                             progressBarBF.setVisibility(View.GONE);
                             layoutBF.setVisibility(View.VISIBLE);
+                            btnBFSave.setText("Update");
                         }
                     }
                 });

@@ -157,6 +157,7 @@ public class MGTTResultActivity extends AppCompatActivity {
                         }
                         progressBarMGTTResult.setVisibility(View.GONE);
                         layoutMGTTResult.setVisibility(View.VISIBLE);
+                        btnMGTTResultSave.setText("Update");
                     }
                 }
             });

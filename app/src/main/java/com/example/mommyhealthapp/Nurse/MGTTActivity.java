@@ -230,6 +230,7 @@ public class MGTTActivity extends AppCompatActivity {
                                 }
                                 progressBarMGTT.setVisibility(View.GONE);
                                 layoutMGTT.setVisibility(View.VISIBLE);
+                                buttonSaveMGTT.setText("Update");
                             }
                         }
                     });

@@ -188,6 +188,7 @@ public class HealthyMindFilterActivity extends AppCompatActivity {
                         }
                         layoutMentalHealth.setVisibility(View.VISIBLE);
                         progressBarMentalHealth.setVisibility(View.GONE);
+                        btnMentalSave.setText("Update");
                     }
                 }
             });

@@ -157,6 +157,7 @@ public class SectionNOthersActivity extends AppCompatActivity {
                             }
                             layoutOtherTutorial.setVisibility(View.VISIBLE);
                             progressBarOtherTutorial.setVisibility(View.GONE);
+                            btnOtherTutorialSave.setText("Update");
                         }
                     }
                 });

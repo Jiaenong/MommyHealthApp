@@ -223,6 +223,7 @@ public class AntenatalActivity extends AppCompatActivity {
                                 }
                                 progressBarAntenatalTutorial.setVisibility(View.GONE);
                                 layoutAntenatal.setVisibility(View.VISIBLE);
+                                btnAntenatalSave.setText("Update");
                             }
                         }
                     }

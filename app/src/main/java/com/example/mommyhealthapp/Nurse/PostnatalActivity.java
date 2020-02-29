@@ -156,6 +156,7 @@ public class PostnatalActivity extends AppCompatActivity {
                             }
                             progressBarPostnatalTutorial.setVisibility(View.GONE);
                             layoutPostnatal.setVisibility(View.VISIBLE);
+                            btnPostnatalSave.setText("Update");
                         }
                     }
                 });
