@@ -99,9 +99,16 @@ public class MainActivity extends AppCompatActivity {
                                 if(name.equals(md.getIC()) && pass.equals(md.getPassword()))
                                 {
                                     check++;
-                                    SaveSharedPreference.setID(MainActivity.this, documentSnapshot.getId());
-                                    SaveSharedPreference.setCheckLogin(MainActivity.this, true);
-                                    SaveSharedPreference.setUser(MainActivity.this, "medicalPersonnel");
+                                    if(md.getType().equals("doctor"))
+                                    {
+                                        SaveSharedPreference.setID(MainActivity.this, documentSnapshot.getId());
+                                        SaveSharedPreference.setCheckLogin(MainActivity.this, true);
+                                        SaveSharedPreference.setUser(MainActivity.this, "doctor");
+                                    }else{
+                                        SaveSharedPreference.setID(MainActivity.this, documentSnapshot.getId());
+                                        SaveSharedPreference.setCheckLogin(MainActivity.this, true);
+                                        SaveSharedPreference.setUser(MainActivity.this, "medicalPersonnel");
+                                    }
                                     Intent intent = new Intent(MainActivity.this, NurseHomeActivity.class);
                                     startActivity(intent);
                                     finish();

@@ -36,7 +36,10 @@ public class HomeFragment extends Fragment {
         cardViewCreate = (CardView)root.findViewById(R.id.cardViewCreate);
         cardViewNurse = (CardView)root.findViewById(R.id.cardViewNurse);
         cardViewSearch = (CardView)root.findViewById(R.id.cardViewSearch);
-
+        if(SaveSharedPreference.getUser(getActivity()).equals("doctor"))
+        {
+            cardViewCreate.setVisibility(View.GONE);
+        }
         cardViewCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -30,6 +30,7 @@
         android:id="@+id/txtViewNoRecordFoundSR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/imageViewNoRecordFoundSR"
         android:textSize="18sp"
         android:textStyle="bold"

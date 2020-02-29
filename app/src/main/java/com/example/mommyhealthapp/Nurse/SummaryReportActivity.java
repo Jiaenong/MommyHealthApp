@@ -11,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.PregnancyExamination;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.jjoe64.graphview.GraphView;
@@ -36,7 +38,7 @@ public class SummaryReportActivity extends AppCompatActivity {
     private TextView txtViewNoRecordFoundSR;
 
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference, nCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference, pCollectionReference;
 
     private String healthInfoId;
     private List<PregnancyExamination> peList;
@@ -59,44 +61,101 @@ public class SummaryReportActivity extends AppCompatActivity {
         peList = new ArrayList<>();
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
-        mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
+        if(SaveSharedPreference.getUser(SummaryReportActivity.this).equals("Mommy"))
+        {
+            MummyViewReport();
+        }else{
+            mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
+            mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(SummaryReportActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        healthInfoId = documentSnapshot.getId();
+                    }
+                    nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination");
+                    nCollectionReference.orderBy("createdDate", Query.Direction.ASCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if(queryDocumentSnapshots.isEmpty())
+                            {
+                                progressBarSummaryReport.setVisibility(View.GONE);
+                                layoutSummaryReport.setVisibility(View.GONE);
+                                imageViewNoRecordFoundSR.setVisibility(View.VISIBLE);
+                                txtViewNoRecordFoundSR.setVisibility(View.VISIBLE);
+                            }else{
+                                for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
+                                {
+                                    PregnancyExamination pe = documentSnapshots.toObject(PregnancyExamination.class);
+                                    peList.add(pe);
+                                }
+                                progressBarSummaryReport.setVisibility(View.GONE);
+                                layoutSummaryReport.setVisibility(View.VISIBLE);
+                                imageViewNoRecordFoundSR.setVisibility(View.GONE);
+                                txtViewNoRecordFoundSR.setVisibility(View.GONE);
+
+                                GenerateBloodPressureGraph();
+                                GenerateHemoglobinGraph();
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void MummyViewReport()
+    {
+        mCollectionReference = mFirebaseFirestore.collection("Mommy");
         mCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(SummaryReportActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                String mommyHealthInfoId = "";
+                for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots)
                 {
-                    healthInfoId = documentSnapshot.getId();
+                    Mommy mommy = documentSnapshot.toObject(Mommy.class);
+                    mommyHealthInfoId = mommy.getHealthInfoId();
                 }
-                nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination");
-                nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
+                nCollectionReference.whereEqualTo("healthInfoId", mommyHealthInfoId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if(queryDocumentSnapshots.isEmpty())
+                        for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
                         {
-                            progressBarSummaryReport.setVisibility(View.GONE);
-                            layoutSummaryReport.setVisibility(View.GONE);
-                            imageViewNoRecordFoundSR.setVisibility(View.VISIBLE);
-                            txtViewNoRecordFoundSR.setVisibility(View.VISIBLE);
-                        }else{
-                            for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
-                            {
-                                PregnancyExamination pe = documentSnapshots.toObject(PregnancyExamination.class);
-                                peList.add(pe);
-                            }
-                            progressBarSummaryReport.setVisibility(View.GONE);
-                            layoutSummaryReport.setVisibility(View.VISIBLE);
-                            imageViewNoRecordFoundSR.setVisibility(View.GONE);
-                            txtViewNoRecordFoundSR.setVisibility(View.GONE);
-
-                            GenerateBloodPressureGraph();
-                            GenerateHemoglobinGraph();
+                            healthInfoId = documentSnapshots.getId();
                         }
+                        pCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination");
+                        pCollectionReference.orderBy("createdDate", Query.Direction.ASCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                if(queryDocumentSnapshots.isEmpty())
+                                {
+                                    progressBarSummaryReport.setVisibility(View.GONE);
+                                    layoutSummaryReport.setVisibility(View.GONE);
+                                    imageViewNoRecordFoundSR.setVisibility(View.VISIBLE);
+                                    txtViewNoRecordFoundSR.setVisibility(View.VISIBLE);
+                                }else{
+                                    for(QueryDocumentSnapshot documentSnapshotss : queryDocumentSnapshots)
+                                    {
+                                        PregnancyExamination pe = documentSnapshotss.toObject(PregnancyExamination.class);
+                                        peList.add(pe);
+                                    }
+                                    progressBarSummaryReport.setVisibility(View.GONE);
+                                    layoutSummaryReport.setVisibility(View.VISIBLE);
+                                    imageViewNoRecordFoundSR.setVisibility(View.GONE);
+                                    txtViewNoRecordFoundSR.setVisibility(View.GONE);
+
+                                    GenerateBloodPressureGraph();
+                                    GenerateHemoglobinGraph();
+                                }
+                            }
+                        });
                     }
                 });
             }
         });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void GenerateBloodPressureGraph()

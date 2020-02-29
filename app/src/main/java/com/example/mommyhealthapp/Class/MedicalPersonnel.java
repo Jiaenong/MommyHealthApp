@@ -9,10 +9,11 @@ public class MedicalPersonnel {
     private String email;
     private String medicalPersonnelId;
     private String ImageUrl;
+    private String type;
 
     public MedicalPersonnel(){}
 
-    public MedicalPersonnel(String name, String password, String IC, String address, String email, String medicalPersonnelId, String ImageUrl)
+    public MedicalPersonnel(String name, String password, String IC, String address, String email, String medicalPersonnelId, String ImageUrl, String type)
     {
         this.name = name;
         this.password = password;
@@ -21,6 +22,7 @@ public class MedicalPersonnel {
         this.email = email;
         this.medicalPersonnelId = medicalPersonnelId;
         this.ImageUrl = ImageUrl;
+        this.type = type;
     }
 
     public String getImageUrl() {
@@ -77,5 +79,13 @@ public class MedicalPersonnel {
 
     public void setMedicalPersonnelId(String medicalPersonnelId) {
         this.medicalPersonnelId = medicalPersonnelId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

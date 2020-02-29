@@ -133,7 +133,6 @@ public class KickCounterActivity extends AppCompatActivity {
                     counter++;
                     if(counter == 1)
                     {
-                        SaveSharedPreference.setBabyKickCheck(KickCounterActivity.this, true);
                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
                         int firstKick = counter;
@@ -227,7 +226,6 @@ public class KickCounterActivity extends AppCompatActivity {
                     ++latestKickCount;
                     if(latestKickCount == 1)
                     {
-                        SaveSharedPreference.setBabyKickCheck(KickCounterActivity.this, true);
                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
                         int firstKick = latestKickCount;
@@ -312,13 +310,11 @@ public class KickCounterActivity extends AppCompatActivity {
         cal_alarm.set(Calendar.MINUTE,0);
         cal_alarm.set(Calendar.SECOND,0);
         String currentDate = dateFormat.format(dat);
-        Log.i("TestingDate", SaveSharedPreference.getBabyKickTime(KickCounterActivity.this));
-        if(!currentDate.equals(SaveSharedPreference.getBabyKickTime(KickCounterActivity.this)))
+        Log.i("TestingDate", txtViewLastKickDate.getText().toString());
+        if(txtViewLastKickDate.getText().toString().equals(getResources().getString(R.string.lastKickDate)))
         {
-            if(SaveSharedPreference.getBabyKickTime(KickCounterActivity.this).equals(""))
+            if(!currentDate.equals(txtViewFirstKickDate.getText().toString()))
             {
-                SaveSharedPreference.setBabyKickTime(KickCounterActivity.this, currentDate);
-            }else{
                 if(cal_now.equals(cal_alarm) || cal_now.after(cal_alarm))
                 {
                     txtViewKickTimes.setText("0");
@@ -327,22 +323,22 @@ public class KickCounterActivity extends AppCompatActivity {
                     txtViewLastKickDate.setText(getResources().getString(R.string.lastKickDate));
                     lastKicksTime.setText(getResources().getString(R.string.latestKickCount));
                     kickCount.setEnabled(true);
-                    SaveSharedPreference.setBabyKickTime(KickCounterActivity.this, currentDate);
-                    SaveSharedPreference.setBabyKickCheck(KickCounterActivity.this, false);
                 }
             }
         }else{
-            if(SaveSharedPreference.getBabyKickCheck(KickCounterActivity.this) == false)
+            if(!currentDate.equals(txtViewLastKickDate.getText().toString()))
             {
-                txtViewKickTimes.setText("0");
-                kickTime.setText(getResources().getString(R.string.firstKickCount));
-                txtViewFirstKickDate.setText(getResources().getString(R.string.firstKickDate));
-                txtViewLastKickDate.setText(getResources().getString(R.string.lastKickDate));
-                lastKicksTime.setText(getResources().getString(R.string.latestKickCount));
-                kickCount.setEnabled(true);
+                if(cal_now.equals(cal_alarm) || cal_now.after(cal_alarm))
+                {
+                    txtViewKickTimes.setText("0");
+                    kickTime.setText(getResources().getString(R.string.firstKickCount));
+                    txtViewFirstKickDate.setText(getResources().getString(R.string.firstKickDate));
+                    txtViewLastKickDate.setText(getResources().getString(R.string.lastKickDate));
+                    lastKicksTime.setText(getResources().getString(R.string.latestKickCount));
+                    kickCount.setEnabled(true);
+                }
             }
         }
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
