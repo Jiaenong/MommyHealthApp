@@ -292,9 +292,24 @@ public class SectionCActivity extends AppCompatActivity {
                             getFamilyDisease(familyDisease);
 
                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                            editTextDos1.setText(dateFormat.format(hh.getDos1()));
-                            editTextDos2.setText(dateFormat.format(hh.getDos2()));
-                            editTextDosAddOn.setText(dateFormat.format(hh.getDosAddOn()));
+                            if(hh.getDos1() == null)
+                            {
+                                editTextDos1.setText("");
+                            }else{
+                                editTextDos1.setText(dateFormat.format(hh.getDos1()));
+                            }
+                            if(hh.getDos2() == null)
+                            {
+                                editTextDos2.setText("");
+                            }else{
+                                editTextDos2.setText(dateFormat.format(hh.getDos2()));
+                            }
+                            if(hh.getDosAddOn() == null)
+                            {
+                                editTextDosAddOn.setText("");
+                            }else{
+                                editTextDosAddOn.setText(dateFormat.format(hh.getDosAddOn()));
+                            }
 
                             progressBarHealthHistory.setVisibility(View.GONE);
                             layoutHealthHistory.setVisibility(View.VISIBLE);
