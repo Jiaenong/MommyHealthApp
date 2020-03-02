@@ -170,6 +170,8 @@ public class SummaryReportActivity extends AppCompatActivity {
         bloodPressureGraph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(SummaryReportActivity.this));
         bloodPressureGraph.getGridLabelRenderer().setNumHorizontalLabels(3);
         bloodPressureGraph.getGridLabelRenderer().setHumanRounding(false);
+        bloodPressureGraph.getViewport().setScalable(true);
+        bloodPressureGraph.getViewport().setScalableY(true);
     }
 
     private void GenerateHemoglobinGraph()
@@ -184,6 +186,8 @@ public class SummaryReportActivity extends AppCompatActivity {
         hemoglobinGraph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(SummaryReportActivity.this));
         hemoglobinGraph.getGridLabelRenderer().setNumHorizontalLabels(3);
         hemoglobinGraph.getGridLabelRenderer().setHumanRounding(false);
+        hemoglobinGraph.getViewport().setScalable(true);
+        hemoglobinGraph.getViewport().setScalableY(true);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

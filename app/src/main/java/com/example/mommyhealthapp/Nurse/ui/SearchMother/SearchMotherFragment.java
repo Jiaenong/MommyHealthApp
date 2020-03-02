@@ -35,7 +35,9 @@ import com.example.mommyhealthapp.RecyclerTouchListener;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -43,6 +45,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
 
 public class SearchMotherFragment extends Fragment implements SearchView.OnQueryTextListener {
 
@@ -101,7 +104,37 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
             }
         }));
 
-        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        mCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                mommyList.clear();
+                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    Mommy mommy = documentSnapshot.toObject(Mommy.class);
+                    mommyList.add(mommy);
+                }
+                adapter  = new SearchResultAdapter(mommyList);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+                recycleViewMummy.setLayoutManager(mLayoutManager);
+                recycleViewMummy.setItemAnimator(new DefaultItemAnimator());
+                recycleViewMummy.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                recycleViewMummy.setAdapter(adapter);
+                if(mommyList.isEmpty())
+                {
+                    imageViewNoRecordFound.setVisibility(View.VISIBLE);
+                    textViewNoRecordFound.setVisibility(View.VISIBLE);
+                    recycleViewMummy.setVisibility(View.GONE);
+                    progressBarMummyRecord.setVisibility(View.GONE);
+                }else{
+                    imageViewNoRecordFound.setVisibility(View.GONE);
+                    textViewNoRecordFound.setVisibility(View.GONE);
+                    recycleViewMummy.setVisibility(View.VISIBLE);
+                    progressBarMummyRecord.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        /*mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
@@ -128,7 +161,7 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
                     progressBarMummyRecord.setVisibility(View.GONE);
                 }
             }
-        });
+        });*/
 
         return root;
     }

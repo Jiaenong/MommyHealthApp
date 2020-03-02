@@ -36,8 +36,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 public class EarlyTestActivity extends AppCompatActivity {
@@ -154,8 +156,12 @@ public class EarlyTestActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(SaveSharedPreference.getEarlyTest(EarlyTestActivity.this).equals("New"))
                 {
+                    layoutEarlyTest.setVisibility(View.GONE);
+                    progressBarEarlyTest.setVisibility(View.VISIBLE);
                     if(checkRequired() == true)
                     {
+                        layoutEarlyTest.setVisibility(View.VISIBLE);
+                        progressBarEarlyTest.setVisibility(View.GONE);
                         Toast.makeText(EarlyTestActivity.this, "Field not selected!", Toast.LENGTH_LONG).show();
                     }else{
                         int radioBloodGroupId = radioGroupBloodGroup.getCheckedRadioButtonId();
@@ -201,6 +207,7 @@ public class EarlyTestActivity extends AppCompatActivity {
                         mCollectionReference.add(mi).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
+                                UpdateHealthInfoStatus(generatedString);
                                 String id = documentReference.getId();
                                 nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(id).collection("BloodTest");
                                 nCollectionReference.add(bt).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -221,6 +228,8 @@ public class EarlyTestActivity extends AppCompatActivity {
                                         AlertDialog alert = builder.create();
                                         alert.setCanceledOnTouchOutside(false);
                                         alert.show();
+                                        layoutEarlyTest.setVisibility(View.VISIBLE);
+                                        progressBarEarlyTest.setVisibility(View.GONE);
                                     }
                                 });
                             }
@@ -277,10 +286,25 @@ public class EarlyTestActivity extends AppCompatActivity {
         cardViewSectionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EarlyTestActivity.this, PregnantExperienceRecordActivity.class);
-                intent.putExtra("healthInfoId", healthInfoId);
-                intent.putExtra("bloodTestId", bloodTestId);
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(EarlyTestActivity.this).equals("Old") || SaveSharedPreference.getUser(EarlyTestActivity.this).equals("Mommy"))
+                {
+                    Intent intent = new Intent(EarlyTestActivity.this, PregnantExperienceRecordActivity.class);
+                    intent.putExtra("healthInfoId", healthInfoId);
+                    intent.putExtra("bloodTestId", bloodTestId);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EarlyTestActivity.this);
+                    builder.setTitle("Action cannot be done");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Blood Test must be carry out 1st");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
@@ -295,51 +319,126 @@ public class EarlyTestActivity extends AppCompatActivity {
                         radioGroup = ((RadioButton)radioGroupBloodGroup.getChildAt(i)).getText().toString();
                     }
                 }
-                Intent intent = new Intent(EarlyTestActivity.this, SectionBActivity.class);
-                intent.putExtra("healthInfoId", healthInfoId);
-                intent.putExtra("bloodTestId", bloodTestId);
-                intent.putExtra("radioGroup", radioGroup);
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(EarlyTestActivity.this).equals("Old") || SaveSharedPreference.getUser(EarlyTestActivity.this).equals("Mommy"))
+                {
+                    Intent intent = new Intent(EarlyTestActivity.this, SectionBActivity.class);
+                    intent.putExtra("healthInfoId", healthInfoId);
+                    intent.putExtra("bloodTestId", bloodTestId);
+                    intent.putExtra("radioGroup", radioGroup);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EarlyTestActivity.this);
+                    builder.setTitle("Action cannot be done");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Blood Test must be carry out 1st");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
         cardViewSectionC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EarlyTestActivity.this, SectionCActivity.class);
-                intent.putExtra("healthInfoId", healthInfoId);
-                intent.putExtra("bloodTestId", bloodTestId);
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(EarlyTestActivity.this).equals("Old") || SaveSharedPreference.getUser(EarlyTestActivity.this).equals("Mommy"))
+                {
+                    Intent intent = new Intent(EarlyTestActivity.this, SectionCActivity.class);
+                    intent.putExtra("healthInfoId", healthInfoId);
+                    intent.putExtra("bloodTestId", bloodTestId);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EarlyTestActivity.this);
+                    builder.setTitle("Action cannot be done");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Blood Test must be carry out 1st");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
         cardViewSectionD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EarlyTestActivity.this, SectionDActivity.class);
-                intent.putExtra("healthInfoId", healthInfoId);
-                intent.putExtra("bloodTestId", bloodTestId);
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(EarlyTestActivity.this).equals("Old") || SaveSharedPreference.getUser(EarlyTestActivity.this).equals("Mommy"))
+                {
+                    Intent intent = new Intent(EarlyTestActivity.this, SectionDActivity.class);
+                    intent.putExtra("healthInfoId", healthInfoId);
+                    intent.putExtra("bloodTestId", bloodTestId);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EarlyTestActivity.this);
+                    builder.setTitle("Action cannot be done");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Blood Test must be carry out 1st");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
         cardViewBreastCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EarlyTestActivity.this, BreastExamActivity.class);
-                intent.putExtra("healthInfoId", healthInfoId);
-                intent.putExtra("bloodTestId", bloodTestId);
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(EarlyTestActivity.this).equals("Old") || SaveSharedPreference.getUser(EarlyTestActivity.this).equals("Mommy"))
+                {
+                    Intent intent = new Intent(EarlyTestActivity.this, BreastExamActivity.class);
+                    intent.putExtra("healthInfoId", healthInfoId);
+                    intent.putExtra("bloodTestId", bloodTestId);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EarlyTestActivity.this);
+                    builder.setTitle("Action cannot be done");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Blood Test must be carry out 1st");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
         cardViewMentalExamination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EarlyTestActivity.this, HealthyMindFilterActivity.class);
-                intent.putExtra("healthInfoId", healthInfoId);
-                intent.putExtra("bloodTestId", bloodTestId);
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(EarlyTestActivity.this).equals("Old") || SaveSharedPreference.getUser(EarlyTestActivity.this).equals("Mommy"))
+                {
+                    Intent intent = new Intent(EarlyTestActivity.this, HealthyMindFilterActivity.class);
+                    intent.putExtra("healthInfoId", healthInfoId);
+                    intent.putExtra("bloodTestId", bloodTestId);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EarlyTestActivity.this);
+                    builder.setTitle("Action cannot be done");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Blood Test must be carry out 1st");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
@@ -397,6 +496,24 @@ public class EarlyTestActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void UpdateHealthInfoStatus(final String healthInfoId)
+    {
+        mCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(EarlyTestActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot documentSnapshotss: queryDocumentSnapshots)
+                {
+                    MommyHealthInfo mh = documentSnapshotss.toObject(MommyHealthInfo.class);
+                    if(!mh.getHealthInfoId().equals(healthInfoId))
+                    {
+                        DocumentReference mDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(documentSnapshotss.getId());
+                        mDocumentReference.update("status", "Inactive");
+                    }
+                }
+            }
+        });
     }
 
     private Boolean checkRequired()

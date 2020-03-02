@@ -1,11 +1,14 @@
 package com.example.mommyhealthapp.Nurse;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -30,7 +34,10 @@ import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -50,10 +57,12 @@ public class MommyRecordActivity extends AppCompatActivity {
     private ProgressBar progressBarMommyRecord;
 
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference;
+    private DocumentReference mDocumentReference;
 
     private List<MommyHealthInfo> mommyRecordList;
-    private String id;
+    private String id, mummyKey;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +76,7 @@ public class MommyRecordActivity extends AppCompatActivity {
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
+        nCollectionReference = mFirebaseFirestore.collection("Mommy");
 
         mommyRecordList = new ArrayList<>();
         Intent intent = getIntent();
@@ -85,7 +95,48 @@ public class MommyRecordActivity extends AppCompatActivity {
 
             @Override
             public void onLongClick(View view, int position) {
-
+                final MommyHealthInfo mi = mommyRecordList.get(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MommyRecordActivity.this);
+                builder.setTitle("Update Pregnant Record Status");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        progressBarMommyRecord.setVisibility(View.VISIBLE);
+                        recycleViewMommyRecord.setVisibility(View.GONE);
+                        mCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                                {
+                                    MommyHealthInfo mhi = documentSnapshot.toObject(MommyHealthInfo.class);
+                                    DocumentReference mDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(documentSnapshot.getId());
+                                    DocumentReference nDocumentReference = mFirebaseFirestore.collection("Mommy").document(mummyKey);
+                                    if(mi.getHealthInfoId().equals(mhi.getHealthInfoId()))
+                                    {
+                                        if(mhi.getStatus().equals("Active"))
+                                        {
+                                            mDocumentReference.update("status", "Inactive");
+                                        }else{
+                                            mDocumentReference.update("status", "Active");
+                                            nDocumentReference.update("healthInfoId", mhi.getHealthInfoId());
+                                        }
+                                    }
+                                }
+                                progressBarMommyRecord.setVisibility(View.GONE);
+                                recycleViewMommyRecord.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+                builder.setMessage("Change Pregnant Record Status?");
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         }));
 
@@ -94,9 +145,19 @@ public class MommyRecordActivity extends AppCompatActivity {
         imgViewNoRecordFound.setVisibility(View.GONE);
         txtViewNoRecordFound.setVisibility(View.GONE);
         btnAddNewRecord.setVisibility(View.GONE);
-        mCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        nCollectionReference.whereEqualTo("mommyId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    mummyKey = documentSnapshot.getId();
+                }
+            }
+        });
+        mCollectionReference.whereEqualTo("mommyId", id).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                mommyRecordList.clear();
                 for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                 {
                     MommyHealthInfo mhi = documentSnapshot.toObject(MommyHealthInfo.class);
@@ -120,7 +181,6 @@ public class MommyRecordActivity extends AppCompatActivity {
                     txtViewNoRecordFound.setVisibility(View.GONE);
                     btnAddNewRecord.setVisibility(View.VISIBLE);
                 }
-
             }
         });
 
@@ -128,6 +188,7 @@ public class MommyRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SaveSharedPreference.setEarlyTest(MommyRecordActivity.this, "New");
+                SaveSharedPreference.setHealthInfoId(MommyRecordActivity.this, "");
                 Intent intent = new Intent(MommyRecordActivity.this, MommyProfileActivity.class);
                 intent.putExtra("MommyID", id);
                 startActivity(intent);
@@ -171,12 +232,10 @@ public class MommyRecordActivity extends AppCompatActivity {
             {
                 holder.txtViewRecordStatus.setText(mhi.getStatus());
                 holder.txtViewRecordStatus.setTextColor(Color.parseColor("#008000"));
-            }else if(mhi.getStatus().equals("Inactive"))
-            {
+            }else if(mhi.getStatus().equals("Inactive")) {
                 holder.txtViewRecordStatus.setText(mhi.getStatus());
                 holder.txtViewRecordStatus.setTextColor(Color.parseColor("#FF0000"));
             }
-
         }
 
         @Override

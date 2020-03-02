@@ -1,9 +1,12 @@
 package com.example.mommyhealthapp.Nurse;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -21,9 +26,13 @@ import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.MommyHealthInfo;
 import com.example.mommyhealthapp.Nurse.MommyInfoActivity;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -36,11 +45,14 @@ public class MommyProfileActivity extends AppCompatActivity {
     private CardView cardViewEarlyTest, cardViewPE, cardViewMGTT, cardViewSectionN, cardViewBabyKick, cardViewSummaryReport;
     private TextView textViewMummyName, textViewMummyAge, textViewMummyID, textViewMummyStatus;
     private CircularImageView imageViewMummy;
+    private Boolean checkStatus, isEmpty;
 
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference;
+    private DocumentReference mDocumentReference, nDocumentReference;
 
-    private String id;
+    private String id, healthInfoKey, mommyKey, healthInfoID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,17 +75,19 @@ public class MommyProfileActivity extends AppCompatActivity {
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("Mommy");
+        nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
 
         Intent intent = getIntent();
         id = intent.getStringExtra("MommyID");
         progressBarProfile.setVisibility(View.VISIBLE);
         layoutMommyProfilell.setVisibility(View.GONE);
 
-        mCollectionReference.whereEqualTo("mommyId",id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        mCollectionReference.whereEqualTo("mommyId",id).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                 {
+                    mommyKey = documentSnapshot.getId();
                     Mommy mommy = documentSnapshot.toObject(Mommy.class);
                     textViewMummyName.setText(mommy.getMommyName());
                     textViewMummyAge.setText(mommy.getAge()+"");
@@ -94,9 +108,10 @@ public class MommyProfileActivity extends AppCompatActivity {
                     }else{
                         Glide.with(MommyProfileActivity.this).load(mommy.getMummyImage()).into(imageViewMummy);
                     }
-                    progressBarProfile.setVisibility(View.GONE);
-                    layoutMommyProfilell.setVisibility(View.VISIBLE);
                 }
+                checkStatus = CheckMummyStatus();
+                progressBarProfile.setVisibility(View.GONE);
+                layoutMommyProfilell.setVisibility(View.VISIBLE);
             }
         });
 
@@ -112,53 +127,160 @@ public class MommyProfileActivity extends AppCompatActivity {
         cardViewEarlyTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MommyProfileActivity.this, EarlyTestActivity.class);
-                intent.putExtra("Status", textViewMummyStatus.getText().toString());
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(MommyProfileActivity.this).equals("Old"))
+                {
+                    Intent intent = new Intent(MommyProfileActivity.this, EarlyTestActivity.class);
+                    intent.putExtra("Status", textViewMummyStatus.getText().toString());
+                    startActivity(intent);
+                }else{
+                    if(checkStatus == true)
+                    {
+                        Intent intent = new Intent(MommyProfileActivity.this, EarlyTestActivity.class);
+                        intent.putExtra("Status", textViewMummyStatus.getText().toString());
+                        startActivity(intent);
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
+                        builder.setTitle("Mummy Not Available");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
+                            }
+                        });
+                        builder.setMessage("Mummy Status is Inactive, please change to active inorder to add new Pregnant Record");
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }
+                }
             }
         });
 
         cardViewPE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MommyProfileActivity.this, PregnancyExamRecordActivity.class);
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(MommyProfileActivity.this).equals("Old"))
+                {
+                    Intent intent = new Intent(MommyProfileActivity.this, PregnancyExamRecordActivity.class);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
+                    builder.setTitle("Mummy Not Available");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Early Test must be carry out");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
         cardViewMGTT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MommyProfileActivity.this, MGTTActivity.class);
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(MommyProfileActivity.this).equals("Old"))
+                {
+                    Intent intent = new Intent(MommyProfileActivity.this, MGTTActivity.class);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
+                    builder.setTitle("Mummy Not Available");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Early Test must be carry out");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
         cardViewSectionN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MommyProfileActivity.this, SectionNActivity.class);
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(MommyProfileActivity.this).equals("Old"))
+                {
+                    Intent intent = new Intent(MommyProfileActivity.this, SectionNActivity.class);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
+                    builder.setTitle("Mummy Not Available");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Early Test must be carry out");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
         cardViewBabyKick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MommyProfileActivity.this, BabyKickRecordActivity.class);
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(MommyProfileActivity.this).equals("Old"))
+                {
+                    Intent intent = new Intent(MommyProfileActivity.this, BabyKickRecordActivity.class);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
+                    builder.setTitle("Mummy Not Available");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Early Test must be carry out");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
         cardViewSummaryReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MommyProfileActivity.this, SummaryReportActivity.class);
-                startActivity(intent);
+                if(SaveSharedPreference.getEarlyTest(MommyProfileActivity.this).equals("Old"))
+                {
+                    Intent intent = new Intent(MommyProfileActivity.this, SummaryReportActivity.class);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
+                    builder.setTitle("Mummy Not Available");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Early Test must be carry out");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private Boolean CheckMummyStatus()
+    {
+        if(textViewMummyStatus.getText().toString().equals("Active"))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
