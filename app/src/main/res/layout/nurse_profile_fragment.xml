@@ -238,7 +238,7 @@
                 </RelativeLayout>
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/buttonUpdatePW"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -247,39 +247,43 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/TextInputLayout"
+                    android:id="@+id/mpCurrentPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:focusableInTouchMode="true"
                     android:hint="Current Password">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/motherCurrentPassword"
+                        android:id="@+id/mpsCurrentPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/TextInputLayout"
+                    android:id="@+id/mpNewPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusableInTouchMode="true"
                     android:hint="New Password">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/motherNewPassword"
+                        android:id="@+id/mpsNewPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/TextInputLayout"
+                    android:id="@+id/mpConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusableInTouchMode="true"
                     android:hint="Confirm Password">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/motherConfirmPassword"
+                        android:id="@+id/mpsConfirmPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>

@@ -277,7 +277,7 @@
             </RelativeLayout>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonUpdatePW"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -286,8 +286,10 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayout"
+                android:id="@+id/mommyCurrentPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:focusableInTouchMode="true"
                 android:hint="Current Password">
 
@@ -299,6 +301,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayout"
+                android:id="@+id/mommyNewPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
@@ -312,6 +315,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayout"
+                android:id="@+id/mommyConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
