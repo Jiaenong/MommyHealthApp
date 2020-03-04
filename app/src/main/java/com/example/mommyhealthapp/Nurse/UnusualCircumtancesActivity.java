@@ -257,6 +257,7 @@ public class UnusualCircumtancesActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         Intent intent = new Intent(UnusualCircumtancesActivity.this, SectionNActivity.class);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 });
                                 builder.setMessage("Save Successful!");

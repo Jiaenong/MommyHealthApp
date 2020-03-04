@@ -86,6 +86,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     Intent intent = new Intent(ForgetPasswordActivity.this, MainActivity.class);
                     intent.putExtra("tag","TAG");
                     startActivity(intent);
+                    finish();
                 }else{
                     nCollectionreference.whereEqualTo("email", email).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
@@ -103,6 +104,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                                 Intent intent = new Intent(ForgetPasswordActivity.this, MainActivity.class);
                                 intent.putExtra("tag","TAG");
                                 startActivity(intent);
+                                finish();
                             }else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ForgetPasswordActivity.this);
                                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

@@ -294,56 +294,60 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
         listViewProblem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(check == 1 || SaveSharedPreference.getUser(PregnancyExaminationActivity.this).equals("Mommy"))
+                final ProblemPE problemPE = problemAdapter.getItem(position);
+
+                problemDialog = new Dialog(PregnancyExaminationActivity.this);
+                problemDialog.setContentView(R.layout.customize_problem_dialog);
+                problemDialog.setTitle("Problem Dialog");
+                editTextProblem = (EditText)problemDialog.findViewById(R.id.editTextProblem);
+                editTextTreatment = (EditText)problemDialog.findViewById(R.id.editTextTreatment);
+                btnProblemSave = (Button)problemDialog.findViewById(R.id.btnProblemSave);
+                btnProblemEdit = (Button)problemDialog.findViewById(R.id.btnProblemEdit);
+
+                btnProblemSave.setVisibility(View.GONE);
+                editTextProblem.setText(problemPE.getProblem());
+                editTextTreatment.setText(problemPE.getTreatment());
+                if(isEmpty == false || SaveSharedPreference.getUser(PregnancyExaminationActivity.this).equals("Mommy"))
                 {
-                    final ProblemPE problemPE = problemAdapter.getItem(position);
-
-                    problemDialog = new Dialog(PregnancyExaminationActivity.this);
-                    problemDialog.setContentView(R.layout.customize_problem_dialog);
-                    problemDialog.setTitle("Problem Dialog");
-                    editTextProblem = (EditText)problemDialog.findViewById(R.id.editTextProblem);
-                    editTextTreatment = (EditText)problemDialog.findViewById(R.id.editTextTreatment);
-                    btnProblemSave = (Button)problemDialog.findViewById(R.id.btnProblemSave);
-                    btnProblemEdit = (Button)problemDialog.findViewById(R.id.btnProblemEdit);
-
-                    btnProblemSave.setVisibility(View.GONE);
-                    editTextProblem.setText(problemPE.getProblem());
-                    editTextTreatment.setText(problemPE.getTreatment());
-                    if(SaveSharedPreference.getUser(PregnancyExaminationActivity.this).equals("Mommy"))
+                    if(check == 0 || SaveSharedPreference.getUser(PregnancyExaminationActivity.this).equals("Mommy"))
                     {
                         btnProblemEdit.setVisibility(View.GONE);
                         editTextProblem.setEnabled(false);
                         editTextProblem.setTextColor(Color.parseColor("#000000"));
                         editTextTreatment.setEnabled(false);
                         editTextTreatment.setTextColor(Color.parseColor("#000000"));
+                    }else if(check == 1){
+                        btnProblemEdit.setVisibility(View.VISIBLE);
+                        editTextProblem.setEnabled(true);
+                        editTextTreatment.setEnabled(true);
                     }
-                    btnProblemEdit.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            for(int i=0; i<problemList.size(); i++)
-                            {
-                                if(problemList.get(i).equals(problemPE))
-                                {
-                                    String problem = editTextProblem.getText().toString();
-                                    String treatment = editTextTreatment.getText().toString();
-                                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                    Date date = new Date();
-                                    String pDate = formatter.format(date);
-                                    problemList.get(i).setProblem(problem);
-                                    problemList.get(i).setTreatment(treatment);
-                                    problemList.get(i).setDate(pDate);
-                                    problemList.get(i).setPersonnel(medicalPersonnelname);
-                                    problemAdapter.notifyDataSetChanged();
-                                }
-                            }
-                            problemDialog.cancel();
-                        }
-                    });
-
-                    problemDialog.show();
-                    Window window =problemDialog.getWindow();
-                    window.setLayout(800, 800);
                 }
+                btnProblemEdit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        for(int i=0; i<problemList.size(); i++)
+                        {
+                            if(problemList.get(i).equals(problemPE))
+                            {
+                                String problem = editTextProblem.getText().toString();
+                                String treatment = editTextTreatment.getText().toString();
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                                Date date = new Date();
+                                String pDate = formatter.format(date);
+                                problemList.get(i).setProblem(problem);
+                                problemList.get(i).setTreatment(treatment);
+                                problemList.get(i).setDate(pDate);
+                                problemList.get(i).setPersonnel(medicalPersonnelname);
+                                problemAdapter.notifyDataSetChanged();
+                            }
+                        }
+                        problemDialog.cancel();
+                    }
+                });
+
+                problemDialog.show();
+                Window window =problemDialog.getWindow();
+                window.setLayout(800, 800);
             }
         });
 
@@ -445,6 +449,7 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                                                         Intent intent = new Intent(PregnancyExaminationActivity.this, MommyProfileActivity.class);
                                                         intent.putExtra("MommyID", SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this));
                                                         startActivity(intent);
+                                                        finish();
                                                     }
                                                 });
                                                 builder.setMessage("Save Successful!");
@@ -477,6 +482,7 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                                                 Intent intent = new Intent(PregnancyExaminationActivity.this, MommyProfileActivity.class);
                                                 intent.putExtra("MommyID", SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this));
                                                 startActivity(intent);
+                                                finish();
                                             }
                                         });
                                         builder.setMessage("Save Successful!");

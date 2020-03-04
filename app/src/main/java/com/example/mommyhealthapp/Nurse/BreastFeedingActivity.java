@@ -390,6 +390,7 @@ public class BreastFeedingActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         Intent intent = new Intent(BreastFeedingActivity.this, SectionNActivity.class);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 });
                                 builder.setMessage("Save Successful!");

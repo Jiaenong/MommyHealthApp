@@ -302,6 +302,7 @@ public class HealthyMindFilterActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Intent intent = new Intent(HealthyMindFilterActivity.this, EarlyTestActivity.class);
                                     startActivity(intent);
+                                    finish();
                                 }
                             });
                             builder.setMessage("Save Successful!\nStress: "+editTextMentalStress.getText().toString()+"\nAnxiety: "+editTextMentalAnxiety.getText().toString()+"\nDepression: "+editTextMentalDepression.getText().toString());

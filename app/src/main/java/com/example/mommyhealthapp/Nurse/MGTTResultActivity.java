@@ -202,6 +202,7 @@ public class MGTTResultActivity extends AppCompatActivity {
                                     Intent intent = new Intent(MGTTResultActivity.this, MommyProfileActivity.class);
                                     intent.putExtra("MommyID", SaveSharedPreference.getMummyId(MGTTResultActivity.this));
                                     startActivity(intent);
+                                    finish();
                                 }
                             });
                             builder.setMessage("Save Successful!");

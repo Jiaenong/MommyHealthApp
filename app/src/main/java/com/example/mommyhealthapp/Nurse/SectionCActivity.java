@@ -374,6 +374,7 @@ public class SectionCActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Intent intent = new Intent(SectionCActivity.this, EarlyTestActivity.class);
                                     startActivity(intent);
+                                    finish();
                                 }
                             });
                             builder.setMessage("Save Successful!");

@@ -258,6 +258,7 @@ public class SectionNOthersActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         Intent intent = new Intent(SectionNOthersActivity.this, SectionNActivity.class);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 });
                                 builder.setMessage("Save Successful!");

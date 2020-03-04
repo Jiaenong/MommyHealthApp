@@ -285,6 +285,7 @@ public class PostnatalActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         Intent intent = new Intent(PostnatalActivity.this, SectionNActivity.class);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 });
                                 builder.setMessage("Save Successful!");
