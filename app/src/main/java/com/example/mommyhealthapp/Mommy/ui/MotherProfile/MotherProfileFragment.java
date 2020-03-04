@@ -46,6 +46,8 @@ public class MotherProfileFragment extends Fragment {
     private ProgressBar progressBarLogOut;
     private LinearLayoutCompat myProfile;
 
+    private String tag;
+
     private FirebaseFirestore mFirebaseFirestore;
     private DocumentReference mDocumentReference;
 
@@ -73,9 +75,9 @@ public class MotherProfileFragment extends Fragment {
         mommyNewPassword = (TextInputLayout)root.findViewById(R.id.mommyNewPassword);
         mommyConfirmPassword = (TextInputLayout)root.findViewById(R.id.mommyConfirmPassword);
         myProfile = (LinearLayoutCompat)root.findViewById(R.id.myProfile);
-        buttonUpdatePW = (Button)root.findViewById(R.id.buttonUpdatePW);
-        buttonConfirm = (Button)root.findViewById(R.id.buttonConfirm);
-        buttonCancel = (Button)root.findViewById(R.id.buttonCancel);
+        buttonUpdatePW = (Button)root.findViewById(R.id.buttonUpdatePass);
+        buttonConfirm = (Button)root.findViewById(R.id.buttonConfirmPass);
+        buttonCancel = (Button)root.findViewById(R.id.buttonCancelPass);
         buttonLogOut = (Button)root.findViewById(R.id.buttonLogOut);
         progressBarLogOut = (ProgressBar)root.findViewById(R.id.progressBarLogOut);
 
@@ -103,11 +105,26 @@ public class MotherProfileFragment extends Fragment {
                 Glide.with(getContext()).load(mommy.getQrcodeImage()).into(qrcodeDisplay);
                 progressBarLogOut.setVisibility(View.GONE);
                 myProfile.setVisibility(View.VISIBLE);
-                motherCurrentPassword.setVisibility(View.GONE);
-                motherNewPassword.setVisibility(View.GONE);
-                motherConfirmPassword.setVisibility(View.GONE);
+                mommyCurrentPassword.setVisibility(View.GONE);
+                mommyNewPassword.setVisibility(View.GONE);
+                mommyConfirmPassword.setVisibility(View.GONE);
                 buttonConfirm.setVisibility(View.GONE);
                 buttonCancel.setVisibility(View.GONE);
+
+                try{
+                    tag = getArguments().getString("tag");
+                    if(tag != null && tag.equals("TAG"))
+                    {
+                        mommyCurrentPassword.setVisibility(View.VISIBLE);
+                        mommyNewPassword.setVisibility(View.VISIBLE);
+                        mommyConfirmPassword.setVisibility(View.VISIBLE);
+                        buttonUpdatePW.setVisibility(View.VISIBLE);
+                        buttonConfirm.setVisibility(View.VISIBLE);
+                        buttonCancel.setVisibility(View.VISIBLE);
+                    }
+                }catch (Exception ex){
+
+                }
 
             }
         });
@@ -126,73 +143,67 @@ public class MotherProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                motherCurrentPassword.setVisibility(View.VISIBLE);
-                motherNewPassword.setVisibility(View.VISIBLE);
-                motherConfirmPassword.setVisibility(View.VISIBLE);
                 mommyCurrentPassword.setVisibility(View.VISIBLE);
                 mommyNewPassword.setVisibility(View.VISIBLE);
                 mommyConfirmPassword.setVisibility(View.VISIBLE);
                 buttonUpdatePW.setVisibility(View.GONE);
                 buttonConfirm.setVisibility(View.VISIBLE);
                 buttonCancel.setVisibility(View.VISIBLE);
-
-                buttonConfirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                          @Override
-                          public void onSuccess(DocumentSnapshot documentSnapshot) {
-                              Mommy mommys = documentSnapshot.toObject(Mommy.class);
-                              String password = mommys.getPassword();
-                              checkRequiredTextChange();
-                              if(motherCurrentPassword.getText().toString().equals(password)){
-                                  if(motherNewPassword.getText().toString().equals(motherConfirmPassword.getText().toString())){
-                                      mDocumentReference.update("password", motherNewPassword.getText().toString());
-                                      Toast.makeText(getActivity(),"Successfully Updated!", Toast.LENGTH_LONG).show();
-                                      mommyCurrentPassword.setVisibility(View.GONE);
-                                      mommyNewPassword.setVisibility(View.GONE);
-                                      mommyConfirmPassword.setVisibility(View.GONE);
-                                      buttonConfirm.setVisibility(View.GONE);
-                                      buttonCancel.setVisibility(View.GONE);
-                                      buttonUpdatePW.setVisibility(View.VISIBLE);
-                                      motherCurrentPassword.setText("");
-                                      motherNewPassword.setText("");
-                                      motherConfirmPassword.setText("");
-                                  }
-                                  else{
-                                      Toast.makeText(getActivity(),"Confirmation password are not same with the new password", Toast.LENGTH_LONG).show();
-                                      motherNewPassword.setText("");
-                                      motherConfirmPassword.setText("");
-                                  }
-
-                              }
-                              else{
-                                  Toast.makeText(getActivity(),"Incorrect with current password!", Toast.LENGTH_LONG).show();
-                                  motherCurrentPassword.setText("");
-                                  motherNewPassword.setText("");
-                                  motherConfirmPassword.setText("");
-                              }
-                          }
-                      });
-                    }
-                });
-
-                buttonCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mommyCurrentPassword.setVisibility(View.GONE);
-                        mommyNewPassword.setVisibility(View.GONE);
-                        mommyConfirmPassword.setVisibility(View.GONE);
-                        buttonConfirm.setVisibility(View.GONE);
-                        buttonCancel.setVisibility(View.GONE);
-                        buttonUpdatePW.setVisibility(View.VISIBLE);
-                    }
-                });
-
             }
         });
 
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Mommy mommys = documentSnapshot.toObject(Mommy.class);
+                        String password = mommys.getPassword();
+                        checkRequiredTextChange();
+                        if(motherCurrentPassword.getText().toString().equals(password)){
+                            if(motherNewPassword.getText().toString().equals(motherConfirmPassword.getText().toString())){
+                                mDocumentReference.update("password", motherNewPassword.getText().toString());
+                                Toast.makeText(getActivity(),"Successfully Updated!", Toast.LENGTH_LONG).show();
+                                mommyCurrentPassword.setVisibility(View.GONE);
+                                mommyNewPassword.setVisibility(View.GONE);
+                                mommyConfirmPassword.setVisibility(View.GONE);
+                                buttonConfirm.setVisibility(View.GONE);
+                                buttonCancel.setVisibility(View.GONE);
+                                buttonUpdatePW.setVisibility(View.VISIBLE);
+                                motherCurrentPassword.setText("");
+                                motherNewPassword.setText("");
+                                motherConfirmPassword.setText("");
+                            }
+                            else{
+                                Toast.makeText(getActivity(),"Confirmation password are not same with the new password", Toast.LENGTH_LONG).show();
+                                motherNewPassword.setText("");
+                                motherConfirmPassword.setText("");
+                            }
 
+                        }
+                        else{
+                            Toast.makeText(getActivity(),"Incorrect with current password!", Toast.LENGTH_LONG).show();
+                            motherCurrentPassword.setText("");
+                            motherNewPassword.setText("");
+                            motherConfirmPassword.setText("");
+                        }
+                    }
+                });
+            }
+        });
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mommyCurrentPassword.setVisibility(View.GONE);
+                mommyNewPassword.setVisibility(View.GONE);
+                mommyConfirmPassword.setVisibility(View.GONE);
+                buttonConfirm.setVisibility(View.GONE);
+                buttonCancel.setVisibility(View.GONE);
+                buttonUpdatePW.setVisibility(View.VISIBLE);
+            }
+        });
 
         //motherProfileModel.getText().observe(this, new Observer<String>() {
          //   @Override

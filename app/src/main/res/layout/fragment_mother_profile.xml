@@ -277,7 +277,7 @@
             </RelativeLayout>
 
             <Button
-                android:id="@+id/buttonUpdatePW"
+                android:id="@+id/buttonUpdatePass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -333,19 +333,19 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/buttonConfirm"
+                    android:id="@+id/buttonConfirmPass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/Button"
                     android:text="@string/confirm_password" />
 
                 <Button
-                    android:id="@+id/buttonCancel"
+                    android:id="@+id/buttonCancelPass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/cancelButton"
                     android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/buttonConfirm"
+                    android:layout_toRightOf="@id/buttonConfirmPass"
                     android:text="@string/cancel" />
             </RelativeLayout>
 

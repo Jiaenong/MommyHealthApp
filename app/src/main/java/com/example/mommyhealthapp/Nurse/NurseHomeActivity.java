@@ -1,5 +1,6 @@
 package com.example.mommyhealthapp.Nurse;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -47,6 +48,7 @@ public class NurseHomeActivity extends AppCompatActivity implements CreateMother
     private TextView textViewMPName;
 
     private FirebaseFirestore mFirebaseFirestore;
+    private String tag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,9 @@ public class NurseHomeActivity extends AppCompatActivity implements CreateMother
         View headerView = navigationView.getHeaderView(0);
         imageViewProfilePic = (CircularImageView)headerView.findViewById(R.id.imageViewProfilePic);
         textViewMPName = (TextView)headerView.findViewById(R.id.textViewMPName);
+
+        Intent intent = getIntent();
+        tag = intent.getStringExtra("tag");
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference mCollectionReference = mFirebaseFirestore.collection("MedicalPersonnel");
@@ -89,6 +94,12 @@ public class NurseHomeActivity extends AppCompatActivity implements CreateMother
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        if(tag != null && tag.equals("TAG"))
+        {
+            Bundle bundle = new Bundle();
+            bundle.putString("tag", tag);
+            navController.navigate(R.id.nav_nurseprofile, bundle);
+        }
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }

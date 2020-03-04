@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -99,6 +100,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                                 }
                                 mDocumentReference = mFirebaseFirestore.collection("Mommy").document(id);
                                 mDocumentReference.update("password", randomNum);
+                                Log.i("Testing", randomNum);
+                                Log.i("Testing1", id);
                                 SendMail sm = new SendMail(ForgetPasswordActivity.this, email, subject, message);
                                 sm.execute();
                                 Intent intent = new Intent(ForgetPasswordActivity.this, MainActivity.class);

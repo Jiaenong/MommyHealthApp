@@ -46,7 +46,7 @@ public class NurseProfileFragment extends Fragment {
     private LinearLayoutCompat layoutProfileDetail;
     private RelativeLayout layoutProfile;
     private CircularImageView imageViewUserPic;
-
+    private String tag;
 
     private FirebaseFirestore mFirebaseFirestore;
     private DocumentReference mDocumentReference;
@@ -83,7 +83,6 @@ public class NurseProfileFragment extends Fragment {
         layoutProfile.setVisibility(View.GONE);
         layoutProfileDetail.setVisibility(View.GONE);
 
-
         mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -102,11 +101,25 @@ public class NurseProfileFragment extends Fragment {
                 progressBarLogOut.setVisibility(View.GONE);
                 layoutProfile.setVisibility(View.VISIBLE);
                 layoutProfileDetail.setVisibility(View.VISIBLE);
-                mpsCurrentPassword.setVisibility(View.GONE);
-                mpsNewPassword.setVisibility(View.GONE);
-                mpsConfirmPassword.setVisibility(View.GONE);
+                mpCurrentPassword.setVisibility(View.GONE);
+                mpNewPassword.setVisibility(View.GONE);
+                mpConfirmPassword.setVisibility(View.GONE);
                 buttonConfirm.setVisibility(View.GONE);
                 buttonCancel.setVisibility(View.GONE);
+                try{
+                    tag = getArguments().getString("tag");
+                    if(tag != null && tag.equals("TAG"))
+                    {
+                        mpCurrentPassword.setVisibility(View.VISIBLE);
+                        mpNewPassword.setVisibility(View.VISIBLE);
+                        mpConfirmPassword.setVisibility(View.VISIBLE);
+                        buttonUpdatePW.setVisibility(View.VISIBLE);
+                        buttonConfirm.setVisibility(View.VISIBLE);
+                        buttonCancel.setVisibility(View.VISIBLE);
+                    }
+                }catch (Exception ex){
+
+                }
             }
         });
 
@@ -124,69 +137,65 @@ public class NurseProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                mpsCurrentPassword.setVisibility(View.VISIBLE);
-                mpsNewPassword.setVisibility(View.VISIBLE);
-                mpsConfirmPassword.setVisibility(View.VISIBLE);
                 mpCurrentPassword.setVisibility(View.VISIBLE);
                 mpNewPassword.setVisibility(View.VISIBLE);
                 mpConfirmPassword.setVisibility(View.VISIBLE);
                 buttonUpdatePW.setVisibility(View.GONE);
                 buttonConfirm.setVisibility(View.VISIBLE);
                 buttonCancel.setVisibility(View.VISIBLE);
+            }
+        });
 
-                buttonConfirm.setOnClickListener(new View.OnClickListener() {
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
-                    public void onClick(View v) {
-                        mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                MedicalPersonnel mps = documentSnapshot.toObject(MedicalPersonnel.class);
-                                String password = mps.getPassword();
-                                checkRequiredTextChange();
-                                if(mpsCurrentPassword.getText().toString().equals(password)){
-                                    if(mpsNewPassword.getText().toString().equals(mpsConfirmPassword.getText().toString())){
-                                        mDocumentReference.update("password", mpsNewPassword.getText().toString());
-                                        Toast.makeText(getActivity(),"Successfully Updated!", Toast.LENGTH_LONG).show();
-                                        mpCurrentPassword.setVisibility(View.GONE);
-                                        mpNewPassword.setVisibility(View.GONE);
-                                        mpConfirmPassword.setVisibility(View.GONE);
-                                        buttonConfirm.setVisibility(View.GONE);
-                                        buttonCancel.setVisibility(View.GONE);
-                                        buttonUpdatePW.setVisibility(View.VISIBLE);
-                                        mpsCurrentPassword.setText("");
-                                        mpsNewPassword.setText("");
-                                        mpsConfirmPassword.setText("");
-                                    }
-                                    else{
-                                        Toast.makeText(getActivity(),"Confirmation password are not same with the new password", Toast.LENGTH_LONG).show();
-                                        mpsNewPassword.setText("");
-                                        mpsConfirmPassword.setText("");
-                                    }
-
-                                }
-                                else{
-                                    Toast.makeText(getActivity(),"Incorrect with current password!", Toast.LENGTH_LONG).show();
-                                    mpsCurrentPassword.setText("");
-                                    mpsNewPassword.setText("");
-                                    mpsConfirmPassword.setText("");
-                                }
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        MedicalPersonnel mps = documentSnapshot.toObject(MedicalPersonnel.class);
+                        String password = mps.getPassword();
+                        checkRequiredTextChange();
+                        if(mpsCurrentPassword.getText().toString().equals(password)){
+                            if(mpsNewPassword.getText().toString().equals(mpsConfirmPassword.getText().toString())){
+                                mDocumentReference.update("password", mpsNewPassword.getText().toString());
+                                Toast.makeText(getActivity(),"Successfully Updated!", Toast.LENGTH_LONG).show();
+                                mpCurrentPassword.setVisibility(View.GONE);
+                                mpNewPassword.setVisibility(View.GONE);
+                                mpConfirmPassword.setVisibility(View.GONE);
+                                buttonConfirm.setVisibility(View.GONE);
+                                buttonCancel.setVisibility(View.GONE);
+                                buttonUpdatePW.setVisibility(View.VISIBLE);
+                                mpsCurrentPassword.setText("");
+                                mpsNewPassword.setText("");
+                                mpsConfirmPassword.setText("");
                             }
-                        });
+                            else{
+                                Toast.makeText(getActivity(),"Confirmation password are not same with the new password", Toast.LENGTH_LONG).show();
+                                mpsNewPassword.setText("");
+                                mpsConfirmPassword.setText("");
+                            }
+
+                        }
+                        else{
+                            Toast.makeText(getActivity(),"Incorrect with current password!", Toast.LENGTH_LONG).show();
+                            mpsCurrentPassword.setText("");
+                            mpsNewPassword.setText("");
+                            mpsConfirmPassword.setText("");
+                        }
                     }
                 });
+            }
+        });
 
-                buttonCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mpCurrentPassword.setVisibility(View.GONE);
-                        mpNewPassword.setVisibility(View.GONE);
-                        mpConfirmPassword.setVisibility(View.GONE);
-                        buttonConfirm.setVisibility(View.GONE);
-                        buttonCancel.setVisibility(View.GONE);
-                        buttonUpdatePW.setVisibility(View.VISIBLE);
-                    }
-                });
-
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mpCurrentPassword.setVisibility(View.GONE);
+                mpNewPassword.setVisibility(View.GONE);
+                mpConfirmPassword.setVisibility(View.GONE);
+                buttonConfirm.setVisibility(View.GONE);
+                buttonCancel.setVisibility(View.GONE);
+                buttonUpdatePW.setVisibility(View.VISIBLE);
             }
         });
 
