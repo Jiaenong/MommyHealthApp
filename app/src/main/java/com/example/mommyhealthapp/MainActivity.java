@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBarLogIn;
     private TextView textForgetPass;
     private int check;
+    private String tag;
 
     private FirebaseFirestore mFirebaseFirestore;
     private CollectionReference mdCollectionReference, motherCollectionReference;
@@ -61,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         mdCollectionReference = mFirebaseFirestore.collection("MedicalPersonnel");
         motherCollectionReference = mFirebaseFirestore.collection("Mommy");
 
+        Intent intentPass = getIntent();
+        tag = intentPass.getStringExtra("tag");
 
         if(SaveSharedPreference.getCheckLogin(MainActivity.this))
         {
@@ -110,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                                         SaveSharedPreference.setUser(MainActivity.this, "medicalPersonnel");
                                     }
                                     Intent intent = new Intent(MainActivity.this, NurseHomeActivity.class);
+                                    intent.putExtra("tag", tag);
                                     startActivity(intent);
                                     finish();
                                     break;
@@ -134,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                                                 SaveSharedPreference.setMummyId(MainActivity.this, mommy.getMommyId());
                                                 SaveSharedPreference.setHealthInfoId(MainActivity.this, mommy.getHealthInfoId());
                                                 Intent intent = new Intent(MainActivity.this, MommyHomeActivity.class);
+                                                intent.putExtra("tag", tag);
                                                 startActivity(intent);
                                                 finish();
                                                 break;
@@ -164,6 +169,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+
+        textForgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ForgetPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }

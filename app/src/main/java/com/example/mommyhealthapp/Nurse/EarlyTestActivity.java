@@ -208,11 +208,12 @@ public class EarlyTestActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 UpdateHealthInfoStatus(generatedString);
-                                String id = documentReference.getId();
-                                nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(id).collection("BloodTest");
+                                healthInfoId = documentReference.getId();
+                                nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("BloodTest");
                                 nCollectionReference.add(bt).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {
+                                        bloodTestId = documentReference.getId();
                                         AlertDialog.Builder builder = new AlertDialog.Builder(EarlyTestActivity.this);
                                         builder.setTitle("Register Successfully");
                                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
