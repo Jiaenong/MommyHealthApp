@@ -544,7 +544,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                         mDocumentReference.update("appointmentTime", timeApp);
                         String notificationDetai = getResources().getString(R.string.NotificationAppointment) + editTextAppointment.getText().toString() + " " + editTextAppTime.getText().toString();
                         Date notificationDate = new Date();
-                        Notification notification = new Notification(notificationDetai, notificationDate, medicalPersonnelId, createdDate, "new");
+                        Notification notification = new Notification(notificationDetai, notificationDate, medicalPersonnelId, createdDate, "new", key);
                         qCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
@@ -568,7 +568,7 @@ public class MommyInfoActivity extends AppCompatActivity {
                         String notificationDetai = getResources().getString(R.string.NotificationAppointment) + editTextAppointment.getText().toString() + " " + editTextAppTime.getText().toString();
                         Date notificationDate = new Date();
                         final AppointmentDate ad = new AppointmentDate(appDate, timeApp, id, medicalPersonnelId, createdDate);
-                        Notification notification = new Notification(notificationDetai, notificationDate, medicalPersonnelId, createdDate, "new");
+                        Notification notification = new Notification(notificationDetai, notificationDate, medicalPersonnelId, createdDate, "new", key);
                         qCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {

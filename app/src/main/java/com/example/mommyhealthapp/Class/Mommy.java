@@ -24,12 +24,13 @@ public class Mommy implements Parcelable {
     private String mummyImage;
     private String qrcodeImage;
     private String healthInfoId;
+    private String deviceToken;
 
     public Mommy() { }
 
     public Mommy(String mommyName, String mommyIC, String nationality, String race, String address,
                  String phoneNo, String email, String occupation, int age, String education, String password, String mommyId,
-                 int mommyNumber, String status, String mummyImage, String qrcodeImage, String healthInfoId)
+                 int mommyNumber, String status, String mummyImage, String qrcodeImage, String healthInfoId, String deviceToken)
     {
         this.mommyName = mommyName;
         this.mommyIC = mommyIC;
@@ -48,6 +49,7 @@ public class Mommy implements Parcelable {
         this.mummyImage = mummyImage;
         this.qrcodeImage = qrcodeImage;
         this.healthInfoId = healthInfoId;
+        this.deviceToken = deviceToken;
     }
 
     protected Mommy(Parcel in) {
@@ -68,6 +70,7 @@ public class Mommy implements Parcelable {
         mummyImage = in.readString();
         qrcodeImage = in.readString();
         healthInfoId = in.readString();
+        deviceToken = in.readString();
     }
 
     public static final Creator<Mommy> CREATOR = new Creator<Mommy>() {
@@ -222,6 +225,14 @@ public class Mommy implements Parcelable {
         this.healthInfoId = healthInfoId;
     }
 
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -246,5 +257,6 @@ public class Mommy implements Parcelable {
         dest.writeString(mummyImage);
         dest.writeString(qrcodeImage);
         dest.writeString(healthInfoId);
+        dest.writeString(deviceToken);
     }
 }

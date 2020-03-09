@@ -8,15 +8,17 @@ public class Notification {
     private String medicalPersonnelId;
     private Date createdDate;
     private String notificationStatus;
+    private String mummyDocId;
 
     public Notification(){}
 
-    public Notification(String notificationDetail, Date notificationDate, String medicalPersonnelId, Date createdDate, String notificationStatus) {
+    public Notification(String notificationDetail, Date notificationDate, String medicalPersonnelId, Date createdDate, String notificationStatus, String mummyDocId) {
         this.notificationDetail = notificationDetail;
         this.notificationDate = notificationDate;
         this.medicalPersonnelId = medicalPersonnelId;
         this.createdDate = createdDate;
         this.notificationStatus = notificationStatus;
+        this.mummyDocId = mummyDocId;
     }
 
     public String getNotificationDetail() {
@@ -57,5 +59,13 @@ public class Notification {
 
     public void setNotificationStatus(String notificationStatus) {
         this.notificationStatus = notificationStatus;
+    }
+
+    public String getMummyDocId() {
+        return mummyDocId;
+    }
+
+    public void setMummyDocId(String mummyDocId) {
+        this.mummyDocId = mummyDocId;
     }
 }

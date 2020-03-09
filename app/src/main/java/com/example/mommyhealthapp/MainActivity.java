@@ -26,9 +26,12 @@ import com.example.mommyhealthapp.Nurse.NurseHomeActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.w3c.dom.Text;
 
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBarLogIn;
     private TextView textForgetPass;
     private int check;
-    private String tag;
+    private String tag, deviceToken;
 
     private FirebaseFirestore mFirebaseFirestore;
     private CollectionReference mdCollectionReference, motherCollectionReference;
@@ -80,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                deviceToken = instanceIdResult.getToken();
+            }
+        });
 
         checkRequiredField();
 
@@ -137,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
                                                 SaveSharedPreference.setUser(MainActivity.this, "Mommy");
                                                 SaveSharedPreference.setMummyId(MainActivity.this, mommy.getMommyId());
                                                 SaveSharedPreference.setHealthInfoId(MainActivity.this, mommy.getHealthInfoId());
+                                                DocumentReference mDocumentReference = mFirebaseFirestore.collection("Mommy").document(documentSnapshot.getId());
+                                                mDocumentReference.update("deviceToken", deviceToken);
                                                 Intent intent = new Intent(MainActivity.this, MommyHomeActivity.class);
                                                 intent.putExtra("tag", tag);
                                                 startActivity(intent);

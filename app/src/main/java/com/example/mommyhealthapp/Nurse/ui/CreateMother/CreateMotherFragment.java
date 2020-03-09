@@ -40,6 +40,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -159,8 +161,9 @@ public class CreateMotherFragment extends Fragment {
                     String imagePic = "";
                     String healthInfoId = "";
                     qrcode = "";
+                    String deviceToken = "";
 
-                    Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,email,occupation,age,education,confirmPass, mommyId, mommyNumber,status,imagePic,qrcode, healthInfoId);
+                    Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,email,occupation,age,education,confirmPass, mommyId, mommyNumber,status,imagePic,qrcode, healthInfoId, deviceToken);
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("mommyinfo", mommy);
