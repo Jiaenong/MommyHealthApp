@@ -18,12 +18,8 @@ public class ReminderService extends Service {
     public static final String REMINDER_CHANNEL_ID = "10001" ;
     private final static String default_reminder_channel_id = "default" ;
 
-    public ReminderService(){
-    }
-
-    @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
+    public void onCreate() {
         Intent notificationIntent = new Intent(getApplicationContext(), MommyHomeActivity.class);
         notificationIntent.putExtra( "fromNotification" , true );
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -42,11 +38,15 @@ public class ReminderService extends Service {
             NotificationChannel notificationChannel = new
                     NotificationChannel( REMINDER_CHANNEL_ID , "NOTIFICATION_CHANNEL_NAME" , importance) ;
             mBuilder.setChannelId( REMINDER_CHANNEL_ID ) ;
-            assert mNotificationManager != null;
             mNotificationManager.createNotificationChannel(notificationChannel) ;
         }
-        assert mNotificationManager != null;
         mNotificationManager.notify(( int ) System. currentTimeMillis () , mBuilder.build()) ;
         throw new UnsupportedOperationException( "Not yet implemented" ) ;
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }

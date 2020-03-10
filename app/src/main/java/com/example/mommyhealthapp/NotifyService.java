@@ -18,12 +18,8 @@ public class NotifyService extends Service {
     public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
     private final static String default_notification_channel_id = "default" ;
 
-    public NotifyService () {
-    }
-
-    @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
+    public void onCreate() {
         Intent notificationIntent = new Intent(getApplicationContext(), MommyHomeActivity.class);
         notificationIntent.putExtra( "fromNotification" , true );
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -42,11 +38,15 @@ public class NotifyService extends Service {
             NotificationChannel notificationChannel = new
                     NotificationChannel( NOTIFICATION_CHANNEL_ID , "NOTIFICATION_CHANNEL_NAME" , importance) ;
             mBuilder.setChannelId( NOTIFICATION_CHANNEL_ID ) ;
-            assert mNotificationManager != null;
             mNotificationManager.createNotificationChannel(notificationChannel) ;
         }
-        assert mNotificationManager != null;
         mNotificationManager.notify(( int ) System. currentTimeMillis () , mBuilder.build()) ;
         throw new UnsupportedOperationException( "Not yet implemented" ) ;
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }

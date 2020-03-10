@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.mommyhealthapp.Class.AppointmentDate;
 import com.example.mommyhealthapp.Mommy.ui.SelfCheck.SelfCheckFragment;
@@ -50,14 +52,18 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 Date appointmentDate = null;
+                Date today = new Date();
                 for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                 {
                     AppointmentDate app = documentSnapshot.toObject(AppointmentDate.class);
                     appointmentDate = app.getAppointmentDate();
                 }
-                Calendar date = Calendar.getInstance();
-                date.setTime(appointmentDate);
-                setAppointmentReminder(date);
+                if(today.before(appointmentDate))
+                {
+                    Calendar date = Calendar.getInstance();
+                    date.setTime(appointmentDate);
+                    setAppointmentReminder(date);
+                }
             }
         });
         notifyBabyKick();
@@ -78,7 +84,7 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
 
     private void notifyBabyKick()
     {
-        Intent myIntent = new Intent(getApplicationContext(), NotifyService.class);
+        Intent myIntent = new Intent(this, NotifyService.class);
         AlarmManager alarmManager = (AlarmManager)getSystemService( ALARM_SERVICE );
         PendingIntent pendingIntent = PendingIntent.getService( this, 0 , myIntent , 0 );
         Calendar calendar = Calendar.getInstance();
@@ -88,6 +94,7 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
         calendar.set(Calendar.AM_PM, Calendar.AM);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         alarmManager.setRepeating(AlarmManager. RTC_WAKEUP , calendar.getTimeInMillis() , 1000 * 60 * 60 * 24 , pendingIntent);
+        Log.i("Testing Alarm", calendar.getTime().toString()+"");
     }
 
     private void setAppointmentReminder(Calendar target)
@@ -96,6 +103,7 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, reminderIntent, 0);
         AlarmManager alarmManager = (AlarmManager)getSystemService( ALARM_SERVICE );
         alarmManager.set(AlarmManager.RTC_WAKEUP, target.getTimeInMillis(), pendingIntent);
+        Log.i("Testing Alarm", target.getTime().toString()+"");
     }
 
     @Override
