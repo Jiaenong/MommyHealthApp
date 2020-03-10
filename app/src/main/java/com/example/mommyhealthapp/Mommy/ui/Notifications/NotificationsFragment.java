@@ -28,6 +28,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -81,7 +82,7 @@ public class NotificationsFragment extends Fragment {
                             key = documentSnapshots.getId();
                         }
                         nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(key).collection("Notification");
-                        nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        nCollectionReference.orderBy("notificationDate", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 for(QueryDocumentSnapshot documentSnapshotss : queryDocumentSnapshots)
