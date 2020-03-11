@@ -30,14 +30,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name = ".ReminderService"
-            android:enabled = "true"
-            android:exported = "true" >
+            android:name=".ReminderService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </service>
         <service
-            android:name = ".NotifyService"
-            android:enabled = "true"
-            android:exported = "true" >
+            android:name=".NotifyService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </service>
         <service
             android:name=".MyFirebaseMessagingService">
