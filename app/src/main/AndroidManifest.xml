@@ -32,7 +32,7 @@
         <activity
             android:name=".Nurse.PregnancyControlActivity"
             android:label="Pregnancy Control"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/MyMaterialTheme.Base"/>
         <receiver
             android:name=".ReminderService"
             android:enabled="true"
