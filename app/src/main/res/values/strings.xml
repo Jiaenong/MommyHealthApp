@@ -367,7 +367,8 @@
     <string name="title_activity_pregnancy_control">PregnancyControlActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
-    <string name="codeRed">Code Red</string>
+
+    <string name="codeRed">Red Code</string>
     <string name="codeRedGuide"><![CDATA[(Immediate transfer to hospital and perform subsequent operation with O&G Specialist and Family Physicians)]]></string>
     <string name="eclampsia">1. Eclampsia</string>
     <string name="preeclampsia"><![CDATA[2. Preeclampsia (high blood pressure with urinary albumin), which is BP> 140/90 mmHg with urine albumin> 1+]]></string>
@@ -384,5 +385,63 @@
     <string name="asthmaAttackCodeRed">13. Severe asthma attacks</string>
     <string name="sawanCodeRed">14. Sawan</string>
     <string name="feverCodeRed"><![CDATA[15. Fever lasting> 5 days]]></string>
+
+    <string name="codeYellow">Yellow Code</string>
+    <string name="codeYellowGuide">Reference for operation by OnG Hospital / Expert Family medicine, and further care (shared care) can be taken  Medical Officers and Nurses</string>
+    <string name="y1">1. Mother has HIV positive</string>
+    <string name="y2">2. Hepatitis B of mother is positive</string>
+    <string name="y3">3. Mother has Tuberculosis / Malaria / Syphilis</string>
+    <string name="y4">4. High blood pressure more than 140/90 and less than 170/110 mmHg with urine albumin negative</string>
+    <string name="y5">5. Diabetic mother (with insulin treatment)</string>
+    <string name="y6">6. The fetal movement is less current content ≥ 32 weeks</string>
+    <string name="y7">7. Content exceeds 7 days from EDD</string>
+    <string name="y8">8. Mothers with medical problems who need joint treatment with the hospital</string>
+    <string name="y9">9. Mother is involved in medical-legal issues</string>
+    <string name="y10">10. Single mom and teen mom (less than 19 years old)</string>
+    <string name="y11">11. Hemoglobin 7-9 gm% or is symptomatic</string>
+    <string name="y12">12. Placenta previa stable - no bleeding</string>
+    <string name="y13">13. Maternal pyrexia> 38C or> 3 days</string>
+    <string name="y14">14. * History of infertility problems before current content (infertility)</string>
+    <string name="y15">15. Asymptomatic heart disease</string>
+    <string name="y16">16. Drug addiction / smoking</string>
+
+    <string name="codeGreen">Green Code</string>
+    <string name="codeGreenGuide">Administering at a Health Clinic by a Medical and Health Officer and further care may be performed with the shared care of the Nurses / Community Nurses under the supervision of a Medical Officer</string>
+    <string name="g1">1. * Rh negative</string>
+    <string name="g2">2. * Weight of mother before pregnancy or when booking less than 45kg</string>
+    <string name="g3">3. * Current medical problems (including psychiatric and physical disability) except Diabetes and Hypertension</string>
+    <string name="g4">4. * Gynecological surgery ago</string>
+    <string name="g5">5. * Uncertain LNMP</string>
+    <string name="g6">6. * 3 times of consecutive miscarriages</string>
+    <string name="gsubfield">* Past obstetric history: (Q7-15)</string>
+    <string name="g7">7. Caesarean surgery</string>
+    <string name="g8">8. Past history of IH / eclampsia / diabetes</string>
+    <string name="g9">9. Perinatal death</string>
+    <string name="g10">10. Has a history of babies weighing less than 2.5kg or more than 4kg</string>
+    <string name="g11">11. 3rd degree perineum tipped</string>
+    <string name="g12">12. Retained placenta</string>
+    <string name="g13">13. Bleeding after delivery</string>
+    <string name="g14">14. Instrumental birth</string>
+    <string name="g15">15. Long-term childbirth</string>
+    <string name="g16">16. More than one content</string>
+    <string name="g17">17. High blood pressure (140/90 mmHg) without urinary albumin</string>
+    <string name="g18">18. Hemoglobin kurang dari 9 to less than 11gm %</string>
+    <string name="g19">19. Glucosuria 2 times</string>
+    <string name="g20">20. Urine has albumin ≥1 +</string>
+    <string name="g21">21. Sudden weight gain exceeds 2 kg in a week</string>
+    <string name="g22">22. Maternal weight before pregnancy or booking is over 80 kg</string>
+    <string name="g23">23. The uterus height (SFH) is small or large from the date of the content period</string>
+    <string name="g24">24. Inverted / oblique / transverse with no signs of childbirth at 36 weeks of pregnancy</string>
+    <string name="g25">25. Head not engaged during the first month (37 weeks) of primigravida</string>
+    <string name="g26">26. GDM mother (diet control)</string>
+    <string name="g27">27. Static weight or decreased (within a month)</string>
+    <string name="g28">28. * Age of mother is more than 40 years old</string>
+    <string name="g29">29. * Primigravida</string>
+    <string name="g30">30. * Gravida 6 and above</string>
+    <string name="g31">31. * Birth distance is less than 2 years or more than 5 years</string>
+    <string name="g32">32. * Mothers with specific problems: Height is less than 145 cm</string>
+
+
+
 
 </resources>

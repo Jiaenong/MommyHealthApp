@@ -78,7 +78,7 @@
                         android:layout_centerVertical="true"
                         android:maxWidth="250dp"
                         android:text="@string/preeclampsia"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"/>
 
                     <CheckBox
                         android:id="@+id/checkBoxFirstTriPreeclampsia"
@@ -352,6 +352,1042 @@
 
                     <CheckBox
                         android:id="@+id/checkBoxFirstTriFever"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView77"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/codeYellow"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView76"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/codeYellowGuide" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriHIVPositive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/y1" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriHIVPositive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriHepatitis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y2"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriHepatitis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriTMS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y3"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriTMS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriHBP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y4"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriHBP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriWithInsulin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y5"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriWithInsulin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriFetalMovement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y6"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriFetalMovement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriExceedsFromEDD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y7"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriExceedsFromEDD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriJointTreatment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y8"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriJointTreatment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriMedicalLegal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y9"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriMedicalLegal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriSingleTeen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y10"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriSingleTeen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriHbSymptomatic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y11"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriHbSymptomatic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriPlacenta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y12"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriPlacenta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriMaternal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y13"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriMaternal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriInfertility"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y14"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriInfertility"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriAsymptomatic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y15"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriAsymptomatic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriDrugSmoke"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:text="@string/y16"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriDrugSmoke"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView78"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/codeGreen"
+                    android:textColor="@android:color/holo_green_light"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView79"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/codeGreenGuide" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriRhNegative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g1" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriRhNegative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriUnderWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g2" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriUnderWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriMedicalProblem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g3" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriMedicalProblem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriSurgeryAgo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g4" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriSurgeryAgo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriUncertainLNMP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g5" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriUncertainLNMP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriConsecutiveMiscarriages"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g6" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriConsecutiveMiscarriages"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView80"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gsubfield"
+                        android:maxWidth="250dp"
+                        android:textSize="20sp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriCaesareanSurgery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g7" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriCaesareanSurgery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriPastHistory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g8" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriPastHistory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriPerinatalDeath"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g9" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriPerinatalDeath"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriHistoryBabyLessWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g10" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriHistoryBabyLessWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriPerineumTipped"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g11" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriPerineumTipped"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriRetainedPlacenta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g12" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriRetainedPlacenta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriBleedingAfterDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g13" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriBleedingAfterDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriInstrumentalBirth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g14" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriInstrumentalBirth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriLongTermDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g15" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriLongTermDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriMoreThanOneContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g16" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriMoreThanOneContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriHBPWthUri"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g17" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriHBPWthUri"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriLessHb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g18" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriLessHb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriGlucosuria"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g19" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriGlucosuria"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriUrineMoreAlbumin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g20" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriUrineMoreAlbumin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriSuddenWeightGain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g21" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriSuddenWeightGain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriOverWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g22" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriOverWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriSFH"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g23" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriSFH"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriIOTWithNoSign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g24" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriIOTWithNoSign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriHeadNotEngaged"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g25" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriHeadNotEngaged"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriDietControl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g26" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriDietControl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriStaticWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g27" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriStaticWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriOverAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g28" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriOverAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriPrimigravida"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g29" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriPrimigravida"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriGravida"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g30" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriGravida"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriBirthDistance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g31" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriBirthDistance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtViewFirstTriSpecificProblem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxWidth="250dp"
+                        android:textSize="18sp"
+                        android:text="@string/g32" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFirstTriSpecificProblem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"/>
