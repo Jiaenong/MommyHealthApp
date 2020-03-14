@@ -130,7 +130,7 @@
                                 android:layout_height="90dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="20dp"
-                                app:srcCompat="@drawable/early_test" />
+                                app:srcCompat="@drawable/early_test_icon" />
 
                             <TextView
                                 android:id="@+id/textView13"
@@ -138,6 +138,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="@string/early_test"
+                                android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="18sp"
@@ -168,7 +169,7 @@
                                 android:layout_height="90dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="20dp"
-                                app:srcCompat="@drawable/early_test" />
+                                app:srcCompat="@drawable/baby_kick_foot" />
 
                             <TextView
                                 android:id="@+id/textView14"
@@ -176,6 +177,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="@string/maternal_medical_examination"
+                                android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="18sp"
@@ -214,7 +216,7 @@
                                 android:layout_height="90dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="20dp"
-                                app:srcCompat="@drawable/early_test" />
+                                app:srcCompat="@drawable/health_tutorial" />
 
                             <TextView
                                 android:id="@+id/textView15"
@@ -222,6 +224,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="@string/sectionN"
+                                android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="18sp"
@@ -253,7 +256,7 @@
                                 android:layout_height="90dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="20dp"
-                                app:srcCompat="@drawable/early_test" />
+                                app:srcCompat="@drawable/mgtt_examination" />
 
                             <TextView
                                 android:id="@+id/textView16"
@@ -261,6 +264,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="@string/mgtt"
+                                android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="18sp"
@@ -300,7 +304,7 @@
                                 android:layout_height="90dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="20dp"
-                                app:srcCompat="@drawable/early_test" />
+                                app:srcCompat="@drawable/pregnancy_examination_test" />
 
                             <TextView
                                 android:id="@+id/textView17"
@@ -308,6 +312,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="@string/pregnancy_examination"
+                                android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="18sp"
@@ -339,7 +344,7 @@
                                 android:layout_height="90dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="20dp"
-                                app:srcCompat="@drawable/early_test" />
+                                app:srcCompat="@drawable/graph_report" />
 
                             <TextView
                                 android:id="@+id/textView18"
@@ -347,6 +352,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="@string/summary"
+                                android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="18sp"

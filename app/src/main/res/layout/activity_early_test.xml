@@ -192,7 +192,7 @@
                             android:layout_height="90dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="20dp"
-                            app:srcCompat="@drawable/early_test" />
+                            app:srcCompat="@drawable/pregnancy_history" />
 
                         <TextView
                             android:id="@+id/textView13"
@@ -200,6 +200,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="@string/bahagian_A"
+                            android:layout_gravity="center_horizontal"
                             android:textAlignment="center"
                             android:textColor="@color/colorAccent"
                             android:textSize="18sp"
@@ -230,7 +231,7 @@
                             android:layout_height="90dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="20dp"
-                            app:srcCompat="@drawable/early_test" />
+                            app:srcCompat="@drawable/screening_test" />
 
                         <TextView
                             android:id="@+id/textView14"
@@ -238,6 +239,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="@string/bahagian_B"
+                            android:layout_gravity="center_horizontal"
                             android:textAlignment="center"
                             android:textColor="@color/colorAccent"
                             android:textSize="18sp"
@@ -277,7 +279,7 @@
                             android:layout_height="90dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="20dp"
-                            app:srcCompat="@drawable/early_test" />
+                            app:srcCompat="@drawable/health_history" />
 
                         <TextView
                             android:id="@+id/textView15"
@@ -285,6 +287,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="@string/bahagian_C"
+                            android:layout_gravity="center_horizontal"
                             android:textAlignment="center"
                             android:textColor="@color/colorAccent"
                             android:textSize="18sp"
@@ -316,7 +319,7 @@
                             android:layout_height="90dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="20dp"
-                            app:srcCompat="@drawable/early_test" />
+                            app:srcCompat="@drawable/current_health" />
 
                         <TextView
                             android:id="@+id/textView16"
@@ -324,6 +327,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="@string/bahagian_D"
+                            android:layout_gravity="center_horizontal"
                             android:textAlignment="center"
                             android:textColor="@color/colorAccent"
                             android:textSize="18sp"
@@ -366,7 +370,7 @@
                             android:layout_height="90dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="20dp"
-                            app:srcCompat="@drawable/early_test" />
+                            app:srcCompat="@drawable/breast_test" />
 
                         <TextView
                             android:id="@+id/textView17"
@@ -374,6 +378,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="@string/early_test_breast_examination"
+                            android:layout_gravity="center_horizontal"
                             android:textAlignment="center"
                             android:textColor="@color/colorAccent"
                             android:textSize="18sp"
@@ -405,7 +410,7 @@
                             android:layout_height="90dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="20dp"
-                            app:srcCompat="@drawable/early_test" />
+                            app:srcCompat="@drawable/mental_test" />
 
                         <TextView
                             android:id="@+id/textView18"
@@ -413,6 +418,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="@string/early_test_mentalExamination"
+                            android:layout_gravity="center_horizontal"
                             android:textAlignment="center"
                             android:textColor="@color/colorAccent"
                             android:textSize="18sp"
