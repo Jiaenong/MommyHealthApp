@@ -31,10 +31,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Nurse.PregnancyControlActivity"
-            android:label="@string/title_activity_pregnancy_control"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <service
+            android:label="Pregnancy Control"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <receiver
             android:name=".ReminderService"
             android:enabled="true"
             android:exported="true">
@@ -43,8 +42,8 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </service>
-        <service
+        </receiver>
+        <receiver
             android:name=".NotifyService"
             android:enabled="true"
             android:exported="true">
@@ -53,8 +52,9 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </service>
-        <service android:name=".MyFirebaseMessagingService">
+        </receiver>
+        <service android:name=".MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

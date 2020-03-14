@@ -4,6 +4,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -14,19 +16,19 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.mommyhealthapp.Mommy.MommyHomeActivity;
 
-public class ReminderService extends Service {
+public class ReminderService extends BroadcastReceiver {
     public static final String REMINDER_CHANNEL_ID = "10001" ;
     private final static String default_reminder_channel_id = "default" ;
 
     @Override
-    public void onCreate() {
-        Intent notificationIntent = new Intent(getApplicationContext(), MommyHomeActivity.class);
-        notificationIntent.putExtra( "fromNotification" , true );
+    public void onReceive(Context context, Intent intent) {
+        Intent notificationIntent = new Intent(context, MommyHomeActivity.class);
+        notificationIntent.putExtra( "reminderNotification" , "FromNotify");
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService( NOTIFICATION_SERVICE ) ;
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE) ;
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext() , default_reminder_channel_id ) ;
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context , default_reminder_channel_id ) ;
         mBuilder.setContentTitle("Appointment Reminder");
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setContentText("Today is the Appointment Date");
@@ -42,11 +44,5 @@ public class ReminderService extends Service {
         }
         mNotificationManager.notify(( int ) System. currentTimeMillis () , mBuilder.build()) ;
         throw new UnsupportedOperationException( "Not yet implemented" ) ;
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
     }
 }
