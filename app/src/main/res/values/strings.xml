@@ -352,6 +352,7 @@
     <string name="summaryReport_Hemoglobin">Hemoglobin Concentration (gm %)</string>
     <string name="forgetPasswordEmailAddress">Email Address</string>
     <string name="forgetPassWordGuide">Please enter the email that you have used it for this account</string>
+    <string name="pregnancyControlExamination">Pregnancy Control Examination</string>
 
     <string-array name="national">
         <item>Malaysia</item>
@@ -363,5 +364,25 @@
         <item>New Zealand</item>
         <item>India</item>
     </string-array>
+    <string name="title_activity_pregnancy_control">PregnancyControlActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="codeRed">Code Red</string>
+    <string name="codeRedGuide"><![CDATA[(Immediate transfer to hospital and perform subsequent operation with O&G Specialist and Family Physicians)]]></string>
+    <string name="eclampsia">1. Eclampsia</string>
+    <string name="preeclampsia"><![CDATA[2. Preeclampsia (high blood pressure with urinary albumin), which is BP> 140/90 mmHg with urine albumin> 1+]]></string>
+    <string name="highBloodPressurePregnancyControl"><![CDATA[3. High Blood Pressure > 170/110 mmHg]]></string>
+    <string name="highBloodPressurewithBirthSymptoms"><![CDATA[4. High Blood Pressure > 140/90 with Birth Symptoms]]></string>
+    <string name="heartDiseaseCodeRed">5. Heart disease during pregnancy with signs and symptoms (tight breathing, fluttering)</string>
+    <string name="shortnessBreathCodeRed">6. Shortness of breath while doing lightweight activities (activities such as broom bins, Wash dishes)</string>
+    <string name="diabeticMotherCodeRed">7. Uncontrollable diabetic mother with the presence of ketone urine</string>
+    <string name="anteriorHemorrhageCodeRed">8. Anterior hemorrhage (including miscarriage)</string>
+    <string name="abnormalHeartRateCodeRed"><![CDATA[9. Abnormal fetal heart rate FHR ≤110 / min on and after 26/52 FHR> 160 / min after 34/52 (heart rate may be high if premature)]]></string>
+    <string name="anemiaCodeRed"><![CDATA[10. Anemia with any symptom gestation or Hb <7 gm%]]></string>
+    <string name="prematureCodeRed">11.  Premature uterine contraction</string>
+    <string name="exitLiquidWithoutCodeRed">12. Exit liquid water without contraction</string>
+    <string name="asthmaAttackCodeRed">13. Severe asthma attacks</string>
+    <string name="sawanCodeRed">14. Sawan</string>
+    <string name="feverCodeRed"><![CDATA[15. Fever lasting> 5 days]]></string>
 
 </resources>
