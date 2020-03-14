@@ -58,7 +58,7 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
                     AppointmentDate app = documentSnapshot.toObject(AppointmentDate.class);
                     appointmentDate = app.getAppointmentDate();
                 }
-                if(today.before(appointmentDate))
+                if(today.equals(appointmentDate))
                 {
                     Calendar date = Calendar.getInstance();
                     date.setTime(appointmentDate);
@@ -86,24 +86,33 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
     {
         Intent myIntent = new Intent(this, NotifyService.class);
         AlarmManager alarmManager = (AlarmManager)getSystemService( ALARM_SERVICE );
-        PendingIntent pendingIntent = PendingIntent.getService( this, 0 , myIntent , 0 );
+        PendingIntent pendingIntent = PendingIntent.getBroadcast( this, 0 , myIntent , PendingIntent.FLAG_UPDATE_CURRENT );
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR, 9);
         calendar.set(Calendar.AM_PM, Calendar.AM);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
-        alarmManager.setRepeating(AlarmManager. RTC_WAKEUP , calendar.getTimeInMillis() , 1000 * 60 * 60 * 24 , pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP , calendar.getTimeInMillis(),1000 * 60 * 60 * 24, pendingIntent);
         Log.i("Testing Alarm", calendar.getTime().toString()+"");
     }
 
     private void setAppointmentReminder(Calendar target)
     {
-        Intent reminderIntent = new Intent(getApplicationContext(), ReminderService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0, reminderIntent, 0);
-        AlarmManager alarmManager = (AlarmManager)getSystemService( ALARM_SERVICE );
-        alarmManager.set(AlarmManager.RTC_WAKEUP, target.getTimeInMillis(), pendingIntent);
-        Log.i("Testing Alarm", target.getTime().toString()+"");
+        String fromNotify = "";
+        Intent intent = getIntent();
+        if(!intent.getStringExtra("reminderNotification").isEmpty())
+        {
+            fromNotify = intent.getStringExtra("reminderNotification");
+        }
+        if(fromNotify.equals(""))
+        {
+            Intent reminderIntent = new Intent(getApplicationContext(), ReminderService.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, reminderIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager alarmManager = (AlarmManager)getSystemService( ALARM_SERVICE );
+            alarmManager.set(AlarmManager.RTC_WAKEUP, target.getTimeInMillis(), pendingIntent);
+            Log.i("Testing Alarm", target.getTime().toString()+"");
+        }
     }
 
     @Override
