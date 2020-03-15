@@ -1,5 +1,7 @@
 package com.example.mommyhealthapp.Mommy.ui.MotherProfile;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,8 +24,10 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.MainActivity;
+import com.example.mommyhealthapp.NotifyService;
 import com.example.mommyhealthapp.Nurse.MommyInfoActivity;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.ReminderService;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -34,6 +38,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Text;
+
 
 public class MotherProfileFragment extends Fragment {
 
@@ -132,6 +137,7 @@ public class MotherProfileFragment extends Fragment {
         buttonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CancelAlarm();
                 SaveSharedPreference.clearUser(getActivity());
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
@@ -212,6 +218,19 @@ public class MotherProfileFragment extends Fragment {
          //   }
         //});
         return root;
+    }
+
+    private void CancelAlarm()
+    {
+        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService( getActivity().ALARM_SERVICE );
+        Intent intent = new Intent(getActivity(), NotifyService.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), SaveSharedPreference.getAlarmRequestCode(getActivity()), intent, 0);
+        alarmManager.cancel(pendingIntent);
+        if(SaveSharedPreference.getReminderRequestCode(getActivity()) != 0) {
+            Intent intentReminder = new Intent(getActivity(), ReminderService.class);
+            PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(getActivity(), SaveSharedPreference.getReminderRequestCode(getActivity()), intentReminder, 0);
+            alarmManager.cancel(pendingIntentReminder);
+        }
     }
 
     private void checkRequiredTextChange()

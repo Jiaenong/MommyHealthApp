@@ -29,10 +29,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Nurse.UploadDocumentActivity"></activity>
+        <activity android:name=".Nurse.ImageRecordActivity" />
         <activity
             android:name=".Nurse.PregnancyControlActivity"
             android:label="Pregnancy Control"
-            android:theme="@style/MyMaterialTheme.Base"/>
+            android:theme="@style/MyMaterialTheme.Base" />
+
         <receiver
             android:name=".ReminderService"
             android:enabled="true"
@@ -53,7 +56,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        <service android:name=".MyFirebaseMessagingService"
+
+        <service
+            android:name=".MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

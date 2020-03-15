@@ -42,7 +42,7 @@ public class MommyProfileActivity extends AppCompatActivity {
     private RelativeLayout layoutMummyInfo;
     private LinearLayoutCompat layoutMommyProfilell;
     private ProgressBar progressBarProfile;
-    private CardView cardViewEarlyTest, cardViewPE, cardViewMGTT, cardViewSectionN, cardViewBabyKick, cardViewSummaryReport, cardViewColorCode;
+    private CardView cardViewEarlyTest, cardViewPE, cardViewMGTT, cardViewSectionN, cardViewBabyKick, cardViewSummaryReport, cardViewColorCode, cardViewStorePicture;
     private TextView textViewMummyName, textViewMummyAge, textViewMummyID, textViewMummyStatus;
     private CircularImageView imageViewMummy;
     private Boolean checkStatus, isEmpty;
@@ -66,6 +66,7 @@ public class MommyProfileActivity extends AppCompatActivity {
         cardViewBabyKick = (CardView)findViewById(R.id.cardViewBabyKick);
         cardViewSummaryReport = (CardView)findViewById(R.id.cardViewSummaryReport);
         cardViewColorCode = (CardView)findViewById(R.id.cardViewColorCode);
+        cardViewStorePicture = (CardView)findViewById(R.id.cardViewStorePicture);
         textViewMummyName = (TextView)findViewById(R.id.textViewMummyName);
         textViewMummyAge = (TextView)findViewById(R.id.textViewMummyAge);
         textViewMummyID = (TextView)findViewById(R.id.textViewMummyID);
@@ -277,6 +278,29 @@ public class MommyProfileActivity extends AppCompatActivity {
                 if(SaveSharedPreference.getEarlyTest(MommyProfileActivity.this).equals("Old"))
                 {
                     Intent intent = new Intent(MommyProfileActivity.this, PregnancyControlActivity.class);
+                    startActivity(intent);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
+                    builder.setTitle("Mummy Not Available");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Early Test must be carry out");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            }
+        });
+
+        cardViewStorePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(SaveSharedPreference.getEarlyTest(MommyProfileActivity.this).equals("Old"))
+                {
+                    Intent intent = new Intent(MommyProfileActivity.this, ImageRecordActivity.class);
                     startActivity(intent);
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);

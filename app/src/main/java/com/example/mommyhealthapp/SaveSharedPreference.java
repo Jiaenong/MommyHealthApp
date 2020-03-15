@@ -12,8 +12,8 @@ public class SaveSharedPreference {
     static final String PREVIOUS_PREGNANT = "previousPregnant";
     static final String MUMMY_ID = "mummyId";
     static final String HEALTHINFO_ID = "healthInfoId";
-    static final String BABYKICK_TIME = "babyKickTime";
-    static final String BABY_KICK_CHECK = "babyKickCheck";
+    static final String ALARM_REQUEST_CODE = "alarmRequestCode";
+    static final String REMINDER_REQUEST_CODE = "reminderRequestCode";
 
     static SharedPreferences getSharedPreference(Context context)
     {
@@ -32,28 +32,28 @@ public class SaveSharedPreference {
         return getSharedPreference(context).getString(USER_TYPE,"");
     }
 
-    public static void setBabyKickCheck(Context context, Boolean babyKickCheck)
+    public static void setReminderRequestCode(Context context, int reminderRequestCode)
     {
         SharedPreferences.Editor editor = getSharedPreference(context).edit();
-        editor.putBoolean(BABY_KICK_CHECK, babyKickCheck);
+        editor.putInt(REMINDER_REQUEST_CODE, reminderRequestCode);
         editor.commit();
     }
 
-    public static Boolean getBabyKickCheck(Context context)
+    public static int getReminderRequestCode(Context context)
     {
-        return getSharedPreference(context).getBoolean(BABY_KICK_CHECK,false);
+        return getSharedPreference(context).getInt(REMINDER_REQUEST_CODE,0);
     }
 
-    public static void setBabyKickTime(Context context, String babyKickTime)
+    public static void setAlarmRequestCode(Context context, int alarmRequestCode)
     {
         SharedPreferences.Editor editor = getSharedPreference(context).edit();
-        editor.putString(BABYKICK_TIME, babyKickTime);
+        editor.putInt(ALARM_REQUEST_CODE, alarmRequestCode);
         editor.commit();
     }
 
-    public static String getBabyKickTime(Context context)
+    public static int getAlarmRequestCode(Context context)
     {
-        return getSharedPreference(context).getString(BABYKICK_TIME,"");
+        return getSharedPreference(context).getInt(ALARM_REQUEST_CODE,0);
     }
 
     public static void setHealthInfoId(Context context, String healthInfoId)

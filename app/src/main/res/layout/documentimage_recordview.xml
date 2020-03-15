@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground">
+
+
+            <ImageView
+                android:id="@+id/imageView27"
+                android:layout_margin="5dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:srcCompat="@drawable/picture_record" />
+
+            <TextView
+                android:id="@+id/txtViewImageRecordDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/imageView27"
+                android:text="Date"
+                android:textColor="@color/design_default_color_on_secondary"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtViewImageRecordTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtViewImageRecordDate"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/imageView27"
+                android:text="Title"
+                android:textColor="@color/design_default_color_on_secondary"
+                android:textSize="24sp" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -440,8 +440,7 @@
     <string name="g30">30. * Gravida 6 and above</string>
     <string name="g31">31. * Birth distance is less than 2 years or more than 5 years</string>
     <string name="g32">32. * Mothers with specific problems: Height is less than 145 cm</string>
-
-
+    <string name="documentImage">Document Image Resource</string>
 
 
 </resources>
