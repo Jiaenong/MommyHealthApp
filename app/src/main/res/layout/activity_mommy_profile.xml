@@ -392,7 +392,7 @@
                                 android:layout_height="90dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="20dp"
-                                app:srcCompat="@drawable/early_test" />
+                                app:srcCompat="@drawable/color_code" />
 
                             <TextView
                                 android:id="@+id/textView19"
