@@ -364,6 +364,7 @@
         <item>New Zealand</item>
         <item>India</item>
     </string-array>
+
     <string name="title_activity_pregnancy_control">PregnancyControlActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
@@ -387,7 +388,7 @@
     <string name="feverCodeRed"><![CDATA[15. Fever lasting> 5 days]]></string>
 
     <string name="codeYellow">Yellow Code</string>
-    <string name="codeYellowGuide">Reference for operation by OnG Hospital / Expert Family medicine, and further care (shared care) can be taken  Medical Officers and Nurses</string>
+    <string name="codeYellowGuide">(Reference for operation by OnG Hospital / Expert Family medicine, and further care (shared care) can be taken  Medical Officers and Nurses)</string>
     <string name="y1">1. Mother has HIV positive</string>
     <string name="y2">2. Hepatitis B of mother is positive</string>
     <string name="y3">3. Mother has Tuberculosis / Malaria / Syphilis</string>
@@ -406,7 +407,7 @@
     <string name="y16">16. Drug addiction / smoking</string>
 
     <string name="codeGreen">Green Code</string>
-    <string name="codeGreenGuide">Administering at a Health Clinic by a Medical and Health Officer and further care may be performed with the shared care of the Nurses / Community Nurses under the supervision of a Medical Officer</string>
+    <string name="codeGreenGuide">(Administering at a Health Clinic by a Medical and Health Officer and further care may be performed with the shared care of the Nurses / Community Nurses under the supervision of a Medical Officer)</string>
     <string name="g1">1. * Rh negative</string>
     <string name="g2">2. * Weight of mother before pregnancy or when booking less than 45kg</string>
     <string name="g3">3. * Current medical problems (including psychiatric and physical disability) except Diabetes and Hypertension</string>
@@ -441,7 +442,16 @@
     <string name="g31">31. * Birth distance is less than 2 years or more than 5 years</string>
     <string name="g32">32. * Mothers with specific problems: Height is less than 145 cm</string>
 
-
-
+    <string name="codeWhite">White Code</string>
+    <string name="codeWhiteGuide">(Care by Health Nurses / Community Nurses at the Health Clinic and Rural Clinic. The mother will only be given a white code as she has no risk factors listed in the red, yellow and green codes)</string>
+    <string name="w1">1. Gravida 2-5</string>
+    <string name="w2">2. No previous obstetric problems may repeat or affect current content</string>
+    <string name="w3">3. No previous medical problems</string>
+    <string name="w4">4. There are no medical / obstetric issues with the current content</string>
+    <string name="w5">5. Height is greater than 145 cm</string>
+    <string name="w6">6. Age of mother is over 18 and under 40</string>
+    <string name="w7">7.  Mother is married and has family support</string>
+    <string name="w8"><![CDATA[8. POA> 37 weeks or <41 weeks]]></string>
+    <string name="w9"><![CDATA[9. Estimated baby weight> 2 kg and <3.5 kg]]></string>
 
 </resources>
