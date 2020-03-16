@@ -84,9 +84,11 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
 
     private void notifyBabyKick()
     {
+        int requestCode = 9000;
+        SaveSharedPreference.setAlarmRequestCode(MommyHomeActivity.this, requestCode);
         Intent myIntent = new Intent(this, NotifyService.class);
         AlarmManager alarmManager = (AlarmManager)getSystemService( ALARM_SERVICE );
-        PendingIntent pendingIntent = PendingIntent.getBroadcast( this, 0 , myIntent , PendingIntent.FLAG_UPDATE_CURRENT );
+        PendingIntent pendingIntent = PendingIntent.getBroadcast( this, requestCode , myIntent , PendingIntent.FLAG_UPDATE_CURRENT );
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -100,6 +102,7 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
     private void setAppointmentReminder(Calendar target)
     {
         String fromNotify = "";
+        int requestCode = 101;
         Intent intent = getIntent();
         if(!intent.getStringExtra("reminderNotification").isEmpty())
         {
@@ -107,8 +110,9 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
         }
         if(fromNotify.equals(""))
         {
+            SaveSharedPreference.setReminderRequestCode(MommyHomeActivity.this, requestCode);
             Intent reminderIntent = new Intent(getApplicationContext(), ReminderService.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, reminderIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, reminderIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             AlarmManager alarmManager = (AlarmManager)getSystemService( ALARM_SERVICE );
             alarmManager.set(AlarmManager.RTC_WAKEUP, target.getTimeInMillis(), pendingIntent);
             Log.i("Testing Alarm", target.getTime().toString()+"");

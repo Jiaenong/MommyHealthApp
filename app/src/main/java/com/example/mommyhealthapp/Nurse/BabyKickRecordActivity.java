@@ -126,7 +126,7 @@ public class BabyKickRecordActivity extends AppCompatActivity implements SearchV
 
     private void MommyLogIn()
     {
-        mCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(BabyKickRecordActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(BabyKickRecordActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for(QueryDocumentSnapshot documentSnapshots: queryDocumentSnapshots)
