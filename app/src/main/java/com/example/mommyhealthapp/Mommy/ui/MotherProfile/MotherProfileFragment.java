@@ -224,13 +224,12 @@ public class MotherProfileFragment extends Fragment {
     {
         AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService( getActivity().ALARM_SERVICE );
         Intent intent = new Intent(getActivity(), NotifyService.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), SaveSharedPreference.getAlarmRequestCode(getActivity()), intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 9000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent);
-        if(SaveSharedPreference.getReminderRequestCode(getActivity()) != 0) {
-            Intent intentReminder = new Intent(getActivity(), ReminderService.class);
-            PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(getActivity(), SaveSharedPreference.getReminderRequestCode(getActivity()), intentReminder, 0);
-            alarmManager.cancel(pendingIntentReminder);
-        }
+
+        Intent intentReminder = new Intent(getActivity(), ReminderService.class);
+        PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(getActivity(), 101, intentReminder, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntentReminder);
     }
 
     private void checkRequiredTextChange()

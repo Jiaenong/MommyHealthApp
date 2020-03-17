@@ -454,5 +454,9 @@
     <string name="w8"><![CDATA[8. POA> 37 weeks or <41 weeks]]></string>
     <string name="w9"><![CDATA[9. Estimated baby weight> 2 kg and <3.5 kg]]></string>
 
-    <string name="documentImage">Document Image Resource</string>
+    <string name="documentImage">Pathology Lab Document</string>
+    <string name="documentImageTitle">Title</string>
+    <string name="documentDescription">Description</string>
+    <string name="uploadPhoto">Upload Photo</string>
+    <string name="undoPhoto">Undo Photo</string>
 </resources>
