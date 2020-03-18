@@ -46,7 +46,7 @@ import java.util.UUID;
 
 public class UploadDocumentActivity extends AppCompatActivity {
     private RelativeLayout relativeLayoutUploadDocument;
-    private ProgressBar progressBarUploadDocument;
+    private ProgressBar progressBarUploadDocument, progressBarUploadPhoto;
     private LinearLayoutCompat layoutUploadDocument, layoutUploadPhoto, layoutUndoPhoto;
     private TextInputLayout txtInputLayoutDocTitle, txtInputLayoutDocDesc;
     private EditText editTextDocTitle, editTextDocDesc;
@@ -70,6 +70,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
 
         relativeLayoutUploadDocument = (RelativeLayout)findViewById(R.id.relativeLayoutUploadDocument);
         progressBarUploadDocument = (ProgressBar)findViewById(R.id.progressBarUploadDocument);
+        progressBarUploadPhoto = (ProgressBar)findViewById(R.id.progressBarUploadPhoto);
         layoutUploadDocument = (LinearLayoutCompat)findViewById(R.id.layoutUploadDocument);
         layoutUploadPhoto = (LinearLayoutCompat)findViewById(R.id.layoutUploadPhoto);
         layoutUndoPhoto = (LinearLayoutCompat)findViewById(R.id.layoutUndoPhoto);
@@ -95,31 +96,36 @@ public class UploadDocumentActivity extends AppCompatActivity {
         mStorageReference = mFirebaseStorage.getReference().child("upload_document");
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("DocumentImage");
-        mCollectionReference.whereEqualTo("imageId", imageId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.isEmpty())
-                {
-                    isEmpty = true;
-                    progressBarUploadDocument.setVisibility(View.GONE);
-                    layoutUploadDocument.setVisibility(View.VISIBLE);
-                }else{
-                    isEmpty = false;
-                    DisableField();
-                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+        if(SaveSharedPreference.getUser(UploadDocumentActivity.this).equals("Mommy"))
+        {
+            MommyLogIn();
+        }else{
+            mCollectionReference.whereEqualTo("imageId", imageId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if(queryDocumentSnapshots.isEmpty())
                     {
-                        key = documentSnapshot.getId();
-                        DocumentImage di = documentSnapshot.toObject(DocumentImage.class);
-                        editTextDocTitle.setText(di.getTitle());
-                        editTextDocDesc.setText(di.getDescription());
-                        documentImageUrl = di.getImageURL();
-                        Glide.with(UploadDocumentActivity.this).load(di.getImageURL()).into(imageViewDocImage);
+                        isEmpty = true;
+                        progressBarUploadDocument.setVisibility(View.GONE);
+                        layoutUploadDocument.setVisibility(View.VISIBLE);
+                    }else{
+                        isEmpty = false;
+                        DisableField();
+                        for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                        {
+                            key = documentSnapshot.getId();
+                            DocumentImage di = documentSnapshot.toObject(DocumentImage.class);
+                            editTextDocTitle.setText(di.getTitle());
+                            editTextDocDesc.setText(di.getDescription());
+                            documentImageUrl = di.getImageURL();
+                            Glide.with(UploadDocumentActivity.this).load(di.getImageURL()).into(imageViewDocImage);
+                        }
+                        progressBarUploadDocument.setVisibility(View.GONE);
+                        layoutUploadDocument.setVisibility(View.VISIBLE);
                     }
-                    progressBarUploadDocument.setVisibility(View.GONE);
-                    layoutUploadDocument.setVisibility(View.VISIBLE);
                 }
-            }
-        });
+            });
+        }
 
         btnUploadPh0toSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,6 +266,8 @@ public class UploadDocumentActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK)
         {
+            progressBarUploadPhoto.setVisibility(View.VISIBLE);
+            imageViewDocImage.setVisibility(View.GONE);
             Uri selectedImageUri = data.getData();
             final StorageReference storeRef = mStorageReference.child(selectedImageUri.getLastPathSegment());
             Snackbar snackbar = Snackbar.make(relativeLayoutUploadDocument, "Uploading..", Snackbar.LENGTH_LONG);
@@ -287,6 +295,8 @@ public class UploadDocumentActivity extends AppCompatActivity {
                                     Uri downloadUri = task.getResult();
                                     documentImageUrl = downloadUri.toString();
                                     Glide.with(UploadDocumentActivity.this).load(documentImageUrl).into(imageViewDocImage);
+                                    progressBarUploadPhoto.setVisibility(View.GONE);
+                                    imageViewDocImage.setVisibility(View.VISIBLE);
                                     Snackbar snackbar = Snackbar.make(relativeLayoutUploadDocument, "Upload Success", Snackbar.LENGTH_LONG);
                                     snackbar.show();
                                 }
@@ -295,16 +305,55 @@ public class UploadDocumentActivity extends AppCompatActivity {
                             Uri downloadUri = task.getResult();
                             documentImageUrl = downloadUri.toString();
                             Glide.with(UploadDocumentActivity.this).load(documentImageUrl).into(imageViewDocImage);
+                            progressBarUploadPhoto.setVisibility(View.GONE);
+                            imageViewDocImage.setVisibility(View.VISIBLE);
                             Snackbar snackbar = Snackbar.make(relativeLayoutUploadDocument, "Upload Success", Snackbar.LENGTH_LONG);
                             snackbar.show();
                         }
                     }else{
+                        progressBarUploadPhoto.setVisibility(View.GONE);
+                        imageViewDocImage.setVisibility(View.VISIBLE);
                         Snackbar snackbar = Snackbar.make(relativeLayoutUploadDocument, "Upload fail", Snackbar.LENGTH_LONG);
                         snackbar.show();
                     }
                 }
             });
         }
+    }
+
+    private void MommyLogIn()
+    {
+        mCollectionReference.whereEqualTo("imageId", imageId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isEmpty = true;
+                    progressBarUploadDocument.setVisibility(View.GONE);
+                    layoutUploadDocument.setVisibility(View.VISIBLE);
+                    layoutUploadPhoto.setVisibility(View.GONE);
+                    layoutUndoPhoto.setVisibility(View.GONE);
+                    btnUploadPh0toSave.setVisibility(View.GONE);
+                }else{
+                    isEmpty = false;
+                    DisableField();
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        key = documentSnapshot.getId();
+                        DocumentImage di = documentSnapshot.toObject(DocumentImage.class);
+                        editTextDocTitle.setText(di.getTitle());
+                        editTextDocDesc.setText(di.getDescription());
+                        documentImageUrl = di.getImageURL();
+                        Glide.with(UploadDocumentActivity.this).load(di.getImageURL()).into(imageViewDocImage);
+                    }
+                    progressBarUploadDocument.setVisibility(View.GONE);
+                    layoutUploadDocument.setVisibility(View.VISIBLE);
+                    layoutUploadPhoto.setVisibility(View.GONE);
+                    layoutUndoPhoto.setVisibility(View.GONE);
+                    btnUploadPh0toSave.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private void CheckChangeEmptyField()

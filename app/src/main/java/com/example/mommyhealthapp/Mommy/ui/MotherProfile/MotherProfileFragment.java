@@ -2,6 +2,7 @@ package com.example.mommyhealthapp.Mommy.ui.MotherProfile;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -24,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.MainActivity;
+import com.example.mommyhealthapp.Mommy.MommyHomeActivity;
 import com.example.mommyhealthapp.NotifyService;
 import com.example.mommyhealthapp.Nurse.MommyInfoActivity;
 import com.example.mommyhealthapp.R;
@@ -222,14 +224,18 @@ public class MotherProfileFragment extends Fragment {
 
     private void CancelAlarm()
     {
-        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService( getActivity().ALARM_SERVICE );
-        Intent intent = new Intent(getActivity(), NotifyService.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 9000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE );
+        Intent intent = new Intent(getContext(), NotifyService.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 9000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
 
-        Intent intentReminder = new Intent(getActivity(), ReminderService.class);
-        PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(getActivity(), 101, intentReminder, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intentReminder = new Intent(getContext(), ReminderService.class);
+        PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(getContext(), 101, intentReminder, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntentReminder);
+        pendingIntentReminder.cancel();
+
+        Log.i("TestingAlarmCancel", "Alarm Cancel");
     }
 
     private void checkRequiredTextChange()
