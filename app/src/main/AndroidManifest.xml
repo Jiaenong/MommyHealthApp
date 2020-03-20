@@ -29,10 +29,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Nurse.UploadDocumentActivity"
-            android:label="Upload Document"/>
-        <activity android:name=".Nurse.ImageRecordActivity"
-            android:label="Laboratory Document"/>
+        <activity android:name=".Mommy.PregnancyWeightGainActivity"></activity>
+        <activity
+            android:name=".Nurse.UploadDocumentActivity"
+            android:label="Upload Document" />
+        <activity
+            android:name=".Nurse.ImageRecordActivity"
+            android:label="Laboratory Document" />
         <activity
             android:name=".Nurse.PregnancyControlActivity"
             android:label="Pregnancy Control"

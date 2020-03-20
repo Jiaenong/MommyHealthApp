@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mommyhealthapp.Mommy.KickCounterActivity;
+import com.example.mommyhealthapp.Mommy.PregnancyWeightGainActivity;
 import com.example.mommyhealthapp.R;
 
 /**
@@ -29,7 +30,7 @@ public class SelfCheckFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private CardView kickCounterMain;
+    private CardView kickCounterMain, cardViewPregnancyWeight;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -73,11 +74,19 @@ public class SelfCheckFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_self_check, container, false);
         kickCounterMain = (CardView)v.findViewById(R.id.kickCounterMain);
+        cardViewPregnancyWeight = (CardView)v.findViewById(R.id.cardViewPregnancyWeight);
 
         kickCounterMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), KickCounterActivity.class);
+                startActivity(intent);
+            }
+        });
+        cardViewPregnancyWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PregnancyWeightGainActivity.class);
                 startActivity(intent);
             }
         });

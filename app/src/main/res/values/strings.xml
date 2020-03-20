@@ -459,4 +459,53 @@
     <string name="documentDescription">Description</string>
     <string name="uploadPhoto">Upload Photo</string>
     <string name="undoPhoto">Undo Photo</string>
+    <string name="currentPregnancyStage">Your Current Pregnancy Stage :</string>
+    <string name="pregnantWithTwins">"Pregnant With Twins : "</string>
+    <string name="weightBeforePregnancy">Your Weight Before Pregnancy (kg)</string>
+    <string name="weightNow">Your Weight Now (kg)</string>
+    <string name="calculate">Calculate</string>
+    <string name="clear">Clear</string>
+    <string-array name="pregnant_week">
+        <item>Select Week</item>
+        <item>Week 1</item>
+        <item>Week 2</item>
+        <item>Week 3</item>
+        <item>Week 4</item>
+        <item>Week 5</item>
+        <item>Week 6</item>
+        <item>Week 7</item>
+        <item>Week 8</item>
+        <item>Week 9</item>
+        <item>Week 10</item>
+        <item>Week 11</item>
+        <item>Week 12</item>
+        <item>Week 13</item>
+        <item>Week 14</item>
+        <item>Week 15</item>
+        <item>Week 16</item>
+        <item>Week 17</item>
+        <item>Week 18</item>
+        <item>Week 19</item>
+        <item>Week 20</item>
+        <item>Week 21</item>
+        <item>Week 22</item>
+        <item>Week 23</item>
+        <item>Week 24</item>
+        <item>Week 25</item>
+        <item>Week 26</item>
+        <item>Week 27</item>
+        <item>Week 28</item>
+        <item>Week 29</item>
+        <item>Week 30</item>
+        <item>Week 31</item>
+        <item>Week 32</item>
+        <item>Week 33</item>
+        <item>Week 34</item>
+        <item>Week 35</item>
+        <item>Week 36</item>
+        <item>Week 37</item>
+        <item>Week 38</item>
+        <item>Week 39</item>
+        <item>Week 40</item>
+    </string-array>
 </resources>
