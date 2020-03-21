@@ -225,7 +225,7 @@ public class MGTTActivity extends AppCompatActivity {
                                     {
                                         checkBoxUTI.setChecked(true);
                                     }else{
-                                        checkBoxUTI.setChecked(true);
+                                        checkBoxUTI.setChecked(false);
                                     }
                                 }
                                 progressBarMGTT.setVisibility(View.GONE);
