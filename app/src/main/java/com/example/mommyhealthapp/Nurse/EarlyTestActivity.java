@@ -187,9 +187,10 @@ public class EarlyTestActivity extends AppCompatActivity {
                         byte[] array = new byte[7]; // length is bounded by 7
                         new Random().nextBytes(array);
                         final String generatedString = new String(array, Charset.forName("UTF-8"));
+                        String colorCode = "";
 
                         MommyHealthInfo mi = new MommyHealthInfo(SaveSharedPreference.getMummyId(EarlyTestActivity.this),
-                                GetMonth(month+1), year+"", status, generatedString);
+                                GetMonth(month+1), year+"", status, generatedString, colorCode);
                         final BloodTest bt = new BloodTest(bloodGroup, rhd, rpr, medicalPersonnelId, today);
                         CollectionReference pCollectionReference = mFirebaseFirestore.collection("Mommy");
                         pCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(EarlyTestActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {

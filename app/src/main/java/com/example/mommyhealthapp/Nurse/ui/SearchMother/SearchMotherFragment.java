@@ -237,6 +237,25 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
                 holder.textViewStatusActive.setText(mommy.getStatus());
                 holder.textViewStatusActive.setTextColor(Color.parseColor("#FF0000"));
             }
+            if(mommy.getColorCode().equals("red"))
+            {
+                holder.textViewColorCode.setText("Red Code");
+                holder.textViewColorCode.setTextColor(Color.RED);
+            }else if(mommy.getColorCode().equals("yellow"))
+            {
+                holder.textViewColorCode.setText("Yellow Code");
+                holder.textViewColorCode.setTextColor(Color.YELLOW);
+            }else if(mommy.getColorCode().equals("green"))
+            {
+                holder.textViewColorCode.setText("Green Code");
+                holder.textViewColorCode.setTextColor(Color.GREEN);
+            }else if(mommy.getColorCode().equals("white"))
+            {
+                holder.textViewColorCode.setText("White Code");
+                holder.textViewColorCode.setTextColor(Color.DKGRAY);
+            }else{
+                holder.textViewColorCode.setText("");
+            }
 
             if(mommy.getMummyImage().equals(""))
             {
@@ -252,7 +271,7 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
         }
 
         public class MyViewHolder extends RecyclerView.ViewHolder{
-            public TextView textViewName, textViewAge, textViewId, textViewStatusActive;
+            public TextView textViewName, textViewAge, textViewId, textViewStatusActive, textViewColorCode;
             public CircularImageView imageViewMummyPic;
 
             public MyViewHolder(View view)
@@ -262,6 +281,7 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
                 textViewAge = (TextView)view.findViewById(R.id.textViewAge);
                 textViewId = (TextView)view.findViewById(R.id.textViewId);
                 textViewStatusActive = (TextView)view.findViewById(R.id.textViewStatusActive);
+                textViewColorCode = (TextView)view.findViewById(R.id.textViewColorCode);
                 imageViewMummyPic = (CircularImageView)view.findViewById(R.id.imageViewMummyPic);
             }
         }

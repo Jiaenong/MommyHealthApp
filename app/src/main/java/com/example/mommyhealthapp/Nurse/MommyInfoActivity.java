@@ -78,7 +78,7 @@ public class MommyInfoActivity extends AppCompatActivity {
     private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle, radioBtnMalay, radioBtnChinese, radioBtnIndian, radioBtnOtherRaces;;
     private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr, txtIinputLayoutOtherRace;
     private CheckBox chkBoxStatus;
-    private TextView textViewMummyInfoName, textViewMummyInfoAge, textViewMummyInfoID;
+    private TextView textViewMummyInfoName, textViewMummyInfoAge, textViewMummyInfoID, textViewMummyInfoColorCode;
     private CircularImageView imageViewMummyInfo;
     private ProgressBar progressBarMummyInfo;
 
@@ -99,6 +99,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         textViewMummyInfoName = (TextView)findViewById(R.id.textViewMummyInfoName);
         textViewMummyInfoAge = (TextView)findViewById(R.id.textViewMummyInfoAge);
         textViewMummyInfoID = (TextView)findViewById(R.id.textViewMummyInfoID);
+        textViewMummyInfoColorCode = (TextView)findViewById(R.id.textViewMummyInfoColorCode);
         imageViewMummyInfo = (CircularImageView)findViewById(R.id.imageViewMummyInfo);
 
         progressBarMummyInfo = (ProgressBar)findViewById(R.id.progressBarMummyInfo);
@@ -360,6 +361,26 @@ public class MommyInfoActivity extends AppCompatActivity {
                     textViewMummyInfoName.setText(mommy.getMommyName());
                     textViewMummyInfoAge.setText(mommy.getAge()+"");
                     textViewMummyInfoID.setText(mommy.getMommyId());
+                    if(mommy.getColorCode().equals("red"))
+                    {
+                        textViewMummyInfoColorCode.setText("Red Code");
+                        textViewMummyInfoColorCode.setTextColor(Color.RED);
+                    }else if(mommy.getColorCode().equals("yellow"))
+                    {
+                        textViewMummyInfoColorCode.setText("Yellow Code");
+                        textViewMummyInfoColorCode.setTextColor(Color.YELLOW);
+                    }else if(mommy.getColorCode().equals("green"))
+                    {
+                        textViewMummyInfoColorCode.setText("Green Code");
+                        textViewMummyInfoColorCode.setTextColor(Color.GREEN);
+                    }else if(mommy.getColorCode().equals("white"))
+                    {
+                        textViewMummyInfoColorCode.setText("White Code");
+                        textViewMummyInfoColorCode.setTextColor(Color.DKGRAY);
+                    }else{
+                        textViewMummyInfoColorCode.setText("");
+                    }
+
                     if(mommy.getMummyImage().equals(""))
                     {
                         imageViewMummyInfo.setImageResource(R.drawable.user);

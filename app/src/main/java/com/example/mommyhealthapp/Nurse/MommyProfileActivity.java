@@ -43,7 +43,7 @@ public class MommyProfileActivity extends AppCompatActivity {
     private LinearLayoutCompat layoutMommyProfilell;
     private ProgressBar progressBarProfile;
     private CardView cardViewEarlyTest, cardViewPE, cardViewMGTT, cardViewSectionN, cardViewBabyKick, cardViewSummaryReport, cardViewColorCode, cardViewStorePicture;
-    private TextView textViewMummyName, textViewMummyAge, textViewMummyID, textViewMummyStatus;
+    private TextView textViewMummyName, textViewMummyAge, textViewMummyID, textViewMummyStatus, textViewMummyColorCode;
     private CircularImageView imageViewMummy;
     private Boolean checkStatus, isEmpty;
 
@@ -71,6 +71,7 @@ public class MommyProfileActivity extends AppCompatActivity {
         textViewMummyAge = (TextView)findViewById(R.id.textViewMummyAge);
         textViewMummyID = (TextView)findViewById(R.id.textViewMummyID);
         textViewMummyStatus = (TextView)findViewById(R.id.textViewMummyStatus);
+        textViewMummyColorCode = (TextView)findViewById(R.id.textViewMummyColorCode);
         imageViewMummy = (CircularImageView)findViewById(R.id.imageViewMummy);
         layoutMommyProfilell = (LinearLayoutCompat)findViewById(R.id.layoutMommyProfilell);
         progressBarProfile = (ProgressBar)findViewById(R.id.progressBarProfile);
@@ -102,6 +103,26 @@ public class MommyProfileActivity extends AppCompatActivity {
                     {
                         textViewMummyStatus.setText(mommy.getStatus());
                         textViewMummyStatus.setTextColor(Color.parseColor("#FF0000"));
+                    }
+
+                    if(mommy.getColorCode().equals("red"))
+                    {
+                        textViewMummyColorCode.setText("Red Code");
+                        textViewMummyColorCode.setTextColor(Color.RED);
+                    }else if(mommy.getColorCode().equals("yellow"))
+                    {
+                        textViewMummyColorCode.setText("Yellow Code");
+                        textViewMummyColorCode.setTextColor(Color.YELLOW);
+                    }else if(mommy.getColorCode().equals("green"))
+                    {
+                        textViewMummyColorCode.setText("Green Code");
+                        textViewMummyColorCode.setTextColor(Color.GREEN);
+                    }else if(mommy.getColorCode().equals("white"))
+                    {
+                        textViewMummyColorCode.setText("White Code");
+                        textViewMummyColorCode.setTextColor(Color.DKGRAY);
+                    }else{
+                        textViewMummyColorCode.setText("");
                     }
 
                     if(mommy.getMummyImage().equals(""))

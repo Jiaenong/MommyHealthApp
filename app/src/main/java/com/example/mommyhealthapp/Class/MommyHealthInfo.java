@@ -9,16 +9,18 @@ public class MommyHealthInfo {
     private String month;
     private String status;
     private String healthInfoId;
+    private String colorCode;
 
     public MommyHealthInfo(){}
 
-    public MommyHealthInfo(String mommyId, String year, String month, String status, String healthInfoId)
+    public MommyHealthInfo(String mommyId, String year, String month, String status, String healthInfoId, String colorCode)
     {
         this.mommyId = mommyId;
         this.year = year;
         this.month = month;
         this.status = status;
         this.healthInfoId = healthInfoId;
+        this.colorCode = colorCode;
     }
 
     public String getHealthInfoId() {
@@ -59,5 +61,13 @@ public class MommyHealthInfo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
     }
 }

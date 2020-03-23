@@ -82,7 +82,7 @@ public class MGTTActivity extends AppCompatActivity {
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
-        mCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(MGTTActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(MGTTActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)

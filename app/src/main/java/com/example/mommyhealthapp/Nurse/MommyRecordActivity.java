@@ -236,6 +236,26 @@ public class MommyRecordActivity extends AppCompatActivity {
                 holder.txtViewRecordStatus.setText(mhi.getStatus());
                 holder.txtViewRecordStatus.setTextColor(Color.parseColor("#FF0000"));
             }
+
+            if(mhi.getColorCode().equals("red"))
+            {
+                holder.textViewRecordColorCode.setText("Red Code");
+                holder.textViewRecordColorCode.setTextColor(Color.RED);
+            }else if(mhi.getColorCode().equals("yellow"))
+            {
+                holder.textViewRecordColorCode.setText("Yellow Code");
+                holder.textViewRecordColorCode.setTextColor(Color.YELLOW);
+            }else if(mhi.getColorCode().equals("green"))
+            {
+                holder.textViewRecordColorCode.setText("Green Code");
+                holder.textViewRecordColorCode.setTextColor(Color.GREEN);
+            }else if(mhi.getColorCode().equals("white"))
+            {
+                holder.textViewRecordColorCode.setText("White Code");
+                holder.textViewRecordColorCode.setTextColor(Color.DKGRAY);
+            }else{
+                holder.textViewRecordColorCode.setText("");
+            }
         }
 
         @Override
@@ -244,7 +264,7 @@ public class MommyRecordActivity extends AppCompatActivity {
         }
 
         public class MyViewHolder extends RecyclerView.ViewHolder{
-            public TextView txtViewRecordYear, txtViewRecordMonth, txtViewRecordStatus;
+            public TextView txtViewRecordYear, txtViewRecordMonth, txtViewRecordStatus, textViewRecordColorCode;
 
             public MyViewHolder(View view)
             {
@@ -252,6 +272,7 @@ public class MommyRecordActivity extends AppCompatActivity {
                 txtViewRecordYear = (TextView)view.findViewById(R.id.txtViewRecordYear);
                 txtViewRecordMonth = (TextView)view.findViewById(R.id.txtViewRecordMonth);
                 txtViewRecordStatus = (TextView)view.findViewById(R.id.txtViewRecordStatus);
+                textViewRecordColorCode = (TextView)view.findViewById(R.id.textViewRecordColorCode);
             }
         }
 

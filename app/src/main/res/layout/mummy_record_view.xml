@@ -66,6 +66,16 @@
                     android:layout_toRightOf="@id/textViewId"
                     android:text="Active"
                     android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/textViewColorCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_below="@id/textViewName"
+                    android:layout_toRightOf="@id/textViewStatusActive"
+                    android:text="TextView" />
             </RelativeLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

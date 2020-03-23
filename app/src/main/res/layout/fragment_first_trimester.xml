@@ -29,6 +29,7 @@
             android:padding="10dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutRedCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/customborder"
@@ -362,6 +363,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutYellowCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -720,6 +722,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutGreenCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -1398,6 +1401,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutWhiteCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

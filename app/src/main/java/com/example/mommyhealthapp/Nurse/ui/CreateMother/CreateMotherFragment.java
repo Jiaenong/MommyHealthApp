@@ -162,8 +162,9 @@ public class CreateMotherFragment extends Fragment {
                     String healthInfoId = "";
                     qrcode = "";
                     String deviceToken = "";
+                    String colorCode = "";
 
-                    Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,email,occupation,age,education,confirmPass, mommyId, mommyNumber,status,imagePic,qrcode, healthInfoId, deviceToken);
+                    Mommy mommy = new Mommy(mommyName,ic,nationality,selectedRadioButton,address,phoneNum,email,occupation,age,education,confirmPass, mommyId, mommyNumber,status,imagePic,qrcode, healthInfoId, deviceToken, colorCode);
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("mommyinfo", mommy);
