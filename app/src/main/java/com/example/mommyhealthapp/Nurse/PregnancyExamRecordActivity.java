@@ -1,5 +1,6 @@
 package com.example.mommyhealthapp.Nurse;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -27,7 +28,9 @@ import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -71,17 +74,18 @@ public class PregnancyExamRecordActivity extends AppCompatActivity {
             MommyLogIn();
         }
         else{
-            mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(PregnancyExamRecordActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(PregnancyExamRecordActivity.this)).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                     for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                     {
                         healthInfoId = documentSnapshot.getId();
                     }
                     nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination");
-                    nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    nCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                            peList.clear();
                             for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
                             {
                                 PregnancyExamination pe = documentSnapshots.toObject(PregnancyExamination.class);

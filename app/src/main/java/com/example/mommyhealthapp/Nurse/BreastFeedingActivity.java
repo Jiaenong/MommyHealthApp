@@ -388,8 +388,6 @@ public class BreastFeedingActivity extends AppCompatActivity {
                                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        Intent intent = new Intent(BreastFeedingActivity.this, SectionNActivity.class);
-                                        startActivity(intent);
                                         finish();
                                     }
                                 });

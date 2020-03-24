@@ -300,8 +300,6 @@ public class HealthyMindFilterActivity extends AppCompatActivity {
                             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent intent = new Intent(HealthyMindFilterActivity.this, EarlyTestActivity.class);
-                                    startActivity(intent);
                                     finish();
                                 }
                             });

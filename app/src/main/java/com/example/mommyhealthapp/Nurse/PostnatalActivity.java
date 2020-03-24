@@ -283,8 +283,6 @@ public class PostnatalActivity extends AppCompatActivity {
                                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        Intent intent = new Intent(PostnatalActivity.this, SectionNActivity.class);
-                                        startActivity(intent);
                                         finish();
                                     }
                                 });

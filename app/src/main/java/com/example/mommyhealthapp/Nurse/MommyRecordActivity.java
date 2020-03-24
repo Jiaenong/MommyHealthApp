@@ -244,11 +244,11 @@ public class MommyRecordActivity extends AppCompatActivity {
             }else if(mhi.getColorCode().equals("yellow"))
             {
                 holder.textViewRecordColorCode.setText("Yellow Code");
-                holder.textViewRecordColorCode.setTextColor(Color.YELLOW);
+                holder.textViewRecordColorCode.setTextColor(Color.parseColor("#CCCC00"));
             }else if(mhi.getColorCode().equals("green"))
             {
                 holder.textViewRecordColorCode.setText("Green Code");
-                holder.textViewRecordColorCode.setTextColor(Color.GREEN);
+                holder.textViewRecordColorCode.setTextColor(Color.parseColor("#006400"));
             }else if(mhi.getColorCode().equals("white"))
             {
                 holder.textViewRecordColorCode.setText("White Code");

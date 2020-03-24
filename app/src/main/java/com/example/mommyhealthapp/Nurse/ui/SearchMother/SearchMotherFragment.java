@@ -244,11 +244,11 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
             }else if(mommy.getColorCode().equals("yellow"))
             {
                 holder.textViewColorCode.setText("Yellow Code");
-                holder.textViewColorCode.setTextColor(Color.YELLOW);
+                holder.textViewColorCode.setTextColor(Color.parseColor("#CCCC00"));
             }else if(mommy.getColorCode().equals("green"))
             {
                 holder.textViewColorCode.setText("Green Code");
-                holder.textViewColorCode.setTextColor(Color.GREEN);
+                holder.textViewColorCode.setTextColor(Color.parseColor("#006400"));
             }else if(mommy.getColorCode().equals("white"))
             {
                 holder.textViewColorCode.setText("White Code");

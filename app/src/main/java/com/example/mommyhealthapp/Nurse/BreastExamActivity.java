@@ -318,8 +318,6 @@ public class BreastExamActivity extends AppCompatActivity {
                             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent intent = new Intent(BreastExamActivity.this, EarlyTestActivity.class);
-                                    startActivity(intent);
                                     finish();
                                 }
                             });

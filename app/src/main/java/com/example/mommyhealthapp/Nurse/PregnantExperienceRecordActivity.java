@@ -1,5 +1,6 @@
 package com.example.mommyhealthapp.Nurse;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -25,7 +26,9 @@ import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -89,9 +92,10 @@ public class PregnantExperienceRecordActivity extends AppCompatActivity {
             MommyLogIn();
         }
         else{
-            mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            mCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    ppList.clear();
                     for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                     {
                         PreviousPregnant pp = documentSnapshot.toObject(PreviousPregnant.class);

@@ -446,9 +446,6 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                                                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                                        Intent intent = new Intent(PregnancyExaminationActivity.this, MommyProfileActivity.class);
-                                                        intent.putExtra("MommyID", SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this));
-                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 });
@@ -479,9 +476,6 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
-                                                Intent intent = new Intent(PregnancyExaminationActivity.this, MommyProfileActivity.class);
-                                                intent.putExtra("MommyID", SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this));
-                                                startActivity(intent);
                                                 finish();
                                             }
                                         });

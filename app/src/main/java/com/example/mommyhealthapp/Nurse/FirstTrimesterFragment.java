@@ -84,57 +84,55 @@ public class FirstTrimesterFragment extends Fragment {
             }
         });
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo");
-        mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(getActivity())).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-                {
-                    healthInfoId = documentSnapshot.getId();
-                }
-                nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("FirstTrimester");
-                nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if(queryDocumentSnapshots.isEmpty())
-                        {
-                            isEmpty = true;
-                            progressBarFirstTri.setVisibility(View.GONE);
-                            layoutFT.setVisibility(View.VISIBLE);
-                        }else{
-                            isEmpty = false;
-                            DisableField();
-                            for(QueryDocumentSnapshot documentSnapshots: queryDocumentSnapshots)
-                            {
-                                key = documentSnapshots.getId();
-                                FirstTrimester ft = documentSnapshots.toObject(FirstTrimester.class);
-                                for(int i=0; i<ft.getRedCode().size(); i++)
-                                {
-                                    CheckBox checkBox = (CheckBox)v.findViewById(Integer.parseInt(ft.getRedCode().get(i)));
-                                    checkBox.setChecked(true);
-                                }
-                                for(int i=0; i<ft.getYellowCode().size(); i++)
-                                {
-                                    CheckBox checkBox = (CheckBox)v.findViewById(Integer.parseInt(ft.getYellowCode().get(i)));
-                                    checkBox.setChecked(true);
-                                }
-                                for(int i=0; i<ft.getGreenCode().size(); i++)
-                                {
-                                    CheckBox checkBox = (CheckBox)v.findViewById(Integer.parseInt(ft.getGreenCode().get(i)));
-                                    checkBox.setChecked(true);
-                                }
-                                for(int i=0; i<ft.getWhiteCode().size(); i++)
-                                {
-                                    CheckBox checkBox = (CheckBox)v.findViewById(Integer.parseInt(ft.getWhiteCode().get(i)));
-                                    checkBox.setChecked(true);
-                                }
-                            }
-                            progressBarFirstTri.setVisibility(View.GONE);
-                            layoutFT.setVisibility(View.VISIBLE);
-                        }
+        if(SaveSharedPreference.getUser(getActivity()).equals("Mommy"))
+        {
+            MommyLogIn(v);
+        }else {
+            mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(getActivity())).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        healthInfoId = documentSnapshot.getId();
                     }
-                });
-            }
-        });
+                    nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("FirstTrimester");
+                    nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (queryDocumentSnapshots.isEmpty()) {
+                                isEmpty = true;
+                                progressBarFirstTri.setVisibility(View.GONE);
+                                layoutFT.setVisibility(View.VISIBLE);
+                            } else {
+                                isEmpty = false;
+                                DisableField();
+                                for (QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots) {
+                                    key = documentSnapshots.getId();
+                                    FirstTrimester ft = documentSnapshots.toObject(FirstTrimester.class);
+                                    for (int i = 0; i < ft.getRedCode().size(); i++) {
+                                        CheckBox checkBox = (CheckBox) v.findViewById(Integer.parseInt(ft.getRedCode().get(i)));
+                                        checkBox.setChecked(true);
+                                    }
+                                    for (int i = 0; i < ft.getYellowCode().size(); i++) {
+                                        CheckBox checkBox = (CheckBox) v.findViewById(Integer.parseInt(ft.getYellowCode().get(i)));
+                                        checkBox.setChecked(true);
+                                    }
+                                    for (int i = 0; i < ft.getGreenCode().size(); i++) {
+                                        CheckBox checkBox = (CheckBox) v.findViewById(Integer.parseInt(ft.getGreenCode().get(i)));
+                                        checkBox.setChecked(true);
+                                    }
+                                    for (int i = 0; i < ft.getWhiteCode().size(); i++) {
+                                        CheckBox checkBox = (CheckBox) v.findViewById(Integer.parseInt(ft.getWhiteCode().get(i)));
+                                        checkBox.setChecked(true);
+                                    }
+                                }
+                                progressBarFirstTri.setVisibility(View.GONE);
+                                layoutFT.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    });
+                }
+            });
+        }
 
         btnFTSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,30 +222,43 @@ public class FirstTrimesterFragment extends Fragment {
                     }
                     FirstTrimester ft = new FirstTrimester(red, yellow, green, white, medicalPersonnelId, createdDate);
                     final String finalColorCode = DetermineColorCode(red, yellow, green, white);
-                    nCollectionReference.add(ft).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            DocumentReference mDocumentReference = mFirebaseFirestore.collection("Mommy").document(mommyKey);
-                            DocumentReference nDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId);
-                            mDocumentReference.update("colorCode", finalColorCode);
-                            nDocumentReference.update("colorCode", finalColorCode);
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setTitle("Save Successfully");
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent intent = new Intent(getActivity(), MommyProfileActivity.class);
-                                    intent.putExtra("MommyID", SaveSharedPreference.getMummyId(getActivity()));
-                                    startActivity(intent);
-                                    getActivity().finish();
-                                }
-                            });
-                            builder.setMessage("Save Successful!");
-                            AlertDialog alert = builder.create();
-                            alert.setCanceledOnTouchOutside(false);
-                            alert.show();
-                        }
-                    });
+                    Boolean emptyField = DetermineEmptyCheckBox(red, yellow, green, white);
+                    if(emptyField == false)
+                    {
+                        nCollectionReference.add(ft).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                DocumentReference mDocumentReference = mFirebaseFirestore.collection("Mommy").document(mommyKey);
+                                DocumentReference nDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId);
+                                mDocumentReference.update("colorCode", finalColorCode);
+                                nDocumentReference.update("colorCode", finalColorCode);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setTitle("Save Successfully");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        getActivity().finish();
+                                    }
+                                });
+                                builder.setMessage("Save Successful!");
+                                AlertDialog alert = builder.create();
+                                alert.setCanceledOnTouchOutside(false);
+                                alert.show();
+                            }
+                        });
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Error");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
+                            }
+                        });
+                        builder.setMessage("At least one check box must be checked!");
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }
                 }else{
                     check++;
                     if(check == 1)
@@ -341,19 +352,36 @@ public class FirstTrimesterFragment extends Fragment {
                             }
                         }
                         String colorCode = DetermineColorCode(red, yellow, green, white);
-                        nDocumentReference.update("colorCode", colorCode);
-                        pDocumentReference.update("colorCode", colorCode);
-                        mDocumentReference.update("redCode", red);
-                        mDocumentReference.update("yellowCode", yellow);
-                        mDocumentReference.update("greenCode", green);
-                        mDocumentReference.update("whiteCode", white);
-                        mDocumentReference.update("medicalPersonnelId", medicalPersonnelId);
-                        mDocumentReference.update("createdDate", createdDate);
-                        Snackbar snackbar = Snackbar.make(relativeLayoutFirstTrimester, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                        check = 0;
-                        btnFTCancel.setVisibility(View.GONE);
-                        DisableField();
+                        Boolean emptyField = DetermineEmptyCheckBox(red, yellow, green, white);
+                        if(emptyField == false)
+                        {
+                            nDocumentReference.update("colorCode", colorCode);
+                            pDocumentReference.update("colorCode", colorCode);
+                            mDocumentReference.update("redCode", red);
+                            mDocumentReference.update("yellowCode", yellow);
+                            mDocumentReference.update("greenCode", green);
+                            mDocumentReference.update("whiteCode", white);
+                            mDocumentReference.update("medicalPersonnelId", medicalPersonnelId);
+                            mDocumentReference.update("createdDate", createdDate);
+                            Snackbar snackbar = Snackbar.make(relativeLayoutFirstTrimester, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                            check = 0;
+                            btnFTCancel.setVisibility(View.GONE);
+                            DisableField();
+                        }else{
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("Error");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                            builder.setMessage("At least one check box must be checked!");
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                            check = 1;
+                        }
                     }
                 }
             }
@@ -369,6 +397,68 @@ public class FirstTrimesterFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void MommyLogIn(final View v)
+    {
+        mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(getActivity())).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    healthInfoId = documentSnapshot.getId();
+                }
+                nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("FirstTrimester");
+                nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            isEmpty = true;
+                            progressBarFirstTri.setVisibility(View.GONE);
+                            layoutFT.setVisibility(View.VISIBLE);
+                            btnFTSave.setVisibility(View.GONE);
+                            btnFTCancel.setVisibility(View.GONE);
+                        } else {
+                            isEmpty = false;
+                            DisableField();
+                            for (QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots) {
+                                key = documentSnapshots.getId();
+                                FirstTrimester ft = documentSnapshots.toObject(FirstTrimester.class);
+                                for (int i = 0; i < ft.getRedCode().size(); i++) {
+                                    CheckBox checkBox = (CheckBox) v.findViewById(Integer.parseInt(ft.getRedCode().get(i)));
+                                    checkBox.setChecked(true);
+                                }
+                                for (int i = 0; i < ft.getYellowCode().size(); i++) {
+                                    CheckBox checkBox = (CheckBox) v.findViewById(Integer.parseInt(ft.getYellowCode().get(i)));
+                                    checkBox.setChecked(true);
+                                }
+                                for (int i = 0; i < ft.getGreenCode().size(); i++) {
+                                    CheckBox checkBox = (CheckBox) v.findViewById(Integer.parseInt(ft.getGreenCode().get(i)));
+                                    checkBox.setChecked(true);
+                                }
+                                for (int i = 0; i < ft.getWhiteCode().size(); i++) {
+                                    CheckBox checkBox = (CheckBox) v.findViewById(Integer.parseInt(ft.getWhiteCode().get(i)));
+                                    checkBox.setChecked(true);
+                                }
+                            }
+                            progressBarFirstTri.setVisibility(View.GONE);
+                            layoutFT.setVisibility(View.VISIBLE);
+                            btnFTSave.setVisibility(View.GONE);
+                            btnFTCancel.setVisibility(View.GONE);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private Boolean DetermineEmptyCheckBox(List<String> red, List<String> yellow, List<String> green, List<String> white)
+    {
+        if(red.isEmpty() && yellow.isEmpty() && green.isEmpty() && white.isEmpty())
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private String DetermineColorCode(List<String> red, List<String> yellow, List<String> green, List<String> white)

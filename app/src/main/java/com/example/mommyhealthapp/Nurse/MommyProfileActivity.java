@@ -112,11 +112,11 @@ public class MommyProfileActivity extends AppCompatActivity {
                     }else if(mommy.getColorCode().equals("yellow"))
                     {
                         textViewMummyColorCode.setText("Yellow Code");
-                        textViewMummyColorCode.setTextColor(Color.YELLOW);
+                        textViewMummyColorCode.setTextColor(Color.parseColor("#CCCC00"));
                     }else if(mommy.getColorCode().equals("green"))
                     {
                         textViewMummyColorCode.setText("Green Code");
-                        textViewMummyColorCode.setTextColor(Color.GREEN);
+                        textViewMummyColorCode.setTextColor(Color.parseColor("#006400"));
                     }else if(mommy.getColorCode().equals("white"))
                     {
                         textViewMummyColorCode.setText("White Code");

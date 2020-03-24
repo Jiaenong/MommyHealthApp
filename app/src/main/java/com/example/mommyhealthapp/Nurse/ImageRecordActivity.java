@@ -1,5 +1,6 @@
 package com.example.mommyhealthapp.Nurse;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -26,7 +27,9 @@ import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -72,17 +75,18 @@ public class ImageRecordActivity extends AppCompatActivity {
         {
             MommyLogIn();
         }else{
-            mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(ImageRecordActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            mCollectionReference.whereEqualTo("healthInfoId", SaveSharedPreference.getHealthInfoId(ImageRecordActivity.this)).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                     for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                     {
                         healthInfoId = documentSnapshot.getId();
                     }
                     nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("DocumentImage");
-                    nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    nCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                            diList.clear();
                             for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
                             {
                                 DocumentImage di = documentSnapshots.toObject(DocumentImage.class);

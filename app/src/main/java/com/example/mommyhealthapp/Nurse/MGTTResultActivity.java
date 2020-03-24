@@ -199,9 +199,6 @@ public class MGTTResultActivity extends AppCompatActivity {
                             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent intent = new Intent(MGTTResultActivity.this, MommyProfileActivity.class);
-                                    intent.putExtra("MommyID", SaveSharedPreference.getMummyId(MGTTResultActivity.this));
-                                    startActivity(intent);
                                     finish();
                                 }
                             });

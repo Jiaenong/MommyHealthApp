@@ -145,8 +145,6 @@ public class SectionDActivity extends AppCompatActivity {
                             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent intent = new Intent(SectionDActivity.this, EarlyTestActivity.class);
-                                    startActivity(intent);
                                     finish();
                                 }
                             });

@@ -394,14 +394,12 @@ public class MGTTActivity extends AppCompatActivity {
                                     intent.putExtra("healthInfoId", healthInfoId);
                                     intent.putExtra("MGTTKey", documentReference.getId());
                                     startActivity(intent);
+                                    finish();
                                 }
                             });
                             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(MGTTActivity.this, MommyProfileActivity.class);
-                                    intent.putExtra("MommyID", SaveSharedPreference.getMummyId(MGTTActivity.this));
-                                    startActivity(intent);
                                     finish();
                                 }
                             });
