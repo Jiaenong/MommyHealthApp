@@ -440,6 +440,9 @@ public class BreastExamActivity extends AppCompatActivity {
                     isEmpty = true;
                     progressBarBreastExamine.setVisibility(View.GONE);
                     layoutBreastExamine.setVisibility(View.VISIBLE);
+                    btnBECancel.setVisibility(View.GONE);
+                    btnBESave.setVisibility(View.GONE);
+                    DisableField();
                 }else{
                     isEmpty = false;
                     DisableField();

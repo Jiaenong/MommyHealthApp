@@ -457,6 +457,9 @@ public class HealthyMindFilterActivity extends AppCompatActivity {
                     isEmpty = true;
                     layoutMentalHealth.setVisibility(View.VISIBLE);
                     progressBarMentalHealth.setVisibility(View.GONE);
+                    btnMentalCancel.setVisibility(View.GONE);
+                    btnMentalSave.setVisibility(View.GONE);
+                    DisableField();
                 }else{
                     isEmpty = false;
                     layoutStress.setVisibility(View.VISIBLE);

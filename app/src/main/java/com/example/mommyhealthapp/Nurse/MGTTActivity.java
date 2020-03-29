@@ -593,6 +593,9 @@ public class MGTTActivity extends AppCompatActivity {
                     isEmpty = true;
                     progressBarMGTT.setVisibility(View.GONE);
                     layoutMGTT.setVisibility(View.VISIBLE);
+                    buttonSaveMGTT.setVisibility(View.GONE);
+                    buttonCancelMGTT.setVisibility(View.GONE);
+                    DisableField();
                 }else{
                     isEmpty = false;
                     DisableField();

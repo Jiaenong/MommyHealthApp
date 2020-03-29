@@ -419,6 +419,7 @@ public class ThridTrimesterFragment extends Fragment {
                             layoutTT.setVisibility(View.VISIBLE);
                             btnTTCancel.setVisibility(View.GONE);
                             btnTTSave.setVisibility(View.GONE);
+                            DisableField();
                         }else{
                             isEmpty = false;
                             DisableField();

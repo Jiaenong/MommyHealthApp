@@ -116,6 +116,12 @@ public class SectionNOthersActivity extends AppCompatActivity {
                             isEmpty = true;
                             layoutOtherTutorial.setVisibility(View.VISIBLE);
                             progressBarOtherTutorial.setVisibility(View.GONE);
+                            if(SaveSharedPreference.getUser(SectionNOthersActivity.this).equals("Mommy"))
+                            {
+                                btnOtherTutorialCancel.setVisibility(View.GONE);
+                                btnOtherTutorialSave.setVisibility(View.GONE);
+                                DisableField();
+                            }
                         }else{
                             isEmpty = false;
                             DisableField();

@@ -142,6 +142,12 @@ public class AntenatalActivity extends AppCompatActivity {
                             isEmpty = true;
                             progressBarAntenatalTutorial.setVisibility(View.GONE);
                             layoutAntenatal.setVisibility(View.VISIBLE);
+                            if(SaveSharedPreference.getUser(AntenatalActivity.this).equals("Mommy"))
+                            {
+                                btnAntenatalCancel.setVisibility(View.GONE);
+                                btnAntenatalSave.setVisibility(View.GONE);
+                                DisableField();
+                            }
                         }else{
                             isEmpty = false;
                             DisableField();

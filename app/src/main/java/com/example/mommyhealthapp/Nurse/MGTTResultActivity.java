@@ -283,6 +283,9 @@ public class MGTTResultActivity extends AppCompatActivity {
                     isEmpty = true;
                     progressBarMGTTResult.setVisibility(View.GONE);
                     layoutMGTTResult.setVisibility(View.VISIBLE);
+                    btnMGTTResultSave.setVisibility(View.GONE);
+                    btnMGTTResultCancel.setVisibility(View.GONE);
+                    DisableField();
                 }else{
                     isEmpty = false;
                     DisableField();

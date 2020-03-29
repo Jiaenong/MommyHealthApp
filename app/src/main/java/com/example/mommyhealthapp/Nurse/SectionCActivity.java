@@ -465,6 +465,9 @@ public class SectionCActivity extends AppCompatActivity {
                     isEmpty = true;
                     progressBarHealthHistory.setVisibility(View.GONE);
                     layoutHealthHistory.setVisibility(View.VISIBLE);
+                    btnHealthHistoryCancel.setVisibility(View.GONE);
+                    btnHealthHistorySave.setVisibility(View.GONE);
+                    DisableField();
                 }else{
                     isEmpty = false;
                     DisableField();

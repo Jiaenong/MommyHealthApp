@@ -19,7 +19,10 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Nurse.BabyKickRecordActivity;
 import com.example.mommyhealthapp.Nurse.EarlyTestActivity;
+import com.example.mommyhealthapp.Nurse.ImageRecordActivity;
 import com.example.mommyhealthapp.Nurse.MGTTActivity;
+import com.example.mommyhealthapp.Nurse.MommyProfileActivity;
+import com.example.mommyhealthapp.Nurse.PregnancyControlActivity;
 import com.example.mommyhealthapp.Nurse.PregnancyExamRecordActivity;
 import com.example.mommyhealthapp.Nurse.PregnancyExaminationActivity;
 import com.example.mommyhealthapp.Nurse.SectionNActivity;
@@ -34,7 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class PregnancyRecordFragment extends Fragment {
 
     private PregnancyRecordViewModel dashboardViewModel;
-    private CardView earlyTest, mgtt, pregnantExamination, healthTutorial, babyKicks, graphReport;
+    private CardView earlyTest, mgtt, pregnantExamination, healthTutorial, babyKicks, graphReport, pregnancyControl, documentRecord;
     private ProgressBar progressBarPregnancyRecord;
     private LinearLayoutCompat layoutPregnancyRecord;
 
@@ -60,6 +63,8 @@ public class PregnancyRecordFragment extends Fragment {
         healthTutorial = (CardView)root.findViewById(R.id.healthTutorial);
         babyKicks = (CardView)root.findViewById(R.id.babyKicks);
         graphReport = (CardView)root.findViewById(R.id.graphReport);
+        pregnancyControl = (CardView)root.findViewById(R.id.pregnancyControl);
+        documentRecord = (CardView)root.findViewById(R.id.documentRecord);
         progressBarPregnancyRecord = (ProgressBar)root.findViewById(R.id.progressBarPregnancyRecord);
         layoutPregnancyRecord = (LinearLayoutCompat)root.findViewById(R.id.layoutPregnancyRecord);
 
@@ -125,6 +130,22 @@ public class PregnancyRecordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SummaryReportActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        pregnancyControl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PregnancyControlActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        documentRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ImageRecordActivity.class);
                 startActivity(intent);
             }
         });

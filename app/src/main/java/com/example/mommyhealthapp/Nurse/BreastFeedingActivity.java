@@ -133,6 +133,12 @@ public class BreastFeedingActivity extends AppCompatActivity {
                             isEmpty = true;
                             progressBarBF.setVisibility(View.GONE);
                             layoutBF.setVisibility(View.VISIBLE);
+                            if(SaveSharedPreference.getUser(BreastFeedingActivity.this).equals("Mommy"))
+                            {
+                                btnBFCancel.setVisibility(View.GONE);
+                                btnBFSave.setVisibility(View.GONE);
+                                DisableField();
+                            }
                         }else{
                             isEmpty = false;
                             DisableField();

@@ -421,6 +421,7 @@ public class SecondTrimesterFragment extends Fragment {
                             layoutST.setVisibility(View.VISIBLE);
                             btnSTSave.setVisibility(View.GONE);
                             btnSTCancel.setVisibility(View.GONE);
+                            DisableField();
                         }else{
                             isEmpty = false;
                             DisableField();

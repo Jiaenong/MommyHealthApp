@@ -116,6 +116,12 @@ public class PostnatalActivity extends AppCompatActivity {
                             isEmpty = true;
                             progressBarPostnatalTutorial.setVisibility(View.GONE);
                             layoutPostnatal.setVisibility(View.VISIBLE);
+                            if(SaveSharedPreference.getUser(PostnatalActivity.this).equals("Mommy"))
+                            {
+                                btnPostnatalCancel.setVisibility(View.GONE);
+                                btnPostnatalSave.setVisibility(View.GONE);
+                                DisableField();
+                            }
                         }else{
                             isEmpty = false;
                             DisableField();

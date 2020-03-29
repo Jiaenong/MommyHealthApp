@@ -210,6 +210,9 @@ public class SectionDActivity extends AppCompatActivity {
                     isEmpty = true;
                     layoutCHS.setVisibility(View.VISIBLE);
                     progressBarCurrentHealthStatus.setVisibility(View.GONE);
+                    btnCurrentCancel.setVisibility(View.GONE);
+                    btnCurrentSave.setVisibility(View.GONE);
+                    DisableField();
                 }else{
                     isEmpty = false;
                     DisableField();

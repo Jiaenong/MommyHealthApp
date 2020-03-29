@@ -116,6 +116,12 @@ public class UnusualCircumtancesActivity extends AppCompatActivity {
                             isEmpty = true;
                             layoutUC.setVisibility(View.VISIBLE);
                             progressBarUC.setVisibility(View.GONE);
+                            if(SaveSharedPreference.getUser(UnusualCircumtancesActivity.this).equals("Mommy"))
+                            {
+                                btnUCCancel.setVisibility(View.GONE);
+                                btnUCSave.setVisibility(View.GONE);
+                                DisableField();
+                            }
                         }else {
                             isEmpty = false;
                             DisableField();

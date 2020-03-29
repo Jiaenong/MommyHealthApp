@@ -242,6 +242,9 @@ public class SectionBActivity extends AppCompatActivity {
                     isEmpty = true;
                     layoutScreenTest.setVisibility(View.VISIBLE);
                     progressBarST.setVisibility(View.GONE);
+                    btnSTCancel.setVisibility(View.GONE);
+                    btnSTSave.setVisibility(View.GONE);
+                    DisableField();
                 }else{
                     isEmpty = false;
                     DisableField();
