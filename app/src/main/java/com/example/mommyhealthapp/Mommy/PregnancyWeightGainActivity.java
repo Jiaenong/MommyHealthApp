@@ -90,63 +90,294 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                     double weightBeforePregnancy = Double.parseDouble(editTextWeightBeforePreg.getText().toString());
                     double weightBase = Double.parseDouble(editTextWeightBeforePreg.getText().toString());
                     double currentWeight = Double.parseDouble(editTextCurrentWeight.getText().toString());
+                    double BMI = 0;
+                    String category;
+
+                    BMI = weightBeforePregnancy/(height*height/10000);
+                    if (BMI<18.5)
+                    {
+                        category = "underweight";
+                    }else if (BMI>=18.5 && BMI<24.9)
+                    {
+                        category = "normalweight";
+                    }else if (BMI>=25 && BMI<29.9)
+                    {
+                        category = "overweight";
+                    }else
+                    {
+                        category = "obese";
+                    }
 
                     pregnancyWeightGainGraph.removeAllSeries();
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
-                    for(int i=1; i<=40; i++)
+                    if (category.equals("underweight"))
                     {
-                        if(pregnantTwins.equals("No"))
+                        for(int i=1; i<=40; i++)
                         {
-                            if(i<=12)
+                            if(pregnantTwins.equals("No"))
                             {
-                                weightBeforePregnancy += 1.36;
+                                if(i<=12)
+                                {
+                                    weightBeforePregnancy += (2.0/12);
+                                }else{
+                                    weightBeforePregnancy += 0.58;
+                                }
+                                if(week == i && currentWeight > weightBeforePregnancy)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBeforePregnancy);
+                                series.appendData(point, true, 40);
                             }else{
-                                weightBeforePregnancy += 0.45;
+                                if(i<=12)
+                                {
+                                    weightBeforePregnancy += (2.0/12);
+                                }else{
+                                    weightBeforePregnancy += 0.93;
+                                }
+                                if(week == i && currentWeight > weightBeforePregnancy)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBeforePregnancy);
+                                series.appendData(point, true, 40);
                             }
-                            if(week == i && currentWeight > weightBeforePregnancy)
+                        }
+                    }else if (category.equals("normalweight"))
+                    {
+                        for(int i=1; i<=40; i++)
+                        {
+                            if(pregnantTwins.equals("No"))
                             {
-                                checkWeightGain = true;
-                            }
-                            DataPoint point = new DataPoint(i, weightBeforePregnancy);
-                            series.appendData(point, true, 40);
-                        }else{
-                            if(i<=12)
-                            {
-                                weightBeforePregnancy += 1.81;
+                                if(i<=12)
+                                {
+                                    weightBeforePregnancy += (2.0/12);
+                                }else{
+                                    weightBeforePregnancy += 0.5;
+                                }
+                                if(week == i && currentWeight > weightBeforePregnancy)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBeforePregnancy);
+                                series.appendData(point, true, 40);
                             }else{
-                                weightBeforePregnancy += 0.91;
+                                if(i<=12)
+                                {
+                                    weightBeforePregnancy += (2.0/12);
+                                }else{
+                                    weightBeforePregnancy += 0.79;
+                                }
+                                if(week == i && currentWeight > weightBeforePregnancy)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBeforePregnancy);
+                                series.appendData(point, true, 40);
                             }
-                            if(week == i && currentWeight > weightBeforePregnancy)
+                        }
+                    }else if (category.equals("overweight"))
+                    {
+                        for(int i=1; i<=40; i++)
+                        {
+                            if(pregnantTwins.equals("No"))
                             {
-                                checkWeightGain = true;
+                                if(i<=12)
+                                {
+                                    weightBeforePregnancy += (2.0/12);
+                                }else{
+                                    weightBeforePregnancy += 0.33;
+                                }
+                                if(week == i && currentWeight > weightBeforePregnancy)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBeforePregnancy);
+                                series.appendData(point, true, 40);
+                            }else{
+                                if(i<=12)
+                                {
+                                    weightBeforePregnancy += (2.0/12);
+                                }else{
+                                    weightBeforePregnancy += 0.66;
+                                }
+                                if(week == i && currentWeight > weightBeforePregnancy)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBeforePregnancy);
+                                series.appendData(point, true, 40);
                             }
-                            DataPoint point = new DataPoint(i, weightBeforePregnancy);
-                            series.appendData(point, true, 40);
+                        }
+                    }else
+                    {
+                        for(int i=1; i<=40; i++)
+                        {
+                            if(pregnantTwins.equals("No"))
+                            {
+                                if(i<=12)
+                                {
+                                    weightBeforePregnancy += (2.0/12);
+                                }else{
+                                    weightBeforePregnancy += 0.25;
+                                }
+                                if(week == i && currentWeight > weightBeforePregnancy)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBeforePregnancy);
+                                series.appendData(point, true, 40);
+                            }else{
+                                if(i<=12)
+                                {
+                                    weightBeforePregnancy += (2.0/12);
+                                }else{
+                                    weightBeforePregnancy += 0.61;
+                                }
+                                if(week == i && currentWeight > weightBeforePregnancy)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBeforePregnancy);
+                                series.appendData(point, true, 40);
+                            }
                         }
                     }
                     pregnancyWeightGainGraph.addSeries(series);
                     series.setTitle("Max");
                     series.setColor(Color.BLUE);
                     LineGraphSeries<DataPoint> seriesBase = new LineGraphSeries<>();
-                    for(int i=1; i<40; i++)
+                    if (category.equals("underweight"))
                     {
-                        if(pregnantTwins.equals("No"))
+                        for(int i=1; i<=40; i++)
                         {
-                            weightBase += 0.45;
-                            if(week == i && currentWeight < weightBase)
+                            if(pregnantTwins.equals("No"))
                             {
-                                checkWeightGain = true;
+                                if(i<=12)
+                                {
+                                    weightBase += (0.5/12);
+                                }else{
+                                    weightBase += 0.44;
+                                }
+                                if(week == i && currentWeight < weightBase)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBase);
+                                seriesBase.appendData(point, true, 40);
+                            }else{
+                                if(i<=12)
+                                {
+                                    weightBase += (0.5/12);
+                                }else{
+                                    weightBase += 0.79;
+                                }
+                                if(week == i && currentWeight < weightBase)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBase);
+                                seriesBase.appendData(point, true, 40);
                             }
-                            DataPoint point = new DataPoint(i, weightBase);
-                            seriesBase.appendData(point, true, 40);
-                        }else{
-                            weightBase += 0.91;
-                            if(week == i && currentWeight < weightBase)
+                        }
+                    }else if (category.equals("normalweight"))
+                    {
+                        for(int i=1; i<=40; i++)
+                        {
+                            if(pregnantTwins.equals("No"))
                             {
-                                checkWeightGain = true;
+                                if(i<=12)
+                                {
+                                    weightBase += (0.5/12);
+                                }else{
+                                    weightBase += 0.39;
+                                }
+                                if(week == i && currentWeight < weightBase)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBase);
+                                seriesBase.appendData(point, true, 40);
+                            }else{
+                                if(i<=12)
+                                {
+                                    weightBase += (0.5/12);
+                                }else{
+                                    weightBase += 0.58;
+                                }
+                                if(week == i && currentWeight < weightBase)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBase);
+                                seriesBase.appendData(point, true, 40);
                             }
-                            DataPoint point = new DataPoint(i, weightBase);
-                            seriesBase.appendData(point, true, 40);
+                        }
+                    }else if (category.equals("overweight"))
+                    {
+                        for(int i=1; i<=40; i++)
+                        {
+                            if(pregnantTwins.equals("No"))
+                            {
+                                if(i<=12)
+                                {
+                                    weightBase += (0.5/12);
+                                }else{
+                                    weightBase += 0.23;
+                                }
+                                if(week == i && currentWeight < weightBase)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBase);
+                                seriesBase.appendData(point, true, 40);
+                            }else{
+                                if(i<=12)
+                                {
+                                    weightBase += (0.5/12);
+                                }else{
+                                    weightBase += 0.48;
+                                }
+                                if(week == i && currentWeight < weightBase)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBase);
+                                seriesBase.appendData(point, true, 40);
+                            }
+                        }
+                    }else
+                    {
+                        for(int i=1; i<=40; i++)
+                        {
+                            if(pregnantTwins.equals("No"))
+                            {
+                                if(i<=12)
+                                {
+                                    weightBase += (0.5/12);
+                                }else{
+                                    weightBase += 0.16;
+                                }
+                                if(week == i && currentWeight < weightBase)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBase);
+                                seriesBase.appendData(point, true, 40);
+                            }else{
+                                if(i<=12)
+                                {
+                                    weightBase += (0.5/12);
+                                }else{
+                                    weightBase += 0.39;
+                                }
+                                if(week == i && currentWeight < weightBase)
+                                {
+                                    checkWeightGain = true;
+                                }
+                                DataPoint point = new DataPoint(i, weightBase);
+                                seriesBase.appendData(point, true, 40);
+                            }
                         }
                     }
                     pregnancyWeightGainGraph.addSeries(seriesBase);
