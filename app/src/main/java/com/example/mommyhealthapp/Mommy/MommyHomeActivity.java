@@ -28,8 +28,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFragment.OnFragmentInteractionListener {
     private String tag;
@@ -58,10 +60,17 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
                     AppointmentDate app = documentSnapshot.toObject(AppointmentDate.class);
                     appointmentDate = app.getAppointmentDate();
                 }
-                if(today.equals(appointmentDate))
+                Log.i("Testing Equal Date", appointmentDate.toString());
+                Log.i("Testing today date", today.toString());
+                long daysBetween = today.getTime() - appointmentDate.getTime();
+                long days = TimeUnit.DAYS.convert(daysBetween, TimeUnit.MILLISECONDS);
+                if(today.before(appointmentDate))
                 {
                     Calendar date = Calendar.getInstance();
                     date.setTime(appointmentDate);
+                    date.set(Calendar.HOUR_OF_DAY,0);
+                    date.set(Calendar.MINUTE,0);
+                    date.set(Calendar.SECOND,0);
                     setAppointmentReminder(date);
                 }
             }
@@ -101,17 +110,17 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
     {
         String fromNotify = "";
         Intent intent = getIntent();
-        if(!intent.getStringExtra("reminderNotification").isEmpty())
+        if(intent != null)
         {
             fromNotify = intent.getStringExtra("reminderNotification");
         }
-        if(fromNotify.equals(""))
+        if(fromNotify == null)
         {
             Intent reminderIntent = new Intent(getApplicationContext(), ReminderService.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 101, reminderIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             AlarmManager alarmManager = (AlarmManager)getSystemService( ALARM_SERVICE );
             alarmManager.set(AlarmManager.RTC_WAKEUP, target.getTimeInMillis(), pendingIntent);
-            Log.i("Testing Alarm", target.getTime().toString()+"");
+            Log.i("Testing Alarm Day", target.getTime().toString()+"");
         }
     }
 
