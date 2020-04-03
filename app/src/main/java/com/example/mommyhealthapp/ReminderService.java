@@ -17,7 +17,7 @@ import androidx.core.app.NotificationCompat;
 import com.example.mommyhealthapp.Mommy.MommyHomeActivity;
 
 public class ReminderService extends BroadcastReceiver {
-    public static final String REMINDER_CHANNEL_ID = "10001" ;
+    public static final String REMINDER_CHANNEL_ID = "10002" ;
     private final static String default_reminder_channel_id = "default" ;
 
     @Override

@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,8 +20,10 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.mommyhealthapp.AlertService;
 import com.example.mommyhealthapp.Class.KickCount;
 import com.example.mommyhealthapp.Class.Mommy;
+import com.example.mommyhealthapp.NotifyService;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -116,6 +123,12 @@ public class KickCounterActivity extends AppCompatActivity {
                                         break;
                                     }
                                     CheckTime();
+                                    if(!txtViewKickTimes.getText().toString().equals("10"))
+                                    {
+                                        SetKickCountAlert();
+                                    }else{
+                                        CancelKickCountAlert();
+                                    }
                                     progressBarKickCount.setVisibility(View.GONE);
                                     layoutKickCount.setVisibility(View.VISIBLE);
                                 }
@@ -125,6 +138,8 @@ public class KickCounterActivity extends AppCompatActivity {
                 });
             }
         });
+
+        CheckKickCountTextChange();
 
         kickCount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -339,6 +354,56 @@ public class KickCounterActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void SetKickCountAlert()
+    {
+        Intent myIntent = new Intent(this, AlertService.class);
+        AlarmManager alarmManager = (AlarmManager)getSystemService( ALARM_SERVICE );
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1000, myIntent, 0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.AM_PM, Calendar.AM);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        Log.i("Testing KickCount Alert", calendar.getTime().toString()+"");
+    }
+
+    private void CancelKickCountAlert()
+    {
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertService.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1000, intent, 0);
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+        Log.i("Testing cancel Alert", "Alert Canceled");
+    }
+
+    private void CheckKickCountTextChange()
+    {
+        txtViewKickTimes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!txtViewKickTimes.getText().toString().equals("10"))
+                {
+                    SetKickCountAlert();
+                }else{
+                    CancelKickCountAlert();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

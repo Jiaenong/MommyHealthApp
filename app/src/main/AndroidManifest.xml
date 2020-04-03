@@ -29,7 +29,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Mommy.PregnancyWeightGainActivity"></activity>
+        <activity android:name=".Mommy.PregnancyWeightGainActivity"
+            android:label="Weight Gain Calculator"/>
         <activity
             android:name=".Nurse.UploadDocumentActivity"
             android:label="Upload Document" />
@@ -53,6 +54,16 @@
         </receiver>
         <receiver
             android:name=".NotifyService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".AlertService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

@@ -102,8 +102,13 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
         calendar.set(Calendar.HOUR, 9);
         calendar.set(Calendar.AM_PM, Calendar.AM);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP , calendar.getTimeInMillis(),1000 * 60 * 60 * 24, pendingIntent);
-        Log.i("Testing Alarm", calendar.getTime().toString()+"");
+        boolean alarmUp = (PendingIntent.getBroadcast(this, 9000, myIntent, PendingIntent.FLAG_NO_CREATE) != null);
+        if(alarmUp){
+            Log.i("Testing Alarm", "Alarm already set");
+        }else{
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP , calendar.getTimeInMillis(),1000 * 60 * 60 * 24, pendingIntent);
+            Log.i("Testing Alarm", calendar.getTime().toString()+"");
+        }
     }
 
     private void setAppointmentReminder(Calendar target)

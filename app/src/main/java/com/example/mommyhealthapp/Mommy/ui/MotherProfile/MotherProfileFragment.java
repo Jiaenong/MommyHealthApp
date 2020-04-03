@@ -23,6 +23,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.mommyhealthapp.AlertService;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.MainActivity;
 import com.example.mommyhealthapp.Mommy.MommyHomeActivity;
@@ -234,6 +235,11 @@ public class MotherProfileFragment extends Fragment {
         PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(getContext(), 101, intentReminder, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntentReminder);
         pendingIntentReminder.cancel();
+
+        Intent intentAlert = new Intent(getContext(), AlertService.class);
+        PendingIntent pendingIntentAlert = PendingIntent.getBroadcast(getContext(), 1000, intentAlert, 0);
+        alarmManager.cancel(pendingIntentAlert);
+        pendingIntentAlert.cancel();
 
         Log.i("TestingAlarmCancel", "Alarm Cancel");
     }
