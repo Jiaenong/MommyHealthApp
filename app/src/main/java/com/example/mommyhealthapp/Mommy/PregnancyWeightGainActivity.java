@@ -19,10 +19,20 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.example.mommyhealthapp.Class.Mommy;
+import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.Nurse.AntenatalActivity;
 import com.example.mommyhealthapp.Nurse.SectionNActivity;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.SaveSharedPreference;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
@@ -38,6 +48,8 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
     private EditText editTextHeightWG, editTextWeightBeforePreg, editTextCurrentWeight;
     private Button btnCalculateOkay, btnClearResult;
     private GraphView pregnancyWeightGainGraph;
+    private FirebaseFirestore mFirebaseFirestore;
+    private CollectionReference mCollectionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +73,23 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(PregnancyWeightGainActivity.this, R.array.pregnant_week, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnerStage.setAdapter(adapter);
+
+        mFirebaseFirestore = FirebaseFirestore.getInstance();
+        mCollectionReference = mFirebaseFirestore.collection("Mommy").document(SaveSharedPreference.getID(PregnancyWeightGainActivity.this)).collection("MommyDetail");
+        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    MommyDetail mommyDetail = documentSnapshot.toObject(MommyDetail.class);
+                    editTextHeightWG.setText(Double.toString(mommyDetail.getHeight()));
+                    editTextWeightBeforePreg.setText(String.valueOf(mommyDetail.getWeight()));
+                    //editTextWeightBeforePreg.setText(mommyDetail.getWeight()+"");
+                    editTextHeightWG.setEnabled(false);
+                    editTextWeightBeforePreg.setEnabled(false);
+                }
+            }
+        });
 
         CheckRequiredFieldChange();
 
@@ -410,8 +439,6 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 spinnerStage.setSelection(0);
-                editTextHeightWG.setText("");
-                editTextWeightBeforePreg.setText("");
                 editTextCurrentWeight.setText("");
             }
         });
