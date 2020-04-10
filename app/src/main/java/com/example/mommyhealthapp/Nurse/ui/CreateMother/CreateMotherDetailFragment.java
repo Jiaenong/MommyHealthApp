@@ -569,109 +569,104 @@ public class CreateMotherDetailFragment extends Fragment {
 
     private boolean checkRequiredField()
     {
-        boolean empty = true;
-        if(radioGroupMarriage.getCheckedRadioButtonId() == -1)
+        boolean empty;
+        if(radioGroupMarriage.getCheckedRadioButtonId()==-1||heightEditText.getText().toString().equals("")||weightEditText.getText().toString().equals("")||
+                editTextEDD.getText().toString().equals("")||editTextEDP.getText().toString().equals(""))
         {
-            radioBtnMarried.setError("Required!");
-            radioBtnSingle.setError("Required!");
-            empty = true;
-        }else{
-            radioBtnMarried.setError(null);
-            radioBtnSingle.setError(null);
-            empty = false;
-        }
+            if(radioGroupMarriage.getCheckedRadioButtonId() == -1)
+            {
+                radioBtnMarried.setError("Required!");
+                radioBtnSingle.setError("Required!");
+            }else{
+                radioBtnMarried.setError(null);
+                radioBtnSingle.setError(null);
+            }
 
-        if(heightEditText.getText().toString().equals(""))
-        {
-            heightLayout.setErrorEnabled(true);
-            heightLayout.setError("This field is required!");
-            empty = true;
-        }else{
-            heightLayout.setErrorEnabled(false);
-            heightLayout.setError(null);
-            empty = false;
-        }
+            if(heightEditText.getText().toString().equals(""))
+            {
+                heightLayout.setErrorEnabled(true);
+                heightLayout.setError("This field is required!");
+            }else{
+                heightLayout.setErrorEnabled(false);
+                heightLayout.setError(null);
+            }
 
-        if(weightEditText.getText().toString().equals(""))
-        {
-            weightLayout.setErrorEnabled(true);
-            weightLayout.setError("This field is required!");
-            empty = true;
-        }else{
-            weightLayout.setErrorEnabled(false);
-            weightLayout.setError(null);
-            empty = false;
-        }
+            if(weightEditText.getText().toString().equals(""))
+            {
+                weightLayout.setErrorEnabled(true);
+                weightLayout.setError("This field is required!");
+            }else{
+                weightLayout.setErrorEnabled(false);
+                weightLayout.setError(null);
+            }
 
-        if(editTextEDD.getText().toString().equals(""))
-        {
-            txtInputLayoutEDD.setErrorEnabled(true);
-            txtInputLayoutEDD.setError("This field is required!");
-            empty = true;
-        }else{
-            txtInputLayoutEDD.setErrorEnabled(false);
-            txtInputLayoutEDD.setError(null);
-            empty = false;
-        }
+            if(editTextEDD.getText().toString().equals(""))
+            {
+                txtInputLayoutEDD.setErrorEnabled(true);
+                txtInputLayoutEDD.setError("This field is required!");
+            }else{
+                txtInputLayoutEDD.setErrorEnabled(false);
+                txtInputLayoutEDD.setError(null);
+            }
 
-        if(editTextEDP.getText().toString().equals(""))
-        {
-            txtInputLayoutEDP.setErrorEnabled(true);
-            txtInputLayoutEDP.setError("This field is required!");
+            if(editTextEDP.getText().toString().equals(""))
+            {
+                txtInputLayoutEDP.setErrorEnabled(true);
+                txtInputLayoutEDP.setError("This field is required!");
+            }else{
+                txtInputLayoutEDP.setErrorEnabled(false);
+                txtInputLayoutEDP.setError(null);
+            }
             empty = true;
         }else{
-            txtInputLayoutEDP.setErrorEnabled(false);
-            txtInputLayoutEDP.setError(null);
             empty = false;
         }
 
         if(radioBtnMarried.isChecked())
         {
-            if(editTextHusbandName.getText().toString().equals(""))
+            if(editTextHusbandName.getText().toString().equals("")||editTextHusbandIC.getText().toString().equals("")||editTextHusbandWork.getText().toString().equals("")||
+                    editTextPhone.getText().toString().equals(""))
             {
-                txtLayoutHusbandName.setErrorEnabled(true);
-                txtLayoutHusbandName.setError("This field is required!");
-                empty = true;
-            }else{
-                txtLayoutHusbandName.setErrorEnabled(false);
-                txtLayoutHusbandName.setError(null);
-                empty = false;
-            }
+                if(editTextHusbandName.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandName.setErrorEnabled(true);
+                    txtLayoutHusbandName.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandName.setErrorEnabled(false);
+                    txtLayoutHusbandName.setError(null);
+                }
 
-            if(editTextHusbandIC.getText().toString().equals(""))
-            {
-                txtLayoutHusbandIC.setErrorEnabled(true);
-                txtLayoutHusbandIC.setError("This field is required!");
-                empty = true;
-            }else{
-                txtLayoutHusbandIC.setErrorEnabled(false);
-                txtLayoutHusbandIC.setError(null);
-                empty = false;
-            }
+                if(editTextHusbandIC.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandIC.setErrorEnabled(true);
+                    txtLayoutHusbandIC.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandIC.setErrorEnabled(false);
+                    txtLayoutHusbandIC.setError(null);
+                }
 
-            if(editTextHusbandWork.getText().toString().equals(""))
-            {
-                txtLayoutHusbandWork.setErrorEnabled(true);
-                txtLayoutHusbandWork.setError("This field is required!");
-                empty = true;
-            }else{
-                txtLayoutHusbandWork.setErrorEnabled(false);
-                txtLayoutHusbandWork.setError(null);
-                empty = false;
-            }
+                if(editTextHusbandWork.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandWork.setErrorEnabled(true);
+                    txtLayoutHusbandWork.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandWork.setErrorEnabled(false);
+                    txtLayoutHusbandWork.setError(null);
+                }
 
-            if(editTextPhone.getText().toString().equals(""))
-            {
-                txtLayoutHusbandPhone.setErrorEnabled(true);
-                txtLayoutHusbandPhone.setError("This field is required!");
+                if(editTextPhone.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandPhone.setErrorEnabled(true);
+                    txtLayoutHusbandPhone.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandPhone.setErrorEnabled(false);
+                    txtLayoutHusbandPhone.setError(null);
+                }
                 empty = true;
             }else{
-                txtLayoutHusbandPhone.setErrorEnabled(false);
-                txtLayoutHusbandPhone.setError(null);
                 empty = false;
             }
         }
-
         return empty;
     }
 

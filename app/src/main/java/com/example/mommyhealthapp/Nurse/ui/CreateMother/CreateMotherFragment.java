@@ -419,133 +419,119 @@ public class CreateMotherFragment extends Fragment {
 
     private boolean checkRequiredFieldNextBtn()
     {
-        boolean empty = true;
-        if(fistNameEdiTtext.getText().toString().equals(""))
+        boolean empty;
+        if(fistNameEdiTtext.getText().toString().equals("")||lastNameEditText.getText().toString().equals("")||ICEditText.getText().toString().equals("")||
+                phoneEditText.getText().toString().equals("")||emailEditText.getText().toString().equals("")||occupationEditText.getText().toString().equals("")||
+                passwordEditText.getText().toString().equals("")||confirmPassEditText.getText().toString().equals("")||ageEditText.getText().toString().equals("")||
+                radioGroupRace.getCheckedRadioButtonId() == -1)
         {
-            firstNameLayout.setErrorEnabled(true);
-            firstNameLayout.setError("This field is required!");
-            empty = true;
-        }else{
-            firstNameLayout.setErrorEnabled(false);
-            firstNameLayout.setError(null);
-            empty = false;
-        }
-
-        if(lastNameEditText.getText().toString().equals(""))
-        {
-            lastNameLayout.setErrorEnabled(true);
-            lastNameLayout.setError("This field is required!");
-            empty = true;
-        }else{
-            lastNameLayout.setErrorEnabled(false);
-            lastNameLayout.setError(null);
-            empty = false;
-        }
-
-        if(ICEditText.getText().toString().equals(""))
-        {
-            IClayout.setErrorEnabled(true);
-            IClayout.setError("This field is required!");
-            empty = true;
-        }else{
-            IClayout.setErrorEnabled(false);
-            IClayout.setError(null);
-            empty = false;
-        }
-
-        if(phoneEditText.getText().toString().equals(""))
-        {
-            phoneLayout.setErrorEnabled(true);
-            phoneLayout.setError("This field is required!");
-            empty = true;
-        }else{
-            phoneLayout.setErrorEnabled(false);
-            phoneLayout.setError(null);
-            empty = false;
-        }
-
-        if(emailEditText.getText().toString().equals(""))
-        {
-            emailLayout.setErrorEnabled(true);
-            emailLayout.setError("This field is required!");
-            empty = true;
-        }
-        else{
-            emailLayout.setErrorEnabled(false);
-            emailLayout.setError(null);
-            empty = false;
-        }
-
-
-        if(occupationEditText.getText().toString().equals(""))
-        {
-            occupationLayout.setErrorEnabled(true);
-            occupationLayout.setError("This field is required!");
-            empty = true;
-        }else{
-            occupationLayout.setErrorEnabled(false);
-            occupationLayout.setError(null);
-            empty = false;
-        }
-
-        if(passwordEditText.getText().toString().equals(""))
-        {
-            passwordLayout.setErrorEnabled(true);
-            passwordLayout.setError("This field is required!");
-            empty = true;
-        }else{
-            passwordLayout.setErrorEnabled(false);
-            passwordLayout.setError(null);
-            empty = false;
-
-            if(confirmPassEditText.getText().toString().equals(""))
+            if(fistNameEdiTtext.getText().toString().equals(""))
             {
-                confirmpassLayout.setErrorEnabled(true);
-                confirmpassLayout.setError("This field is required!");
+                firstNameLayout.setErrorEnabled(true);
+                firstNameLayout.setError("This field is required!");
+            }else{
+                firstNameLayout.setErrorEnabled(false);
+                firstNameLayout.setError(null);
+            }
+
+            if(lastNameEditText.getText().toString().equals(""))
+            {
+                lastNameLayout.setErrorEnabled(true);
+                lastNameLayout.setError("This field is required!");
                 empty = true;
             }else{
-                confirmpassLayout.setErrorEnabled(false);
-                confirmpassLayout.setError(null);
-                empty = false;
-                if(!(confirmPassEditText.getText().toString().equals(passwordEditText.getText().toString())))
+                lastNameLayout.setErrorEnabled(false);
+                lastNameLayout.setError(null);
+            }
+
+            if(ICEditText.getText().toString().equals(""))
+            {
+                IClayout.setErrorEnabled(true);
+                IClayout.setError("This field is required!");
+            }else{
+                IClayout.setErrorEnabled(false);
+                IClayout.setError(null);
+            }
+
+            if(phoneEditText.getText().toString().equals(""))
+            {
+                phoneLayout.setErrorEnabled(true);
+                phoneLayout.setError("This field is required!");
+            }else{
+                phoneLayout.setErrorEnabled(false);
+                phoneLayout.setError(null);
+            }
+
+            if(emailEditText.getText().toString().equals(""))
+            {
+                emailLayout.setErrorEnabled(true);
+                emailLayout.setError("This field is required!");
+            }
+            else{
+                emailLayout.setErrorEnabled(false);
+                emailLayout.setError(null);
+            }
+
+            if(occupationEditText.getText().toString().equals(""))
+            {
+                occupationLayout.setErrorEnabled(true);
+                occupationLayout.setError("This field is required!");
+            }else {
+                occupationLayout.setErrorEnabled(false);
+                occupationLayout.setError(null);
+            }
+
+            if(passwordEditText.getText().toString().equals(""))
+            {
+                passwordLayout.setErrorEnabled(true);
+                passwordLayout.setError("This field is required!");
+            }else{
+                passwordLayout.setErrorEnabled(false);
+                passwordLayout.setError(null);
+
+                if(confirmPassEditText.getText().toString().equals(""))
                 {
                     confirmpassLayout.setErrorEnabled(true);
-                    confirmpassLayout.setError("Confirmation password are not same with the password");
-                    empty = true;
+                    confirmpassLayout.setError("This field is required!");
                 }else{
                     confirmpassLayout.setErrorEnabled(false);
                     confirmpassLayout.setError(null);
-                    empty = false;
+                    if(!(confirmPassEditText.getText().toString().equals(passwordEditText.getText().toString())))
+                    {
+                        confirmpassLayout.setErrorEnabled(true);
+                        confirmpassLayout.setError("Confirmation password are not same with the password");
+                    }else{
+                        confirmpassLayout.setErrorEnabled(false);
+                        confirmpassLayout.setError(null);
+                    }
                 }
             }
-        }
 
-        if(ageEditText.getText().toString().equals(""))
-        {
-            ageLayout.setErrorEnabled(true);
-            ageLayout.setError("This field is required!");
-            empty = true;
-        }else {
-            ageLayout.setErrorEnabled(false);
-            ageLayout.setError(null);
-            empty = false;
-        }
+            if(ageEditText.getText().toString().equals(""))
+            {
+                ageLayout.setErrorEnabled(true);
+                ageLayout.setError("This field is required!");
+            }else {
+                ageLayout.setErrorEnabled(false);
+                ageLayout.setError(null);
+            }
 
-        if(radioGroupRace.getCheckedRadioButtonId() == -1)
-        {
-            radioBtnMalay.setError("Required!");
-            radioBtnChinese.setError("Required!");
-            radioBtnIndian.setError("Required!");
-            radioBtnOtherRaces.setError("Required!");
+            if(radioGroupRace.getCheckedRadioButtonId() == -1)
+            {
+                radioBtnMalay.setError("Required!");
+                radioBtnChinese.setError("Required!");
+                radioBtnIndian.setError("Required!");
+                radioBtnOtherRaces.setError("Required!");
+            }else{
+                radioBtnMalay.setError(null);
+                radioBtnChinese.setError(null);
+                radioBtnIndian.setError(null);
+                radioBtnOtherRaces.setError(null);
+            }
             empty = true;
         }else{
-            radioBtnMalay.setError(null);
-            radioBtnChinese.setError(null);
-            radioBtnIndian.setError(null);
-            radioBtnOtherRaces.setError(null);
             empty = false;
         }
-
         return empty;
     }
 
