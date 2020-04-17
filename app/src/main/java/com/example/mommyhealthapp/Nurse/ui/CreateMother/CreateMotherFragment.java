@@ -423,7 +423,7 @@ public class CreateMotherFragment extends Fragment {
         if(fistNameEdiTtext.getText().toString().equals("")||lastNameEditText.getText().toString().equals("")||ICEditText.getText().toString().equals("")||
                 phoneEditText.getText().toString().equals("")||emailEditText.getText().toString().equals("")||occupationEditText.getText().toString().equals("")||
                 passwordEditText.getText().toString().equals("")||confirmPassEditText.getText().toString().equals("")||ageEditText.getText().toString().equals("")||
-                radioGroupRace.getCheckedRadioButtonId() == -1)
+                radioGroupRace.getCheckedRadioButtonId() == -1 || (radioBtnOtherRaces.isChecked() && otherRaceEditText.getText().toString().isEmpty()))
         {
             if(fistNameEdiTtext.getText().toString().equals(""))
             {
@@ -438,7 +438,6 @@ public class CreateMotherFragment extends Fragment {
             {
                 lastNameLayout.setErrorEnabled(true);
                 lastNameLayout.setError("This field is required!");
-                empty = true;
             }else{
                 lastNameLayout.setErrorEnabled(false);
                 lastNameLayout.setError(null);
@@ -527,6 +526,18 @@ public class CreateMotherFragment extends Fragment {
                 radioBtnChinese.setError(null);
                 radioBtnIndian.setError(null);
                 radioBtnOtherRaces.setError(null);
+            }
+
+            if(radioBtnOtherRaces.isChecked())
+            {
+                if(otherRaceEditText.getText().toString().isEmpty())
+                {
+                    txtIinputLayoutOtherRace.setErrorEnabled(true);
+                    txtIinputLayoutOtherRace.setError("This field is required");
+                }else{
+                    txtIinputLayoutOtherRace.setErrorEnabled(false);
+                    txtIinputLayoutOtherRace.setError(null);
+                }
             }
             empty = true;
         }else{

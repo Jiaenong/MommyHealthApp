@@ -76,7 +76,9 @@ public class MommyInfoActivity extends AppCompatActivity {
     TimePickerDialog timePickerDialog;
     private RadioGroup radioGroupYesNo, radioGroupMarriage, radioGroupRace;
     private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle, radioBtnMalay, radioBtnChinese, radioBtnIndian, radioBtnOtherRaces;;
-    private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr, txtIinputLayoutOtherRace;
+    private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr, txtIinputLayoutOtherRace,
+            layoutAppointmentDate, layoutAppointmentTime, layoutMummyName, layoutMummyIC, layoutMummyPhone, layoutMummyEmail, layoutMummyOccupation, layoutMummyAge,
+            layoutDetailHeight, layoutDetailWeight, txtInputLayoutEDPInfo;
     private CheckBox chkBoxStatus;
     private TextView textViewMummyInfoName, textViewMummyInfoAge, textViewMummyInfoID, textViewMummyInfoColorCode;
     private CircularImageView imageViewMummyInfo;
@@ -137,11 +139,23 @@ public class MommyInfoActivity extends AppCompatActivity {
 
         txtInputLayoutDisease = (TextInputLayout)findViewById(R.id.txtInputLayoutDiseaseInfo);
         txtInputLayoutEDD = (TextInputLayout)findViewById(R.id.txtInputLayoutEDDInfo);
+        txtInputLayoutEDPInfo = (TextInputLayout)findViewById(R.id.txtInputLayoutEDPInfo);
         txtLayoutHusbandPhone = (TextInputLayout)findViewById(R.id.txtLayoutHusbandPhoneInfo);
         txtLayoutHusbandName = (TextInputLayout)findViewById(R.id.txtLayoutHusbandNameInfo);
         txtLayoutHusbandIC = (TextInputLayout)findViewById(R.id.txtLayoutHusbandICInfo);
         txtLayoutHusbandWork = (TextInputLayout)findViewById(R.id.txtLayoutHusbandWorkInfo);
         txtLayoutHusbandWorkPlacr = (TextInputLayout)findViewById(R.id.txtLayoutHusbandWorkAddressInfo);
+        layoutAppointmentDate = (TextInputLayout)findViewById(R.id.layoutAppointmentDate);
+        layoutAppointmentTime = (TextInputLayout)findViewById(R.id.layoutAppointmentTime);
+        layoutMummyName = (TextInputLayout)findViewById(R.id.layoutMummyName);
+        layoutMummyIC = (TextInputLayout)findViewById(R.id.layoutMummyIC);
+        layoutMummyPhone = (TextInputLayout)findViewById(R.id.layoutMummyPhone);
+        layoutMummyEmail = (TextInputLayout)findViewById(R.id.layoutMummyEmail);
+        layoutMummyOccupation = (TextInputLayout)findViewById(R.id.layoutMummyOccupation);
+        layoutMummyAge = (TextInputLayout)findViewById(R.id.layoutMummyAge);
+        layoutDetailHeight = (TextInputLayout)findViewById(R.id.layoutDetailHeight);
+        layoutDetailWeight = (TextInputLayout)findViewById(R.id.layoutDetailWeight);
+
         editTextEDD = (EditText)findViewById(R.id.editTextEDDInfo);
         editTextDisease = (EditText)findViewById(R.id.editTextDiseaseInfo);
         editTextLNMP = (EditText)findViewById(R.id.editTextLNMPInfo);
@@ -434,40 +448,45 @@ public class MommyInfoActivity extends AppCompatActivity {
                     buttonCancelInfo.setVisibility(View.VISIBLE);
                 }else if(clickInfo == 2)
                 {
-                    mDocumentReference = mFirebaseFirestore.document("Mommy/"+key);
-                    nDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId);
-                    mDocumentReference.update("mommyName",editTextMummyName.getText().toString());
-                    mDocumentReference.update("mommyIC",editTextIC.getText().toString());
-                    mDocumentReference.update("nationality", spinnerNational.getSelectedItem().toString());
-                    if(radioBtnMalay.isChecked())
+                    if(checkMommyInfoEmpty() != true)
                     {
-                        mDocumentReference.update("race", radioBtnMalay.getText().toString());
-                    }else if(radioBtnChinese.isChecked())
-                    {
-                        mDocumentReference.update("race", radioBtnChinese.getText().toString());
-                    }else if(radioBtnIndian.isChecked())
-                    {
-                        mDocumentReference.update("race", radioBtnIndian.getText().toString());
+                        mDocumentReference = mFirebaseFirestore.document("Mommy/"+key);
+                        nDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId);
+                        mDocumentReference.update("mommyName",editTextMummyName.getText().toString());
+                        mDocumentReference.update("mommyIC",editTextIC.getText().toString());
+                        mDocumentReference.update("nationality", spinnerNational.getSelectedItem().toString());
+                        if(radioBtnMalay.isChecked())
+                        {
+                            mDocumentReference.update("race", radioBtnMalay.getText().toString());
+                        }else if(radioBtnChinese.isChecked())
+                        {
+                            mDocumentReference.update("race", radioBtnChinese.getText().toString());
+                        }else if(radioBtnIndian.isChecked())
+                        {
+                            mDocumentReference.update("race", radioBtnIndian.getText().toString());
+                        }else{
+                            mDocumentReference.update("race", editTextRace.getText().toString());
+                        }
+                        mDocumentReference.update("address", editTextAddress.getText().toString());
+                        mDocumentReference.update("phoneNo", editTextPhone.getText().toString());
+                        mDocumentReference.update("email", editTextEmail.getText().toString());
+                        mDocumentReference.update("occupation", editTextOccupation.getText().toString());
+                        mDocumentReference.update("age", Integer.parseInt(editTextAge.getText().toString()));
+                        mDocumentReference.update("education", editTextEducation.getText().toString());
+                        if(chkBoxStatus.isChecked()){
+                            mDocumentReference.update("status", "Active");
+                            nDocumentReference.update("status", "Active");
+                        }else{
+                            mDocumentReference.update("status", "Inactive");
+                            nDocumentReference.update("status", "Inactive");
+                        }
+                        clickInfo = 0;
+                        Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
+                        DisableInfoEditText();
+                        buttonCancelInfo.setVisibility(View.GONE);
                     }else{
-                        mDocumentReference.update("race", editTextRace.getText().toString());
+                        clickInfo = 1;
                     }
-                    mDocumentReference.update("address", editTextAddress.getText().toString());
-                    mDocumentReference.update("phoneNo", editTextPhone.getText().toString());
-                    mDocumentReference.update("email", editTextEmail.getText().toString());
-                    mDocumentReference.update("occupation", editTextOccupation.getText().toString());
-                    mDocumentReference.update("age", Integer.parseInt(editTextAge.getText().toString()));
-                    mDocumentReference.update("education", editTextEducation.getText().toString());
-                    if(chkBoxStatus.isChecked()){
-                        mDocumentReference.update("status", "Active");
-                        nDocumentReference.update("status", "Active");
-                    }else{
-                        mDocumentReference.update("status", "Inactive");
-                        nDocumentReference.update("status", "Inactive");
-                    }
-                    clickInfo = 0;
-                    Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
-                    DisableInfoEditText();
-                    buttonCancelInfo.setVisibility(View.GONE);
                 }
             }
         });
@@ -490,40 +509,45 @@ public class MommyInfoActivity extends AppCompatActivity {
                     EnableDetailInfoEditText();
                     buttonCancel.setVisibility(View.VISIBLE);
                 }else if(clickInfoDetail == 2){
-                    Date dateEDD = null, dateLNMP = null, dateEDP = null;
-                    mDocumentReference = mFirebaseFirestore.document("Mommy/"+key+"/MommyDetail/"+keyDetail);
-                    mDocumentReference.update("height",Double.parseDouble(editTextHeight.getText().toString()));
-                    mDocumentReference.update("weight", Double.parseDouble(editTextWeight.getText().toString()));
-                    if(radioBtnYes.isChecked()){
-                        mDocumentReference.update("familyDisease","");
-                    }else{
-                        mDocumentReference.update("familyDisease",editTextDisease.getText().toString());
-                    }
-                    try {
-                        dateEDD = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
-                        dateLNMP = new SimpleDateFormat("dd/MM/yyyy").parse(editTextLNMP.getText().toString());
-                        dateEDP = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDP.getText().toString());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    mDocumentReference.update("edd", dateEDD);
-                    mDocumentReference.update("lnmp", dateLNMP);
-                    mDocumentReference.update("edp", dateEDP);
-                    if(radioBtnSingle.isChecked())
+                    if(checkMommyDetailEmpty() != true)
                     {
-                        mDocumentReference.update("marriageStatus", radioBtnSingle.getText().toString());
+                        Date dateEDD = null, dateLNMP = null, dateEDP = null;
+                        mDocumentReference = mFirebaseFirestore.document("Mommy/"+key+"/MommyDetail/"+keyDetail);
+                        mDocumentReference.update("height",Double.parseDouble(editTextHeight.getText().toString()));
+                        mDocumentReference.update("weight", Double.parseDouble(editTextWeight.getText().toString()));
+                        if(radioBtnYes.isChecked()){
+                            mDocumentReference.update("familyDisease","");
+                        }else{
+                            mDocumentReference.update("familyDisease",editTextDisease.getText().toString());
+                        }
+                        try {
+                            dateEDD = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
+                            dateLNMP = new SimpleDateFormat("dd/MM/yyyy").parse(editTextLNMP.getText().toString());
+                            dateEDP = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDP.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        mDocumentReference.update("edd", dateEDD);
+                        mDocumentReference.update("lnmp", dateLNMP);
+                        mDocumentReference.update("edp", dateEDP);
+                        if(radioBtnSingle.isChecked())
+                        {
+                            mDocumentReference.update("marriageStatus", radioBtnSingle.getText().toString());
+                        }else{
+                            mDocumentReference.update("marriageStatus", radioBtnMarried.getText().toString());
+                        }
+                        mDocumentReference.update("husbandName", editTextHusbandName.getText().toString());
+                        mDocumentReference.update("husbandIC", editTextHusbandIC.getText().toString());
+                        mDocumentReference.update("husbandWork", editTextHusbandWork.getText().toString());
+                        mDocumentReference.update("husbandWorkAddress", editTextHusbandWorkAddress.getText().toString());
+                        mDocumentReference.update("husbandPhone", editTextHusbandPhone.getText().toString());
+                        Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
+                        clickInfoDetail = 0;
+                        DisableDetailInfoEditText();
+                        buttonCancel.setVisibility(View.GONE);
                     }else{
-                        mDocumentReference.update("marriageStatus", radioBtnMarried.getText().toString());
+                        clickInfoDetail = 1;
                     }
-                    mDocumentReference.update("husbandName", editTextHusbandName.getText().toString());
-                    mDocumentReference.update("husbandIC", editTextHusbandIC.getText().toString());
-                    mDocumentReference.update("husbandWork", editTextHusbandWork.getText().toString());
-                    mDocumentReference.update("husbandWorkAddress", editTextHusbandWorkAddress.getText().toString());
-                    mDocumentReference.update("husbandPhone", editTextHusbandPhone.getText().toString());
-                    Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
-                    clickInfoDetail = 0;
-                    DisableDetailInfoEditText();
-                    buttonCancel.setVisibility(View.GONE);
                 }
             }
         });
@@ -547,73 +571,78 @@ public class MommyInfoActivity extends AppCompatActivity {
                     btnCancelApp.setVisibility(View.VISIBLE);
                 }else if(clickApp == 2)
                 {
-                    qCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("Notification");
-                    if(isEmpty == false)
+                    if(checkAppointFieldEmpty() != true)
                     {
-                        mDocumentReference = mFirebaseFirestore.document("Mommy/"+key+"/AppointmentDate/"+appointmentKey);
-                        Date appDate = null;
-                        Date timeApp = null;
-                        try {
-                            appDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextAppointment.getText().toString());
-                            timeApp = new SimpleDateFormat("HH:mm").parse(editTextAppTime.getText().toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String medicalPersonnelId = SaveSharedPreference.getID(MommyInfoActivity.this);
-                        Date createdDate = new Date();
-                        mDocumentReference.update("appointmentDate", appDate);
-                        mDocumentReference.update("appointmentTime", timeApp);
-                        String notificationDetai = getResources().getString(R.string.NotificationAppointment) + editTextAppointment.getText().toString() + " " + editTextAppTime.getText().toString();
-                        Date notificationDate = new Date();
-                        Notification notification = new Notification(notificationDetai, notificationDate, medicalPersonnelId, createdDate, "new", key);
-                        qCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
+                        qCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("Notification");
+                        if(isEmpty == false)
+                        {
+                            mDocumentReference = mFirebaseFirestore.document("Mommy/"+key+"/AppointmentDate/"+appointmentKey);
+                            Date appDate = null;
+                            Date timeApp = null;
+                            try {
+                                appDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextAppointment.getText().toString());
+                                timeApp = new SimpleDateFormat("HH:mm").parse(editTextAppTime.getText().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
-                        });
-                        clickApp = 0;
-                        DisableAppointmentText();
-                        btnCancelApp.setVisibility(View.GONE);
+                            String medicalPersonnelId = SaveSharedPreference.getID(MommyInfoActivity.this);
+                            Date createdDate = new Date();
+                            mDocumentReference.update("appointmentDate", appDate);
+                            mDocumentReference.update("appointmentTime", timeApp);
+                            String notificationDetai = getResources().getString(R.string.NotificationAppointment) + editTextAppointment.getText().toString() + " " + editTextAppTime.getText().toString();
+                            Date notificationDate = new Date();
+                            Notification notification = new Notification(notificationDetai, notificationDate, medicalPersonnelId, createdDate, "new", key);
+                            qCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(MommyInfoActivity.this,"Successfully Updated!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            clickApp = 0;
+                            DisableAppointmentText();
+                            btnCancelApp.setVisibility(View.GONE);
+                        }else{
+                            Date appDate = null;
+                            Date timeApp = null;
+                            try {
+                                appDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextAppointment.getText().toString());
+                                timeApp = new SimpleDateFormat("HH:mm").parse(editTextAppTime.getText().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            String medicalPersonnelId = SaveSharedPreference.getID(MommyInfoActivity.this);
+                            Date createdDate = new Date();
+                            String notificationDetai = getResources().getString(R.string.NotificationAppointment) + editTextAppointment.getText().toString() + " " + editTextAppTime.getText().toString();
+                            Date notificationDate = new Date();
+                            final AppointmentDate ad = new AppointmentDate(appDate, timeApp, id, medicalPersonnelId, createdDate);
+                            Notification notification = new Notification(notificationDetai, notificationDate, medicalPersonnelId, createdDate, "new", key);
+                            qCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    pCollectionReference.add(ad).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(MommyInfoActivity.this);
+                                            builder.setTitle("Save Successfully");
+                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    return;
+                                                }
+                                            });
+                                            builder.setMessage("Appointment Save Successful!");
+                                            AlertDialog alert = builder.create();
+                                            alert.show();
+                                        }
+                                    });
+                                }
+                            });
+                            clickApp = 0;
+                            DisableAppointmentText();
+                            btnCancelApp.setVisibility(View.GONE);
+                        }
                     }else{
-                        Date appDate = null;
-                        Date timeApp = null;
-                        try {
-                            appDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextAppointment.getText().toString());
-                            timeApp = new SimpleDateFormat("HH:mm").parse(editTextAppTime.getText().toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String medicalPersonnelId = SaveSharedPreference.getID(MommyInfoActivity.this);
-                        Date createdDate = new Date();
-                        String notificationDetai = getResources().getString(R.string.NotificationAppointment) + editTextAppointment.getText().toString() + " " + editTextAppTime.getText().toString();
-                        Date notificationDate = new Date();
-                        final AppointmentDate ad = new AppointmentDate(appDate, timeApp, id, medicalPersonnelId, createdDate);
-                        Notification notification = new Notification(notificationDetai, notificationDate, medicalPersonnelId, createdDate, "new", key);
-                        qCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                pCollectionReference.add(ad).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(MommyInfoActivity.this);
-                                        builder.setTitle("Save Successfully");
-                                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                return;
-                                            }
-                                        });
-                                        builder.setMessage("Appointment Save Successful!");
-                                        AlertDialog alert = builder.create();
-                                        alert.show();
-                                    }
-                                });
-                            }
-                        });
-                        clickApp = 0;
-                        DisableAppointmentText();
-                        btnCancelApp.setVisibility(View.GONE);
+                        clickApp = 1;
                     }
                 }
             }
@@ -629,6 +658,221 @@ public class MommyInfoActivity extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private boolean checkAppointFieldEmpty()
+    {
+        if(editTextAppointment.getText().toString().equals("") || editTextAppTime.getText().toString().equals(""))
+        {
+            if(editTextAppointment.getText().toString().equals(""))
+            {
+                layoutAppointmentDate.setErrorEnabled(true);
+                layoutAppointmentDate.setError("This field is required");
+            }else{
+                layoutAppointmentDate.setErrorEnabled(false);
+                layoutAppointmentDate.setError(null);
+            }
+
+            if(editTextAppTime.getText().toString().equals(""))
+            {
+                layoutAppointmentTime.setErrorEnabled(true);
+                layoutAppointmentTime.setError("This field is required");
+            }else{
+                layoutAppointmentTime.setErrorEnabled(false);
+                layoutAppointmentTime.setError(null);
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean checkMommyInfoEmpty()
+    {
+        boolean empty;
+        if(editTextMummyName.getText().toString().equals("")||editTextIC.getText().toString().equals("")|| editTextPhone.getText().toString().equals("")||
+                editTextEmail.getText().toString().equals("")||editTextOccupation.getText().toString().equals("")|| editTextAge.getText().toString().equals("")||
+                radioGroupRace.getCheckedRadioButtonId() == -1 || (radioBtnOtherRaces.isChecked() && editTextRace.getText().toString().isEmpty())) {
+            if (editTextMummyName.getText().toString().equals("")) {
+                layoutMummyName.setErrorEnabled(true);
+                layoutMummyName.setError("This field is required!");
+            } else {
+                layoutMummyName.setErrorEnabled(false);
+                layoutMummyName.setError(null);
+            }
+
+            if (editTextIC.getText().toString().equals("")) {
+                layoutMummyIC.setErrorEnabled(true);
+                layoutMummyIC.setError("This field is required!");
+            } else {
+                layoutMummyIC.setErrorEnabled(false);
+                layoutMummyIC.setError(null);
+            }
+
+            if (editTextPhone.getText().toString().equals("")) {
+                layoutMummyPhone.setErrorEnabled(true);
+                layoutMummyPhone.setError("This field is required!");
+            } else {
+                layoutMummyPhone.setErrorEnabled(false);
+                layoutMummyPhone.setError(null);
+            }
+
+            if (editTextEmail.getText().toString().equals("")) {
+                layoutMummyEmail.setErrorEnabled(true);
+                layoutMummyEmail.setError("This field is required!");
+            } else {
+                layoutMummyEmail.setErrorEnabled(false);
+                layoutMummyEmail.setError(null);
+            }
+
+            if (editTextOccupation.getText().toString().equals("")) {
+                layoutMummyOccupation.setErrorEnabled(true);
+                layoutMummyOccupation.setError("This field is required!");
+            } else {
+                layoutMummyOccupation.setErrorEnabled(false);
+                layoutMummyOccupation.setError(null);
+            }
+
+            if (editTextAge.getText().toString().equals("")) {
+                layoutMummyAge.setErrorEnabled(true);
+                layoutMummyAge.setError("This field is required!");
+            } else {
+                layoutMummyAge.setErrorEnabled(false);
+                layoutMummyAge.setError(null);
+            }
+
+            if (radioGroupRace.getCheckedRadioButtonId() == -1) {
+                radioBtnMalay.setError("Required!");
+                radioBtnChinese.setError("Required!");
+                radioBtnIndian.setError("Required!");
+                radioBtnOtherRaces.setError("Required!");
+            } else {
+                radioBtnMalay.setError(null);
+                radioBtnChinese.setError(null);
+                radioBtnIndian.setError(null);
+                radioBtnOtherRaces.setError(null);
+            }
+            if(radioBtnOtherRaces.isChecked())
+            {
+                if(editTextRace.getText().toString().isEmpty())
+                {
+                    txtIinputLayoutOtherRace.setErrorEnabled(true);
+                    txtIinputLayoutOtherRace.setError("This field is required");
+                }else{
+                    txtIinputLayoutOtherRace.setErrorEnabled(false);
+                    txtIinputLayoutOtherRace.setError(null);
+                }
+            }
+            empty = true;
+        }else{
+            empty = false;
+        }
+        return empty;
+    }
+
+    private boolean checkMommyDetailEmpty()
+    {
+        boolean empty;
+        int check = 0;
+        if(radioGroupMarriage.getCheckedRadioButtonId()==-1||editTextHeight.getText().toString().equals("")||editTextWeight.getText().toString().equals("")||
+                editTextEDD.getText().toString().equals("")||editTextEDP.getText().toString().equals(""))
+        {
+            if(radioGroupMarriage.getCheckedRadioButtonId() == -1)
+            {
+                radioBtnMarried.setError("Required!");
+                radioBtnSingle.setError("Required!");
+            }else{
+                radioBtnMarried.setError(null);
+                radioBtnSingle.setError(null);
+            }
+
+            if(editTextHeight.getText().toString().equals(""))
+            {
+                layoutDetailHeight.setErrorEnabled(true);
+                layoutDetailHeight.setError("This field is required!");
+            }else{
+                layoutDetailHeight.setErrorEnabled(false);
+                layoutDetailHeight.setError(null);
+            }
+
+            if(editTextWeight.getText().toString().equals(""))
+            {
+                layoutDetailWeight.setErrorEnabled(true);
+                layoutDetailWeight.setError("This field is required!");
+            }else{
+                layoutDetailWeight.setErrorEnabled(false);
+                layoutDetailWeight.setError(null);
+            }
+
+            if(editTextEDD.getText().toString().equals(""))
+            {
+                txtInputLayoutEDD.setErrorEnabled(true);
+                txtInputLayoutEDD.setError("This field is required!");
+            }else{
+                txtInputLayoutEDD.setErrorEnabled(false);
+                txtInputLayoutEDD.setError(null);
+            }
+
+            if(editTextEDP.getText().toString().equals(""))
+            {
+                txtInputLayoutEDPInfo.setErrorEnabled(true);
+                txtInputLayoutEDPInfo.setError("This field is required!");
+            }else{
+                txtInputLayoutEDPInfo.setErrorEnabled(false);
+                txtInputLayoutEDPInfo.setError(null);
+            }
+            check++;
+        }
+
+        if(radioBtnMarried.isChecked())
+        {
+            if(editTextHusbandName.getText().toString().equals("")||editTextHusbandIC.getText().toString().equals("")||editTextHusbandWork.getText().toString().equals("")||
+                    editTextPhone.getText().toString().equals(""))
+            {
+                if(editTextHusbandName.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandName.setErrorEnabled(true);
+                    txtLayoutHusbandName.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandName.setErrorEnabled(false);
+                    txtLayoutHusbandName.setError(null);
+                }
+
+                if(editTextHusbandIC.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandIC.setErrorEnabled(true);
+                    txtLayoutHusbandIC.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandIC.setErrorEnabled(false);
+                    txtLayoutHusbandIC.setError(null);
+                }
+
+                if(editTextHusbandWork.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandWork.setErrorEnabled(true);
+                    txtLayoutHusbandWork.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandWork.setErrorEnabled(false);
+                    txtLayoutHusbandWork.setError(null);
+                }
+
+                if(editTextPhone.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandPhone.setErrorEnabled(true);
+                    txtLayoutHusbandPhone.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandPhone.setErrorEnabled(false);
+                    txtLayoutHusbandPhone.setError(null);
+                }
+                check++;
+            }
+        }
+        if(check > 0){
+            empty = true;
+        }else{
+            empty = false;
+        }
+        return empty;
     }
 
     private void GetAppointmentDate(String key)
