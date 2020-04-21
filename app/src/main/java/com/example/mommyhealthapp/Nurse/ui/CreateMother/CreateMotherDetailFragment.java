@@ -422,30 +422,6 @@ public class CreateMotherDetailFragment extends Fragment {
             }
         });
 
-        editTextEDD.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(editTextEDD.getText().toString().equals(""))
-                {
-                    txtInputLayoutEDD.setErrorEnabled(true);
-                    txtInputLayoutEDD.setError("This field is required!");
-                }else{
-                    txtInputLayoutEDD.setErrorEnabled(false);
-                    txtInputLayoutEDD.setError(null);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
         editTextEDP.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -565,14 +541,72 @@ public class CreateMotherDetailFragment extends Fragment {
 
             }
         });
+
+        editTextHusbandWorkAddress.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextHusbandWorkAddress.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandWorkPlacr.setErrorEnabled(true);
+                    txtLayoutHusbandWorkPlacr.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandWorkPlacr.setErrorEnabled(false);
+                    txtLayoutHusbandWorkPlacr.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextDisease.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextDisease.getText().toString().equals(""))
+                {
+                    txtInputLayoutDisease.setErrorEnabled(true);
+                    txtInputLayoutDisease.setError("This field is required!");
+                }else{
+                    txtInputLayoutDisease.setErrorEnabled(false);
+                    txtInputLayoutDisease.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private boolean checkRequiredField()
     {
         boolean empty;
-        if(radioGroupMarriage.getCheckedRadioButtonId()==-1||heightEditText.getText().toString().equals("")||weightEditText.getText().toString().equals("")||
+        int check = 0;
+        if(radioGroupYesNo.getCheckedRadioButtonId()==-1 || radioGroupMarriage.getCheckedRadioButtonId()==-1||heightEditText.getText().toString().equals("")||weightEditText.getText().toString().equals("")||
                 editTextEDD.getText().toString().equals("")||editTextEDP.getText().toString().equals(""))
         {
+            if(radioGroupYesNo.getCheckedRadioButtonId() == -1)
+            {
+                radioBtnYes.setError("Required!");
+                radioBtnNo.setError("Required!");
+            }else{
+                radioBtnYes.setError(null);
+                radioBtnNo.setError(null);
+            }
+
             if(radioGroupMarriage.getCheckedRadioButtonId() == -1)
             {
                 radioBtnMarried.setError("Required!");
@@ -600,15 +634,6 @@ public class CreateMotherDetailFragment extends Fragment {
                 weightLayout.setError(null);
             }
 
-            if(editTextEDD.getText().toString().equals(""))
-            {
-                txtInputLayoutEDD.setErrorEnabled(true);
-                txtInputLayoutEDD.setError("This field is required!");
-            }else{
-                txtInputLayoutEDD.setErrorEnabled(false);
-                txtInputLayoutEDD.setError(null);
-            }
-
             if(editTextEDP.getText().toString().equals(""))
             {
                 txtInputLayoutEDP.setErrorEnabled(true);
@@ -616,16 +641,27 @@ public class CreateMotherDetailFragment extends Fragment {
             }else{
                 txtInputLayoutEDP.setErrorEnabled(false);
                 txtInputLayoutEDP.setError(null);
+            };
+            check++;
+        }
+
+        if(radioBtnYes.isChecked())
+        {
+            if(editTextDisease.getText().toString().equals(""))
+            {
+                txtInputLayoutDisease.setErrorEnabled(true);
+                txtInputLayoutDisease.setError("This field is required!");
+                check++;
+            }else{
+                txtInputLayoutDisease.setErrorEnabled(false);
+                txtInputLayoutDisease.setError(null);
             }
-            empty = true;
-        }else{
-            empty = false;
         }
 
         if(radioBtnMarried.isChecked())
         {
             if(editTextHusbandName.getText().toString().equals("")||editTextHusbandIC.getText().toString().equals("")||editTextHusbandWork.getText().toString().equals("")||
-                    editTextPhone.getText().toString().equals(""))
+                    editTextPhone.getText().toString().equals("") || editTextHusbandWorkAddress.getText().toString().equals(""))
             {
                 if(editTextHusbandName.getText().toString().equals(""))
                 {
@@ -662,10 +698,23 @@ public class CreateMotherDetailFragment extends Fragment {
                     txtLayoutHusbandPhone.setErrorEnabled(false);
                     txtLayoutHusbandPhone.setError(null);
                 }
-                empty = true;
-            }else{
-                empty = false;
+
+                if(editTextHusbandWorkAddress.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandWorkPlacr.setErrorEnabled(true);
+                    txtLayoutHusbandWorkPlacr.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandWorkPlacr.setErrorEnabled(false);
+                    txtLayoutHusbandWorkPlacr.setError(null);
+                }
+                check++;
             }
+        }
+        if(check > 0)
+        {
+            empty = true;
+        }else{
+            empty = false;
         }
         return empty;
     }

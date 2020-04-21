@@ -78,7 +78,7 @@ public class MommyInfoActivity extends AppCompatActivity {
     private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle, radioBtnMalay, radioBtnChinese, radioBtnIndian, radioBtnOtherRaces;;
     private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr, txtIinputLayoutOtherRace,
             layoutAppointmentDate, layoutAppointmentTime, layoutMummyName, layoutMummyIC, layoutMummyPhone, layoutMummyEmail, layoutMummyOccupation, layoutMummyAge,
-            layoutDetailHeight, layoutDetailWeight, txtInputLayoutEDPInfo;
+            layoutDetailHeight, layoutDetailWeight, txtInputLayoutEDPInfo, layoutInfoAddress, layoutInfoEducation;
     private CheckBox chkBoxStatus;
     private TextView textViewMummyInfoName, textViewMummyInfoAge, textViewMummyInfoID, textViewMummyInfoColorCode;
     private CircularImageView imageViewMummyInfo;
@@ -155,6 +155,8 @@ public class MommyInfoActivity extends AppCompatActivity {
         layoutMummyAge = (TextInputLayout)findViewById(R.id.layoutMummyAge);
         layoutDetailHeight = (TextInputLayout)findViewById(R.id.layoutDetailHeight);
         layoutDetailWeight = (TextInputLayout)findViewById(R.id.layoutDetailWeight);
+        layoutInfoAddress = (TextInputLayout)findViewById(R.id.layoutInfoAddress);
+        layoutInfoEducation = (TextInputLayout)findViewById(R.id.layoutInfoEducation);
 
         editTextEDD = (EditText)findViewById(R.id.editTextEDDInfo);
         editTextDisease = (EditText)findViewById(R.id.editTextDiseaseInfo);
@@ -690,8 +692,8 @@ public class MommyInfoActivity extends AppCompatActivity {
     private boolean checkMommyInfoEmpty()
     {
         boolean empty;
-        if(editTextMummyName.getText().toString().equals("")||editTextIC.getText().toString().equals("")|| editTextPhone.getText().toString().equals("")||
-                editTextEmail.getText().toString().equals("")||editTextOccupation.getText().toString().equals("")|| editTextAge.getText().toString().equals("")||
+        if(editTextMummyName.getText().toString().equals("")||editTextIC.getText().toString().equals("")||editTextAddress.getText().toString().equals("")|| editTextPhone.getText().toString().equals("")||
+                editTextEmail.getText().toString().equals("")||editTextOccupation.getText().toString().equals("")|| editTextAge.getText().toString().equals("")||editTextEducation.getText().toString().equals("")||
                 radioGroupRace.getCheckedRadioButtonId() == -1 || (radioBtnOtherRaces.isChecked() && editTextRace.getText().toString().isEmpty())) {
             if (editTextMummyName.getText().toString().equals("")) {
                 layoutMummyName.setErrorEnabled(true);
@@ -707,6 +709,15 @@ public class MommyInfoActivity extends AppCompatActivity {
             } else {
                 layoutMummyIC.setErrorEnabled(false);
                 layoutMummyIC.setError(null);
+            }
+
+            if(editTextAddress.getText().toString().equals(""))
+            {
+                layoutInfoAddress.setErrorEnabled(true);
+                layoutInfoAddress.setError("This field is required!");
+            }else{
+                layoutInfoAddress.setErrorEnabled(false);
+                layoutInfoAddress.setError(null);
             }
 
             if (editTextPhone.getText().toString().equals("")) {
@@ -739,6 +750,15 @@ public class MommyInfoActivity extends AppCompatActivity {
             } else {
                 layoutMummyAge.setErrorEnabled(false);
                 layoutMummyAge.setError(null);
+            }
+
+            if(editTextEducation.getText().toString().equals(""))
+            {
+                layoutInfoEducation.setErrorEnabled(true);
+                layoutInfoEducation.setError("This field is required!");
+            }else{
+                layoutInfoEducation.setErrorEnabled(false);
+                layoutInfoEducation.setError(null);
             }
 
             if (radioGroupRace.getCheckedRadioButtonId() == -1) {
@@ -775,7 +795,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         boolean empty;
         int check = 0;
         if(radioGroupMarriage.getCheckedRadioButtonId()==-1||editTextHeight.getText().toString().equals("")||editTextWeight.getText().toString().equals("")||
-                editTextEDD.getText().toString().equals("")||editTextEDP.getText().toString().equals(""))
+                editTextEDD.getText().toString().equals("")||editTextEDP.getText().toString().equals("")||radioGroupYesNo.getCheckedRadioButtonId()==-1)
         {
             if(radioGroupMarriage.getCheckedRadioButtonId() == -1)
             {
@@ -784,6 +804,15 @@ public class MommyInfoActivity extends AppCompatActivity {
             }else{
                 radioBtnMarried.setError(null);
                 radioBtnSingle.setError(null);
+            }
+
+            if(radioGroupYesNo.getCheckedRadioButtonId() == -1)
+            {
+                radioBtnYes.setError("Required!");
+                radioBtnNo.setError("Required!");
+            }else{
+                radioBtnYes.setError(null);
+                radioBtnNo.setError(null);
             }
 
             if(editTextHeight.getText().toString().equals(""))
@@ -804,15 +833,6 @@ public class MommyInfoActivity extends AppCompatActivity {
                 layoutDetailWeight.setError(null);
             }
 
-            if(editTextEDD.getText().toString().equals(""))
-            {
-                txtInputLayoutEDD.setErrorEnabled(true);
-                txtInputLayoutEDD.setError("This field is required!");
-            }else{
-                txtInputLayoutEDD.setErrorEnabled(false);
-                txtInputLayoutEDD.setError(null);
-            }
-
             if(editTextEDP.getText().toString().equals(""))
             {
                 txtInputLayoutEDPInfo.setErrorEnabled(true);
@@ -824,10 +844,23 @@ public class MommyInfoActivity extends AppCompatActivity {
             check++;
         }
 
+        if(radioBtnYes.isChecked())
+        {
+            if(editTextDisease.getText().toString().equals(""))
+            {
+                txtInputLayoutDisease.setErrorEnabled(true);
+                txtInputLayoutDisease.setError("This is required!");
+                check++;
+            }else{
+                txtInputLayoutDisease.setErrorEnabled(false);
+                txtInputLayoutDisease.setError(null);
+            }
+        }
+
         if(radioBtnMarried.isChecked())
         {
             if(editTextHusbandName.getText().toString().equals("")||editTextHusbandIC.getText().toString().equals("")||editTextHusbandWork.getText().toString().equals("")||
-                    editTextPhone.getText().toString().equals(""))
+                    editTextPhone.getText().toString().equals("") || editTextHusbandWorkAddress.getText().toString().equals(""))
             {
                 if(editTextHusbandName.getText().toString().equals(""))
                 {
@@ -863,6 +896,15 @@ public class MommyInfoActivity extends AppCompatActivity {
                 }else{
                     txtLayoutHusbandPhone.setErrorEnabled(false);
                     txtLayoutHusbandPhone.setError(null);
+                }
+
+                if(editTextHusbandWorkAddress.getText().toString().equals(""))
+                {
+                    txtLayoutHusbandWorkPlacr.setErrorEnabled(true);
+                    txtLayoutHusbandWorkPlacr.setError("This field is required!");
+                }else{
+                    txtLayoutHusbandWorkPlacr.setErrorEnabled(false);
+                    txtLayoutHusbandWorkPlacr.setError(null);
                 }
                 check++;
             }

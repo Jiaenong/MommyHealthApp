@@ -60,7 +60,7 @@ public class CreateMotherFragment extends Fragment {
     private RadioGroup radioGroupRace;
     private Spinner spinnerNational;
     private RadioButton radioBtnOtherRaces, radioBtnMalay, radioBtnChinese, radioBtnIndian;
-    private TextInputLayout txtIinputLayoutOtherRace, firstNameLayout, lastNameLayout, IClayout, phoneLayout, emailLayout, occupationLayout, passwordLayout, confirmpassLayout, ageLayout;
+    private TextInputLayout txtIinputLayoutOtherRace, firstNameLayout, lastNameLayout, IClayout, phoneLayout, emailLayout, occupationLayout, passwordLayout, confirmpassLayout, ageLayout, layoutMummyAddress, layoutMummyEducation;
     private EditText fistNameEdiTtext, lastNameEditText, ICEditText, phoneEditText, emailEditText, occupationEditText, passwordEditText, confirmPassEditText, otherRaceEditText, addressEditText, ageEditText, educationEditText;
     private String mommyId, qrcode;
     private int mommyNumber;
@@ -94,8 +94,10 @@ public class CreateMotherFragment extends Fragment {
         passwordEditText = (EditText)root.findViewById(R.id.passwordEditText);
         otherRaceEditText = (EditText)root.findViewById(R.id.otherRaceEditText);
         addressEditText = (EditText)root.findViewById(R.id.addressEditText);
+        layoutMummyAddress = (TextInputLayout)root.findViewById(R.id.layoutMummyAddress);
         ageLayout = (TextInputLayout)root.findViewById(R.id.ageLayout);
         ageEditText = (EditText)root.findViewById(R.id.ageEditText);
+        layoutMummyEducation = (TextInputLayout)root.findViewById(R.id.layoutMummyEducation);
         educationEditText = (EditText)root.findViewById(R.id.educationEditText);
         confirmpassLayout = (TextInputLayout)root.findViewById(R.id.confirmpassLayout);
         confirmPassEditText = (EditText)root.findViewById(R.id.confirmPassEditText);
@@ -262,6 +264,30 @@ public class CreateMotherFragment extends Fragment {
             }
         });
 
+        addressEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(addressEditText.getText().toString().equals(""))
+                {
+                    layoutMummyAddress.setErrorEnabled(true);
+                    layoutMummyAddress.setError("This field is required!");
+                }else{
+                    layoutMummyAddress.setErrorEnabled(false);
+                    layoutMummyAddress.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         phoneEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -415,6 +441,30 @@ public class CreateMotherFragment extends Fragment {
 
             }
         });
+
+        educationEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(educationEditText.getText().toString().equals(""))
+                {
+                    layoutMummyEducation.setErrorEnabled(true);
+                    layoutMummyEducation.setError("This field is required!");
+                }else{
+                    layoutMummyEducation.setErrorEnabled(false);
+                    layoutMummyEducation.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private boolean checkRequiredFieldNextBtn()
@@ -423,7 +473,7 @@ public class CreateMotherFragment extends Fragment {
         if(fistNameEdiTtext.getText().toString().equals("")||lastNameEditText.getText().toString().equals("")||ICEditText.getText().toString().equals("")||
                 phoneEditText.getText().toString().equals("")||emailEditText.getText().toString().equals("")||occupationEditText.getText().toString().equals("")||
                 passwordEditText.getText().toString().equals("")||confirmPassEditText.getText().toString().equals("")||ageEditText.getText().toString().equals("")||
-                radioGroupRace.getCheckedRadioButtonId() == -1 || (radioBtnOtherRaces.isChecked() && otherRaceEditText.getText().toString().isEmpty()))
+                radioGroupRace.getCheckedRadioButtonId() == -1 || addressEditText.getText().toString().equals("") || (radioBtnOtherRaces.isChecked() && otherRaceEditText.getText().toString().isEmpty()))
         {
             if(fistNameEdiTtext.getText().toString().equals(""))
             {
@@ -450,6 +500,15 @@ public class CreateMotherFragment extends Fragment {
             }else{
                 IClayout.setErrorEnabled(false);
                 IClayout.setError(null);
+            }
+
+            if(addressEditText.getText().toString().equals(""))
+            {
+                layoutMummyAddress.setErrorEnabled(true);
+                layoutMummyAddress.setError("This field is required!");
+            }else{
+                layoutMummyAddress.setErrorEnabled(false);
+                layoutMummyAddress.setError(null);
             }
 
             if(phoneEditText.getText().toString().equals(""))
@@ -513,6 +572,15 @@ public class CreateMotherFragment extends Fragment {
             }else {
                 ageLayout.setErrorEnabled(false);
                 ageLayout.setError(null);
+            }
+
+            if(educationEditText.getText().toString().equals(""))
+            {
+                layoutMummyEducation.setErrorEnabled(true);
+                layoutMummyEducation.setError("This field is required!");
+            }else{
+                layoutMummyEducation.setErrorEnabled(false);
+                layoutMummyEducation.setError(null);
             }
 
             if(radioGroupRace.getCheckedRadioButtonId() == -1)
