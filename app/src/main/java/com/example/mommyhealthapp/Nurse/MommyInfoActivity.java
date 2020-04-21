@@ -78,7 +78,7 @@ public class MommyInfoActivity extends AppCompatActivity {
     private RadioButton radioBtnYes, radioBtnNo, radioBtnMarried, radioBtnSingle, radioBtnMalay, radioBtnChinese, radioBtnIndian, radioBtnOtherRaces;;
     private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtLayoutHusbandPhone, txtLayoutHusbandName, txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr, txtIinputLayoutOtherRace,
             layoutAppointmentDate, layoutAppointmentTime, layoutMummyName, layoutMummyIC, layoutMummyPhone, layoutMummyEmail, layoutMummyOccupation, layoutMummyAge,
-            layoutDetailHeight, layoutDetailWeight, txtInputLayoutEDPInfo, layoutInfoAddress, layoutInfoEducation;
+            layoutDetailHeight, layoutDetailWeight, txtInputLayoutEDPInfo, layoutInfoAddress, layoutInfoEducation, txtInputLayoutLNMP;
     private CheckBox chkBoxStatus;
     private TextView textViewMummyInfoName, textViewMummyInfoAge, textViewMummyInfoID, textViewMummyInfoColorCode;
     private CircularImageView imageViewMummyInfo;
@@ -140,6 +140,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         txtInputLayoutDisease = (TextInputLayout)findViewById(R.id.txtInputLayoutDiseaseInfo);
         txtInputLayoutEDD = (TextInputLayout)findViewById(R.id.txtInputLayoutEDDInfo);
         txtInputLayoutEDPInfo = (TextInputLayout)findViewById(R.id.txtInputLayoutEDPInfo);
+        txtInputLayoutLNMP = (TextInputLayout)findViewById(R.id.txtInputLayoutLNMP);
         txtLayoutHusbandPhone = (TextInputLayout)findViewById(R.id.txtLayoutHusbandPhoneInfo);
         txtLayoutHusbandName = (TextInputLayout)findViewById(R.id.txtLayoutHusbandNameInfo);
         txtLayoutHusbandIC = (TextInputLayout)findViewById(R.id.txtLayoutHusbandICInfo);
@@ -523,7 +524,12 @@ public class MommyInfoActivity extends AppCompatActivity {
                             mDocumentReference.update("familyDisease",editTextDisease.getText().toString());
                         }
                         try {
-                            dateEDD = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
+                            if(editTextEDD.getText().toString().isEmpty() || editTextEDD.getText().toString().equals("Field haven't fill in"))
+                            {
+                                dateEDD = null;
+                            }else {
+                                dateEDD = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
+                            }
                             dateLNMP = new SimpleDateFormat("dd/MM/yyyy").parse(editTextLNMP.getText().toString());
                             dateEDP = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDP.getText().toString());
                         } catch (ParseException e) {
@@ -795,7 +801,7 @@ public class MommyInfoActivity extends AppCompatActivity {
         boolean empty;
         int check = 0;
         if(radioGroupMarriage.getCheckedRadioButtonId()==-1||editTextHeight.getText().toString().equals("")||editTextWeight.getText().toString().equals("")||
-                editTextEDD.getText().toString().equals("")||editTextEDP.getText().toString().equals("")||radioGroupYesNo.getCheckedRadioButtonId()==-1)
+                editTextLNMP.getText().toString().equals("")||editTextEDP.getText().toString().equals("")||radioGroupYesNo.getCheckedRadioButtonId()==-1)
         {
             if(radioGroupMarriage.getCheckedRadioButtonId() == -1)
             {
@@ -831,6 +837,15 @@ public class MommyInfoActivity extends AppCompatActivity {
             }else{
                 layoutDetailWeight.setErrorEnabled(false);
                 layoutDetailWeight.setError(null);
+            }
+
+            if(editTextLNMP.getText().toString().equals(""))
+            {
+                txtInputLayoutLNMP.setErrorEnabled(true);
+                txtInputLayoutLNMP.setError("This field is required!");
+            }else{
+                txtInputLayoutLNMP.setErrorEnabled(false);
+                txtInputLayoutLNMP.setError(null);
             }
 
             if(editTextEDP.getText().toString().equals(""))
@@ -965,7 +980,12 @@ public class MommyInfoActivity extends AppCompatActivity {
                         txtInputLayoutDisease.setVisibility(View.VISIBLE);
                         editTextDisease.setText(mommyDetail.getFamilyDisease());
                     }
-                    editTextEDD.setText(dateFormat.format(mommyDetail.getEdd()));
+                    if(mommyDetail.getEdd() == null)
+                    {
+                        editTextEDD.setText("Field haven't fill in");
+                    }else{
+                        editTextEDD.setText(dateFormat.format(mommyDetail.getEdd()));
+                    }
                     editTextLNMP.setText(dateFormat.format(mommyDetail.getLnmp()));
                     editTextEDP.setText(dateFormat.format(mommyDetail.getEdp()));
                     if(mommyDetail.getMarriageStatus().equals("Single"))

@@ -68,7 +68,7 @@ public class CreateMotherDetailFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private TextInputLayout txtInputLayoutDisease, txtInputLayoutEDD, txtInputLayoutEDP, txtLayoutHusbandPhone, txtLayoutHusbandName,
-            txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr, heightLayout, weightLayout;
+            txtLayoutHusbandIC, txtLayoutHusbandWork, txtLayoutHusbandWorkPlacr, heightLayout, weightLayout, txtInputLayoutLNMP;
     private EditText editTextEDD, editTextLNMP, editTextEDP, editTextHusbandName, editTextHusbandIC, editTextHusbandWork, editTextHusbandWorkAddress, editTextPhone, heightEditText, weightEditText;
     private EditText editTextDisease;
     DatePickerDialog datePickerDialog;
@@ -123,6 +123,7 @@ public class CreateMotherDetailFragment extends Fragment {
         txtInputLayoutDisease = (TextInputLayout)root.findViewById(R.id.txtInputLayoutDisease);
         txtInputLayoutEDD = (TextInputLayout)root.findViewById(R.id.txtInputLayoutEDD);
         txtInputLayoutEDP = (TextInputLayout)root.findViewById(R.id.txtInputLayoutEDP);
+        txtInputLayoutLNMP = (TextInputLayout)root.findViewById(R.id.txtInputLayoutLNMP);
         txtLayoutHusbandPhone = (TextInputLayout)root.findViewById(R.id.txtLayoutHusbandPhone);
         txtLayoutHusbandName = (TextInputLayout)root.findViewById(R.id.txtLayoutHusbandName);
         txtLayoutHusbandIC = (TextInputLayout)root.findViewById(R.id.txtLayoutHusbandIC);
@@ -278,7 +279,12 @@ public class CreateMotherDetailFragment extends Fragment {
                             }
                             try {
                                 lnmp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextLNMP.getText().toString());
-                                edd = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
+                                if(editTextEDD.getText().toString().isEmpty())
+                                {
+                                    edd = null;
+                                }else{
+                                    edd = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDD.getText().toString());
+                                }
                                 edp = new SimpleDateFormat("dd/MM/yyyy").parse(editTextEDP.getText().toString());
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -413,6 +419,30 @@ public class CreateMotherDetailFragment extends Fragment {
                 }else{
                     weightLayout.setErrorEnabled(false);
                     weightLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextLNMP.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextLNMP.getText().toString().equals(""))
+                {
+                    txtInputLayoutLNMP.setErrorEnabled(true);
+                    txtInputLayoutLNMP.setError("This field is required!");
+                }else{
+                    txtInputLayoutLNMP.setErrorEnabled(false);
+                    txtInputLayoutLNMP.setError(null);
                 }
             }
 
@@ -596,7 +626,7 @@ public class CreateMotherDetailFragment extends Fragment {
         boolean empty;
         int check = 0;
         if(radioGroupYesNo.getCheckedRadioButtonId()==-1 || radioGroupMarriage.getCheckedRadioButtonId()==-1||heightEditText.getText().toString().equals("")||weightEditText.getText().toString().equals("")||
-                editTextEDD.getText().toString().equals("")||editTextEDP.getText().toString().equals(""))
+                editTextLNMP.getText().toString().equals("")||editTextEDP.getText().toString().equals(""))
         {
             if(radioGroupYesNo.getCheckedRadioButtonId() == -1)
             {
@@ -632,6 +662,15 @@ public class CreateMotherDetailFragment extends Fragment {
             }else{
                 weightLayout.setErrorEnabled(false);
                 weightLayout.setError(null);
+            }
+
+            if(editTextLNMP.getText().toString().equals(""))
+            {
+                txtInputLayoutLNMP.setErrorEnabled(true);
+                txtInputLayoutLNMP.setError("This field is required!");
+            }else{
+                txtInputLayoutLNMP.setErrorEnabled(false);
+                txtInputLayoutLNMP.setError(null);
             }
 
             if(editTextEDP.getText().toString().equals(""))
