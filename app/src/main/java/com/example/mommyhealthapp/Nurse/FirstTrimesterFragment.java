@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
@@ -18,13 +19,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mommyhealthapp.Class.FirstTrimester;
+import com.example.mommyhealthapp.Class.SecondTrimester;
+import com.example.mommyhealthapp.Class.ThirdTrimester;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -42,11 +47,11 @@ public class FirstTrimesterFragment extends Fragment {
     private Button btnFTSave, btnFTCancel;
 
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference, nCollectionReference, pCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference, pCollectionReference, secCollectionReference, thirdCollectionReference;
 
     private String healthInfoId, mommyKey, key;
     private int check = 0;
-    private Boolean isEmpty;
+    private Boolean isEmpty, isSecEmpty, isThirdEmpty;
 
     public FirstTrimesterFragment() {
         // Required empty public constructor
@@ -94,6 +99,7 @@ public class FirstTrimesterFragment extends Fragment {
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                         healthInfoId = documentSnapshot.getId();
                     }
+                    checkSecThirdTrimester();
                     nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("FirstTrimester");
                     nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
@@ -355,8 +361,11 @@ public class FirstTrimesterFragment extends Fragment {
                         Boolean emptyField = DetermineEmptyCheckBox(red, yellow, green, white);
                         if(emptyField == false)
                         {
-                            nDocumentReference.update("colorCode", colorCode);
-                            pDocumentReference.update("colorCode", colorCode);
+                            if(isSecEmpty == true || isThirdEmpty == true)
+                            {
+                                nDocumentReference.update("colorCode", colorCode);
+                                pDocumentReference.update("colorCode", colorCode);
+                            }
                             mDocumentReference.update("redCode", red);
                             mDocumentReference.update("yellowCode", yellow);
                             mDocumentReference.update("greenCode", green);
@@ -397,6 +406,52 @@ public class FirstTrimesterFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void checkSecThirdTrimester()
+    {
+        secCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("SecondTrimester");
+        thirdCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("ThirdTrimester");
+        secCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isSecEmpty = true;
+                }else{
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        SecondTrimester st = documentSnapshot.toObject(SecondTrimester.class);
+                        if(st.getRedCode().isEmpty() && st.getGreenCode().isEmpty() && st.getYellowCode().isEmpty() && st.getWhiteCode().isEmpty())
+                        {
+                            isSecEmpty = true;
+                        }else{
+                            isSecEmpty = false;
+                        }
+                    }
+                }
+            }
+        });
+        thirdCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isThirdEmpty = true;
+                }else{
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        ThirdTrimester tt = documentSnapshot.toObject(ThirdTrimester.class);
+                        if(tt.getRedCode().isEmpty() && tt.getGreenCode().isEmpty() && tt.getYellowCode().isEmpty() && tt.getWhiteCode().isEmpty())
+                        {
+                            isThirdEmpty = true;
+                        }else{
+                            isThirdEmpty = false;
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void MommyLogIn(final View v)

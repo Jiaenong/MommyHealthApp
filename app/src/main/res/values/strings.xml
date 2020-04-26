@@ -352,7 +352,7 @@
     <string name="summaryReport_Hemoglobin">Hemoglobin Concentration (gm %)</string>
     <string name="forgetPasswordEmailAddress">Email Address</string>
     <string name="forgetPassWordGuide">Please enter the email that you have used it for this account</string>
-    <string name="pregnancyControlExamination">Pregnancy Control Examination</string>
+    <string name="pregnancyControlExamination">Pregnancy Code Examination</string>
 
     <string-array name="national">
         <item>Malaysia</item>

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
@@ -23,7 +24,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -42,10 +45,10 @@ public class ThridTrimesterFragment extends Fragment {
 
     private String healthInfoId, mommyKey, key;
     private int check = 0;
-    private Boolean isEmpty;
+    private Boolean isEmpty, isFirstEmpty, isSecEmpty;
 
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference, nCollectionReference, pCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference, pCollectionReference, firstCollectionReference, secCollectionReference;
 
     public ThridTrimesterFragment() {
         // Required empty public constructor
@@ -94,6 +97,7 @@ public class ThridTrimesterFragment extends Fragment {
                     {
                         healthInfoId = documentSnapshot.getId();
                     }
+                    checkFirstSecTrimesterEmpty();
                     nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("ThirdTrimester");
                     nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
@@ -228,27 +232,42 @@ public class ThridTrimesterFragment extends Fragment {
                     Boolean emptyField = DetermineEmptyCheckBox(red, yellow, green, white);
                     if(emptyField == false)
                     {
-                        nCollectionReference.add(tt).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                DocumentReference mDocumentReference = mFirebaseFirestore.collection("Mommy").document(mommyKey);
-                                DocumentReference nDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId);
-                                mDocumentReference.update("colorCode", finalColorCode);
-                                nDocumentReference.update("colorCode", finalColorCode);
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                builder.setTitle("Save Successfully");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        getActivity().finish();
-                                    }
-                                });
-                                builder.setMessage("Save Successful!");
-                                AlertDialog alert = builder.create();
-                                alert.setCanceledOnTouchOutside(false);
-                                alert.show();
-                            }
-                        });
+                        if(isFirstEmpty == false || isSecEmpty == false)
+                        {
+                            nCollectionReference.add(tt).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    DocumentReference mDocumentReference = mFirebaseFirestore.collection("Mommy").document(mommyKey);
+                                    DocumentReference nDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId);
+                                    mDocumentReference.update("colorCode", finalColorCode);
+                                    nDocumentReference.update("colorCode", finalColorCode);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setTitle("Save Successfully");
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            getActivity().finish();
+                                        }
+                                    });
+                                    builder.setMessage("Save Successful!");
+                                    AlertDialog alert = builder.create();
+                                    alert.setCanceledOnTouchOutside(false);
+                                    alert.show();
+                                }
+                            });
+                        }else{
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("Error");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                            builder.setMessage("First Trimester and Second Trimester must be complete first");
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }
                     }else{
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle("Error");
@@ -397,6 +416,35 @@ public class ThridTrimesterFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void checkFirstSecTrimesterEmpty()
+    {
+        firstCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("FirstTrimester");
+        secCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("SecondTrimester");
+        firstCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isFirstEmpty = true;
+                }else{
+                    isFirstEmpty = false;
+                }
+            }
+        });
+
+        secCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isSecEmpty = true;
+                }else{
+                    isSecEmpty = false;
+                }
+            }
+        });
     }
 
     private void MommyLogIn(final View v)
