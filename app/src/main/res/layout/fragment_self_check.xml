@@ -8,10 +8,72 @@
     tools:context=".Mommy.ui.SelfCheck.SelfCheckFragment">
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/myDashboard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/nextApptDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="#fafafa"
+            app:cardCornerRadius="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imageView30"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/calendar_pic"
+                    app:srcCompat="@drawable/calendar_pic" />
+
+                <TextView
+                    android:id="@+id/textView30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/imageView30"
+                    android:text="@string/PregnancyExamNextAppTime"
+                    android:textSize="20sp"
+                    app:fontFamily="sans-serif-smallcaps" />
+
+                <TextView
+                    android:id="@+id/apptDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView30"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/imageView30"
+                    android:text="@string/value"
+                    android:textSize="20sp"
+                    app:fontFamily="sans-serif-smallcaps" />
+
+                <TextView
+                    android:id="@+id/apptTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView30"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/apptDate"
+                    android:text="@string/value"
+                    android:textSize="20sp"
+                    app:fontFamily="sans-serif-smallcaps" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/kickCounterMain"

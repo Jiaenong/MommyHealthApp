@@ -5,16 +5,28 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.mommyhealthapp.Class.AppointmentDate;
+import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Mommy.KickCounterActivity;
 import com.example.mommyhealthapp.Mommy.PregnancyWeightGainActivity;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.SaveSharedPreference;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.text.SimpleDateFormat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +42,12 @@ public class SelfCheckFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private TextView apptDate, appTtime;
+    private LinearLayoutCompat myDashboard;
+    private String appointmentKey;
+    private  Boolean isEmpty;
+    private FirebaseFirestore mFirebaseFirestore;
+    private CollectionReference mCollectionReference;
     private CardView kickCounterMain, cardViewPregnancyWeight;
 
     // TODO: Rename and change types of parameters
@@ -73,6 +91,35 @@ public class SelfCheckFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_self_check, container, false);
+
+        apptDate = (TextView)v.findViewById(R.id.apptDate);
+        appTtime = (TextView)v.findViewById(R.id.apptTime);
+
+        String mommyID = SaveSharedPreference.getID(getActivity());
+        mFirebaseFirestore = FirebaseFirestore.getInstance();
+        mCollectionReference = mFirebaseFirestore.collection("Mommy/"+mommyID+"/AppointmentDate");
+        mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty())
+                {
+                    isEmpty = true;
+                    apptDate.setText("No appointment has been made yet");
+                    appTtime.setText("");
+                }else{
+                    isEmpty = false;
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        appointmentKey = documentSnapshot.getId();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                        AppointmentDate ad = documentSnapshot.toObject(AppointmentDate.class);
+                        apptDate.setText(dateFormat.format(ad.getAppointmentDate()));
+                        appTtime.setText(timeFormat.format(ad.getAppointmentTime()));
+                    }
+                }
+            }
+        });
         kickCounterMain = (CardView)v.findViewById(R.id.kickCounterMain);
         cardViewPregnancyWeight = (CardView)v.findViewById(R.id.cardViewPregnancyWeight);
 
