@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.mommyhealthapp.Class.AppointmentDate;
 import com.example.mommyhealthapp.Class.Mommy;
+import com.example.mommyhealthapp.Mommy.DiaryActivity;
 import com.example.mommyhealthapp.Mommy.KickCounterActivity;
 import com.example.mommyhealthapp.Mommy.PregnancyWeightGainActivity;
 import com.example.mommyhealthapp.R;
@@ -48,7 +49,7 @@ public class SelfCheckFragment extends Fragment {
     private  Boolean isEmpty;
     private FirebaseFirestore mFirebaseFirestore;
     private CollectionReference mCollectionReference;
-    private CardView kickCounterMain, cardViewPregnancyWeight;
+    private CardView kickCounterMain, cardViewPregnancyWeight, cardViewBabyDiary;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -122,6 +123,7 @@ public class SelfCheckFragment extends Fragment {
         });
         kickCounterMain = (CardView)v.findViewById(R.id.kickCounterMain);
         cardViewPregnancyWeight = (CardView)v.findViewById(R.id.cardViewPregnancyWeight);
+        cardViewBabyDiary = (CardView)v.findViewById(R.id.cardViewBabyDiary);
 
         kickCounterMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +136,13 @@ public class SelfCheckFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PregnancyWeightGainActivity.class);
+                startActivity(intent);
+            }
+        });
+        cardViewBabyDiary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DiaryActivity.class);
                 startActivity(intent);
             }
         });

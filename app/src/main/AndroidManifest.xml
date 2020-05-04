@@ -29,8 +29,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Mommy.PregnancyWeightGainActivity"
-            android:label="Weight Gain Calculator"/>
+        <activity
+            android:name=".Mommy.UploadDiaryActivity"
+            android:label="Today's Diary"/>
+        <activity
+            android:name=".Mommy.DiaryActivity"
+            android:label="My Diary"/>
+        <activity
+            android:name=".Mommy.PregnancyWeightGainActivity"
+            android:label="Weight Gain Calculator" />
         <activity
             android:name=".Nurse.UploadDocumentActivity"
             android:label="Upload Document" />
