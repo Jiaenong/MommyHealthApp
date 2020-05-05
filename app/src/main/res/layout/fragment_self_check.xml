@@ -15,6 +15,77 @@
         android:padding="10dp">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/babyComingDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="#fafafa"
+            app:cardCornerRadius="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imageView70"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/baby_is_coming"
+                    app:srcCompat="@drawable/baby_is_coming" />
+
+                <TextView
+                    android:id="@+id/textView70"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/imageView70"
+                    android:text="@string/babyCountdown"
+                    android:textSize="20sp"
+                    app:fontFamily="sans-serif-smallcaps" />
+
+                <TextView
+                    android:id="@+id/textView77"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/babyBday"
+                    android:layout_below="@id/textView70"
+                    android:text="left"
+                    android:textSize="20sp"
+                    app:fontFamily="sans-serif-smallcaps" />
+
+                <TextView
+                    android:id="@+id/babyBday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/imageView70"
+                    android:layout_below="@id/textView70"
+                    android:text="@string/value"
+                    android:textSize="20sp"
+                    app:fontFamily="sans-serif-smallcaps" />
+
+                <TextView
+                    android:id="@+id/countdownDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/textView70"
+                    android:text="@string/value"
+                    android:textSize="30sp"
+                    app:fontFamily="sans-serif-smallcaps" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
             android:id="@+id/nextApptDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -132,7 +203,7 @@
                     android:id="@+id/imageView21"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:src="@drawable/blood_pressure_measure"
+                    android:src="@drawable/weight_gain_graph"
                     app:srcCompat="@drawable/weight_gain_graph" />
 
                 <TextView
@@ -166,8 +237,8 @@
 
                 <ImageView
                     android:id="@+id/imageView51"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/baby_diary"
                     app:srcCompat="@drawable/baby_diary" />
 

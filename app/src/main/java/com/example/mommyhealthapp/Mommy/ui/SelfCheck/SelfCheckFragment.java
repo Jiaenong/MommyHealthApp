@@ -9,6 +9,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.mommyhealthapp.Class.AppointmentDate;
 import com.example.mommyhealthapp.Class.Mommy;
+import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.Mommy.DiaryActivity;
 import com.example.mommyhealthapp.Mommy.KickCounterActivity;
 import com.example.mommyhealthapp.Mommy.PregnancyWeightGainActivity;
@@ -28,6 +30,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,12 +46,13 @@ public class SelfCheckFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private TextView apptDate, appTtime;
+    private TextView apptDate, appTtime, babyBday, countdownDate;
     private LinearLayoutCompat myDashboard;
     private String appointmentKey;
-    private  Boolean isEmpty;
+    private Date targetDate;
+    private Boolean isEmpty;
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference;
     private CardView kickCounterMain, cardViewPregnancyWeight, cardViewBabyDiary;
 
     // TODO: Rename and change types of parameters
@@ -95,6 +99,8 @@ public class SelfCheckFragment extends Fragment {
 
         apptDate = (TextView)v.findViewById(R.id.apptDate);
         appTtime = (TextView)v.findViewById(R.id.apptTime);
+        babyBday = (TextView)v.findViewById(R.id.babyBday);
+        countdownDate = (TextView)v.findViewById(R.id.countdownDate);
 
         String mommyID = SaveSharedPreference.getID(getActivity());
         mFirebaseFirestore = FirebaseFirestore.getInstance();
@@ -121,6 +127,26 @@ public class SelfCheckFragment extends Fragment {
                 }
             }
         });
+
+        nCollectionReference = mFirebaseFirestore.collection("Mommy").document(mommyID).collection("MommyDetail");
+        nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    MommyDetail mommyDetail = documentSnapshot.toObject(MommyDetail.class);
+                    babyBday.setText(dateFormat.format(mommyDetail.getEdd()));
+                    targetDate = mommyDetail.getEdd();
+                    Log.i("titleTD",targetDate+"");
+                }
+                Date today = new Date();
+                long diff = targetDate.getTime() - today.getTime();
+                int diffDays = (int)(diff / (24 * 60 * 60 * 1000) + 1);
+                countdownDate.setText(diffDays + "");
+            }
+        });
+
         kickCounterMain = (CardView)v.findViewById(R.id.kickCounterMain);
         cardViewPregnancyWeight = (CardView)v.findViewById(R.id.cardViewPregnancyWeight);
         cardViewBabyDiary = (CardView)v.findViewById(R.id.cardViewBabyDiary);

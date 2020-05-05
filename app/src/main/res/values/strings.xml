@@ -205,8 +205,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="self_check">Self Check</string>
-    <string name="pregnancy_record">Pregnancy Record</string>
+    <string name="self_check">Dashboard</string>
+    <string name="pregnancy_record">Record Book</string>
     <string name="mother_profile">Mother Profile</string>
     <string name="mgtt_current_obstetric">5. Current Obstetric Problems</string>
     <string name="mgtt_Glycosuria">Glycosuria in 1st trimester/2x glycosuria in 2nd or 3rd trimester</string>
@@ -462,6 +462,7 @@
     <string name="diaryBook">Baby Growth Diary</string>
     <string name="diaryTitle">Title</string>
     <string name="diaryDescription">Quotes of today</string>
+    <string name="babyCountdown">Baby is coming</string>
     <string name="currentPregnancyStage">Your Current Pregnancy Stage :</string>
     <string name="pregnantWithTwins">"Pregnant With Twins : "</string>
     <string name="weightBeforePregnancy">Your Weight Before Pregnancy (kg)</string>
