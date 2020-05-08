@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -114,9 +115,13 @@ public class UploadDiaryActivity extends AppCompatActivity {
                         editTextDiaryDesc.setText(di.getDescription());
                         diaryImageUrl = di.getImageURL();
                         Glide.with(UploadDiaryActivity.this).load(di.getImageURL()).into(imageViewDiaryImage);
+                        Log.i("url",diaryImageUrl);
                     }
                     progressBarUploadDiary.setVisibility(View.GONE);
                     layoutUploadDiary.setVisibility(View.VISIBLE);
+                    layoutUploadPhoto.setVisibility(View.GONE);
+                    layoutUndoPhoto.setVisibility(View.GONE);
+                    btnUploadPhotoSave.setText("Update");
                 }
             }
         });
@@ -170,6 +175,8 @@ public class UploadDiaryActivity extends AppCompatActivity {
                     if(check == 1)
                     {
                         EnableField();
+                        layoutUploadPhoto.setVisibility(View.VISIBLE);
+                        layoutUndoPhoto.setVisibility(View.VISIBLE);
                         btnUploadPhotoCancel.setVisibility(View.VISIBLE);
                     }else if(check == 2)
                     {
@@ -214,6 +221,8 @@ public class UploadDiaryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 check = 0;
                 DisableField();
+                layoutUploadPhoto.setVisibility(View.GONE);
+                layoutUndoPhoto.setVisibility(View.GONE);
                 btnUploadPhotoCancel.setVisibility(View.GONE);
             }
         });
