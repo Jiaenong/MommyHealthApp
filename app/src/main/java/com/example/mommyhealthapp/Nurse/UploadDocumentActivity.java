@@ -230,7 +230,27 @@ public class UploadDocumentActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/jpeg");
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(Intent.createChooser(intent, "Complete the action using"), RC_PHOTO_PICKER);
+                if(isEmpty == true)
+                {
+                    startActivityForResult(Intent.createChooser(intent, "Complete the action using"), RC_PHOTO_PICKER);
+                }else{
+                    if(documentImageUrl.isEmpty())
+                    {
+                        startActivityForResult(Intent.createChooser(intent, "Complete the action using"), RC_PHOTO_PICKER);
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(UploadDocumentActivity.this);
+                        builder.setTitle("Error");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
+                            }
+                        });
+                        builder.setMessage("Please undo photo 1st");
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }
+                }
             }
         });
 
@@ -284,30 +304,13 @@ public class UploadDocumentActivity extends AppCompatActivity {
                 public void onComplete(@NonNull final Task<Uri> task) {
                     if(task.isSuccessful())
                     {
-                        if(isEmpty == false)
-                        {
-                            StorageReference mStorageReference = mFirebaseStorage.getReferenceFromUrl(documentImageUrl);
-                            mStorageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Uri downloadUri = task.getResult();
-                                    documentImageUrl = downloadUri.toString();
-                                    Glide.with(UploadDocumentActivity.this).load(documentImageUrl).into(imageViewDocImage);
-                                    progressBarUploadPhoto.setVisibility(View.GONE);
-                                    imageViewDocImage.setVisibility(View.VISIBLE);
-                                    Snackbar snackbar = Snackbar.make(relativeLayoutUploadDocument, "Upload Success", Snackbar.LENGTH_LONG);
-                                    snackbar.show();
-                                }
-                            });
-                        }else{
-                            Uri downloadUri = task.getResult();
-                            documentImageUrl = downloadUri.toString();
-                            Glide.with(UploadDocumentActivity.this).load(documentImageUrl).into(imageViewDocImage);
-                            progressBarUploadPhoto.setVisibility(View.GONE);
-                            imageViewDocImage.setVisibility(View.VISIBLE);
-                            Snackbar snackbar = Snackbar.make(relativeLayoutUploadDocument, "Upload Success", Snackbar.LENGTH_LONG);
-                            snackbar.show();
-                        }
+                        Uri downloadUri = task.getResult();
+                        documentImageUrl = downloadUri.toString();
+                        Glide.with(UploadDocumentActivity.this).load(documentImageUrl).into(imageViewDocImage);
+                        progressBarUploadPhoto.setVisibility(View.GONE);
+                        imageViewDocImage.setVisibility(View.VISIBLE);
+                        Snackbar snackbar = Snackbar.make(relativeLayoutUploadDocument, "Upload Success", Snackbar.LENGTH_LONG);
+                        snackbar.show();
                     }else{
                         progressBarUploadPhoto.setVisibility(View.GONE);
                         imageViewDocImage.setVisibility(View.VISIBLE);

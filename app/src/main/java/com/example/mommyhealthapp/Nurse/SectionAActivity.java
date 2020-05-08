@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +27,7 @@ import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,6 +40,7 @@ import java.util.UUID;
 public class SectionAActivity extends AppCompatActivity {
     private EditText editTextPPYear, editTextPPResult, editTextPPBirthType, editTextPlaceGiveBirth, editTextPPWeight, editTextPPMother,
             editTextPPChild, editTextPPBFP, editTextSituation;
+    private TextInputLayout layoutPPYear, layoutPPResult, layoutPPBirthType, layoutPlaceGiveBirth, layoutPPWeight, layoutPPMother, layoutPPChild, layoutPPBFP, layoutSituation;
     private RadioGroup radioGroupPPGender;
     private RadioButton radioButtonPPMale, radioButtonPPFemale;
     private Button btnPPSave, btnPPCancel;
@@ -64,6 +68,15 @@ public class SectionAActivity extends AppCompatActivity {
         editTextPPChild = (EditText)findViewById(R.id.editTextPPChild);
         editTextPPBFP = (EditText)findViewById(R.id.editTextPPBFP);
         editTextSituation = (EditText)findViewById(R.id.editTextSituation);
+        layoutPPYear = (TextInputLayout)findViewById(R.id.layoutPPYear);
+        layoutPPResult = (TextInputLayout)findViewById(R.id.layoutPPResult);
+        layoutPPBirthType = (TextInputLayout)findViewById(R.id.layoutPPBirthType);
+        layoutPlaceGiveBirth = (TextInputLayout)findViewById(R.id.layoutPlaceGiveBirth);
+        layoutPPWeight = (TextInputLayout)findViewById(R.id.layoutPPWeight);
+        layoutPPMother = (TextInputLayout)findViewById(R.id.layoutPPMother);
+        layoutPPChild = (TextInputLayout)findViewById(R.id.layoutPPChild);
+        layoutPPBFP = (TextInputLayout)findViewById(R.id.layoutPPBFP);
+        layoutSituation = (TextInputLayout)findViewById(R.id.layoutSituation);
         radioGroupPPGender = (RadioGroup)findViewById(R.id.radioGroupPPGender);
         radioButtonPPMale = (RadioButton)findViewById(R.id.radioButtonPPMale);
         radioButtonPPFemale = (RadioButton)findViewById(R.id.radioButtonPPFemale);
@@ -77,6 +90,8 @@ public class SectionAActivity extends AppCompatActivity {
         healthInfoId = intent.getStringExtra("healthInfoId");
         bloodTestId = intent.getStringExtra("bloodTestId");
         ppId = intent.getStringExtra("ppId");
+
+        CheckRequiredField();
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/PreviousPregnant");
@@ -130,46 +145,48 @@ public class SectionAActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(SaveSharedPreference.getPreviousPregnant(SectionAActivity.this).equals("New"))
                 {
-                    Log.i("testing", "test");
-                    String year = editTextPPYear.getText().toString();
-                    String result = editTextPPResult.getText().toString();
-                    String birthType = editTextPPBirthType.getText().toString();
-                    String placeGiveBirth = editTextPlaceGiveBirth.getText().toString();
-                    Double weight = Double.parseDouble(editTextPPWeight.getText().toString());
-                    String mother = editTextPPMother.getText().toString();
-                    String child = editTextPPChild.getText().toString();
-                    String bfp = editTextPPBFP.getText().toString();
-                    String situation = editTextSituation.getText().toString();
-                    String gender = "";
-                    if(radioButtonPPMale.isChecked())
+                    if(CheckOnclickRequired() == false)
                     {
-                        gender = radioButtonPPMale.getText().toString();
-                    }else if(radioButtonPPFemale.isChecked())
-                    {
-                        gender = radioButtonPPFemale.getText().toString();
-                    }
-                    Date today = new Date();
-                    String medicalPersonnelId = SaveSharedPreference.getID(SectionAActivity.this);
-                    String ppId = UUID.randomUUID().toString().replace("-", "");
-                    PreviousPregnant pp = new PreviousPregnant(year, result, birthType, placeGiveBirth, gender, weight, mother, child, bfp, situation, today, medicalPersonnelId, ppId);
-
-                    mCollectionReference.add(pp).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(SectionAActivity.this);
-                            builder.setTitle("Save Successfully");
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
-                            builder.setMessage("Save Successful!");
-                            AlertDialog alert = builder.create();
-                            alert.setCanceledOnTouchOutside(false);
-                            alert.show();
+                        String year = editTextPPYear.getText().toString();
+                        String result = editTextPPResult.getText().toString();
+                        String birthType = editTextPPBirthType.getText().toString();
+                        String placeGiveBirth = editTextPlaceGiveBirth.getText().toString();
+                        Double weight = Double.parseDouble(editTextPPWeight.getText().toString());
+                        String mother = editTextPPMother.getText().toString();
+                        String child = editTextPPChild.getText().toString();
+                        String bfp = editTextPPBFP.getText().toString();
+                        String situation = editTextSituation.getText().toString();
+                        String gender = "";
+                        if(radioButtonPPMale.isChecked())
+                        {
+                            gender = radioButtonPPMale.getText().toString();
+                        }else if(radioButtonPPFemale.isChecked())
+                        {
+                            gender = radioButtonPPFemale.getText().toString();
                         }
-                    });
+                        Date today = new Date();
+                        String medicalPersonnelId = SaveSharedPreference.getID(SectionAActivity.this);
+                        String ppId = UUID.randomUUID().toString().replace("-", "");
+                        PreviousPregnant pp = new PreviousPregnant(year, result, birthType, placeGiveBirth, gender, weight, mother, child, bfp, situation, today, medicalPersonnelId, ppId);
+
+                        mCollectionReference.add(pp).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SectionAActivity.this);
+                                builder.setTitle("Save Successfully");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finish();
+                                    }
+                                });
+                                builder.setMessage("Save Successful!");
+                                AlertDialog alert = builder.create();
+                                alert.setCanceledOnTouchOutside(false);
+                                alert.show();
+                            }
+                        });
+                    }
                 }else if(SaveSharedPreference.getPreviousPregnant(SectionAActivity.this).equals("Exist"))
                 {
                     check++;
@@ -179,31 +196,36 @@ public class SectionAActivity extends AppCompatActivity {
                         btnPPCancel.setVisibility(View.VISIBLE);
                     }else if(check == 2)
                     {
-                        Date today = new Date();
-                        mDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/PreviousPregnant/"+key);
-                        mDocumentReference.update("year", editTextPPYear.getText().toString());
-                        mDocumentReference.update("pregnantResult", editTextPPResult.getText().toString());
-                        mDocumentReference.update("birthType", editTextPPBirthType.getText().toString());
-                        mDocumentReference.update("placeGiveBirth", editTextPlaceGiveBirth.getText().toString());
-                        if(radioButtonPPMale.isChecked())
+                        if(CheckOnclickRequired() == false)
                         {
-                            mDocumentReference.update("gender",radioButtonPPMale.getText().toString());
-                        }else if(radioButtonPPFemale.isChecked())
-                        {
-                            mDocumentReference.update("gender", radioButtonPPFemale.getText().toString());
+                            Date today = new Date();
+                            mDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/PreviousPregnant/"+key);
+                            mDocumentReference.update("year", editTextPPYear.getText().toString());
+                            mDocumentReference.update("pregnantResult", editTextPPResult.getText().toString());
+                            mDocumentReference.update("birthType", editTextPPBirthType.getText().toString());
+                            mDocumentReference.update("placeGiveBirth", editTextPlaceGiveBirth.getText().toString());
+                            if(radioButtonPPMale.isChecked())
+                            {
+                                mDocumentReference.update("gender",radioButtonPPMale.getText().toString());
+                            }else if(radioButtonPPFemale.isChecked())
+                            {
+                                mDocumentReference.update("gender", radioButtonPPFemale.getText().toString());
+                            }
+                            mDocumentReference.update("birthWeight", Double.parseDouble(editTextPPWeight.getText().toString()));
+                            mDocumentReference.update("complicationMother", editTextPPMother.getText().toString());
+                            mDocumentReference.update("complicationChild", editTextPPChild.getText().toString());
+                            mDocumentReference.update("breastFeedingPeriod", editTextPPBFP.getText().toString());
+                            mDocumentReference.update("childSituation", editTextSituation.getText().toString());
+                            mDocumentReference.update("createdBy", SaveSharedPreference.getID(SectionAActivity.this));
+                            mDocumentReference.update("today", today);
+                            check = 0;
+                            DisableField();
+                            btnPPCancel.setVisibility(View.GONE);
+                            Snackbar snackbar = Snackbar.make(relativeLayoutPP, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                        }else{
+                            check = 1;
                         }
-                        mDocumentReference.update("birthWeight", Double.parseDouble(editTextPPWeight.getText().toString()));
-                        mDocumentReference.update("complicationMother", editTextPPMother.getText().toString());
-                        mDocumentReference.update("complicationChild", editTextPPChild.getText().toString());
-                        mDocumentReference.update("breastFeedingPeriod", editTextPPBFP.getText().toString());
-                        mDocumentReference.update("childSituation", editTextSituation.getText().toString());
-                        mDocumentReference.update("createdBy", SaveSharedPreference.getID(SectionAActivity.this));
-                        mDocumentReference.update("today", today);
-                        check = 0;
-                        DisableField();
-                        btnPPCancel.setVisibility(View.GONE);
-                        Snackbar snackbar = Snackbar.make(relativeLayoutPP, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                        snackbar.show();
                     }
                 }
             }
@@ -262,6 +284,326 @@ public class SectionAActivity extends AppCompatActivity {
                     layoutPP.setVisibility(View.VISIBLE);
                     progressBarPP.setVisibility(View.GONE);
                 }
+            }
+        });
+    }
+
+    private boolean CheckOnclickRequired()
+    {
+        if(editTextPPYear.getText().toString().isEmpty() || editTextPPResult.getText().toString().isEmpty() || editTextPPBirthType.getText().toString().isEmpty()
+        || editTextPlaceGiveBirth.getText().toString().isEmpty() || editTextPPWeight.getText().toString().isEmpty() || editTextPPMother.getText().toString().isEmpty()
+        || editTextPPChild.getText().toString().isEmpty() || editTextPPBFP.getText().toString().isEmpty() || editTextSituation.getText().toString().isEmpty() || radioGroupPPGender.getCheckedRadioButtonId() == -1)
+        {
+            if(editTextPPYear.getText().toString().isEmpty())
+            {
+                layoutPPYear.setErrorEnabled(true);
+                layoutPPYear.setError("This field is required!");
+            }else{
+                layoutPPYear.setErrorEnabled(false);
+                layoutPPYear.setError(null);
+            }
+
+            if(editTextPPResult.getText().toString().isEmpty())
+            {
+                layoutPPResult.setErrorEnabled(true);
+                layoutPPResult.setError("This field is required!");
+            }else{
+                layoutPPResult.setErrorEnabled(false);
+                layoutPPResult.setError(null);
+            }
+
+            if(editTextPPBirthType.getText().toString().isEmpty())
+            {
+                layoutPPBirthType.setErrorEnabled(true);
+                layoutPPBirthType.setError("This field is required!");
+            }else{
+                layoutPPBirthType.setErrorEnabled(false);
+                layoutPPBirthType.setError(null);
+            }
+
+            if(editTextPlaceGiveBirth.getText().toString().isEmpty())
+            {
+                layoutPlaceGiveBirth.setErrorEnabled(true);
+                layoutPlaceGiveBirth.setError("This field is required!");
+            }else{
+                layoutPlaceGiveBirth.setErrorEnabled(false);
+                layoutPlaceGiveBirth.setError(null);
+            }
+
+            if(editTextPPWeight.getText().toString().isEmpty())
+            {
+                layoutPPWeight.setErrorEnabled(true);
+                layoutPPWeight.setError("This field is required!");
+            }else{
+                layoutPPWeight.setErrorEnabled(false);
+                layoutPPWeight.setError(null);
+            }
+
+            if(editTextPPMother.getText().toString().isEmpty())
+            {
+                layoutPPMother.setErrorEnabled(true);
+                layoutPPMother.setError("This field is required!");
+            }else{
+                layoutPPMother.setErrorEnabled(false);
+                layoutPPMother.setError(null);
+            }
+
+            if(editTextPPChild.getText().toString().isEmpty())
+            {
+                layoutPPChild.setErrorEnabled(true);
+                layoutPPChild.setError("This field is required!");
+            }else{
+                layoutPPChild.setErrorEnabled(false);
+                layoutPPChild.setError(null);
+            }
+
+            if(editTextPPBFP.getText().toString().isEmpty())
+            {
+                layoutPPBFP.setErrorEnabled(true);
+                layoutPPBFP.setError("This field is required!");
+            }else{
+                layoutPPBFP.setErrorEnabled(false);
+                layoutPPBFP.setError(null);
+            }
+
+            if(editTextSituation.getText().toString().isEmpty())
+            {
+                layoutSituation.setErrorEnabled(true);
+                layoutSituation.setError("This field is required!");
+            }else{
+                layoutSituation.setErrorEnabled(false);
+                layoutSituation.setError(null);
+            }
+
+            if(radioGroupPPGender.getCheckedRadioButtonId() == -1)
+            {
+                radioButtonPPMale.setError("This field is required!");
+                radioButtonPPFemale.setError("This field is required!");
+            }else{
+                radioButtonPPMale.setError(null);
+                radioButtonPPFemale.setError(null);
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private void CheckRequiredField()
+    {
+        editTextPPYear.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextPPYear.getText().toString().isEmpty())
+                {
+                    layoutPPYear.setErrorEnabled(true);
+                    layoutPPYear.setError("This field is required!");
+                }else{
+                    layoutPPYear.setErrorEnabled(false);
+                    layoutPPYear.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextPPResult.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextPPResult.getText().toString().isEmpty())
+                {
+                    layoutPPResult.setErrorEnabled(true);
+                    layoutPPResult.setError("This field is required!");
+                }else{
+                    layoutPPResult.setErrorEnabled(false);
+                    layoutPPResult.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextPPBirthType.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextPPBirthType.getText().toString().isEmpty())
+                {
+                    layoutPPBirthType.setErrorEnabled(true);
+                    layoutPPBirthType.setError("This field is required!");
+                }else{
+                    layoutPPBirthType.setErrorEnabled(false);
+                    layoutPPBirthType.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextPlaceGiveBirth.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextPlaceGiveBirth.getText().toString().isEmpty())
+                {
+                    layoutPlaceGiveBirth.setErrorEnabled(true);
+                    layoutPlaceGiveBirth.setError("This field is required!");
+                }else{
+                    layoutPlaceGiveBirth.setErrorEnabled(false);
+                    layoutPlaceGiveBirth.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextPPWeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextPPWeight.getText().toString().isEmpty())
+                {
+                    layoutPPWeight.setErrorEnabled(true);
+                    layoutPPWeight.setError("This field is required!");
+                }else{
+                    layoutPPWeight.setErrorEnabled(false);
+                    layoutPPWeight.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextPPMother.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextPPMother.getText().toString().isEmpty())
+                {
+                    layoutPPMother.setErrorEnabled(true);
+                    layoutPPMother.setError("This field is required!");
+                }else{
+                    layoutPPMother.setErrorEnabled(false);
+                    layoutPPMother.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextPPChild.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextPPChild.getText().toString().isEmpty())
+                {
+                    layoutPPChild.setErrorEnabled(true);
+                    layoutPPChild.setError("This field is required!");
+                }else{
+                    layoutPPChild.setErrorEnabled(false);
+                    layoutPPChild.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextPPBFP.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextPPBFP.getText().toString().isEmpty())
+                {
+                    layoutPPBFP.setErrorEnabled(true);
+                    layoutPPBFP.setError("This field is required!");
+                }else{
+                    layoutPPBFP.setErrorEnabled(false);
+                    layoutPPBFP.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextSituation.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextSituation.getText().toString().isEmpty())
+                {
+                    layoutSituation.setErrorEnabled(true);
+                    layoutSituation.setError("This field is required!");
+                }else{
+                    layoutSituation.setErrorEnabled(false);
+                    layoutSituation.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }

@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,16 +26,20 @@ import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.util.Date;
 
 public class SectionBActivity extends AppCompatActivity {
     private EditText editTextRBG, editTextTPHA, editTextRapidTest, editTextHepatitisB, editTextThalassaemia, editTextBFMP;
+    private TextInputLayout layoutRBG, layoutTPHA, layoutRapidTest;
     private RadioGroup radioGroupTest1, radioGroupElizaTest;
     private RadioButton radioBtnNR, radioBtnR, radiobtnETPositive, radiobtnETNegative;
     private LinearLayoutCompat layoutScreenTest;
@@ -58,6 +64,9 @@ public class SectionBActivity extends AppCompatActivity {
         editTextThalassaemia = (EditText)findViewById(R.id.editTextThalassaemia);
         editTextBFMP = (EditText)findViewById(R.id.editTextBFMP);
         editTextRapidTest = (EditText)findViewById(R.id.editTextRapidTest);
+        layoutRBG = (TextInputLayout)findViewById(R.id.layoutRBG);
+        layoutTPHA = (TextInputLayout)findViewById(R.id.layoutTPHA);
+        layoutRapidTest = (TextInputLayout)findViewById(R.id.layoutRapidTest);
         radioGroupTest1 = (RadioGroup)findViewById(R.id.radioGroupTest1);
         radioGroupElizaTest = (RadioGroup)findViewById(R.id.radioGroupElizaTest);
         radioBtnNR = (RadioButton)findViewById(R.id.radioBtnNR);
@@ -72,6 +81,10 @@ public class SectionBActivity extends AppCompatActivity {
 
         layoutScreenTest.setVisibility(View.GONE);
         progressBarST.setVisibility(View.VISIBLE);
+        editTextRapidTest.setFocusable(false);
+        editTextRapidTest.setClickable(false);
+
+        CheckRequiredField();
 
         Intent intent = getIntent();
         healthInfoId = intent.getStringExtra("healthInfoId");
@@ -90,6 +103,7 @@ public class SectionBActivity extends AppCompatActivity {
                 if(queryDocumentSnapshots.isEmpty())
                 {
                     isEmpty = true;
+                    editTextRBG.setText(radioGroup);
                     layoutScreenTest.setVisibility(View.VISIBLE);
                     progressBarST.setVisibility(View.GONE);
                 }else{
@@ -156,7 +170,6 @@ public class SectionBActivity extends AppCompatActivity {
             }
         });
 
-        editTextRBG.setText(radioGroup);
         btnSTCancel.setVisibility(View.GONE);
 
         btnSTSave.setOnClickListener(new View.OnClickListener() {
@@ -164,33 +177,36 @@ public class SectionBActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isEmpty == true)
                 {
-                    String rbg = editTextRBG.getText().toString();
-                    String tpha = editTextTPHA.getText().toString();
-                    String rapidTest = editTextRapidTest.getText().toString();
-                    String hepatitisB = editTextHepatitisB.getText().toString();
-                    String thalassaemia = editTextThalassaemia.getText().toString();
-                    String bfmp = editTextBFMP.getText().toString();
-                    Date today = new Date();
-                    String medicalPersonnelId = SaveSharedPreference.getID(SectionBActivity.this);
+                    if(CheckRequiredOnclick() == false)
+                    {
+                        String rbg = editTextRBG.getText().toString();
+                        String tpha = editTextTPHA.getText().toString();
+                        String rapidTest = editTextRapidTest.getText().toString();
+                        String hepatitisB = editTextHepatitisB.getText().toString();
+                        String thalassaemia = editTextThalassaemia.getText().toString();
+                        String bfmp = editTextBFMP.getText().toString();
+                        Date today = new Date();
+                        String medicalPersonnelId = SaveSharedPreference.getID(SectionBActivity.this);
 
-                    ScreenTest st = new ScreenTest(rbg, tpha, rapidTest, hepatitisB, thalassaemia, bfmp, today, medicalPersonnelId);
-                    mCollectionReference.add(st).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(SectionBActivity.this);
-                            builder.setTitle("Save Successfully");
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
-                            builder.setMessage("Save Successful!");
-                            AlertDialog alert = builder.create();
-                            alert.setCanceledOnTouchOutside(false);
-                            alert.show();
-                        }
-                    });
+                        ScreenTest st = new ScreenTest(rbg, tpha, rapidTest, hepatitisB, thalassaemia, bfmp, today, medicalPersonnelId);
+                        mCollectionReference.add(st).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SectionBActivity.this);
+                                builder.setTitle("Save Successfully");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finish();
+                                    }
+                                });
+                                builder.setMessage("Save Successful!");
+                                AlertDialog alert = builder.create();
+                                alert.setCanceledOnTouchOutside(false);
+                                alert.show();
+                            }
+                        });
+                    }
                 }else if(isEmpty == false)
                 {
                     check++;
@@ -200,21 +216,26 @@ public class SectionBActivity extends AppCompatActivity {
                         EnableField();
                     }else if(check == 2)
                     {
-                        Date today = new Date();
-                        mDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/ScreenTest/"+key);
-                        mDocumentReference.update("rhesusBloodGroup", editTextRBG.getText().toString());
-                        mDocumentReference.update("tpha", editTextTPHA.getText().toString());
-                        mDocumentReference.update("rapidTest", editTextRapidTest.getText().toString());
-                        mDocumentReference.update("hepatitisB", editTextHepatitisB.getText().toString());
-                        mDocumentReference.update("thalassaemia", editTextThalassaemia.getText().toString());
-                        mDocumentReference.update("bfmp", editTextBFMP.getText().toString());
-                        mDocumentReference.update("createdDate", today);
-                        mDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(SectionBActivity.this));
-                        Snackbar snackbar = Snackbar.make(relativeLayoutST, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                        btnSTCancel.setVisibility(View.GONE);
-                        DisableField();
-                        check = 0;
+                        if(CheckRequiredOnclick() == false)
+                        {
+                            Date today = new Date();
+                            mDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/ScreenTest/"+key);
+                            mDocumentReference.update("rhesusBloodGroup", editTextRBG.getText().toString());
+                            mDocumentReference.update("tpha", editTextTPHA.getText().toString());
+                            mDocumentReference.update("rapidTest", editTextRapidTest.getText().toString());
+                            mDocumentReference.update("hepatitisB", editTextHepatitisB.getText().toString());
+                            mDocumentReference.update("thalassaemia", editTextThalassaemia.getText().toString());
+                            mDocumentReference.update("bfmp", editTextBFMP.getText().toString());
+                            mDocumentReference.update("createdDate", today);
+                            mDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(SectionBActivity.this));
+                            Snackbar snackbar = Snackbar.make(relativeLayoutST, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                            btnSTCancel.setVisibility(View.GONE);
+                            DisableField();
+                            check = 0;
+                        }else{
+                            check = 1;
+                        }
                     }
                 }
             }
@@ -280,6 +301,118 @@ public class SectionBActivity extends AppCompatActivity {
             }
         });
     }
+
+    private boolean CheckRequiredOnclick()
+    {
+        if(editTextRBG.getText().toString().isEmpty() || editTextTPHA.getText().toString().isEmpty() || editTextRapidTest.getText().toString().isEmpty())
+        {
+            if(editTextRBG.getText().toString().isEmpty())
+            {
+                layoutRBG.setErrorEnabled(true);
+                layoutRBG.setError("This field is required!");
+            }else{
+                layoutRBG.setErrorEnabled(false);
+                layoutRBG.setError(null);
+            }
+
+            if(editTextTPHA.getText().toString().isEmpty())
+            {
+                layoutTPHA.setErrorEnabled(true);
+                layoutTPHA.setError("This field is required!");
+            }else{
+                layoutTPHA.setErrorEnabled(false);
+                layoutTPHA.setError(null);
+            }
+
+            if(editTextRapidTest.getText().toString().isEmpty())
+            {
+                layoutRapidTest.setErrorEnabled(true);
+                layoutRapidTest.setError("This field is required!");
+            }else{
+                layoutRapidTest.setErrorEnabled(false);
+                layoutRapidTest.setError(null);
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private void CheckRequiredField()
+    {
+        editTextRBG.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextRBG.getText().toString().isEmpty())
+                {
+                    layoutRBG.setErrorEnabled(true);
+                    layoutRBG.setError("This field is required!");
+                }else{
+                    layoutRBG.setErrorEnabled(false);
+                    layoutRBG.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextTPHA.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextTPHA.getText().toString().isEmpty())
+                {
+                    layoutTPHA.setErrorEnabled(true);
+                    layoutTPHA.setError("This field is required!");
+                }else{
+                    layoutTPHA.setErrorEnabled(false);
+                    layoutTPHA.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextRapidTest.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextRapidTest.getText().toString().isEmpty())
+                {
+                    layoutRapidTest.setErrorEnabled(true);
+                    layoutRapidTest.setError("This field is required!");
+                }else{
+                    layoutRapidTest.setErrorEnabled(false);
+                    layoutRapidTest.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
     private void DisableField()
     {
         editTextRBG.setEnabled(false);
