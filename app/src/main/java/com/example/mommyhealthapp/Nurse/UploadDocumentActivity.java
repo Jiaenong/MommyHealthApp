@@ -234,7 +234,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
                 {
                     startActivityForResult(Intent.createChooser(intent, "Complete the action using"), RC_PHOTO_PICKER);
                 }else{
-                    if(documentImageUrl.isEmpty())
+                    if(documentImageUrl == null)
                     {
                         startActivityForResult(Intent.createChooser(intent, "Complete the action using"), RC_PHOTO_PICKER);
                     }else{
@@ -257,7 +257,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
         layoutUndoPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(documentImageUrl.isEmpty())
+                if(documentImageUrl == null)
                 {
                     Snackbar snackbar = Snackbar.make(relativeLayoutUploadDocument, "No photo to undo", Snackbar.LENGTH_LONG);
                     snackbar.show();
@@ -266,7 +266,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
                     mStorageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            documentImageUrl = "";
+                            documentImageUrl = null;
                             imageViewDocImage.setImageDrawable(getResources().getDrawable(R.drawable.no_image));
                             Snackbar snackbar = Snackbar.make(relativeLayoutUploadDocument, "Photo Undo Success", Snackbar.LENGTH_LONG);
                             snackbar.show();
@@ -412,7 +412,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
     {
         String title = editTextDocTitle.getText().toString();
         String desc = editTextDocDesc.getText().toString();
-        if(title.equals("") || desc.equals("") || documentImageUrl.equals(""))
+        if(title.equals("") || desc.equals("") || documentImageUrl == null)
         {
             if(title.equals(""))
             {
