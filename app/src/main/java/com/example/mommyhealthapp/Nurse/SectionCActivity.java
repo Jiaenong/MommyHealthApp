@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +37,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,7 +50,7 @@ public class SectionCActivity extends AppCompatActivity {
 
     private RadioGroup radioGroupPractice, radioGroupMotherSmoke, radioGroupFatherSmoke;
     private RadioButton radioButtonPracYes, radioButtonPracNo, radioBtnMotherSmokeYes, radioBtnMotherSmokeNo, radioBtnFatherSmokeYes, radioBtnFatherSmokeNo;
-    private TextInputLayout txtInputLayoutPeriod, txtInputLayoutMethod, txtInputLayoutState, txtInputLayoutFamilyState;
+    private TextInputLayout txtInputLayoutPeriod, txtInputLayoutMethod, txtInputLayoutState, txtInputLayoutFamilyState, layoutMenstrDays, layoutMenstrRound;
     private EditText editTextDos1, editTextDos2, editTextDosAddOn, editTextMenstrDays, editTextMenstrRounds, editTextBCMethod, editTextBCPeriod,
             editTextMotherDiseaseOthers, editTextFamilyDiseaseOthers;
     private CheckBox chkMotherDiabetes, chkMotherAsthma, chkMotherAnemia, chkMotherThalassemia, chkMotherHighBloodPressure, chkMotherHeartDisease, chkMotherAllergy,
@@ -97,6 +101,8 @@ public class SectionCActivity extends AppCompatActivity {
         txtInputLayoutPeriod = (TextInputLayout)findViewById(R.id.txtInputLayotPeriod);
         txtInputLayoutState = (TextInputLayout)findViewById(R.id.txtInputLayoutState);
         txtInputLayoutFamilyState = (TextInputLayout)findViewById(R.id.txtInputLayoutFamilyState);
+        layoutMenstrDays = (TextInputLayout)findViewById(R.id.layoutMenstrDays);
+        layoutMenstrRound = (TextInputLayout)findViewById(R.id.layoutMenstrRound);
 
         chkMotherDiabetes = (CheckBox)findViewById(R.id.chkMotherDiabetes);
         chkMotherAsthma = (CheckBox)findViewById(R.id.chkMotherAsthma);
@@ -134,6 +140,8 @@ public class SectionCActivity extends AppCompatActivity {
         Intent intent = getIntent();
         healthInfoId = intent.getStringExtra("healthInfoId");
         bloodTestId = intent.getStringExtra("bloodTestId");
+
+        CheckRequiredField();
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/HealthHistory");
@@ -325,62 +333,71 @@ public class SectionCActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isEmpty == true)
                 {
-                    List<String> motherDisese = new ArrayList<>();
-                    List<String> familyDisease = new ArrayList<>();
-                    Date dos1 = null, dos2 = null, dosAddOn = null;
-                    String menstrDays = editTextMenstrDays.getText().toString();
-                    String menstrRound = editTextMenstrRounds.getText().toString();
-                    String birthControl = "", birthControlMethod = "", birthControlPeriod = "";
-                    String smokeMother = "", smokeFather = "";
-                    if(radioButtonPracYes.isChecked()) {
-                        birthControl = "Yes";
-                        birthControlMethod = editTextBCMethod.getText().toString();
-                        birthControlPeriod = editTextBCPeriod.getText().toString();
-                    }else if(radioButtonPracNo.isChecked()){
-                        birthControl = "No";
-                    }
-                    if(radioBtnMotherSmokeYes.isChecked()){
-                        smokeMother = "Yes";
-                    }else if(radioBtnMotherSmokeNo.isChecked()){
-                        smokeMother = "No";
-                    }
-                    if(radioBtnFatherSmokeYes.isChecked()){
-                        smokeFather = "Yes";
-                    }else if(radioBtnFatherSmokeNo.isChecked()){
-                        smokeFather = "No";
-                    }
-                    motherDisese = createMotherDiseaseList();
-                    familyDisease = createFamilyDiseaseList();
-                    try {
-                        dos1 = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDos1.getText().toString());
-                        dos2 = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDos2.getText().toString());
-                        dosAddOn = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDosAddOn.getText().toString());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    String medicalPersonnelId = SaveSharedPreference.getID(SectionCActivity.this);
-                    Date today = new Date();
-
-                    HealthHistory hh = new HealthHistory(menstrDays, menstrRound, birthControl, birthControlMethod, birthControlPeriod, smokeMother, smokeFather,
-                            motherDisese, familyDisease, dos1, dos2, dosAddOn, medicalPersonnelId, today);
-
-                    mCollectionReference.add(hh).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(SectionCActivity.this);
-                            builder.setTitle("Save Successfully");
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
-                            builder.setMessage("Save Successful!");
-                            AlertDialog alert = builder.create();
-                            alert.setCanceledOnTouchOutside(false);
-                            alert.show();
+                    if(CheckRequiredOnClick() == false)
+                    {
+                        List<String> motherDisese = new ArrayList<>();
+                        List<String> familyDisease = new ArrayList<>();
+                        Date dos1 = null, dos2 = null, dosAddOn = null;
+                        String menstrDays = editTextMenstrDays.getText().toString();
+                        String menstrRound = editTextMenstrRounds.getText().toString();
+                        String birthControl = "", birthControlMethod = "", birthControlPeriod = "";
+                        String smokeMother = "", smokeFather = "";
+                        if(radioButtonPracYes.isChecked()) {
+                            birthControl = "Yes";
+                            birthControlMethod = editTextBCMethod.getText().toString();
+                            birthControlPeriod = editTextBCPeriod.getText().toString();
+                        }else if(radioButtonPracNo.isChecked()){
+                            birthControl = "No";
                         }
-                    });
+                        if(radioBtnMotherSmokeYes.isChecked()){
+                            smokeMother = "Yes";
+                        }else if(radioBtnMotherSmokeNo.isChecked()){
+                            smokeMother = "No";
+                        }
+                        if(radioBtnFatherSmokeYes.isChecked()){
+                            smokeFather = "Yes";
+                        }else if(radioBtnFatherSmokeNo.isChecked()){
+                            smokeFather = "No";
+                        }
+                        motherDisese = createMotherDiseaseList();
+                        familyDisease = createFamilyDiseaseList();
+                        try {
+                            if(!editTextDos1.getText().toString().isEmpty()) {
+                                dos1 = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDos1.getText().toString());
+                            }
+                            if(!editTextDos2.getText().toString().isEmpty()) {
+                                dos2 = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDos2.getText().toString());
+                            }
+                            if(!editTextDosAddOn.getText().toString().isEmpty()){
+                                dosAddOn = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDosAddOn.getText().toString());
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String medicalPersonnelId = SaveSharedPreference.getID(SectionCActivity.this);
+                        Date today = new Date();
+
+                        HealthHistory hh = new HealthHistory(menstrDays, menstrRound, birthControl, birthControlMethod, birthControlPeriod, smokeMother, smokeFather,
+                                motherDisese, familyDisease, dos1, dos2, dosAddOn, medicalPersonnelId, today);
+
+                        mCollectionReference.add(hh).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SectionCActivity.this);
+                                builder.setTitle("Save Successfully");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finish();
+                                    }
+                                });
+                                builder.setMessage("Save Successful!");
+                                AlertDialog alert = builder.create();
+                                alert.setCanceledOnTouchOutside(false);
+                                alert.show();
+                            }
+                        });
+                    }
                 }else{
                     check++;
                     if(check == 1)
@@ -389,56 +406,67 @@ public class SectionCActivity extends AppCompatActivity {
                         btnHealthHistoryCancel.setVisibility(View.VISIBLE);
                     }else if(check == 2)
                     {
-                        List<String> motherDisease = new ArrayList<>();
-                        List<String> familyDisease = new ArrayList<>();
-                        Date dos1 = null, dos2 = null, dosAddOn = null;
-                        Date today = new Date();
-                        mDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/HealthHistory/"+key);
-                        mDocumentReference.update("menstruationDays", editTextMenstrDays.getText().toString());
-                        mDocumentReference.update("menstruationRound", editTextMenstrRounds.getText().toString());
-                        if(radioButtonPracYes.isChecked())
+                        if(CheckRequiredOnClick() == false)
                         {
-                            mDocumentReference.update("birthControl", radioButtonPracYes.getText().toString());
-                            mDocumentReference.update("birthControlMethod", editTextBCMethod.getText().toString());
-                            mDocumentReference.update("birthControlPeriod", editTextBCPeriod.getText().toString());
+                            List<String> motherDisease = new ArrayList<>();
+                            List<String> familyDisease = new ArrayList<>();
+                            Date dos1 = null, dos2 = null, dosAddOn = null;
+                            Date today = new Date();
+                            mDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/HealthHistory/"+key);
+                            mDocumentReference.update("menstruationDays", editTextMenstrDays.getText().toString());
+                            mDocumentReference.update("menstruationRound", editTextMenstrRounds.getText().toString());
+                            if(radioButtonPracYes.isChecked())
+                            {
+                                mDocumentReference.update("birthControl", radioButtonPracYes.getText().toString());
+                                mDocumentReference.update("birthControlMethod", editTextBCMethod.getText().toString());
+                                mDocumentReference.update("birthControlPeriod", editTextBCPeriod.getText().toString());
+                            }else{
+                                mDocumentReference.update("birthControl", radioButtonPracNo.getText().toString());
+                                mDocumentReference.update("birthControlMethod", "");
+                                mDocumentReference.update("birthControlPeriod", "");
+                            }
+                            if(radioBtnMotherSmokeYes.isChecked())
+                            {
+                                mDocumentReference.update("MotherSmoke", radioBtnMotherSmokeYes.getText().toString());
+                            }else{
+                                mDocumentReference.update("MotherSmoke", radioBtnMotherSmokeNo.getText().toString());
+                            }
+                            if(radioBtnFatherSmokeYes.isChecked())
+                            {
+                                mDocumentReference.update("FatherSmoke", radioBtnFatherSmokeYes.getText().toString());
+                            }else{
+                                mDocumentReference.update("FatherSmoke", radioBtnFatherSmokeNo.getText().toString());
+                            }
+                            motherDisease = createMotherDiseaseList();
+                            familyDisease = createFamilyDiseaseList();
+                            mDocumentReference.update("motherDisease", motherDisease);
+                            mDocumentReference.update("familyDisease", familyDisease);
+                            try {
+                                if(!editTextDos1.getText().toString().isEmpty()) {
+                                    dos1 = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDos1.getText().toString());
+                                }
+                                if(!editTextDos2.getText().toString().isEmpty()) {
+                                    dos2 = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDos2.getText().toString());
+                                }
+                                if(!editTextDosAddOn.getText().toString().isEmpty()){
+                                    dosAddOn = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDosAddOn.getText().toString());
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            mDocumentReference.update("dos1", dos1);
+                            mDocumentReference.update("dos2", dos2);
+                            mDocumentReference.update("dosAddOn", dosAddOn);
+                            mDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(SectionCActivity.this));
+                            mDocumentReference.update("createdDate", today);
+                            check = 0;
+                            btnHealthHistoryCancel.setVisibility(View.GONE);
+                            Snackbar snackbar = Snackbar.make(relativeLayoutHH, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                            DisableField();
                         }else{
-                            mDocumentReference.update("birthControl", radioButtonPracNo.getText().toString());
-                            mDocumentReference.update("birthControlMethod", "");
-                            mDocumentReference.update("birthControlPeriod", "");
+                            check = 1;
                         }
-                        if(radioBtnMotherSmokeYes.isChecked())
-                        {
-                            mDocumentReference.update("MotherSmoke", radioBtnMotherSmokeYes.getText().toString());
-                        }else{
-                            mDocumentReference.update("MotherSmoke", radioBtnMotherSmokeNo.getText().toString());
-                        }
-                        if(radioBtnFatherSmokeYes.isChecked())
-                        {
-                            mDocumentReference.update("FatherSmoke", radioBtnFatherSmokeYes.getText().toString());
-                        }else{
-                            mDocumentReference.update("FatherSmoke", radioBtnFatherSmokeNo.getText().toString());
-                        }
-                        motherDisease = createMotherDiseaseList();
-                        familyDisease = createFamilyDiseaseList();
-                        mDocumentReference.update("motherDisease", motherDisease);
-                        mDocumentReference.update("familyDisease", familyDisease);
-                        try {
-                            dos1 = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDos1.getText().toString());
-                            dos2 = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDos2.getText().toString());
-                            dosAddOn = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDosAddOn.getText().toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        mDocumentReference.update("dos1", dos1);
-                        mDocumentReference.update("dos2", dos2);
-                        mDocumentReference.update("dosAddOn", dosAddOn);
-                        mDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(SectionCActivity.this));
-                        mDocumentReference.update("createdDate", today);
-                        check = 0;
-                        btnHealthHistoryCancel.setVisibility(View.GONE);
-                        Snackbar snackbar = Snackbar.make(relativeLayoutHH, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                        DisableField();
                     }
                 }
             }
@@ -503,9 +531,24 @@ public class SectionCActivity extends AppCompatActivity {
                         getFamilyDisease(familyDisease);
 
                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        editTextDos1.setText(dateFormat.format(hh.getDos1()));
-                        editTextDos2.setText(dateFormat.format(hh.getDos2()));
-                        editTextDosAddOn.setText(dateFormat.format(hh.getDosAddOn()));
+                        if(hh.getDos1() == null)
+                        {
+                            editTextDos1.setText("");
+                        }else{
+                            editTextDos1.setText(dateFormat.format(hh.getDos1()));
+                        }
+                        if(hh.getDos2() == null)
+                        {
+                            editTextDos2.setText("");
+                        }else{
+                            editTextDos2.setText(dateFormat.format(hh.getDos2()));
+                        }
+                        if(hh.getDosAddOn() == null)
+                        {
+                            editTextDosAddOn.setText("");
+                        }else{
+                            editTextDosAddOn.setText(dateFormat.format(hh.getDosAddOn()));
+                        }
 
                         progressBarHealthHistory.setVisibility(View.GONE);
                         layoutHealthHistory.setVisibility(View.VISIBLE);
@@ -674,6 +717,195 @@ public class SectionCActivity extends AppCompatActivity {
             familyDisese.add("other_"+editTextFamilyDiseaseOthers.getText().toString());
         }
         return familyDisese;
+    }
+
+    private boolean CheckRequiredOnClick()
+    {
+        boolean empty;
+        int check = 0;
+        if(editTextMenstrDays.getText().toString().isEmpty() || editTextMenstrRounds.getText().toString().isEmpty()
+                || radioGroupPractice.getCheckedRadioButtonId() == -1 || radioGroupMotherSmoke.getCheckedRadioButtonId() == -1
+                || radioGroupFatherSmoke.getCheckedRadioButtonId() == -1)
+        {
+            if(editTextMenstrDays.getText().toString().isEmpty())
+            {
+                layoutMenstrDays.setErrorEnabled(true);
+                layoutMenstrDays.setError("This field is required!");
+            }else{
+                layoutMenstrDays.setErrorEnabled(false);
+                layoutMenstrDays.setError(null);
+            }
+
+            if(editTextMenstrRounds.getText().toString().isEmpty())
+            {
+                layoutMenstrRound.setErrorEnabled(true);
+                layoutMenstrRound.setError("This field is required!");
+            }else{
+                layoutMenstrRound.setErrorEnabled(false);
+                layoutMenstrRound.setError(null);
+            }
+
+            if(radioGroupPractice.getCheckedRadioButtonId() == -1)
+            {
+                radioButtonPracYes.setError("This field is required!");
+                radioButtonPracNo.setError("This field is required!");
+            }else{
+                radioButtonPracYes.setError(null);
+                radioButtonPracNo.setError(null);
+            }
+
+            if(radioGroupMotherSmoke.getCheckedRadioButtonId() == -1)
+            {
+                radioBtnMotherSmokeYes.setError("This field is required!");
+                radioBtnMotherSmokeNo.setError("This field is required!");
+            }else{
+                radioBtnMotherSmokeYes.setError(null);
+                radioBtnMotherSmokeNo.setError(null);
+            }
+
+            if(radioGroupFatherSmoke.getCheckedRadioButtonId() == -1)
+            {
+                radioBtnFatherSmokeYes.setError("This field is required!");
+                radioBtnFatherSmokeNo.setError("This field is required!");
+            }else{
+                radioBtnFatherSmokeYes.setError(null);
+                radioBtnFatherSmokeNo.setError(null);
+            }
+            check++;
+        }
+
+        if(radioButtonPracYes.isChecked())
+        {
+            if(editTextBCMethod.getText().toString().isEmpty() || editTextBCPeriod.getText().toString().isEmpty())
+            {
+                if(editTextBCMethod.getText().toString().isEmpty())
+                {
+                    txtInputLayoutMethod.setErrorEnabled(true);
+                    txtInputLayoutMethod.setError("This field is required!");
+                }else{
+                    txtInputLayoutMethod.setErrorEnabled(false);
+                    txtInputLayoutMethod.setError(null);
+                }
+
+                if(editTextBCPeriod.getText().toString().isEmpty())
+                {
+                    txtInputLayoutPeriod.setErrorEnabled(true);
+                    txtInputLayoutPeriod.setError("This field is required!");
+                }else{
+                    txtInputLayoutPeriod.setErrorEnabled(false);
+                    txtInputLayoutPeriod.setError("null");
+                }
+                check++;
+            }
+        }
+
+        if(check > 0)
+        {
+            empty = true;
+        }else{
+            empty = false;
+        }
+
+        return empty;
+    }
+
+    private void CheckRequiredField()
+    {
+        editTextMenstrDays.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextMenstrDays.getText().toString().isEmpty())
+                {
+                    layoutMenstrDays.setErrorEnabled(true);
+                    layoutMenstrDays.setError("This field is required!");
+                }else{
+                    layoutMenstrDays.setErrorEnabled(false);
+                    layoutMenstrDays.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextMenstrRounds.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextMenstrRounds.getText().toString().isEmpty())
+                {
+                    layoutMenstrRound.setErrorEnabled(true);
+                    layoutMenstrRound.setError("This field is required!");
+                }else{
+                    layoutMenstrRound.setErrorEnabled(false);
+                    layoutMenstrRound.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextBCMethod.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextBCMethod.getText().toString().isEmpty())
+                {
+                    txtInputLayoutMethod.setErrorEnabled(true);
+                    txtInputLayoutMethod.setError("This field is required!");
+                }else{
+                    txtInputLayoutMethod.setErrorEnabled(false);
+                    txtInputLayoutMethod.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextBCPeriod.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextBCPeriod.getText().toString().isEmpty())
+                {
+                    txtInputLayoutPeriod.setErrorEnabled(true);
+                    txtInputLayoutPeriod.setError("This field is required!");
+                }else{
+                    txtInputLayoutPeriod.setErrorEnabled(false);
+                    txtInputLayoutPeriod.setError("null");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void DisableField()
