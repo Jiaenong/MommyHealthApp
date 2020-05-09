@@ -141,6 +141,7 @@ public class SecondTrimesterFragment extends Fragment {
                                 }
                                 progressBarSecondTri.setVisibility(View.GONE);
                                 layoutST.setVisibility(View.VISIBLE);
+                                btnSTSave.setText("Update");
                             }
                         }
                     });

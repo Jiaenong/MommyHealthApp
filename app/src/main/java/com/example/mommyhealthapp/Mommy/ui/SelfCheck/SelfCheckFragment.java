@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mommyhealthapp.Class.AppointmentDate;
@@ -54,7 +55,7 @@ public class SelfCheckFragment extends Fragment {
     private FirebaseFirestore mFirebaseFirestore;
     private CollectionReference mCollectionReference, nCollectionReference;
     private CardView kickCounterMain, cardViewPregnancyWeight, cardViewBabyDiary;
-
+    private ProgressBar progressBarDiary;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -97,6 +98,8 @@ public class SelfCheckFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_self_check, container, false);
 
+        progressBarDiary = (ProgressBar)v.findViewById(R.id.progressBarDiary);
+        myDashboard = (LinearLayoutCompat)v.findViewById(R.id.myDashboard);
         apptDate = (TextView)v.findViewById(R.id.apptDate);
         appTtime = (TextView)v.findViewById(R.id.apptTime);
         babyBday = (TextView)v.findViewById(R.id.babyBday);
@@ -104,6 +107,8 @@ public class SelfCheckFragment extends Fragment {
 
         String mommyID = SaveSharedPreference.getID(getActivity());
         mFirebaseFirestore = FirebaseFirestore.getInstance();
+        myDashboard.setVisibility(View.GONE);
+        progressBarDiary.setVisibility(View.VISIBLE);
         mCollectionReference = mFirebaseFirestore.collection("Mommy/"+mommyID+"/AppointmentDate");
         mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -144,6 +149,9 @@ public class SelfCheckFragment extends Fragment {
                 long diff = targetDate.getTime() - today.getTime();
                 int diffDays = (int)(diff / (24 * 60 * 60 * 1000) + 1);
                 countdownDate.setText(diffDays + "");
+                myDashboard.setVisibility(View.VISIBLE);
+                progressBarDiary.setVisibility(View.GONE);
+
             }
         });
 

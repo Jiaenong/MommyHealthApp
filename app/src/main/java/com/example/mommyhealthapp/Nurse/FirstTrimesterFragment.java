@@ -133,6 +133,7 @@ public class FirstTrimesterFragment extends Fragment {
                                 }
                                 progressBarFirstTri.setVisibility(View.GONE);
                                 layoutFT.setVisibility(View.VISIBLE);
+                                btnFTSave.setText("Update");
                             }
                         }
                     });

@@ -122,6 +122,9 @@ public class UploadDocumentActivity extends AppCompatActivity {
                         }
                         progressBarUploadDocument.setVisibility(View.GONE);
                         layoutUploadDocument.setVisibility(View.VISIBLE);
+                        layoutUploadPhoto.setVisibility(View.GONE);
+                        layoutUndoPhoto.setVisibility(View.GONE);
+                        btnUploadPh0toSave.setText("Update");
                     }
                 }
             });
@@ -176,6 +179,8 @@ public class UploadDocumentActivity extends AppCompatActivity {
                     if(check == 1)
                     {
                         EnableField();
+                        layoutUploadPhoto.setVisibility(View.VISIBLE);
+                        layoutUndoPhoto.setVisibility(View.VISIBLE);
                         btnUploadPhotoCancel.setVisibility(View.VISIBLE);
                     }else if(check == 2)
                     {
@@ -221,6 +226,8 @@ public class UploadDocumentActivity extends AppCompatActivity {
                 check = 0;
                 DisableField();
                 btnUploadPhotoCancel.setVisibility(View.GONE);
+                layoutUploadPhoto.setVisibility(View.GONE);
+                layoutUndoPhoto.setVisibility(View.GONE);
             }
         });
 

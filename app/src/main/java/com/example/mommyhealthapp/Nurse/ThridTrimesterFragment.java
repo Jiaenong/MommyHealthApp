@@ -137,6 +137,7 @@ public class ThridTrimesterFragment extends Fragment {
                                 }
                                 progressBarThirdTri.setVisibility(View.GONE);
                                 layoutTT.setVisibility(View.VISIBLE);
+                                btnTTSave.setText("Update");
                             }
                         }
                     });

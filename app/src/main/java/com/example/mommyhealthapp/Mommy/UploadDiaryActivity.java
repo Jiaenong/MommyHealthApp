@@ -233,14 +233,34 @@ public class UploadDiaryActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/jpeg");
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(Intent.createChooser(intent, "Complete the action using"), RC_PHOTO_PICKER);
+                if(isEmpty == true)
+                {
+                    startActivityForResult(Intent.createChooser(intent, "Complete the action using"),RC_PHOTO_PICKER);
+                }else{
+                    if(diaryImageUrl == null)
+                    {
+                        startActivityForResult(Intent.createChooser(intent, "Complete the action using"), RC_PHOTO_PICKER);
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(UploadDiaryActivity.this);
+                        builder.setTitle("Error");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
+                            }
+                        });
+                        builder.setMessage("Please undo photo 1st");
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }
+                }
             }
         });
 
         layoutUndoPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(diaryImageUrl.isEmpty())
+                if(diaryImageUrl == null)
                 {
                     Snackbar snackbar = Snackbar.make(relativeLayoutUploadDiary, "No photo to undo", Snackbar.LENGTH_LONG);
                     snackbar.show();
@@ -249,7 +269,7 @@ public class UploadDiaryActivity extends AppCompatActivity {
                     mStorageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            diaryImageUrl = "";
+                            diaryImageUrl = null;
                             imageViewDiaryImage.setImageDrawable(getResources().getDrawable(R.drawable.no_image));
                             Snackbar snackbar = Snackbar.make(relativeLayoutUploadDiary, "Photo Undo Success", Snackbar.LENGTH_LONG);
                             snackbar.show();
@@ -287,30 +307,13 @@ public class UploadDiaryActivity extends AppCompatActivity {
                 public void onComplete(@NonNull final Task<Uri> task) {
                     if(task.isSuccessful())
                     {
-                        if(isEmpty == false)
-                        {
-                            StorageReference mStorageReference = mFirebaseStorage.getReferenceFromUrl(diaryImageUrl);
-                            mStorageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Uri downloadUri = task.getResult();
-                                    diaryImageUrl = downloadUri.toString();
-                                    Glide.with(UploadDiaryActivity.this).load(diaryImageUrl).into(imageViewDiaryImage);
-                                    progressBarUploadPhoto.setVisibility(View.GONE);
-                                    imageViewDiaryImage.setVisibility(View.VISIBLE);
-                                    Snackbar snackbar = Snackbar.make(relativeLayoutUploadDiary, "Upload Success", Snackbar.LENGTH_LONG);
-                                    snackbar.show();
-                                }
-                            });
-                        }else{
-                            Uri downloadUri = task.getResult();
-                            diaryImageUrl = downloadUri.toString();
-                            Glide.with(UploadDiaryActivity.this).load(diaryImageUrl).into(imageViewDiaryImage);
-                            progressBarUploadPhoto.setVisibility(View.GONE);
-                            imageViewDiaryImage.setVisibility(View.VISIBLE);
-                            Snackbar snackbar = Snackbar.make(relativeLayoutUploadDiary, "Upload Success", Snackbar.LENGTH_LONG);
-                            snackbar.show();
-                        }
+                        Uri downloadUri = task.getResult();
+                        diaryImageUrl = downloadUri.toString();
+                        Glide.with(UploadDiaryActivity.this).load(diaryImageUrl).into(imageViewDiaryImage);
+                        progressBarUploadPhoto.setVisibility(View.GONE);
+                        imageViewDiaryImage.setVisibility(View.VISIBLE);
+                        Snackbar snackbar = Snackbar.make(relativeLayoutUploadDiary, "Upload Success", Snackbar.LENGTH_LONG);
+                        snackbar.show();
                     }else{
                         progressBarUploadPhoto.setVisibility(View.GONE);
                         imageViewDiaryImage.setVisibility(View.VISIBLE);
@@ -387,7 +390,7 @@ public class UploadDiaryActivity extends AppCompatActivity {
     {
         String title = editTextDiaryTitle.getText().toString();
         String desc = editTextDiaryDesc.getText().toString();
-        if(title.equals("") || desc.equals("") || diaryImageUrl.equals(""))
+        if(title.equals("") || desc.equals("") || diaryImageUrl == null)
         {
             if(title.equals(""))
             {
