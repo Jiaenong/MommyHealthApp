@@ -29,6 +29,7 @@
             android:padding="10dp">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutHeightCurrent"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutCurrentBMI"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,6 +66,7 @@
                 android:background="@android:color/black" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutCurrentThyroid"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,6 +80,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutCurrentJaundice"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,6 +107,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutCLeftBreast"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,6 +121,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutCRightBreast"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,6 +135,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutCVVLeft"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,6 +149,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutCVVRight"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

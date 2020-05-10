@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,17 +23,22 @@ import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.util.Date;
 
 public class SectionDActivity extends AppCompatActivity {
     private EditText editTextHeightCurrent, editTextCurrentBMI, editTextCurrentThyroid, editTextCurrentJaundice, editTextCurrentPallor, editTextCLeftBreast,
             editTextCRightBreast, editTextCVVLeft, editTextCVVRight, editTextCAbdomen, editTextCurrentOthers;
+    private TextInputLayout layoutHeightCurrent, layoutCurrentBMI, layoutCurrentThyroid, layoutCurrentJaundice, layoutCLeftBreast, layoutCRightBreast,
+            layoutCVVLeft, layoutCVVRight;
     private RelativeLayout relativeLayout;
     private LinearLayoutCompat layoutCHS;
     private ProgressBar progressBarCurrentHealthStatus;
@@ -61,6 +68,14 @@ public class SectionDActivity extends AppCompatActivity {
         editTextCVVRight = (EditText)findViewById(R.id.editTextCVVRight);
         editTextCAbdomen = (EditText)findViewById(R.id.editTextCAbdomen);
         editTextCurrentOthers = (EditText)findViewById(R.id.editTextCurrentOthers);
+        layoutHeightCurrent = (TextInputLayout) findViewById(R.id.layoutHeightCurrent);
+        layoutCurrentBMI = (TextInputLayout)findViewById(R.id.layoutCurrentBMI);
+        layoutCurrentThyroid = (TextInputLayout)findViewById(R.id.layoutCurrentThyroid);
+        layoutCurrentJaundice = (TextInputLayout)findViewById(R.id.layoutCurrentJaundice);
+        layoutCLeftBreast = (TextInputLayout)findViewById(R.id.layoutCLeftBreast);
+        layoutCRightBreast = (TextInputLayout)findViewById(R.id.layoutCRightBreast);
+        layoutCVVLeft = (TextInputLayout)findViewById(R.id.layoutCVVLeft);
+        layoutCVVRight = (TextInputLayout)findViewById(R.id.layoutCVVRight);
         relativeLayout = (RelativeLayout)findViewById(R.id.relativeLayout);
         layoutCHS = (LinearLayoutCompat)findViewById(R.id.layoutCHS);
         progressBarCurrentHealthStatus = (ProgressBar)findViewById(R.id.progressBarCurrentHealthStatus);
@@ -74,6 +89,8 @@ public class SectionDActivity extends AppCompatActivity {
         Intent intent = getIntent();
         healthInfoId = intent.getStringExtra("healthInfoId");
         bloodTestId = intent.getStringExtra("bloodTestId");
+
+        CheckRequiredField();
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/CurrentHealthStatus");
@@ -121,39 +138,42 @@ public class SectionDActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isEmpty == true)
                 {
-                    Double currentHeight = Double.parseDouble(editTextHeightCurrent.getText().toString());
-                    Double currentBMI = Double.parseDouble(editTextCurrentBMI.getText().toString());
-                    String currentThyroid = editTextCurrentThyroid.getText().toString();
-                    String currentJaundice = editTextCurrentJaundice.getText().toString();
-                    String currentPallor = editTextCurrentPallor.getText().toString();
-                    String currentLeftBreast = editTextCLeftBreast.getText().toString();
-                    String currentRightBreast = editTextCRightBreast.getText().toString();
-                    String currentLeftVein = editTextCVVLeft.getText().toString();
-                    String currentRightVein = editTextCVVRight.getText().toString();
-                    String currentAbdomen = editTextCAbdomen.getText().toString();
-                    String currentOthers = editTextCurrentOthers.getText().toString();
-                    String medicalPersonnelId = SaveSharedPreference.getID(SectionDActivity.this);
-                    Date today = new Date();
+                    if(CheckRequiredOnClick() == false)
+                    {
+                        Double currentHeight = Double.parseDouble(editTextHeightCurrent.getText().toString());
+                        Double currentBMI = Double.parseDouble(editTextCurrentBMI.getText().toString());
+                        String currentThyroid = editTextCurrentThyroid.getText().toString();
+                        String currentJaundice = editTextCurrentJaundice.getText().toString();
+                        String currentPallor = editTextCurrentPallor.getText().toString();
+                        String currentLeftBreast = editTextCLeftBreast.getText().toString();
+                        String currentRightBreast = editTextCRightBreast.getText().toString();
+                        String currentLeftVein = editTextCVVLeft.getText().toString();
+                        String currentRightVein = editTextCVVRight.getText().toString();
+                        String currentAbdomen = editTextCAbdomen.getText().toString();
+                        String currentOthers = editTextCurrentOthers.getText().toString();
+                        String medicalPersonnelId = SaveSharedPreference.getID(SectionDActivity.this);
+                        Date today = new Date();
 
-                    CurrentHealthStatus chs = new CurrentHealthStatus(currentHeight, currentBMI, currentThyroid, currentJaundice, currentPallor, currentLeftBreast, currentRightBreast, currentLeftVein, currentRightVein,currentAbdomen, currentOthers, medicalPersonnelId, today);
+                        CurrentHealthStatus chs = new CurrentHealthStatus(currentHeight, currentBMI, currentThyroid, currentJaundice, currentPallor, currentLeftBreast, currentRightBreast, currentLeftVein, currentRightVein,currentAbdomen, currentOthers, medicalPersonnelId, today);
 
-                    mCollectionReference.add(chs).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(SectionDActivity.this);
-                            builder.setTitle("Save Successfully");
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
-                            builder.setMessage("Save Successful!");
-                            AlertDialog alert = builder.create();
-                            alert.setCanceledOnTouchOutside(false);
-                            alert.show();
-                        }
-                    });
+                        mCollectionReference.add(chs).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SectionDActivity.this);
+                                builder.setTitle("Save Successfully");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finish();
+                                    }
+                                });
+                                builder.setMessage("Save Successful!");
+                                AlertDialog alert = builder.create();
+                                alert.setCanceledOnTouchOutside(false);
+                                alert.show();
+                            }
+                        });
+                    }
                 }else{
                     check++;
                     if(check == 1)
@@ -162,26 +182,31 @@ public class SectionDActivity extends AppCompatActivity {
                         btnCurrentCancel.setVisibility(View.VISIBLE);
                     }else if(check == 2)
                     {
-                        Date today = new Date();
-                        mDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/CurrentHealthStatus/"+key);
-                        mDocumentReference.update("currentHeight", Double.parseDouble(editTextHeightCurrent.getText().toString()));
-                        mDocumentReference.update("currentBMI", Double.parseDouble(editTextCurrentBMI.getText().toString()));
-                        mDocumentReference.update("currentThyroid", editTextCurrentThyroid.getText().toString());
-                        mDocumentReference.update("currentJaundice", editTextCurrentJaundice.getText().toString());
-                        mDocumentReference.update("currentPallor", editTextCurrentPallor.getText().toString());
-                        mDocumentReference.update("currentLeftBreast", editTextCLeftBreast.getText().toString());
-                        mDocumentReference.update("currentRightBreast", editTextCRightBreast.getText().toString());
-                        mDocumentReference.update("currentLeftVein", editTextCVVLeft.getText().toString());
-                        mDocumentReference.update("currentRightVein", editTextCVVRight.getText().toString());
-                        mDocumentReference.update("currentAbdomen", editTextCAbdomen.getText().toString());
-                        mDocumentReference.update("currentOthers", editTextCurrentOthers.getText().toString());
-                        mDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(SectionDActivity.this));
-                        mDocumentReference.update("createdDate", today);
-                        btnCurrentCancel.setVisibility(View.GONE);
-                        Snackbar snackbar = Snackbar.make(relativeLayout, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                        check = 0;
-                        DisableField();
+                        if(CheckRequiredOnClick() == false)
+                        {
+                            Date today = new Date();
+                            mDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/CurrentHealthStatus/"+key);
+                            mDocumentReference.update("currentHeight", Double.parseDouble(editTextHeightCurrent.getText().toString()));
+                            mDocumentReference.update("currentBMI", Double.parseDouble(editTextCurrentBMI.getText().toString()));
+                            mDocumentReference.update("currentThyroid", editTextCurrentThyroid.getText().toString());
+                            mDocumentReference.update("currentJaundice", editTextCurrentJaundice.getText().toString());
+                            mDocumentReference.update("currentPallor", editTextCurrentPallor.getText().toString());
+                            mDocumentReference.update("currentLeftBreast", editTextCLeftBreast.getText().toString());
+                            mDocumentReference.update("currentRightBreast", editTextCRightBreast.getText().toString());
+                            mDocumentReference.update("currentLeftVein", editTextCVVLeft.getText().toString());
+                            mDocumentReference.update("currentRightVein", editTextCVVRight.getText().toString());
+                            mDocumentReference.update("currentAbdomen", editTextCAbdomen.getText().toString());
+                            mDocumentReference.update("currentOthers", editTextCurrentOthers.getText().toString());
+                            mDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(SectionDActivity.this));
+                            mDocumentReference.update("createdDate", today);
+                            btnCurrentCancel.setVisibility(View.GONE);
+                            Snackbar snackbar = Snackbar.make(relativeLayout, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                            check = 0;
+                            DisableField();
+                        }else{
+                            check = 1;
+                        }
                     }
 
                 }
@@ -240,6 +265,285 @@ public class SectionDActivity extends AppCompatActivity {
             }
         });
     }
+
+    private boolean CheckRequiredOnClick()
+    {
+        if(editTextHeightCurrent.getText().toString().isEmpty() || editTextCurrentBMI.getText().toString().isEmpty() || editTextCurrentThyroid.getText().toString().isEmpty()
+                || editTextCurrentJaundice.getText().toString().isEmpty() || editTextCLeftBreast.getText().toString().isEmpty() || editTextCRightBreast.getText().toString().isEmpty()
+                || editTextCVVLeft.getText().toString().isEmpty() || editTextCVVRight.getText().toString().isEmpty())
+        {
+            if(editTextHeightCurrent.getText().toString().isEmpty())
+            {
+                layoutHeightCurrent.setErrorEnabled(true);
+                layoutHeightCurrent.setError("This field is required!");
+            }else{
+                layoutHeightCurrent.setErrorEnabled(false);
+                layoutHeightCurrent.setError(null);
+            }
+
+            if(editTextCurrentBMI.getText().toString().isEmpty())
+            {
+                layoutCurrentBMI.setErrorEnabled(true);
+                layoutCurrentBMI.setError("This field is required!");
+            }else{
+                layoutCurrentBMI.setErrorEnabled(false);
+                layoutCurrentBMI.setError(null);
+            }
+
+            if(editTextCurrentThyroid.getText().toString().isEmpty())
+            {
+                layoutCurrentThyroid.setErrorEnabled(true);
+                layoutCurrentThyroid.setError("This field is required!");
+            }else{
+                layoutCurrentThyroid.setErrorEnabled(false);
+                layoutCurrentThyroid.setError(null);
+            }
+
+            if(editTextCurrentJaundice.getText().toString().isEmpty())
+            {
+                layoutCurrentJaundice.setErrorEnabled(true);
+                layoutCurrentJaundice.setError("This field is required!");
+            }else{
+                layoutCurrentJaundice.setErrorEnabled(false);
+                layoutCurrentJaundice.setError(null);
+            }
+
+            if(editTextCLeftBreast.getText().toString().isEmpty())
+            {
+                layoutCLeftBreast.setErrorEnabled(true);
+                layoutCLeftBreast.setError("This field is required!");
+            }else{
+                layoutCLeftBreast.setErrorEnabled(false);
+                layoutCLeftBreast.setError(null);
+            }
+
+            if(editTextCRightBreast.getText().toString().isEmpty())
+            {
+                layoutCRightBreast.setErrorEnabled(true);
+                layoutCRightBreast.setError("This field is required!");
+            }else{
+                layoutCRightBreast.setErrorEnabled(false);
+                layoutCRightBreast.setError(null);
+            }
+
+            if(editTextCVVLeft.getText().toString().isEmpty())
+            {
+                layoutCVVLeft.setErrorEnabled(true);
+                editTextCVVLeft.setError("This field is required!");
+            }else{
+                layoutCVVLeft.setErrorEnabled(false);
+                editTextCVVLeft.setError(null);
+            }
+
+            if(editTextCVVRight.getText().toString().isEmpty())
+            {
+                layoutCVVRight.setErrorEnabled(true);
+                layoutCVVRight.setError("This field is required!");
+            }else{
+                layoutCVVRight.setErrorEnabled(false);
+                layoutCVVRight.setError(null);
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private void CheckRequiredField()
+    {
+        editTextHeightCurrent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextHeightCurrent.getText().toString().isEmpty())
+                {
+                    layoutHeightCurrent.setErrorEnabled(true);
+                    layoutHeightCurrent.setError("This field is required!");
+                }else{
+                    layoutHeightCurrent.setErrorEnabled(false);
+                    layoutHeightCurrent.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextCurrentBMI.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextCurrentBMI.getText().toString().isEmpty())
+                {
+                    layoutCurrentBMI.setErrorEnabled(true);
+                    layoutCurrentBMI.setError("This field is required!");
+                }else{
+                    layoutCurrentBMI.setErrorEnabled(false);
+                    layoutCurrentBMI.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextCurrentThyroid.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextCurrentThyroid.getText().toString().isEmpty())
+                {
+                    layoutCurrentThyroid.setErrorEnabled(true);
+                    layoutCurrentThyroid.setError("This field is required!");
+                }else{
+                    layoutCurrentThyroid.setErrorEnabled(false);
+                    layoutCurrentThyroid.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextCurrentJaundice.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextCurrentJaundice.getText().toString().isEmpty())
+                {
+                    layoutCurrentJaundice.setErrorEnabled(true);
+                    layoutCurrentJaundice.setError("This field is required!");
+                }else{
+                    layoutCurrentJaundice.setErrorEnabled(false);
+                    layoutCurrentJaundice.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextCLeftBreast.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextCLeftBreast.getText().toString().isEmpty())
+                {
+                    layoutCLeftBreast.setErrorEnabled(true);
+                    layoutCLeftBreast.setError("This field is required!");
+                }else{
+                    layoutCLeftBreast.setErrorEnabled(false);
+                    layoutCLeftBreast.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextCRightBreast.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextCRightBreast.getText().toString().isEmpty())
+                {
+                    layoutCRightBreast.setErrorEnabled(true);
+                    layoutCRightBreast.setError("This field is required!");
+                }else{
+                    layoutCRightBreast.setErrorEnabled(false);
+                    layoutCRightBreast.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextCVVLeft.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextCVVLeft.getText().toString().isEmpty())
+                {
+                    layoutCVVLeft.setErrorEnabled(true);
+                    editTextCVVLeft.setError("This field is required!");
+                }else{
+                    layoutCVVLeft.setErrorEnabled(false);
+                    editTextCVVLeft.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextCVVRight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextCVVRight.getText().toString().isEmpty())
+                {
+                    layoutCVVRight.setErrorEnabled(true);
+                    layoutCVVRight.setError("This field is required!");
+                }else{
+                    layoutCVVRight.setErrorEnabled(false);
+                    layoutCVVRight.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
     private void DisableField()
     {
         editTextHeightCurrent.setEnabled(false);
