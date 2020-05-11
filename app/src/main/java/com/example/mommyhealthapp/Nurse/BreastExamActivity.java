@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,6 +40,7 @@ public class BreastExamActivity extends AppCompatActivity {
 
     private Button btnBESave, btnBECancel;
     private EditText editTextNumOfChildren, editTextMenarcheAge, editTextMonopauseAge;
+    private TextInputLayout layoutNumberOfChildren, layoutMenarcheAge, layoutMonopauseAge;
     private RadioGroup radioGroupHistoryBC, radioGroupFDBC, radioGroupBreastSurgery, radioGroupHormone, radioGroupHormoneC, radioGroupBreastFed, radioGroupMMG, radioGroupLump,
             radioGroupNippleDischarge, radioGroupNippleRetraction, radioGroupDiscomfort, radioGroupAxillary, radioGroupInterpretation;
     private RadioButton radioBtnHistoryBCYes, radioBtnHistoryBCNo, radioBtnFDBCYes, radioBtnFDBCNo, radioBtnBreastSurgeryYes, radioBtnBreastSurgeryNo, radioBtnHormoneYes,
@@ -61,6 +65,10 @@ public class BreastExamActivity extends AppCompatActivity {
         editTextNumOfChildren = (EditText)findViewById(R.id.editTextNumOfChildren);
         editTextMenarcheAge = (EditText)findViewById(R.id.editTextMenarcheAge);
         editTextMonopauseAge = (EditText)findViewById(R.id.editTextMonopauseAge);
+
+        layoutNumberOfChildren = (TextInputLayout)findViewById(R.id.layoutNumberOfChildren);
+        layoutMenarcheAge = (TextInputLayout)findViewById(R.id.layoutMenarcheAge);
+        layoutMonopauseAge = (TextInputLayout)findViewById(R.id.layoutMonopauseAge);
 
         radioGroupHistoryBC = (RadioGroup)findViewById(R.id.radioGroupHistoryBC);
         radioGroupFDBC = (RadioGroup)findViewById(R.id.radioGroupFDBC);
@@ -113,6 +121,8 @@ public class BreastExamActivity extends AppCompatActivity {
         Intent intent = getIntent();
         bloodTestId = intent.getStringExtra("bloodTestId");
         healthInfoId = intent.getStringExtra("healthInfoId");
+
+        CheckRequiredField();
 
         btnBECancel.setVisibility(View.GONE);
         progressBarBreastExamine.setVisibility(View.VISIBLE);
@@ -247,95 +257,12 @@ public class BreastExamActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isEmpty == true)
                 {
-                    int numOfChildren = Integer.parseInt(editTextNumOfChildren.getText().toString());
-                    int menarcheAge = Integer.parseInt(editTextMenarcheAge.getText().toString());
-                    int monopauseAge = Integer.parseInt(editTextMonopauseAge.getText().toString());
-
-                    int radioGroupBCHistoryId = radioGroupHistoryBC.getCheckedRadioButtonId();
-                    RadioButton radioButtonBCHistory = (RadioButton)findViewById(radioGroupBCHistoryId);
-                    String breastCancelHistory = radioButtonBCHistory.getText().toString();
-
-                    int radioGroupFDBCId = radioGroupFDBC.getCheckedRadioButtonId();
-                    RadioButton radioButtonFDBC = (RadioButton)findViewById(radioGroupFDBCId);
-                    String firstDegreeBreastCancel = radioButtonFDBC.getText().toString();
-
-                    int radioGroupBreastSurgeryId = radioGroupBreastSurgery.getCheckedRadioButtonId();
-                    RadioButton radioButtonBreastSurgery = (RadioButton)findViewById(radioGroupBreastSurgeryId);
-                    String previousBreastSurgery = radioButtonBreastSurgery.getText().toString();
-
-                    int radioGroupHormoneId = radioGroupHormone.getCheckedRadioButtonId();
-                    RadioButton radioButtonHormone = (RadioButton)findViewById(radioGroupHormoneId);
-                    String hormoneReplacementTherapy = radioButtonHormone.getText().toString();
-
-                    int radioGroupHormoneCId = radioGroupHormoneC.getCheckedRadioButtonId();
-                    RadioButton radioButtonHormoneC = (RadioButton)findViewById(radioGroupHormoneCId);
-                    String hormoneContraceptive = radioButtonHormoneC.getText().toString();
-
-                    int radioGroupBreastFedId = radioGroupBreastFed.getCheckedRadioButtonId();
-                    RadioButton radioButtonBreastFed = (RadioButton)findViewById(radioGroupBreastFedId);
-                    String breastFed = radioButtonBreastFed.getText().toString();
-
-                    int radioGroupMMGId = radioGroupMMG.getCheckedRadioButtonId();
-                    RadioButton radioButtonMMG = (RadioButton)findViewById(radioGroupMMGId);
-                    String previousMMG = radioButtonMMG.getText().toString();
-
-                    int radioGroupLumpId = radioGroupLump.getCheckedRadioButtonId();
-                    RadioButton radioButtonLump = (RadioButton)findViewById(radioGroupLumpId);
-                    String lump = radioButtonLump.getText().toString();
-
-                    int radioGroupNippleDischargeId = radioGroupNippleDischarge.getCheckedRadioButtonId();
-                    RadioButton radioButtonNippleDischarge = (RadioButton)findViewById(radioGroupNippleDischargeId);
-                    String nippleDischarge = radioButtonNippleDischarge.getText().toString();
-
-                    int radioGroupNippleRetractionId = radioGroupNippleRetraction.getCheckedRadioButtonId();
-                    RadioButton radioButtonNippleRetraction = (RadioButton)findViewById(radioGroupNippleRetractionId);
-                    String nippleRetraction = radioButtonNippleRetraction.getText().toString();
-
-                    int radioGroupDiscomfortId = radioGroupDiscomfort.getCheckedRadioButtonId();
-                    RadioButton radioButtonDiscomfort = (RadioButton)findViewById(radioGroupDiscomfortId);
-                    String discomfort = radioButtonDiscomfort.getText().toString();
-
-                    int radioGroupAxillaryId = radioGroupAxillary.getCheckedRadioButtonId();
-                    RadioButton radioButtonAxillary = (RadioButton)findViewById(radioGroupAxillaryId);
-                    String axillaryNodesSwelling = radioButtonAxillary.getText().toString();
-
-                    int radioGroupInterpretationId = radioGroupInterpretation.getCheckedRadioButtonId();
-                    RadioButton radioButtonInterpretation = (RadioButton)findViewById(radioGroupInterpretationId);
-                    String clinicalInterpretation = radioButtonInterpretation.getText().toString();
-
-                    String medicalPersonnelId = SaveSharedPreference.getID(BreastExamActivity.this);
-                    Date today = new Date();
-
-                    BreastExamine be = new BreastExamine(numOfChildren, menarcheAge, monopauseAge, breastCancelHistory, firstDegreeBreastCancel, previousBreastSurgery, hormoneReplacementTherapy,
-                            hormoneContraceptive, breastFed, previousMMG, lump, nippleDischarge, nippleRetraction, discomfort, axillaryNodesSwelling, clinicalInterpretation, medicalPersonnelId,
-                            today);
-
-                    mCollectionReference.add(be).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(BreastExamActivity.this);
-                            builder.setTitle("Save Successfully");
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
-                            builder.setMessage("Save Successful!");
-                            AlertDialog alert = builder.create();
-                            alert.setCanceledOnTouchOutside(false);
-                            alert.show();
-                        }
-                    });
-                }else{
-                    check++;
-                    if(check == 1)
+                    if(CheckRequiredOnClick() == false)
                     {
-                        EnableField();
-                        btnBECancel.setVisibility(View.VISIBLE);
-                    }else if(check == 2)
-                    {
-                        DocumentReference mDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/BreastExamine/"+key);
+                        int numOfChildren = Integer.parseInt(editTextNumOfChildren.getText().toString());
+                        int menarcheAge = Integer.parseInt(editTextMenarcheAge.getText().toString());
+                        int monopauseAge = Integer.parseInt(editTextMonopauseAge.getText().toString());
+
                         int radioGroupBCHistoryId = radioGroupHistoryBC.getCheckedRadioButtonId();
                         RadioButton radioButtonBCHistory = (RadioButton)findViewById(radioGroupBCHistoryId);
                         String breastCancelHistory = radioButtonBCHistory.getText().toString();
@@ -388,32 +315,122 @@ public class BreastExamActivity extends AppCompatActivity {
                         RadioButton radioButtonInterpretation = (RadioButton)findViewById(radioGroupInterpretationId);
                         String clinicalInterpretation = radioButtonInterpretation.getText().toString();
 
-                        Date createdDate = new Date();
+                        String medicalPersonnelId = SaveSharedPreference.getID(BreastExamActivity.this);
+                        Date today = new Date();
 
-                        mDocumentReference.update("numOfChildren", Integer.parseInt(editTextNumOfChildren.getText().toString()));
-                        mDocumentReference.update("menarcheAge", Integer.parseInt(editTextMenarcheAge.getText().toString()));
-                        mDocumentReference.update("monopauseAge", Integer.parseInt(editTextMonopauseAge.getText().toString()));
-                        mDocumentReference.update("breastCancelHistory", breastCancelHistory);
-                        mDocumentReference.update("firstDegreeBreastCancel", firstDegreeBreastCancel);
-                        mDocumentReference.update("previousBreastSurgery",previousBreastSurgery);
-                        mDocumentReference.update("hormoneReplacementTherapy", hormoneReplacementTherapy);
-                        mDocumentReference.update("hormoneContraceptive", hormoneContraceptive);
-                        mDocumentReference.update("breastFed", breastFed);
-                        mDocumentReference.update("previousMMG", previousMMG);
-                        mDocumentReference.update("lump", lump);
-                        mDocumentReference.update("nippleDischarge", nippleDischarge);
-                        mDocumentReference.update("nippleRetraction", nippleRetraction);
-                        mDocumentReference.update("discomfort", discomfort);
-                        mDocumentReference.update("axillaryNodesSwelling", axillaryNodesSwelling);
-                        mDocumentReference.update("clinicalInterpretation",clinicalInterpretation);
-                        mDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(BreastExamActivity.this));
-                        mDocumentReference.update("createdDate", createdDate);
-                        Snackbar snackbar = Snackbar.make(relativeLayoutBreastExamine, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                        btnBECancel.setVisibility(View.GONE);
-                        DisableField();
-                        check = 0;
+                        BreastExamine be = new BreastExamine(numOfChildren, menarcheAge, monopauseAge, breastCancelHistory, firstDegreeBreastCancel, previousBreastSurgery, hormoneReplacementTherapy,
+                                hormoneContraceptive, breastFed, previousMMG, lump, nippleDischarge, nippleRetraction, discomfort, axillaryNodesSwelling, clinicalInterpretation, medicalPersonnelId,
+                                today);
 
+                        mCollectionReference.add(be).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(BreastExamActivity.this);
+                                builder.setTitle("Save Successfully");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finish();
+                                    }
+                                });
+                                builder.setMessage("Save Successful!");
+                                AlertDialog alert = builder.create();
+                                alert.setCanceledOnTouchOutside(false);
+                                alert.show();
+                            }
+                        });
+                    }
+                }else{
+                    check++;
+                    if(check == 1)
+                    {
+                        EnableField();
+                        btnBECancel.setVisibility(View.VISIBLE);
+                    }else if(check == 2)
+                    {
+                        if(CheckRequiredOnClick() == false)
+                        {
+                            DocumentReference mDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/BreastExamine/"+key);
+                            int radioGroupBCHistoryId = radioGroupHistoryBC.getCheckedRadioButtonId();
+                            RadioButton radioButtonBCHistory = (RadioButton)findViewById(radioGroupBCHistoryId);
+                            String breastCancelHistory = radioButtonBCHistory.getText().toString();
+
+                            int radioGroupFDBCId = radioGroupFDBC.getCheckedRadioButtonId();
+                            RadioButton radioButtonFDBC = (RadioButton)findViewById(radioGroupFDBCId);
+                            String firstDegreeBreastCancel = radioButtonFDBC.getText().toString();
+
+                            int radioGroupBreastSurgeryId = radioGroupBreastSurgery.getCheckedRadioButtonId();
+                            RadioButton radioButtonBreastSurgery = (RadioButton)findViewById(radioGroupBreastSurgeryId);
+                            String previousBreastSurgery = radioButtonBreastSurgery.getText().toString();
+
+                            int radioGroupHormoneId = radioGroupHormone.getCheckedRadioButtonId();
+                            RadioButton radioButtonHormone = (RadioButton)findViewById(radioGroupHormoneId);
+                            String hormoneReplacementTherapy = radioButtonHormone.getText().toString();
+
+                            int radioGroupHormoneCId = radioGroupHormoneC.getCheckedRadioButtonId();
+                            RadioButton radioButtonHormoneC = (RadioButton)findViewById(radioGroupHormoneCId);
+                            String hormoneContraceptive = radioButtonHormoneC.getText().toString();
+
+                            int radioGroupBreastFedId = radioGroupBreastFed.getCheckedRadioButtonId();
+                            RadioButton radioButtonBreastFed = (RadioButton)findViewById(radioGroupBreastFedId);
+                            String breastFed = radioButtonBreastFed.getText().toString();
+
+                            int radioGroupMMGId = radioGroupMMG.getCheckedRadioButtonId();
+                            RadioButton radioButtonMMG = (RadioButton)findViewById(radioGroupMMGId);
+                            String previousMMG = radioButtonMMG.getText().toString();
+
+                            int radioGroupLumpId = radioGroupLump.getCheckedRadioButtonId();
+                            RadioButton radioButtonLump = (RadioButton)findViewById(radioGroupLumpId);
+                            String lump = radioButtonLump.getText().toString();
+
+                            int radioGroupNippleDischargeId = radioGroupNippleDischarge.getCheckedRadioButtonId();
+                            RadioButton radioButtonNippleDischarge = (RadioButton)findViewById(radioGroupNippleDischargeId);
+                            String nippleDischarge = radioButtonNippleDischarge.getText().toString();
+
+                            int radioGroupNippleRetractionId = radioGroupNippleRetraction.getCheckedRadioButtonId();
+                            RadioButton radioButtonNippleRetraction = (RadioButton)findViewById(radioGroupNippleRetractionId);
+                            String nippleRetraction = radioButtonNippleRetraction.getText().toString();
+
+                            int radioGroupDiscomfortId = radioGroupDiscomfort.getCheckedRadioButtonId();
+                            RadioButton radioButtonDiscomfort = (RadioButton)findViewById(radioGroupDiscomfortId);
+                            String discomfort = radioButtonDiscomfort.getText().toString();
+
+                            int radioGroupAxillaryId = radioGroupAxillary.getCheckedRadioButtonId();
+                            RadioButton radioButtonAxillary = (RadioButton)findViewById(radioGroupAxillaryId);
+                            String axillaryNodesSwelling = radioButtonAxillary.getText().toString();
+
+                            int radioGroupInterpretationId = radioGroupInterpretation.getCheckedRadioButtonId();
+                            RadioButton radioButtonInterpretation = (RadioButton)findViewById(radioGroupInterpretationId);
+                            String clinicalInterpretation = radioButtonInterpretation.getText().toString();
+
+                            Date createdDate = new Date();
+
+                            mDocumentReference.update("numOfChildren", Integer.parseInt(editTextNumOfChildren.getText().toString()));
+                            mDocumentReference.update("menarcheAge", Integer.parseInt(editTextMenarcheAge.getText().toString()));
+                            mDocumentReference.update("monopauseAge", Integer.parseInt(editTextMonopauseAge.getText().toString()));
+                            mDocumentReference.update("breastCancelHistory", breastCancelHistory);
+                            mDocumentReference.update("firstDegreeBreastCancel", firstDegreeBreastCancel);
+                            mDocumentReference.update("previousBreastSurgery",previousBreastSurgery);
+                            mDocumentReference.update("hormoneReplacementTherapy", hormoneReplacementTherapy);
+                            mDocumentReference.update("hormoneContraceptive", hormoneContraceptive);
+                            mDocumentReference.update("breastFed", breastFed);
+                            mDocumentReference.update("previousMMG", previousMMG);
+                            mDocumentReference.update("lump", lump);
+                            mDocumentReference.update("nippleDischarge", nippleDischarge);
+                            mDocumentReference.update("nippleRetraction", nippleRetraction);
+                            mDocumentReference.update("discomfort", discomfort);
+                            mDocumentReference.update("axillaryNodesSwelling", axillaryNodesSwelling);
+                            mDocumentReference.update("clinicalInterpretation",clinicalInterpretation);
+                            mDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(BreastExamActivity.this));
+                            mDocumentReference.update("createdDate", createdDate);
+                            Snackbar snackbar = Snackbar.make(relativeLayoutBreastExamine, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                            btnBECancel.setVisibility(View.GONE);
+                            DisableField();
+                            check = 0;
+                        }else{
+                            check = 1;
+                        }
                     }
                 }
             }
@@ -553,6 +570,292 @@ public class BreastExamActivity extends AppCompatActivity {
             }
         });
     }
+
+    private boolean CheckRequiredOnClick()
+    {
+        if(editTextNumOfChildren.getText().toString().isEmpty() || editTextMenarcheAge.getText().toString().isEmpty() || editTextMonopauseAge.getText().toString().isEmpty()
+                || radioGroupHistoryBC.getCheckedRadioButtonId() == -1 || radioGroupFDBC.getCheckedRadioButtonId() == -1 || radioGroupBreastSurgery.getCheckedRadioButtonId() == -1
+                || radioGroupHormone.getCheckedRadioButtonId() == -1 || radioGroupHormoneC.getCheckedRadioButtonId() == -1 || radioGroupBreastFed.getCheckedRadioButtonId() == -1
+                || radioGroupMMG.getCheckedRadioButtonId() == -1 || radioGroupLump.getCheckedRadioButtonId() == -1 || radioGroupNippleDischarge.getCheckedRadioButtonId() == -1
+                || radioGroupNippleRetraction.getCheckedRadioButtonId() == -1 || radioGroupDiscomfort.getCheckedRadioButtonId() == -1 || radioGroupAxillary.getCheckedRadioButtonId() == -1
+                || radioGroupInterpretation.getCheckedRadioButtonId() == -1)
+        {
+            if(editTextNumOfChildren.getText().toString().isEmpty())
+            {
+                layoutNumberOfChildren.setErrorEnabled(true);
+                layoutNumberOfChildren.setError("This field is required!");
+            }else{
+                layoutNumberOfChildren.setErrorEnabled(false);
+                layoutNumberOfChildren.setError(null);
+            }
+
+            if(editTextMenarcheAge.getText().toString().isEmpty())
+            {
+                layoutMenarcheAge.setErrorEnabled(true);
+                layoutMenarcheAge.setError("This field is required!");
+            }else{
+                layoutMenarcheAge.setErrorEnabled(false);
+                layoutMenarcheAge.setError(null);
+            }
+
+            if(editTextMonopauseAge.getText().toString().isEmpty())
+            {
+                layoutMonopauseAge.setErrorEnabled(true);
+                layoutMonopauseAge.setError("This field is required!");
+            }else{
+                layoutMonopauseAge.setErrorEnabled(false);
+                layoutMonopauseAge.setError(null);
+            }
+
+            if(radioGroupHistoryBC.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupHistoryBC.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupHistoryBC.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupHistoryBC.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupHistoryBC.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupFDBC.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupFDBC.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupFDBC.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupFDBC.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupFDBC.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupBreastSurgery.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupBreastSurgery.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupBreastSurgery.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupBreastSurgery.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupBreastSurgery.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupHormone.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupHormone.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupHormone.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupHormone.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupHormone.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupHormoneC.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupHormoneC.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupHormoneC.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupHormoneC.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupHormoneC.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupBreastFed.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupBreastFed.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupBreastFed.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupBreastFed.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupBreastFed.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupMMG.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupMMG.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupMMG.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupMMG.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupMMG.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupLump.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupLump.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupLump.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupLump.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupLump.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupNippleDischarge.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupNippleDischarge.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupNippleDischarge.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupNippleDischarge.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupNippleDischarge.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupNippleRetraction.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupNippleRetraction.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupNippleRetraction.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupNippleRetraction.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupNippleRetraction.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupDiscomfort.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupDiscomfort.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupDiscomfort.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupDiscomfort.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupDiscomfort.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupAxillary.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupAxillary.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupAxillary.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupAxillary.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupAxillary.getChildAt(i)).setError(null);
+                }
+            }
+
+            if(radioGroupInterpretation.getCheckedRadioButtonId() == -1)
+            {
+                for(int i=0; i<radioGroupInterpretation.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupInterpretation.getChildAt(i)).setError("This field is required!");
+                }
+            }else{
+                for(int i=0; i<radioGroupInterpretation.getChildCount(); i++)
+                {
+                    ((RadioButton)radioGroupInterpretation.getChildAt(i)).setError(null);
+                }
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private void CheckRequiredField()
+    {
+        editTextNumOfChildren.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextNumOfChildren.getText().toString().isEmpty())
+                {
+                    layoutNumberOfChildren.setErrorEnabled(true);
+                    layoutNumberOfChildren.setError("This field is required!");
+                }else{
+                    layoutNumberOfChildren.setErrorEnabled(false);
+                    layoutNumberOfChildren.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextMenarcheAge.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextMenarcheAge.getText().toString().isEmpty())
+                {
+                    layoutMenarcheAge.setErrorEnabled(true);
+                    layoutMenarcheAge.setError("This field is required!");
+                }else{
+                    layoutMenarcheAge.setErrorEnabled(false);
+                    layoutMenarcheAge.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextMonopauseAge.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextMonopauseAge.getText().toString().isEmpty())
+                {
+                    layoutMonopauseAge.setErrorEnabled(true);
+                    layoutMonopauseAge.setError("This field is required!");
+                }else{
+                    layoutMonopauseAge.setErrorEnabled(false);
+                    layoutMonopauseAge.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
     private void DisableField()
     {
         editTextNumOfChildren.setEnabled(false);
