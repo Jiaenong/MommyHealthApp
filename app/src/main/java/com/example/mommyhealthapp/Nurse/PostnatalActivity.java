@@ -183,9 +183,11 @@ public class PostnatalActivity extends AppCompatActivity {
                     String mealNutritionStatus = "", postnatalExerciseStatus = "", hygieneStatus = "", earlyTreatmentStatus = "";
                     String mealNutritionPerson = "", postnatalExercisePerson = "", hygienePerson = "", earlyTreatmentPerson = "";
                     Date mealNutritionDate = null, postnatalExerciseDate = null, hygieneDate = null, earlyTreatmentDate = null;
+                    int checkSelect = 0;
 
                     if(checkBoxPostnatalMeal.isChecked())
                     {
+                        checkSelect++;
                         mealNutritionStatus = "Yes";
                         mealNutritionPerson = txtPostnatalMealPerson.getText().toString();
                         if(txtViewPostnatalMealDate.getText().toString().equals(getResources().getString(R.string.secN_Date)))
@@ -209,6 +211,7 @@ public class PostnatalActivity extends AppCompatActivity {
 
                     if(checkBoxPostnatalExercise.isChecked())
                     {
+                        checkSelect++;
                         postnatalExerciseStatus = "Yes";
                         postnatalExercisePerson = txtViewPExercisePerson.getText().toString();
                         if(txtViewPExerciseDate.getText().toString().equals(getResources().getString(R.string.secN_Date)))
@@ -232,6 +235,7 @@ public class PostnatalActivity extends AppCompatActivity {
 
                     if(checkBoxPHygiene.isChecked())
                     {
+                        checkSelect++;
                         hygieneStatus = "Yes";
                         hygienePerson = txtViewPHygienePerson.getText().toString();
                         if(txtViewPHygieneDate.getText().toString().equals(getResources().getString(R.string.secN_Date)))
@@ -255,6 +259,7 @@ public class PostnatalActivity extends AppCompatActivity {
 
                     if(checkBoxPEarlyTreatment.isChecked())
                     {
+                        checkSelect++;
                         earlyTreatmentStatus = "Yes";
                         earlyTreatmentPerson = txtViewPEarlyTreatmentPerson.getText().toString();
                         if(txtViewPEarlyTreatmentDate.getText().toString().equals(getResources().getString(R.string.secN_Date)))
@@ -276,28 +281,43 @@ public class PostnatalActivity extends AppCompatActivity {
                         earlyTreatmentDate = null;
                     }
                     Log.i("Testing", checkDateSelectMeal+"");
-                    if(checkDateSelectMeal==true && checkDateSelectExercise==true && checkDateSelectHygiene==true && checkDateSelectEarlyTreatment==true)
+                    if(checkSelect == 0)
                     {
-                        PostnatalTutorial pt = new PostnatalTutorial(mealNutritionStatus, mealNutritionDate, mealNutritionPerson, postnatalExerciseStatus, postnatalExerciseDate,
-                                postnatalExercisePerson, hygieneStatus, hygieneDate, hygienePerson, earlyTreatmentStatus, earlyTreatmentDate, earlyTreatmentPerson);
-
-                        nCollectionReference.add(pt).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(PostnatalActivity.this);
+                        builder.setTitle("Error");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(PostnatalActivity.this);
-                                builder.setTitle("Save Successfully");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        finish();
-                                    }
-                                });
-                                builder.setMessage("Save Successful!");
-                                AlertDialog alert = builder.create();
-                                alert.setCanceledOnTouchOutside(false);
-                                alert.show();
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
                             }
                         });
+                        builder.setMessage("At least one selection must be selected");
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }else{
+                        if(checkDateSelectMeal==true && checkDateSelectExercise==true && checkDateSelectHygiene==true && checkDateSelectEarlyTreatment==true)
+                        {
+                            PostnatalTutorial pt = new PostnatalTutorial(mealNutritionStatus, mealNutritionDate, mealNutritionPerson, postnatalExerciseStatus, postnatalExerciseDate,
+                                    postnatalExercisePerson, hygieneStatus, hygieneDate, hygienePerson, earlyTreatmentStatus, earlyTreatmentDate, earlyTreatmentPerson);
+
+                            nCollectionReference.add(pt).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(PostnatalActivity.this);
+                                    builder.setTitle("Save Successfully");
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            finish();
+                                        }
+                                    });
+                                    builder.setMessage("Save Successful!");
+                                    AlertDialog alert = builder.create();
+                                    alert.setCanceledOnTouchOutside(false);
+                                    alert.show();
+                                }
+                            });
+                        }
                     }
                 }else{
                     check++;
@@ -312,9 +332,11 @@ public class PostnatalActivity extends AppCompatActivity {
                         String mealNutritionStatus = "", postnatalExerciseStatus = "", hygieneStatus = "", earlyTreatmentStatus = "";
                         String mealNutritionPerson = "", postnatalExercisePerson = "", hygienePerson = "", earlyTreatmentPerson = "";
                         Date mealNutritionDate = null, postnatalExerciseDate = null, hygieneDate = null, earlyTreatmentDate = null;
+                        int checkSelect = 0;
 
                         if(checkBoxPostnatalMeal.isChecked())
                         {
+                            checkSelect++;
                             mealNutritionStatus = "Yes";
                             mealNutritionPerson = txtPostnatalMealPerson.getText().toString();
                             if(txtViewPostnatalMealDate.getText().toString().equals(getResources().getString(R.string.secN_Date)))
@@ -338,6 +360,7 @@ public class PostnatalActivity extends AppCompatActivity {
 
                         if(checkBoxPostnatalExercise.isChecked())
                         {
+                            checkSelect++;
                             postnatalExerciseStatus = "Yes";
                             postnatalExercisePerson = txtViewPExercisePerson.getText().toString();
                             if(txtViewPExerciseDate.getText().toString().equals(getResources().getString(R.string.secN_Date)))
@@ -361,6 +384,7 @@ public class PostnatalActivity extends AppCompatActivity {
 
                         if(checkBoxPHygiene.isChecked())
                         {
+                            checkSelect++;
                             hygieneStatus = "Yes";
                             hygienePerson = txtViewPHygienePerson.getText().toString();
                             if(txtViewPHygieneDate.getText().toString().equals(getResources().getString(R.string.secN_Date)))
@@ -384,6 +408,7 @@ public class PostnatalActivity extends AppCompatActivity {
 
                         if(checkBoxPEarlyTreatment.isChecked())
                         {
+                            checkSelect++;
                             earlyTreatmentStatus = "Yes";
                             earlyTreatmentPerson = txtViewPEarlyTreatmentPerson.getText().toString();
                             if(txtViewPEarlyTreatmentDate.getText().toString().equals(getResources().getString(R.string.secN_Date)))
@@ -404,28 +429,43 @@ public class PostnatalActivity extends AppCompatActivity {
                             earlyTreatmentPerson = txtViewPEarlyTreatmentPerson.getText().toString();
                             earlyTreatmentDate = null;
                         }
-
-                        if(checkDateSelectMeal==true && checkDateSelectExercise==true && checkDateSelectHygiene==true && checkDateSelectEarlyTreatment==true)
+                        if(checkSelect == 0)
                         {
-                            nDocumentReference.update("mealNutritionStatus", mealNutritionStatus);
-                            nDocumentReference.update("mealNutritionDate", mealNutritionDate);
-                            nDocumentReference.update("mealNutritionPerson", mealNutritionPerson);
-                            nDocumentReference.update("postnatalExerciseStatus", postnatalExerciseStatus);
-                            nDocumentReference.update("postnatalExerciseDate", postnatalExerciseDate);
-                            nDocumentReference.update("postnatalExercisePerson", postnatalExercisePerson);
-                            nDocumentReference.update("hygieneStatus", hygieneStatus);
-                            nDocumentReference.update("hygieneDate", hygieneDate);
-                            nDocumentReference.update("hygienePerson", hygienePerson);
-                            nDocumentReference.update("earlyTreatmentStatus", earlyTreatmentStatus);
-                            nDocumentReference.update("earlyTreatmentDate", earlyTreatmentDate);
-                            nDocumentReference.update("earlyTreatmentPerson", earlyTreatmentPerson);
-                            Snackbar snackbar = Snackbar.make(relativeLayoutPostnatalTutorial, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                            snackbar.show();
-                            DisableField();
-                            btnPostnatalCancel.setVisibility(View.GONE);
-                            check = 0;
-                        }else{
                             check = 1;
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(PostnatalActivity.this);
+                            builder.setTitle("Error");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                            builder.setMessage("At least one selection must be selected");
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }else{
+                            if(checkDateSelectMeal==true && checkDateSelectExercise==true && checkDateSelectHygiene==true && checkDateSelectEarlyTreatment==true)
+                            {
+                                nDocumentReference.update("mealNutritionStatus", mealNutritionStatus);
+                                nDocumentReference.update("mealNutritionDate", mealNutritionDate);
+                                nDocumentReference.update("mealNutritionPerson", mealNutritionPerson);
+                                nDocumentReference.update("postnatalExerciseStatus", postnatalExerciseStatus);
+                                nDocumentReference.update("postnatalExerciseDate", postnatalExerciseDate);
+                                nDocumentReference.update("postnatalExercisePerson", postnatalExercisePerson);
+                                nDocumentReference.update("hygieneStatus", hygieneStatus);
+                                nDocumentReference.update("hygieneDate", hygieneDate);
+                                nDocumentReference.update("hygienePerson", hygienePerson);
+                                nDocumentReference.update("earlyTreatmentStatus", earlyTreatmentStatus);
+                                nDocumentReference.update("earlyTreatmentDate", earlyTreatmentDate);
+                                nDocumentReference.update("earlyTreatmentPerson", earlyTreatmentPerson);
+                                Snackbar snackbar = Snackbar.make(relativeLayoutPostnatalTutorial, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                                snackbar.show();
+                                DisableField();
+                                btnPostnatalCancel.setVisibility(View.GONE);
+                                check = 0;
+                            }else{
+                                check = 1;
+                            }
                         }
                     }
                 }

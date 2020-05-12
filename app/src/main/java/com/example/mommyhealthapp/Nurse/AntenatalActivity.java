@@ -419,32 +419,47 @@ public class AntenatalActivity extends AppCompatActivity {
                         oralHealthPerson = txtViewOralHealthPerson.getText().toString();
                         oralHealthDate = null;
                     }
-                    boolean checkDate = CheckDateSelected(dateText);
-                    AntenatalTutorial at = new AntenatalTutorial(antenatalCareStatus, antenatalCareDate, antenatalCarePerson, earlyClinicStatus, earlyClinicDate,
-                            earlyClinicPerson, solveProblemStatus, solveProblemDate, solveProblemPerson, nutritionStatus,
-                            nutritionDate, nutritionPerson, maternityStatus, maternityDate, maternityPerson, exerciseStatus,
-                            exerciseDate, exercisePerson, familyPlannerStatus, familyPlannerDate, familyPlannerPerson,
-                            childBirthStatus, childBirthDate, childBirthPerson, saveBirthStatus, saveBirthDate, saveBirthPerson,
-                            earlyBirthStatus, earlyBirthDate, earlyBirthPerson, oralHealthStatus, oralHealthDate, oralHealthPerson);
-                    if(checkDate == true)
+                    if(dateText.isEmpty())
                     {
-                        nCollectionReference.add(at).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(AntenatalActivity.this);
+                        builder.setTitle("Error");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(AntenatalActivity.this);
-                                builder.setTitle("Save Successfully");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        finish();
-                                    }
-                                });
-                                builder.setMessage("Save Successful!");
-                                AlertDialog alert = builder.create();
-                                alert.setCanceledOnTouchOutside(false);
-                                alert.show();
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
                             }
                         });
+                        builder.setMessage("At least one selection must be selected");
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }else{
+                        boolean checkDate = CheckDateSelected(dateText);
+                        AntenatalTutorial at = new AntenatalTutorial(antenatalCareStatus, antenatalCareDate, antenatalCarePerson, earlyClinicStatus, earlyClinicDate,
+                                earlyClinicPerson, solveProblemStatus, solveProblemDate, solveProblemPerson, nutritionStatus,
+                                nutritionDate, nutritionPerson, maternityStatus, maternityDate, maternityPerson, exerciseStatus,
+                                exerciseDate, exercisePerson, familyPlannerStatus, familyPlannerDate, familyPlannerPerson,
+                                childBirthStatus, childBirthDate, childBirthPerson, saveBirthStatus, saveBirthDate, saveBirthPerson,
+                                earlyBirthStatus, earlyBirthDate, earlyBirthPerson, oralHealthStatus, oralHealthDate, oralHealthPerson);
+                        if(checkDate == true)
+                        {
+                            nCollectionReference.add(at).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(AntenatalActivity.this);
+                                    builder.setTitle("Save Successfully");
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            finish();
+                                        }
+                                    });
+                                    builder.setMessage("Save Successful!");
+                                    AlertDialog alert = builder.create();
+                                    alert.setCanceledOnTouchOutside(false);
+                                    alert.show();
+                                }
+                            });
+                        }
                     }
                 }else{
                     check++;
@@ -628,50 +643,66 @@ public class AntenatalActivity extends AppCompatActivity {
                             oralHealthPerson = txtViewOralHealthPerson.getText().toString();
                             oralHealthDate = null;
                         }
-                        boolean checkDate = CheckDateSelected(dateText);
-                        Log.i("Testing2", checkDate+"");
-                        if(checkDate == true)
+                        if(dateText.isEmpty())
                         {
-                            nDocumentReference.update("antenatalCareStatus", antenatalCareStatus);
-                            nDocumentReference.update("antenatalCareDate", antenatalCareDate);
-                            nDocumentReference.update("antenatalCarePerson", antenatalCarePerson);
-                            nDocumentReference.update("earlyClinicStatus", earlyClinicStatus);
-                            nDocumentReference.update("earlyClinicDate", earlyClinicDate);
-                            nDocumentReference.update("earlyClinicPerson", earlyClinicPerson);
-                            nDocumentReference.update("solveProblemStatus", solveProblemStatus);
-                            nDocumentReference.update("solveProblemDate", solveProblemDate);
-                            nDocumentReference.update("solveProblemPerson", solveProblemPerson);
-                            nDocumentReference.update("nutritionStatus", nutritionStatus);
-                            nDocumentReference.update("nutritionDate", nutritionDate);
-                            nDocumentReference.update("nutritionPerson", nutritionPerson);
-                            nDocumentReference.update("maternityStatus", maternityStatus);
-                            nDocumentReference.update("maternityDate", maternityDate);
-                            nDocumentReference.update("maternityPerson", maternityPerson);
-                            nDocumentReference.update("exerciseStatus", exerciseStatus);
-                            nDocumentReference.update("exerciseDate", exerciseDate);
-                            nDocumentReference.update("exercisePerson", exercisePerson);
-                            nDocumentReference.update("familyPlannerStatus", familyPlannerStatus);
-                            nDocumentReference.update("familyPlannerDate", familyPlannerDate);
-                            nDocumentReference.update("familyPlannerPerson", familyPlannerPerson);
-                            nDocumentReference.update("childBirthStatus", childBirthStatus);
-                            nDocumentReference.update("childBirthDate", childBirthDate);
-                            nDocumentReference.update("childBirthPerson", childBirthPerson);
-                            nDocumentReference.update("saveBirthStatus", saveBirthStatus);
-                            nDocumentReference.update("saveBirthDate", saveBirthDate);
-                            nDocumentReference.update("saveBirthPerson", saveBirthPerson);
-                            nDocumentReference.update("earlyBirthStatus", earlyBirthStatus);
-                            nDocumentReference.update("earlyBirthDate", earlyBirthDate);
-                            nDocumentReference.update("earlyBirthPerson", earlyBirthPerson);
-                            nDocumentReference.update("oralHealthStatus", oralHealthStatus);
-                            nDocumentReference.update("oralHealthDate", oralHealthDate);
-                            nDocumentReference.update("oralHealthPerson", oralHealthPerson);
-                            DisableField();
-                            btnAntenatalCancel.setVisibility(View.GONE);
-                            check = 0;
-                            Snackbar snackbar = Snackbar.make(relativeLayoutAntenatalTutorial, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                            snackbar.show();
-                        }else{
                             check = 1;
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(AntenatalActivity.this);
+                            builder.setTitle("Error");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                            builder.setMessage("At least one selection must be selected");
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }else{
+                            boolean checkDate = CheckDateSelected(dateText);
+                            Log.i("Testing2", checkDate+"");
+                            if(checkDate == true)
+                            {
+                                nDocumentReference.update("antenatalCareStatus", antenatalCareStatus);
+                                nDocumentReference.update("antenatalCareDate", antenatalCareDate);
+                                nDocumentReference.update("antenatalCarePerson", antenatalCarePerson);
+                                nDocumentReference.update("earlyClinicStatus", earlyClinicStatus);
+                                nDocumentReference.update("earlyClinicDate", earlyClinicDate);
+                                nDocumentReference.update("earlyClinicPerson", earlyClinicPerson);
+                                nDocumentReference.update("solveProblemStatus", solveProblemStatus);
+                                nDocumentReference.update("solveProblemDate", solveProblemDate);
+                                nDocumentReference.update("solveProblemPerson", solveProblemPerson);
+                                nDocumentReference.update("nutritionStatus", nutritionStatus);
+                                nDocumentReference.update("nutritionDate", nutritionDate);
+                                nDocumentReference.update("nutritionPerson", nutritionPerson);
+                                nDocumentReference.update("maternityStatus", maternityStatus);
+                                nDocumentReference.update("maternityDate", maternityDate);
+                                nDocumentReference.update("maternityPerson", maternityPerson);
+                                nDocumentReference.update("exerciseStatus", exerciseStatus);
+                                nDocumentReference.update("exerciseDate", exerciseDate);
+                                nDocumentReference.update("exercisePerson", exercisePerson);
+                                nDocumentReference.update("familyPlannerStatus", familyPlannerStatus);
+                                nDocumentReference.update("familyPlannerDate", familyPlannerDate);
+                                nDocumentReference.update("familyPlannerPerson", familyPlannerPerson);
+                                nDocumentReference.update("childBirthStatus", childBirthStatus);
+                                nDocumentReference.update("childBirthDate", childBirthDate);
+                                nDocumentReference.update("childBirthPerson", childBirthPerson);
+                                nDocumentReference.update("saveBirthStatus", saveBirthStatus);
+                                nDocumentReference.update("saveBirthDate", saveBirthDate);
+                                nDocumentReference.update("saveBirthPerson", saveBirthPerson);
+                                nDocumentReference.update("earlyBirthStatus", earlyBirthStatus);
+                                nDocumentReference.update("earlyBirthDate", earlyBirthDate);
+                                nDocumentReference.update("earlyBirthPerson", earlyBirthPerson);
+                                nDocumentReference.update("oralHealthStatus", oralHealthStatus);
+                                nDocumentReference.update("oralHealthDate", oralHealthDate);
+                                nDocumentReference.update("oralHealthPerson", oralHealthPerson);
+                                DisableField();
+                                btnAntenatalCancel.setVisibility(View.GONE);
+                                check = 0;
+                                Snackbar snackbar = Snackbar.make(relativeLayoutAntenatalTutorial, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                                snackbar.show();
+                            }else{
+                                check = 1;
+                            }
                         }
                     }
                 }
