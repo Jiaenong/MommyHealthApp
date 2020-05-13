@@ -251,26 +251,41 @@ public class SectionNOthersActivity extends AppCompatActivity {
                     OtherTutorial ot = new OtherTutorial(caringNewBornStatus, caringNewBornDate, caringNewBornPerson, neonatalJaundiceStatus, neonatalJaundiceDate,
                             neonatalJaundicePerson, papSmearStatus, papSmearDate, papSmearPerson, breastCancerScreeningStatus,
                             breastCancerScreeningDate, breastCancerScreeningPerson);
-                    boolean checkDate = CheckDateSelected(dateText);
-                    if(checkDate == true)
+                    if(dateText.isEmpty())
                     {
-                        mCollectionReference.add(ot).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(SectionNOthersActivity.this);
+                        builder.setTitle("Error");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(SectionNOthersActivity.this);
-                                builder.setTitle("Save Successfully");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        finish();
-                                    }
-                                });
-                                builder.setMessage("Save Successful!");
-                                AlertDialog alert = builder.create();
-                                alert.setCanceledOnTouchOutside(false);
-                                alert.show();
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
                             }
                         });
+                        builder.setMessage("At least one selection must be selected");
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }else{
+                        boolean checkDate = CheckDateSelected(dateText);
+                        if(checkDate == true)
+                        {
+                            mCollectionReference.add(ot).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(SectionNOthersActivity.this);
+                                    builder.setTitle("Save Successfully");
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            finish();
+                                        }
+                                    });
+                                    builder.setMessage("Save Successful!");
+                                    AlertDialog alert = builder.create();
+                                    alert.setCanceledOnTouchOutside(false);
+                                    alert.show();
+                                }
+                            });
+                        }
                     }
                 }else{
                     check++;
@@ -349,28 +364,44 @@ public class SectionNOthersActivity extends AppCompatActivity {
                             breastCancerScreeningPerson = "";
                             breastCancerScreeningDate = null;
                         }
-                        boolean checkDate = CheckDateSelected(dateText);
-                        if(checkDate == true)
+                        if(dateText.isEmpty())
                         {
-                            mDocumentReference.update("caringNewBornStatus", caringNewBornStatus);
-                            mDocumentReference.update("caringNewBornDate", caringNewBornDate);
-                            mDocumentReference.update("caringNewBornPerson", caringNewBornPerson);
-                            mDocumentReference.update("neonatalJaundiceStatus", neonatalJaundiceStatus);
-                            mDocumentReference.update("neonatalJaundiceDate", neonatalJaundiceDate);
-                            mDocumentReference.update("neonatalJaundicePerson", neonatalJaundicePerson);
-                            mDocumentReference.update("papSmearStatus", papSmearStatus);
-                            mDocumentReference.update("papSmearDate", papSmearDate);
-                            mDocumentReference.update("papSmearPerson", papSmearPerson);
-                            mDocumentReference.update("breastCancerScreeningStatus", breastCancerScreeningStatus);
-                            mDocumentReference.update("breastCancerScreeningDate", breastCancerScreeningDate);
-                            mDocumentReference.update("breastCancerScreeningPerson", breastCancerScreeningPerson);
-                            Snackbar snackbar = Snackbar.make(relativeLayoutOtherTutorial, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                            snackbar.show();
-                            DisableField();
-                            btnOtherTutorialCancel.setVisibility(View.GONE);
-                            check = 0;
-                        }else{
                             check = 1;
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(SectionNOthersActivity.this);
+                            builder.setTitle("Error");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                            builder.setMessage("At least one selection must be selected");
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }else{
+                            boolean checkDate = CheckDateSelected(dateText);
+                            if(checkDate == true)
+                            {
+                                mDocumentReference.update("caringNewBornStatus", caringNewBornStatus);
+                                mDocumentReference.update("caringNewBornDate", caringNewBornDate);
+                                mDocumentReference.update("caringNewBornPerson", caringNewBornPerson);
+                                mDocumentReference.update("neonatalJaundiceStatus", neonatalJaundiceStatus);
+                                mDocumentReference.update("neonatalJaundiceDate", neonatalJaundiceDate);
+                                mDocumentReference.update("neonatalJaundicePerson", neonatalJaundicePerson);
+                                mDocumentReference.update("papSmearStatus", papSmearStatus);
+                                mDocumentReference.update("papSmearDate", papSmearDate);
+                                mDocumentReference.update("papSmearPerson", papSmearPerson);
+                                mDocumentReference.update("breastCancerScreeningStatus", breastCancerScreeningStatus);
+                                mDocumentReference.update("breastCancerScreeningDate", breastCancerScreeningDate);
+                                mDocumentReference.update("breastCancerScreeningPerson", breastCancerScreeningPerson);
+                                Snackbar snackbar = Snackbar.make(relativeLayoutOtherTutorial, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                                snackbar.show();
+                                DisableField();
+                                btnOtherTutorialCancel.setVisibility(View.GONE);
+                                check = 0;
+                            }else{
+                                check = 1;
+                            }
                         }
                     }
                 }

@@ -250,26 +250,41 @@ public class UnusualCircumtancesActivity extends AppCompatActivity {
 
                     UnusualCircumstancesTutorial uc = new UnusualCircumstancesTutorial(eclampsiaStatus, eclmapsiaDate, eclampsiaPerson, diabetesStatus, diabetesDate, diabetesPerson,
                             anemiaStatus, anemiaDate, anemiaPerson, bleedingStatus, bleedingDate, bleedingPerson);
-                    boolean checkDate = CheckDateSelected(dateText);
-                    if(checkDate == true)
+                    if(dateText.isEmpty())
                     {
-                        mCollectionReference.add(uc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(UnusualCircumtancesActivity.this);
+                        builder.setTitle("Error");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(UnusualCircumtancesActivity.this);
-                                builder.setTitle("Save Successfully");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        finish();
-                                    }
-                                });
-                                builder.setMessage("Save Successful!");
-                                AlertDialog alert = builder.create();
-                                alert.setCanceledOnTouchOutside(false);
-                                alert.show();
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
                             }
                         });
+                        builder.setMessage("At least one selection must be selected");
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }else{
+                        boolean checkDate = CheckDateSelected(dateText);
+                        if(checkDate == true)
+                        {
+                            mCollectionReference.add(uc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(UnusualCircumtancesActivity.this);
+                                    builder.setTitle("Save Successfully");
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            finish();
+                                        }
+                                    });
+                                    builder.setMessage("Save Successful!");
+                                    AlertDialog alert = builder.create();
+                                    alert.setCanceledOnTouchOutside(false);
+                                    alert.show();
+                                }
+                            });
+                        }
                     }
                 }else{
                     check++;
@@ -348,28 +363,44 @@ public class UnusualCircumtancesActivity extends AppCompatActivity {
                             bleedingPerson = "";
                             bleedingDate = null;
                         }
-                        boolean checkDate = CheckDateSelected(dateText);
-                        if(checkDate == true)
+                        if(dateText.isEmpty())
                         {
-                            mDocumentReference.update("eclampsiaStatus", eclampsiaStatus);
-                            mDocumentReference.update("eclmapsiaDate", eclmapsiaDate);
-                            mDocumentReference.update("eclampsiaPerson", eclampsiaPerson);
-                            mDocumentReference.update("diabetesStatus", diabetesStatus);
-                            mDocumentReference.update("diabetesDate", diabetesDate);
-                            mDocumentReference.update("diabetesPerson", diabetesPerson);
-                            mDocumentReference.update("anemiaStatus", anemiaStatus);
-                            mDocumentReference.update("anemiaDate", anemiaDate);
-                            mDocumentReference.update("anemiaPerson", anemiaPerson);
-                            mDocumentReference.update("bleedingStatus", bleedingStatus);
-                            mDocumentReference.update("bleedingDate", bleedingDate);
-                            mDocumentReference.update("bleedingPerson", bleedingPerson);
-                            Snackbar snackbar = Snackbar.make(relativeLayoutUC,"Updated Successfully!",Snackbar.LENGTH_LONG);
-                            snackbar.show();
-                            DisableField();
-                            btnUCCancel.setVisibility(View.GONE);
-                            check = 0;
-                        }else{
                             check = 1;
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(UnusualCircumtancesActivity.this);
+                            builder.setTitle("Error");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                            builder.setMessage("At least one selection must be selected");
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }else{
+                            boolean checkDate = CheckDateSelected(dateText);
+                            if(checkDate == true)
+                            {
+                                mDocumentReference.update("eclampsiaStatus", eclampsiaStatus);
+                                mDocumentReference.update("eclmapsiaDate", eclmapsiaDate);
+                                mDocumentReference.update("eclampsiaPerson", eclampsiaPerson);
+                                mDocumentReference.update("diabetesStatus", diabetesStatus);
+                                mDocumentReference.update("diabetesDate", diabetesDate);
+                                mDocumentReference.update("diabetesPerson", diabetesPerson);
+                                mDocumentReference.update("anemiaStatus", anemiaStatus);
+                                mDocumentReference.update("anemiaDate", anemiaDate);
+                                mDocumentReference.update("anemiaPerson", anemiaPerson);
+                                mDocumentReference.update("bleedingStatus", bleedingStatus);
+                                mDocumentReference.update("bleedingDate", bleedingDate);
+                                mDocumentReference.update("bleedingPerson", bleedingPerson);
+                                Snackbar snackbar = Snackbar.make(relativeLayoutUC,"Updated Successfully!",Snackbar.LENGTH_LONG);
+                                snackbar.show();
+                                DisableField();
+                                btnUCCancel.setVisibility(View.GONE);
+                                check = 0;
+                            }else{
+                                check = 1;
+                            }
                         }
                     }
                 }

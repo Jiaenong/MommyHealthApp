@@ -383,26 +383,41 @@ public class BreastFeedingActivity extends AppCompatActivity {
                             bfBabyNeedsDate, bfBabyNeedsPerson, breastMilkProductionStatus, breastMilkProductionDate,
                             breastMilkProductionPerson, bfProblemStatus, bfProblemDate, bfProblemPerson, bfWorkMotherStatus,
                             bfWorkMotherDate, bfWorkMotherPerson);
-                    boolean checkDate = CheckDateSelected(dateText);
-                    if(checkDate == true)
+                    if(dateText.isEmpty())
                     {
-                        mCollectionReference.add(bft).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(BreastFeedingActivity.this);
+                        builder.setTitle("Error");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(BreastFeedingActivity.this);
-                                builder.setTitle("Save Successfully");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        finish();
-                                    }
-                                });
-                                builder.setMessage("Save Successful!");
-                                AlertDialog alert = builder.create();
-                                alert.setCanceledOnTouchOutside(false);
-                                alert.show();
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
                             }
                         });
+                        builder.setMessage("At least one selection must be selected");
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }else{
+                        boolean checkDate = CheckDateSelected(dateText);
+                        if(checkDate == true)
+                        {
+                            mCollectionReference.add(bft).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(BreastFeedingActivity.this);
+                                    builder.setTitle("Save Successfully");
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            finish();
+                                        }
+                                    });
+                                    builder.setMessage("Save Successful!");
+                                    AlertDialog alert = builder.create();
+                                    alert.setCanceledOnTouchOutside(false);
+                                    alert.show();
+                                }
+                            });
+                        }
                     }
                 }else{
                     check++;
@@ -564,43 +579,59 @@ public class BreastFeedingActivity extends AppCompatActivity {
                             bfWorkMotherPerson = "";
                             bfWorkMotherDate = null;
                         }
-                        boolean checkDate = CheckDateSelected(dateText);
-                        if(checkDate == true)
+                        if(dateText.isEmpty())
                         {
-                            mDocumentReference.update("advantageBreastMilkStatus", advantageBreastMilkStatus);
-                            mDocumentReference.update("advantageBreastMilkDate", advantageBreastMilkDate);
-                            mDocumentReference.update("advantageBreastMilkPerson", advantageBreastMilkPerson);
-                            mDocumentReference.update("bfExclusivelyStatus", bfExclusivelyStatus);
-                            mDocumentReference.update("bfExclusivelyDate", bfExclusivelyDate);
-                            mDocumentReference.update("bfExclusivelyPerson", bfExclusivelyPerson);
-                            mDocumentReference.update("earlyBFStatus", earlyBFStatus);
-                            mDocumentReference.update("earlyBFDate", earlyBFDate);
-                            mDocumentReference.update("earlyBFPerson", earlyBFPerson);
-                            mDocumentReference.update("roomingInStatus", roomingInStatus);
-                            mDocumentReference.update("roomingInDate", roomingInDate);
-                            mDocumentReference.update("roomingInPerson", roomingInPerson);
-                            mDocumentReference.update("bfMethodStatus", bfMethodStatus);
-                            mDocumentReference.update("bfMethodDate", bfMethodDate);
-                            mDocumentReference.update("bfMethodPerson", bfMethodPerson);
-                            mDocumentReference.update("bfBabyNeedsStatus", bfBabyNeedsStatus);
-                            mDocumentReference.update("bfBabyNeedsDate", bfBabyNeedsDate);
-                            mDocumentReference.update("bfBabyNeedsPerson", bfBabyNeedsPerson);
-                            mDocumentReference.update("breastMilkProductionStatus", breastMilkProductionStatus);
-                            mDocumentReference.update("breastMilkProductionDate", breastMilkProductionDate);
-                            mDocumentReference.update("breastMilkProductionPerson", breastMilkProductionPerson);
-                            mDocumentReference.update("bfProblemStatus", bfProblemStatus);
-                            mDocumentReference.update("bfProblemDate", bfProblemDate);
-                            mDocumentReference.update("bfProblemPerson", bfProblemPerson);
-                            mDocumentReference.update("bfWorkMotherStatus", bfWorkMotherStatus);
-                            mDocumentReference.update("bfWorkMotherDate", bfWorkMotherDate);
-                            mDocumentReference.update("bfWorkMotherPerson", bfWorkMotherPerson);
-                            Snackbar snackbar = Snackbar.make(relativeLayoutBF, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                            snackbar.show();
-                            DisableField();
-                            btnBFCancel.setVisibility(View.GONE);
-                            check = 0;
-                        }else{
                             check = 1;
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(BreastFeedingActivity.this);
+                            builder.setTitle("Error");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                            builder.setMessage("At least one selection must be selected");
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }else{
+                            boolean checkDate = CheckDateSelected(dateText);
+                            if(checkDate == true)
+                            {
+                                mDocumentReference.update("advantageBreastMilkStatus", advantageBreastMilkStatus);
+                                mDocumentReference.update("advantageBreastMilkDate", advantageBreastMilkDate);
+                                mDocumentReference.update("advantageBreastMilkPerson", advantageBreastMilkPerson);
+                                mDocumentReference.update("bfExclusivelyStatus", bfExclusivelyStatus);
+                                mDocumentReference.update("bfExclusivelyDate", bfExclusivelyDate);
+                                mDocumentReference.update("bfExclusivelyPerson", bfExclusivelyPerson);
+                                mDocumentReference.update("earlyBFStatus", earlyBFStatus);
+                                mDocumentReference.update("earlyBFDate", earlyBFDate);
+                                mDocumentReference.update("earlyBFPerson", earlyBFPerson);
+                                mDocumentReference.update("roomingInStatus", roomingInStatus);
+                                mDocumentReference.update("roomingInDate", roomingInDate);
+                                mDocumentReference.update("roomingInPerson", roomingInPerson);
+                                mDocumentReference.update("bfMethodStatus", bfMethodStatus);
+                                mDocumentReference.update("bfMethodDate", bfMethodDate);
+                                mDocumentReference.update("bfMethodPerson", bfMethodPerson);
+                                mDocumentReference.update("bfBabyNeedsStatus", bfBabyNeedsStatus);
+                                mDocumentReference.update("bfBabyNeedsDate", bfBabyNeedsDate);
+                                mDocumentReference.update("bfBabyNeedsPerson", bfBabyNeedsPerson);
+                                mDocumentReference.update("breastMilkProductionStatus", breastMilkProductionStatus);
+                                mDocumentReference.update("breastMilkProductionDate", breastMilkProductionDate);
+                                mDocumentReference.update("breastMilkProductionPerson", breastMilkProductionPerson);
+                                mDocumentReference.update("bfProblemStatus", bfProblemStatus);
+                                mDocumentReference.update("bfProblemDate", bfProblemDate);
+                                mDocumentReference.update("bfProblemPerson", bfProblemPerson);
+                                mDocumentReference.update("bfWorkMotherStatus", bfWorkMotherStatus);
+                                mDocumentReference.update("bfWorkMotherDate", bfWorkMotherDate);
+                                mDocumentReference.update("bfWorkMotherPerson", bfWorkMotherPerson);
+                                Snackbar snackbar = Snackbar.make(relativeLayoutBF, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                                snackbar.show();
+                                DisableField();
+                                btnBFCancel.setVisibility(View.GONE);
+                                check = 0;
+                            }else{
+                                check = 1;
+                            }
                         }
                     }
                 }
