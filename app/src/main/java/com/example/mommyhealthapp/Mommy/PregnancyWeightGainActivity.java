@@ -3,12 +3,14 @@ package com.example.mommyhealthapp.Mommy;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.MommyDetail;
@@ -45,6 +48,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
     private RadioButton radioBtnTwinsYes;
     private RadioButton radioBtnTwinsNo;
     private TextInputLayout txtInputLayoutHeightWG, txtInputLayoutWeightBeforePreg, txtInoutLayoutCurrentWeight;
+    private TextView txtViewSuggestion;
     private EditText editTextHeightWG, editTextWeightBeforePreg, editTextCurrentWeight;
     private Button btnCalculateOkay, btnClearResult;
     private GraphView pregnancyWeightGainGraph;
@@ -60,6 +64,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
         radioGroupTwins = (RadioGroup) findViewById(R.id.radioGroupTwins);
         radioBtnTwinsYes = (RadioButton)findViewById(R.id.radioBtnTwinsYes);
         radioBtnTwinsNo = (RadioButton)findViewById(R.id.radioBtnTwinsNo);
+        txtViewSuggestion = (TextView)findViewById(R.id.txtViewSugggestion);
         txtInputLayoutHeightWG = (TextInputLayout)findViewById(R.id.txtInputLayoutHeightWG);
         txtInputLayoutWeightBeforePreg = (TextInputLayout)findViewById(R.id.txtInputLayoutWeightBeforePreg);
         txtInoutLayoutCurrentWeight = (TextInputLayout)findViewById(R.id.txtInoutLayoutCurrentWeight);
@@ -94,6 +99,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
         CheckRequiredFieldChange();
 
         btnCalculateOkay.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 if(CheckRequiredField() == true)
@@ -110,7 +116,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                     AlertDialog alert = builder.create();
                     alert.show();
                 }else{
-                    boolean checkWeightGain = false;
+                    boolean checkWeightGain = false, overweight = false, underweight = false;
                     int week = Integer.parseInt(spinnerStage.getSelectedItem().toString().substring(5));
                     int radioBtnId = radioGroupTwins.getCheckedRadioButtonId();
                     RadioButton radioButtonTwins = (RadioButton)findViewById(radioBtnId);
@@ -154,6 +160,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight > weightBeforePregnancy)
                                 {
                                     checkWeightGain = true;
+                                    overweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBeforePregnancy);
                                 series.appendData(point, true, 40);
@@ -167,6 +174,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight > weightBeforePregnancy)
                                 {
                                     checkWeightGain = true;
+                                    overweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBeforePregnancy);
                                 series.appendData(point, true, 40);
@@ -187,6 +195,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight > weightBeforePregnancy)
                                 {
                                     checkWeightGain = true;
+                                    overweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBeforePregnancy);
                                 series.appendData(point, true, 40);
@@ -200,6 +209,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight > weightBeforePregnancy)
                                 {
                                     checkWeightGain = true;
+                                    overweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBeforePregnancy);
                                 series.appendData(point, true, 40);
@@ -220,6 +230,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight > weightBeforePregnancy)
                                 {
                                     checkWeightGain = true;
+                                    overweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBeforePregnancy);
                                 series.appendData(point, true, 40);
@@ -233,6 +244,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight > weightBeforePregnancy)
                                 {
                                     checkWeightGain = true;
+                                    overweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBeforePregnancy);
                                 series.appendData(point, true, 40);
@@ -253,6 +265,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight > weightBeforePregnancy)
                                 {
                                     checkWeightGain = true;
+                                    overweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBeforePregnancy);
                                 series.appendData(point, true, 40);
@@ -266,6 +279,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight > weightBeforePregnancy)
                                 {
                                     checkWeightGain = true;
+                                    overweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBeforePregnancy);
                                 series.appendData(point, true, 40);
@@ -291,6 +305,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight < weightBase)
                                 {
                                     checkWeightGain = true;
+                                    underweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBase);
                                 seriesBase.appendData(point, true, 40);
@@ -304,6 +319,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight < weightBase)
                                 {
                                     checkWeightGain = true;
+                                    underweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBase);
                                 seriesBase.appendData(point, true, 40);
@@ -324,6 +340,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight < weightBase)
                                 {
                                     checkWeightGain = true;
+                                    underweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBase);
                                 seriesBase.appendData(point, true, 40);
@@ -337,6 +354,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight < weightBase)
                                 {
                                     checkWeightGain = true;
+                                    underweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBase);
                                 seriesBase.appendData(point, true, 40);
@@ -357,6 +375,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight < weightBase)
                                 {
                                     checkWeightGain = true;
+                                    underweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBase);
                                 seriesBase.appendData(point, true, 40);
@@ -370,6 +389,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight < weightBase)
                                 {
                                     checkWeightGain = true;
+                                    underweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBase);
                                 seriesBase.appendData(point, true, 40);
@@ -403,6 +423,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                                 if(week == i && currentWeight < weightBase)
                                 {
                                     checkWeightGain = true;
+                                    underweight = true;
                                 }
                                 DataPoint point = new DataPoint(i, weightBase);
                                 seriesBase.appendData(point, true, 40);
@@ -422,9 +443,32 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                     {
                         seriesPoint.setTitle("Bad");
                         seriesPoint.setColor(Color.RED);
+                        Log.i("Overweight:", overweight+"");
+                        Log.i("Underweight:", underweight+"");
+                        if(overweight)
+                        {
+                            txtViewSuggestion.setVisibility(View.VISIBLE);
+                            txtViewSuggestion.setText("Suggested food to eat for Over Weight:\n"+
+                                    "- Whole Grains\n"+
+                                    "- Vegetables\n"+
+                                    "- Whole Fruits\n"+
+                                    "- Nuts,seeds,beans and healthful source of protein");
+                            txtViewSuggestion.setTextColor(Color.RED);
+                        }
+                        if(underweight)
+                        {
+                            txtViewSuggestion.setVisibility(View.VISIBLE);
+                            txtViewSuggestion.setText("Suggested food to eat for Under Weight:\n"+
+                                    "- Homemade Protein Smoothies\n"+
+                                    "- Milk\n"+
+                                    "- Rice\n"+
+                                    "- Red Meat");
+                            txtViewSuggestion.setTextColor(Color.RED);
+                        }
                     }else{
                         seriesPoint.setTitle("Good");
                         seriesPoint.setColor(Color.GREEN);
+                        txtViewSuggestion.setVisibility(View.GONE);
                     }
 
                     pregnancyWeightGainGraph.getLegendRenderer().setVisible(true);
