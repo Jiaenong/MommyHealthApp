@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.example.mommyhealthapp.Class.MGTT;
+import com.example.mommyhealthapp.Mommy.PregnancyWeightGainActivity;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -253,6 +254,7 @@ public class MGTTActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isEmpty == true)
                 {
+                    int checkEmpty = 0;
                     final boolean ageAbove35, BMI, gestationalDiabetes, instrauterineDeath, stillBirth, neotanalDeath, recurrentMiscarriage, congenitalAbnormality, mascrosomicBaby,
                             firstDegreeRelativeDiabetes, glycosuria, essentialHypertension, pregnancyInducedHypertension, polyhydramanios, uterusLargerThanDate, multiplePregnancy,
                             recurrentUTI;
@@ -264,6 +266,7 @@ public class MGTTActivity extends AppCompatActivity {
                         ageAbove35 = true;
                     }else{
                         ageAbove35 = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxBMI.isChecked())
@@ -271,6 +274,7 @@ public class MGTTActivity extends AppCompatActivity {
                         BMI = true;
                     }else{
                         BMI = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxGestational.isChecked())
@@ -278,6 +282,7 @@ public class MGTTActivity extends AppCompatActivity {
                         gestationalDiabetes = true;
                     }else{
                         gestationalDiabetes = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxInstrauterine.isChecked())
@@ -285,6 +290,7 @@ public class MGTTActivity extends AppCompatActivity {
                         instrauterineDeath = true;
                     }else{
                         instrauterineDeath = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxStillBirth.isChecked())
@@ -292,6 +298,7 @@ public class MGTTActivity extends AppCompatActivity {
                         stillBirth = true;
                     }else{
                         stillBirth = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxNeotanalDeath.isChecked())
@@ -299,6 +306,7 @@ public class MGTTActivity extends AppCompatActivity {
                         neotanalDeath = true;
                     }else{
                         neotanalDeath = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxMiscarriages.isChecked())
@@ -306,6 +314,7 @@ public class MGTTActivity extends AppCompatActivity {
                         recurrentMiscarriage = true;
                     }else{
                         recurrentMiscarriage = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxCongenital.isChecked())
@@ -313,6 +322,7 @@ public class MGTTActivity extends AppCompatActivity {
                         congenitalAbnormality = true;
                     }else{
                         congenitalAbnormality = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxMascrosomic.isChecked())
@@ -320,6 +330,7 @@ public class MGTTActivity extends AppCompatActivity {
                         mascrosomicBaby = true;
                     }else{
                         mascrosomicBaby = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxFirstDegreeDiabetes.isChecked())
@@ -327,6 +338,7 @@ public class MGTTActivity extends AppCompatActivity {
                         firstDegreeRelativeDiabetes = true;
                     }else{
                         firstDegreeRelativeDiabetes = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxGlycosuria.isChecked())
@@ -334,6 +346,7 @@ public class MGTTActivity extends AppCompatActivity {
                         glycosuria = true;
                     }else{
                         glycosuria = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxEssentialHypertension.isChecked())
@@ -341,6 +354,7 @@ public class MGTTActivity extends AppCompatActivity {
                         essentialHypertension = true;
                     }else{
                         essentialHypertension = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxInducedHypertension.isChecked())
@@ -348,6 +362,7 @@ public class MGTTActivity extends AppCompatActivity {
                         pregnancyInducedHypertension = true;
                     }else{
                         pregnancyInducedHypertension = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxPolyhydramanios.isChecked())
@@ -355,6 +370,7 @@ public class MGTTActivity extends AppCompatActivity {
                         polyhydramanios = true;
                     }else{
                         polyhydramanios = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxUterus.isChecked())
@@ -362,6 +378,7 @@ public class MGTTActivity extends AppCompatActivity {
                         uterusLargerThanDate = true;
                     }else{
                         uterusLargerThanDate = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxMultiplePregnancy.isChecked())
@@ -369,6 +386,7 @@ public class MGTTActivity extends AppCompatActivity {
                         multiplePregnancy = true;
                     }else{
                         multiplePregnancy = false;
+                        checkEmpty++;
                     }
 
                     if(checkBoxUTI.isChecked())
@@ -376,39 +394,54 @@ public class MGTTActivity extends AppCompatActivity {
                         recurrentUTI = true;
                     }else{
                         recurrentUTI = false;
+                        checkEmpty++;
                     }
+                    if(checkEmpty == 17)
+                    {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MGTTActivity.this);
+                        builder.setTitle("Error");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
+                            }
+                        });
+                        builder.setMessage("At least check box is selected");
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }else{
+                        MGTT mgtt = new MGTT(ageAbove35, BMI, gestationalDiabetes, instrauterineDeath, stillBirth, neotanalDeath, recurrentMiscarriage, congenitalAbnormality,
+                                mascrosomicBaby, firstDegreeRelativeDiabetes, glycosuria, essentialHypertension, pregnancyInducedHypertension, polyhydramanios,
+                                uterusLargerThanDate, multiplePregnancy, recurrentUTI, medicalPersonnelId, createdDate);
 
-                    MGTT mgtt = new MGTT(ageAbove35, BMI, gestationalDiabetes, instrauterineDeath, stillBirth, neotanalDeath, recurrentMiscarriage, congenitalAbnormality,
-                            mascrosomicBaby, firstDegreeRelativeDiabetes, glycosuria, essentialHypertension, pregnancyInducedHypertension, polyhydramanios,
-                            uterusLargerThanDate, multiplePregnancy, recurrentUTI, medicalPersonnelId, createdDate);
-
-                    nCollectionReference.add(mgtt).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(final DocumentReference documentReference) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(MGTTActivity.this);
-                            builder.setTitle("Save Successfully");
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent intent = new Intent(MGTTActivity.this, MGTTResultActivity.class);
-                                    intent.putExtra("healthInfoId", healthInfoId);
-                                    intent.putExtra("MGTTKey", documentReference.getId());
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            });
-                            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    finish();
-                                }
-                            });
-                            builder.setMessage("Save Successful! Continue to MGTT Result?");
-                            AlertDialog alert = builder.create();
-                            alert.setCanceledOnTouchOutside(false);
-                            alert.show();
-                        }
-                    });
+                        nCollectionReference.add(mgtt).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(final DocumentReference documentReference) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MGTTActivity.this);
+                                builder.setTitle("Save Successfully");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent = new Intent(MGTTActivity.this, MGTTResultActivity.class);
+                                        intent.putExtra("healthInfoId", healthInfoId);
+                                        intent.putExtra("MGTTKey", documentReference.getId());
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                });
+                                builder.setMessage("Save Successful! Continue to MGTT Result?");
+                                AlertDialog alert = builder.create();
+                                alert.setCanceledOnTouchOutside(false);
+                                alert.show();
+                            }
+                        });
+                    }
                 }else{
                     check++;
                     if(check == 1)
@@ -417,6 +450,7 @@ public class MGTTActivity extends AppCompatActivity {
                         buttonCancelMGTT.setVisibility(View.VISIBLE);
                     }else if(check == 2)
                     {
+                        int checkEmpty = 0;
                         DocumentReference mDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("MGTT").document(key);
                         boolean ageAbove35, BMI, gestationalDiabetes, instrauterineDeath, stillBirth, neotanalDeath, recurrentMiscarriage, congenitalAbnormality, mascrosomicBaby,
                                 firstDegreeRelativeDiabetes, glycosuria, essentialHypertension, pregnancyInducedHypertension, polyhydramanios, uterusLargerThanDate, multiplePregnancy,
@@ -429,6 +463,7 @@ public class MGTTActivity extends AppCompatActivity {
                             ageAbove35 = true;
                         }else{
                             ageAbove35 = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxBMI.isChecked())
@@ -436,6 +471,7 @@ public class MGTTActivity extends AppCompatActivity {
                             BMI = true;
                         }else{
                             BMI = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxGestational.isChecked())
@@ -443,6 +479,7 @@ public class MGTTActivity extends AppCompatActivity {
                             gestationalDiabetes = true;
                         }else{
                             gestationalDiabetes = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxInstrauterine.isChecked())
@@ -450,6 +487,7 @@ public class MGTTActivity extends AppCompatActivity {
                             instrauterineDeath = true;
                         }else{
                             instrauterineDeath = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxStillBirth.isChecked())
@@ -457,6 +495,7 @@ public class MGTTActivity extends AppCompatActivity {
                             stillBirth = true;
                         }else{
                             stillBirth = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxNeotanalDeath.isChecked())
@@ -464,6 +503,7 @@ public class MGTTActivity extends AppCompatActivity {
                             neotanalDeath = true;
                         }else{
                             neotanalDeath = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxMiscarriages.isChecked())
@@ -471,6 +511,7 @@ public class MGTTActivity extends AppCompatActivity {
                             recurrentMiscarriage = true;
                         }else{
                             recurrentMiscarriage = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxCongenital.isChecked())
@@ -478,6 +519,7 @@ public class MGTTActivity extends AppCompatActivity {
                             congenitalAbnormality = true;
                         }else{
                             congenitalAbnormality = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxMascrosomic.isChecked())
@@ -485,6 +527,7 @@ public class MGTTActivity extends AppCompatActivity {
                             mascrosomicBaby = true;
                         }else{
                             mascrosomicBaby = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxFirstDegreeDiabetes.isChecked())
@@ -492,6 +535,7 @@ public class MGTTActivity extends AppCompatActivity {
                             firstDegreeRelativeDiabetes = true;
                         }else{
                             firstDegreeRelativeDiabetes = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxGlycosuria.isChecked())
@@ -499,6 +543,7 @@ public class MGTTActivity extends AppCompatActivity {
                             glycosuria = true;
                         }else{
                             glycosuria = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxEssentialHypertension.isChecked())
@@ -506,6 +551,7 @@ public class MGTTActivity extends AppCompatActivity {
                             essentialHypertension = true;
                         }else{
                             essentialHypertension = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxInducedHypertension.isChecked())
@@ -513,6 +559,7 @@ public class MGTTActivity extends AppCompatActivity {
                             pregnancyInducedHypertension = true;
                         }else{
                             pregnancyInducedHypertension = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxPolyhydramanios.isChecked())
@@ -520,6 +567,7 @@ public class MGTTActivity extends AppCompatActivity {
                             polyhydramanios = true;
                         }else{
                             polyhydramanios = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxUterus.isChecked())
@@ -527,6 +575,7 @@ public class MGTTActivity extends AppCompatActivity {
                             uterusLargerThanDate = true;
                         }else{
                             uterusLargerThanDate = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxMultiplePregnancy.isChecked())
@@ -534,6 +583,7 @@ public class MGTTActivity extends AppCompatActivity {
                             multiplePregnancy = true;
                         }else{
                             multiplePregnancy = false;
+                            checkEmpty++;
                         }
 
                         if(checkBoxUTI.isChecked())
@@ -541,31 +591,48 @@ public class MGTTActivity extends AppCompatActivity {
                             recurrentUTI = true;
                         }else{
                             recurrentUTI = false;
+                            checkEmpty++;
                         }
-                        mDocumentReference.update("ageAbove35", ageAbove35);
-                        mDocumentReference.update("BMI", BMI);
-                        mDocumentReference.update("gestationalDiabetes", gestationalDiabetes);
-                        mDocumentReference.update("InstrauterineDeath", instrauterineDeath);
-                        mDocumentReference.update("stillBirth", stillBirth);
-                        mDocumentReference.update("neotanalDeath", neotanalDeath);
-                        mDocumentReference.update("recurrentMiscarriage", recurrentMiscarriage);
-                        mDocumentReference.update("congenitalAbnormality", congenitalAbnormality);
-                        mDocumentReference.update("mascrosomicBaby", mascrosomicBaby);
-                        mDocumentReference.update("firstDegreeRelativeDiabetes", firstDegreeRelativeDiabetes);
-                        mDocumentReference.update("glycosuria", glycosuria);
-                        mDocumentReference.update("essentialHypertension", essentialHypertension);
-                        mDocumentReference.update("pregnancyInducedHypertension", pregnancyInducedHypertension);
-                        mDocumentReference.update("polyhydramanios", polyhydramanios);
-                        mDocumentReference.update("uterusLargerThanDate", uterusLargerThanDate);
-                        mDocumentReference.update("multiplePregnancy", multiplePregnancy);
-                        mDocumentReference.update("recurrentUTI", recurrentUTI);
-                        mDocumentReference.update("medicalPersonnelId", medicalPersonnelId);
-                        mDocumentReference.update("createdDate", createdDate);
-                        Snackbar snackbar = Snackbar.make(relativeLayoutMGTT, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                        check = 0;
-                        DisableField();
-                        buttonCancelMGTT.setVisibility(View.GONE);
+                        if(checkEmpty == 17)
+                        {
+                            check = 1;
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MGTTActivity.this);
+                            builder.setTitle("Error");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                            builder.setMessage("At least check box is selected");
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }else{
+                            mDocumentReference.update("ageAbove35", ageAbove35);
+                            mDocumentReference.update("BMI", BMI);
+                            mDocumentReference.update("gestationalDiabetes", gestationalDiabetes);
+                            mDocumentReference.update("InstrauterineDeath", instrauterineDeath);
+                            mDocumentReference.update("stillBirth", stillBirth);
+                            mDocumentReference.update("neotanalDeath", neotanalDeath);
+                            mDocumentReference.update("recurrentMiscarriage", recurrentMiscarriage);
+                            mDocumentReference.update("congenitalAbnormality", congenitalAbnormality);
+                            mDocumentReference.update("mascrosomicBaby", mascrosomicBaby);
+                            mDocumentReference.update("firstDegreeRelativeDiabetes", firstDegreeRelativeDiabetes);
+                            mDocumentReference.update("glycosuria", glycosuria);
+                            mDocumentReference.update("essentialHypertension", essentialHypertension);
+                            mDocumentReference.update("pregnancyInducedHypertension", pregnancyInducedHypertension);
+                            mDocumentReference.update("polyhydramanios", polyhydramanios);
+                            mDocumentReference.update("uterusLargerThanDate", uterusLargerThanDate);
+                            mDocumentReference.update("multiplePregnancy", multiplePregnancy);
+                            mDocumentReference.update("recurrentUTI", recurrentUTI);
+                            mDocumentReference.update("medicalPersonnelId", medicalPersonnelId);
+                            mDocumentReference.update("createdDate", createdDate);
+                            Snackbar snackbar = Snackbar.make(relativeLayoutMGTT, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                            check = 0;
+                            DisableField();
+                            buttonCancelMGTT.setVisibility(View.GONE);
+                        }
                     }
                 }
             }

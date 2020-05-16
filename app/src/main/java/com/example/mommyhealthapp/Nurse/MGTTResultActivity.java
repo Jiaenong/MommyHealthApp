@@ -187,27 +187,41 @@ public class MGTTResultActivity extends AppCompatActivity {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                    if(CheckAllEmpty())
+                    {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MGTTResultActivity.this);
+                        builder.setTitle("Error");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
+                            }
+                        });
+                        builder.setMessage("At least one trimester must written");
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }else{
+                        MGTTResult result = new MGTTResult(firstTrimesterDate, firstPOA, firstBloodSugar, firstPostprandial, SecTrimesterDate, SecPOA, SecBloodSugar,
+                                SecPostprandial, thirdTrimesterDate, thirdPOA, thirdBloodSugar, thirdPostprandial, medicalPersonnelId, createdDate);
 
-                    MGTTResult result = new MGTTResult(firstTrimesterDate, firstPOA, firstBloodSugar, firstPostprandial, SecTrimesterDate, SecPOA, SecBloodSugar,
-                            SecPostprandial, thirdTrimesterDate, thirdPOA, thirdBloodSugar, thirdPostprandial, medicalPersonnelId, createdDate);
-
-                    mCollectionReference.add(result).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(MGTTResultActivity.this);
-                            builder.setTitle("Save Successfully");
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
-                            builder.setMessage("Save Successful!");
-                            AlertDialog alert = builder.create();
-                            alert.setCanceledOnTouchOutside(false);
-                            alert.show();
-                        }
-                    });
+                        mCollectionReference.add(result).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MGTTResultActivity.this);
+                                builder.setTitle("Save Successfully");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finish();
+                                    }
+                                });
+                                builder.setMessage("Save Successful!");
+                                AlertDialog alert = builder.create();
+                                alert.setCanceledOnTouchOutside(false);
+                                alert.show();
+                            }
+                        });
+                    }
                 }else{
                     check++;
                     if(check == 1)
@@ -215,46 +229,62 @@ public class MGTTResultActivity extends AppCompatActivity {
                         EnableField();
                         btnMGTTResultCancel.setVisibility(View.VISIBLE);
                     }else{
-                        DocumentReference mDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("MGTT").document(MGTTKey).collection("MGTTResult").document(key);
-                        String firstPOA = editTextFirstPOA.getText().toString(),
-                                firstBloodSugar = editTextFirstBloodSugar.getText().toString(),
-                                firstPostprandial = editTextFirstPostprandial.getText().toString(),
-                                SecPOA = editTextSecPOA.getText().toString(),
-                                SecBloodSugar = editTextSecBloodSugar.getText().toString(),
-                                SecPostprandial = editTextSecPostprandial.getText().toString(),
-                                thirdPOA = editTextThirdPOA.getText().toString(),
-                                thirdBloodSugar = editTextThirdBloodSugar.getText().toString(),
-                                thirdPostprandial = editTextThirdPostprandial.getText().toString();
-                        Date firstTrimesterDate = null, SecTrimesterDate = null, thirdTrimesterDate = null;
-                        String medicalPersonnelId = SaveSharedPreference.getID(MGTTResultActivity.this);
-                        Date createdDate = new Date();
-                        try {
-                            firstTrimesterDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextFirstTrimesterDate.getText().toString());
-                            SecTrimesterDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextSecTrimesterDate.getText().toString());
-                            thirdTrimesterDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextThirdTrimesterDate.getText().toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                        if(CheckAllEmpty())
+                        {
+                            check = 1;
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MGTTResultActivity.this);
+                            builder.setTitle("Error");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                            builder.setMessage("At least one trimester must written");
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }else{
+                            DocumentReference mDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("MGTT").document(MGTTKey).collection("MGTTResult").document(key);
+                            String firstPOA = editTextFirstPOA.getText().toString(),
+                                    firstBloodSugar = editTextFirstBloodSugar.getText().toString(),
+                                    firstPostprandial = editTextFirstPostprandial.getText().toString(),
+                                    SecPOA = editTextSecPOA.getText().toString(),
+                                    SecBloodSugar = editTextSecBloodSugar.getText().toString(),
+                                    SecPostprandial = editTextSecPostprandial.getText().toString(),
+                                    thirdPOA = editTextThirdPOA.getText().toString(),
+                                    thirdBloodSugar = editTextThirdBloodSugar.getText().toString(),
+                                    thirdPostprandial = editTextThirdPostprandial.getText().toString();
+                            Date firstTrimesterDate = null, SecTrimesterDate = null, thirdTrimesterDate = null;
+                            String medicalPersonnelId = SaveSharedPreference.getID(MGTTResultActivity.this);
+                            Date createdDate = new Date();
+                            try {
+                                firstTrimesterDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextFirstTrimesterDate.getText().toString());
+                                SecTrimesterDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextSecTrimesterDate.getText().toString());
+                                thirdTrimesterDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextThirdTrimesterDate.getText().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
 
-                        mDocumentReference.update("firstTrimesterDate", firstTrimesterDate);
-                        mDocumentReference.update("firstPOA", firstPOA);
-                        mDocumentReference.update("firstBloodSugar", firstBloodSugar);
-                        mDocumentReference.update("firstPostprandial", firstPostprandial);
-                        mDocumentReference.update("SecTrimesterDate", SecTrimesterDate);
-                        mDocumentReference.update("SecPOA", SecPOA);
-                        mDocumentReference.update("SecBloodSugar", SecBloodSugar);
-                        mDocumentReference.update("SecPostprandial", SecPostprandial);
-                        mDocumentReference.update("thirdTrimesterDate", thirdTrimesterDate);
-                        mDocumentReference.update("thirdPOA", thirdPOA);
-                        mDocumentReference.update("thirdBloodSugar", thirdBloodSugar);
-                        mDocumentReference.update("thirdPostprandial", thirdPostprandial);
-                        mDocumentReference.update("medicalPersonnelId", medicalPersonnelId);
-                        mDocumentReference.update("createdDate", createdDate);
-                        Snackbar snackbar = Snackbar.make(relativeLayoutMGTTResult, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                        DisableField();
-                        btnMGTTResultCancel.setVisibility(View.GONE);
-                        check = 0;
+                            mDocumentReference.update("firstTrimesterDate", firstTrimesterDate);
+                            mDocumentReference.update("firstPOA", firstPOA);
+                            mDocumentReference.update("firstBloodSugar", firstBloodSugar);
+                            mDocumentReference.update("firstPostprandial", firstPostprandial);
+                            mDocumentReference.update("SecTrimesterDate", SecTrimesterDate);
+                            mDocumentReference.update("SecPOA", SecPOA);
+                            mDocumentReference.update("SecBloodSugar", SecBloodSugar);
+                            mDocumentReference.update("SecPostprandial", SecPostprandial);
+                            mDocumentReference.update("thirdTrimesterDate", thirdTrimesterDate);
+                            mDocumentReference.update("thirdPOA", thirdPOA);
+                            mDocumentReference.update("thirdBloodSugar", thirdBloodSugar);
+                            mDocumentReference.update("thirdPostprandial", thirdPostprandial);
+                            mDocumentReference.update("medicalPersonnelId", medicalPersonnelId);
+                            mDocumentReference.update("createdDate", createdDate);
+                            Snackbar snackbar = Snackbar.make(relativeLayoutMGTTResult, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                            DisableField();
+                            btnMGTTResultCancel.setVisibility(View.GONE);
+                            check = 0;
+                        }
                     }
                 }
 
@@ -334,6 +364,32 @@ public class MGTTResultActivity extends AppCompatActivity {
             }
         });
     }
+
+    private boolean CheckAllEmpty()
+    {
+        String firstPOA = editTextFirstPOA.getText().toString(),
+                firstBloodSugar = editTextFirstBloodSugar.getText().toString(),
+                firstPostprandial = editTextFirstPostprandial.getText().toString(),
+                SecPOA = editTextSecPOA.getText().toString(),
+                SecBloodSugar = editTextSecBloodSugar.getText().toString(),
+                SecPostprandial = editTextSecPostprandial.getText().toString(),
+                thirdPOA = editTextThirdPOA.getText().toString(),
+                thirdBloodSugar = editTextThirdBloodSugar.getText().toString(),
+                thirdPostprandial = editTextThirdPostprandial.getText().toString(),
+                firstTrimesterDate = editTextFirstTrimesterDate.getText().toString(),
+                SecTrimesterDate = editTextSecTrimesterDate.getText().toString(),
+                thirdTrimesterDate = editTextThirdTrimesterDate.getText().toString();
+
+        if(firstPOA.isEmpty() && firstBloodSugar.isEmpty() && firstPostprandial.isEmpty() && SecPOA.isEmpty() && SecBloodSugar.isEmpty()
+                && SecPostprandial.isEmpty() && thirdPOA.isEmpty() && thirdBloodSugar.isEmpty() && thirdPostprandial.isEmpty()
+                && firstTrimesterDate.isEmpty() && SecTrimesterDate.isEmpty() && thirdTrimesterDate.isEmpty())
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     private void GetDateText()
     {
         editTextFirstTrimesterDate.setOnClickListener(new View.OnClickListener() {
