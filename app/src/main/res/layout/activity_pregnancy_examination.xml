@@ -29,10 +29,11 @@
             android:padding="10dp">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutBookingWeight"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
-                style="@style/TextInputLayout"
                 android:hint="@string/booking_weight">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -43,10 +44,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutBookingBMI"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
-                style="@style/TextInputLayout"
                 android:hint="@string/booking_BMI">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -57,10 +59,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutBookingBP"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
-                style="@style/TextInputLayout"
                 android:hint="@string/booking_BP">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -71,10 +74,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutLKKR"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
-                style="@style/TextInputLayout"
                 android:hint="@string/lk_kr">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -128,10 +132,11 @@
                 android:textSize="18sp" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutUrineAlb"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
-                style="@style/TextInputLayout"
                 android:hint="@string/urine_alb">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -141,10 +146,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutUrineSugar"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
-                style="@style/TextInputLayout"
                 android:hint="@string/urine_sugar">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -154,10 +160,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutHB"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
-                style="@style/TextInputLayout"
                 android:hint="@string/lab_test_HB">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -251,10 +258,11 @@
                 android:textSize="18sp" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutPregnancyPeriod"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
-                style="@style/TextInputLayout"
                 android:hint="@string/pregnancy_period">
 
                 <com.google.android.material.textfield.TextInputEditText

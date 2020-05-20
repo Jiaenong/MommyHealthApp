@@ -72,7 +72,8 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
             editTextPresentPosition, editTextPEHeart, editTextPEMotion;
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
-    private TextInputLayout bodyWeightInputLayout, bloodPressureInputLayout, pulseInputLayout;
+    private TextInputLayout bodyWeightInputLayout, bloodPressureInputLayout, pulseInputLayout, layoutBookingWeight, layoutBookingBMI, layoutBookingBP,
+            layoutLKKR, layoutUrineAlb, layoutUrineSugar, layoutHB, layoutPregnancyPeriod, txtInputLayoutDueDate, layoutNextAppTime, layoutPEProblem, layoutPETreatment;
     private RelativeLayout relativeLayoutPE;
     private LinearLayoutCompat layoutPE;
     private ProgressBar progressBarPE;
@@ -118,9 +119,20 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
         layoutPE = (LinearLayoutCompat)findViewById(R.id.layoutPE);
         progressBarPE = (ProgressBar)findViewById(R.id.progressBarPE);
         listViewProblem = (ListView)findViewById(R.id.listViewProblem);
+
         bodyWeightInputLayout = (TextInputLayout)findViewById(R.id.bodyWeightInputLayout);
         bloodPressureInputLayout = (TextInputLayout)findViewById(R.id.bloodPressureInputLayout);
         pulseInputLayout = (TextInputLayout)findViewById(R.id.pulseInputLayout);
+        layoutBookingWeight = (TextInputLayout)findViewById(R.id.layoutBookingWeight);
+        layoutBookingBMI = (TextInputLayout)findViewById(R.id.layoutBookingBMI);
+        layoutBookingBP = (TextInputLayout)findViewById(R.id.layoutBookingBP);
+        layoutLKKR = (TextInputLayout)findViewById(R.id.layoutLKKR);
+        txtInputLayoutDueDate = (TextInputLayout)findViewById(R.id.txtInputLayoutDueDate);
+        layoutNextAppTime = (TextInputLayout)findViewById(R.id.layoutNextAppTime);
+        layoutUrineAlb = (TextInputLayout)findViewById(R.id.layoutUrineAlb);
+        layoutUrineSugar = (TextInputLayout)findViewById(R.id.layoutUrineSugar);
+        layoutHB = (TextInputLayout)findViewById(R.id.layoutHB);
+        layoutPregnancyPeriod = (TextInputLayout)findViewById(R.id.layoutPregnancyPeriod);
 
         btnSavePE = (Button)findViewById(R.id.btnSavePE);
         btnCancelPE = (Button)findViewById(R.id.btnCancelPE);
@@ -301,8 +313,12 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 problemDialog.setTitle("Problem Dialog");
                 editTextProblem = (EditText)problemDialog.findViewById(R.id.editTextProblem);
                 editTextTreatment = (EditText)problemDialog.findViewById(R.id.editTextTreatment);
+                layoutPEProblem = (TextInputLayout)problemDialog.findViewById(R.id.layoutPEProblem);
+                layoutPETreatment = (TextInputLayout)problemDialog.findViewById(R.id.layoutPETreatment);
                 btnProblemSave = (Button)problemDialog.findViewById(R.id.btnProblemSave);
                 btnProblemEdit = (Button)problemDialog.findViewById(R.id.btnProblemEdit);
+
+                CheckRequiredDialog();
 
                 btnProblemSave.setVisibility(View.GONE);
                 editTextProblem.setText(problemPE.getProblem());
@@ -325,23 +341,26 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 btnProblemEdit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        for(int i=0; i<problemList.size(); i++)
+                        if(!SaveCheckDialogRequired())
                         {
-                            if(problemList.get(i).equals(problemPE))
+                            for(int i=0; i<problemList.size(); i++)
                             {
-                                String problem = editTextProblem.getText().toString();
-                                String treatment = editTextTreatment.getText().toString();
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                Date date = new Date();
-                                String pDate = formatter.format(date);
-                                problemList.get(i).setProblem(problem);
-                                problemList.get(i).setTreatment(treatment);
-                                problemList.get(i).setDate(pDate);
-                                problemList.get(i).setPersonnel(medicalPersonnelname);
-                                problemAdapter.notifyDataSetChanged();
+                                if(problemList.get(i).equals(problemPE))
+                                {
+                                    String problem = editTextProblem.getText().toString();
+                                    String treatment = editTextTreatment.getText().toString();
+                                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                                    Date date = new Date();
+                                    String pDate = formatter.format(date);
+                                    problemList.get(i).setProblem(problem);
+                                    problemList.get(i).setTreatment(treatment);
+                                    problemList.get(i).setDate(pDate);
+                                    problemList.get(i).setPersonnel(medicalPersonnelname);
+                                    problemAdapter.notifyDataSetChanged();
+                                }
                             }
+                            problemDialog.cancel();
                         }
-                        problemDialog.cancel();
                     }
                 });
 
@@ -359,24 +378,31 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 problemDialog.setTitle("Problem Dialog");
                 editTextProblem = (EditText)problemDialog.findViewById(R.id.editTextProblem);
                 editTextTreatment = (EditText)problemDialog.findViewById(R.id.editTextTreatment);
+                layoutPEProblem = (TextInputLayout)problemDialog.findViewById(R.id.layoutPEProblem);
+                layoutPETreatment = (TextInputLayout)problemDialog.findViewById(R.id.layoutPETreatment);
                 btnProblemSave = (Button)problemDialog.findViewById(R.id.btnProblemSave);
                 btnProblemEdit = (Button)problemDialog.findViewById(R.id.btnProblemEdit);
+
+                CheckRequiredDialog();
 
                 btnProblemEdit.setVisibility(View.GONE);
 
                 btnProblemSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String problem = editTextProblem.getText().toString();
-                        String treatment = editTextTreatment.getText().toString();
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                        Date date = new Date();
-                        String pDate = formatter.format(date);
-                        ProblemPE ppe = new ProblemPE(problem, treatment, pDate, medicalPersonnelname);
-                        problemList.add(ppe);
-                        problemAdapter = new ProblemAdapter(PregnancyExaminationActivity.this, R.layout.activity_pregnancy_examination, problemList);
-                        listViewProblem.setAdapter(problemAdapter);
-                        problemDialog.cancel();
+                        if(!SaveCheckDialogRequired())
+                        {
+                            String problem = editTextProblem.getText().toString();
+                            String treatment = editTextTreatment.getText().toString();
+                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                            Date date = new Date();
+                            String pDate = formatter.format(date);
+                            ProblemPE ppe = new ProblemPE(problem, treatment, pDate, medicalPersonnelname);
+                            problemList.add(ppe);
+                            problemAdapter = new ProblemAdapter(PregnancyExaminationActivity.this, R.layout.activity_pregnancy_examination, problemList);
+                            listViewProblem.setAdapter(problemAdapter);
+                            problemDialog.cancel();
+                        }
                     }
                 });
 
@@ -393,110 +419,10 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isEmpty == true)
                 {
-                    progressBarPE.setVisibility(View.VISIBLE);
-                    layoutPE.setVisibility(View.GONE);
-                    String bodyWeight = bodyWeightEditText.getText().toString(),
-                            bloodPressure = bloodPressureEditText.getText().toString(),
-                            pulse = pulseEditText.getText().toString(),
-                            bookingWeight = editTextBookingWeight.getText().toString(),
-                            bookingBMI = editTextBookingBMI.getText().toString(),
-                            bookingBP = editTextBookingBP.getText().toString(),
-                            lkkr = editTextLKKR.getText().toString(),
-                            urineAlb = editTextUrineAlb.getText().toString(),
-                            urineSugar = editTextUrineSugar.getText().toString(),
-                            hb = editTextHB.getText().toString(),
-                            edema = editTextEdema.getText().toString(),
-                            pregnancyWeek = editTextPregnancyPeriod.getText().toString(),
-                            uterineHeight = editTextUterineHeight.getText().toString(),
-                            presentPosition = editTextPresentPosition.getText().toString(),
-                            heart = editTextPEHeart.getText().toString(),
-                            motion = editTextPEMotion.getText().toString(),
-                            pregnancyExamId = UUID.randomUUID().toString().replace("-", ""),
-                            medicalPersonnelName = medicalPersonnelname;
-                    String notificationDetail = getResources().getString(R.string.NotificationAppointment)+editTextDueDate.getText().toString()+ " " + editTextNextAppTime.getText().toString();
-                    Date notificationDate = new Date();
-                    Date nextAppointmentDate = null, getNextAppointmentTime = null, createdDate = new Date();
-                    try {
-                        nextAppointmentDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDueDate.getText().toString());
-                        getNextAppointmentTime = new SimpleDateFormat("HH:mm").parse(editTextNextAppTime.getText().toString());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    final Notification notification = new Notification(notificationDetail, notificationDate, SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate, "new", mommyKey);
-                    final AppointmentDate appDate = new AppointmentDate(nextAppointmentDate, getNextAppointmentTime, SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this), SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate);
-                    PregnancyExamination pe = new PregnancyExamination(Double.parseDouble(bookingWeight), Double.parseDouble(bookingBMI), Double.parseDouble(bookingBP), lkkr,
-                            nextAppointmentDate, getNextAppointmentTime, Double.parseDouble(urineAlb), Double.parseDouble(urineSugar), Double.parseDouble(hb),
-                            Double.parseDouble(bodyWeight), Double.parseDouble(bloodPressure), Double.parseDouble(pulse), edema, Integer.parseInt(pregnancyWeek),
-                            Double.parseDouble(uterineHeight), presentPosition, heart, motion, problemList, medicalPersonnelName, createdDate, pregnancyExamId);
-                    mCollectionReference.add(pe).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            nCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    if(appIsEmpty == true)
-                                    {
-                                        pCollectionReference.add(appDate).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                progressBarPE.setVisibility(View.GONE);
-                                                layoutPE.setVisibility(View.VISIBLE);
-                                                AlertDialog.Builder builder = new AlertDialog.Builder(PregnancyExaminationActivity.this);
-                                                builder.setTitle("Save Successfully");
-                                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        finish();
-                                                    }
-                                                });
-                                                builder.setMessage("Save Successful!");
-                                                AlertDialog alert = builder.create();
-                                                alert.setCanceledOnTouchOutside(false);
-                                                alert.show();
-                                            }
-                                        });
-                                    }else{
-                                        Date nextAppointmentDate = null, getNextAppointmentTime = null, createdDate = new Date();
-                                        try {
-                                            nextAppointmentDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDueDate.getText().toString());
-                                            getNextAppointmentTime = new SimpleDateFormat("HH:mm").parse(editTextNextAppTime.getText().toString());
-                                        } catch (ParseException e) {
-                                            e.printStackTrace();
-                                        }
-                                        DocumentReference pDocumentReference = mFirebaseFirestore.collection("Mommy").document(mommyKey).collection("AppointmentDate").document(appKey);
-                                        pDocumentReference.update("appointmentDate", nextAppointmentDate);
-                                        pDocumentReference.update("appointmentTime", getNextAppointmentTime);
-                                        pDocumentReference.update("mommyId", SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this));
-                                        pDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(PregnancyExaminationActivity.this));
-                                        pDocumentReference.update("createdDate", createdDate);
-                                        progressBarPE.setVisibility(View.GONE);
-                                        layoutPE.setVisibility(View.VISIBLE);
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(PregnancyExaminationActivity.this);
-                                        builder.setTitle("Save Successfully");
-                                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                finish();
-                                            }
-                                        });
-                                        builder.setMessage("Save Successful!");
-                                        AlertDialog alert = builder.create();
-                                        alert.setCanceledOnTouchOutside(false);
-                                        alert.show();
-                                    }
-                                }
-                            });
-                        }
-                    });
-                }else{
-                    check++;
-                    if(check == 1)
+                    if(!SaveCheckRequiredField())
                     {
-                        btnCancelPE.setVisibility(View.VISIBLE);
-                        EnableField();
-                    }else if(check == 2)
-                    {
-                        DocumentReference mDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination").document(key);
+                        progressBarPE.setVisibility(View.VISIBLE);
+                        layoutPE.setVisibility(View.GONE);
                         String bodyWeight = bodyWeightEditText.getText().toString(),
                                 bloodPressure = bloodPressureEditText.getText().toString(),
                                 pulse = pulseEditText.getText().toString(),
@@ -515,6 +441,8 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                                 motion = editTextPEMotion.getText().toString(),
                                 pregnancyExamId = UUID.randomUUID().toString().replace("-", ""),
                                 medicalPersonnelName = medicalPersonnelname;
+                        String notificationDetail = getResources().getString(R.string.NotificationAppointment)+editTextDueDate.getText().toString()+ " " + editTextNextAppTime.getText().toString();
+                        Date notificationDate = new Date();
                         Date nextAppointmentDate = null, getNextAppointmentTime = null, createdDate = new Date();
                         try {
                             nextAppointmentDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDueDate.getText().toString());
@@ -522,74 +450,180 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        if(!nextAppDate.equals(editTextDueDate.getText().toString()) || !nextAppTime.equals(editTextNextAppTime.getText().toString()))
-                        {
-                            String notificationDetail = getResources().getString(R.string.NotificationAppointment)+editTextDueDate.getText().toString()+ " " + editTextNextAppTime.getText().toString();
-                            Date notificationDate = new Date();
-                            AppointmentDate appDate = new AppointmentDate(nextAppointmentDate, getNextAppointmentTime, SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this), SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate);
-                            final Notification notification = new Notification(notificationDetail, notificationDate, SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate, "new", mommyKey);
-                            Log.i("Testing", appIsEmpty+"");
-                            Log.i("Testing2", appKey);
-                            if(appIsEmpty == true)
-                            {
-                                pCollectionReference.add(appDate).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        Snackbar snackbar = Snackbar.make(relativeLayoutPE, "Appointment Updated!", Snackbar.LENGTH_LONG);
-                                        snackbar.show();
-                                        nCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                Snackbar snackbar = Snackbar.make(relativeLayoutPE, "Notification Send!", Snackbar.LENGTH_LONG);
-                                                snackbar.show();
-                                            }
-                                        });
-                                    }
-                                });
-                            }else{
-                                DocumentReference pDocumentReference = mFirebaseFirestore.collection("Mommy").document(mommyKey).collection("AppointmentDate").document(appKey);
-                                pDocumentReference.update("appointmentDate", nextAppointmentDate);
-                                pDocumentReference.update("appointmentTime", getNextAppointmentTime);
-                                pDocumentReference.update("mommyId", SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this));
-                                pDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(PregnancyExaminationActivity.this));
-                                pDocumentReference.update("createdDate", createdDate);
-                                Snackbar snackbar = Snackbar.make(relativeLayoutPE, "Appointment Updated!", Snackbar.LENGTH_LONG);
-                                snackbar.show();
+                        final Notification notification = new Notification(notificationDetail, notificationDate, SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate, "new", mommyKey);
+                        final AppointmentDate appDate = new AppointmentDate(nextAppointmentDate, getNextAppointmentTime, SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this), SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate);
+                        PregnancyExamination pe = new PregnancyExamination(Double.parseDouble(bookingWeight), Double.parseDouble(bookingBMI), Double.parseDouble(bookingBP), lkkr,
+                                nextAppointmentDate, getNextAppointmentTime, Double.parseDouble(urineAlb), Double.parseDouble(urineSugar), Double.parseDouble(hb),
+                                Double.parseDouble(bodyWeight), Double.parseDouble(bloodPressure), Double.parseDouble(pulse), edema, Integer.parseInt(pregnancyWeek),
+                                Double.parseDouble(uterineHeight), presentPosition, heart, motion, problemList, medicalPersonnelName, createdDate, pregnancyExamId);
+                        mCollectionReference.add(pe).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
                                 nCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {
-                                        Snackbar snackbar = Snackbar.make(relativeLayoutPE, "Notification Send!", Snackbar.LENGTH_LONG);
-                                        snackbar.show();
+                                        if(appIsEmpty == true)
+                                        {
+                                            pCollectionReference.add(appDate).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    progressBarPE.setVisibility(View.GONE);
+                                                    layoutPE.setVisibility(View.VISIBLE);
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(PregnancyExaminationActivity.this);
+                                                    builder.setTitle("Save Successfully");
+                                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            finish();
+                                                        }
+                                                    });
+                                                    builder.setMessage("Save Successful!");
+                                                    AlertDialog alert = builder.create();
+                                                    alert.setCanceledOnTouchOutside(false);
+                                                    alert.show();
+                                                }
+                                            });
+                                        }else{
+                                            Date nextAppointmentDate = null, getNextAppointmentTime = null, createdDate = new Date();
+                                            try {
+                                                nextAppointmentDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDueDate.getText().toString());
+                                                getNextAppointmentTime = new SimpleDateFormat("HH:mm").parse(editTextNextAppTime.getText().toString());
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+                                            DocumentReference pDocumentReference = mFirebaseFirestore.collection("Mommy").document(mommyKey).collection("AppointmentDate").document(appKey);
+                                            pDocumentReference.update("appointmentDate", nextAppointmentDate);
+                                            pDocumentReference.update("appointmentTime", getNextAppointmentTime);
+                                            pDocumentReference.update("mommyId", SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this));
+                                            pDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(PregnancyExaminationActivity.this));
+                                            pDocumentReference.update("createdDate", createdDate);
+                                            progressBarPE.setVisibility(View.GONE);
+                                            layoutPE.setVisibility(View.VISIBLE);
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(PregnancyExaminationActivity.this);
+                                            builder.setTitle("Save Successfully");
+                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    finish();
+                                                }
+                                            });
+                                            builder.setMessage("Save Successful!");
+                                            AlertDialog alert = builder.create();
+                                            alert.setCanceledOnTouchOutside(false);
+                                            alert.show();
+                                        }
                                     }
                                 });
                             }
+                        });
+                    }
+                }else{
+                    check++;
+                    if(check == 1)
+                    {
+                        btnCancelPE.setVisibility(View.VISIBLE);
+                        EnableField();
+                    }else if(check == 2)
+                    {
+                        if(!SaveCheckRequiredField())
+                        {
+                            DocumentReference mDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination").document(key);
+                            String bodyWeight = bodyWeightEditText.getText().toString(),
+                                    bloodPressure = bloodPressureEditText.getText().toString(),
+                                    pulse = pulseEditText.getText().toString(),
+                                    bookingWeight = editTextBookingWeight.getText().toString(),
+                                    bookingBMI = editTextBookingBMI.getText().toString(),
+                                    bookingBP = editTextBookingBP.getText().toString(),
+                                    lkkr = editTextLKKR.getText().toString(),
+                                    urineAlb = editTextUrineAlb.getText().toString(),
+                                    urineSugar = editTextUrineSugar.getText().toString(),
+                                    hb = editTextHB.getText().toString(),
+                                    edema = editTextEdema.getText().toString(),
+                                    pregnancyWeek = editTextPregnancyPeriod.getText().toString(),
+                                    uterineHeight = editTextUterineHeight.getText().toString(),
+                                    presentPosition = editTextPresentPosition.getText().toString(),
+                                    heart = editTextPEHeart.getText().toString(),
+                                    motion = editTextPEMotion.getText().toString(),
+                                    pregnancyExamId = UUID.randomUUID().toString().replace("-", ""),
+                                    medicalPersonnelName = medicalPersonnelname;
+                            Date nextAppointmentDate = null, getNextAppointmentTime = null, createdDate = new Date();
+                            try {
+                                nextAppointmentDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDueDate.getText().toString());
+                                getNextAppointmentTime = new SimpleDateFormat("HH:mm").parse(editTextNextAppTime.getText().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            if(!nextAppDate.equals(editTextDueDate.getText().toString()) || !nextAppTime.equals(editTextNextAppTime.getText().toString()))
+                            {
+                                String notificationDetail = getResources().getString(R.string.NotificationAppointment)+editTextDueDate.getText().toString()+ " " + editTextNextAppTime.getText().toString();
+                                Date notificationDate = new Date();
+                                AppointmentDate appDate = new AppointmentDate(nextAppointmentDate, getNextAppointmentTime, SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this), SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate);
+                                final Notification notification = new Notification(notificationDetail, notificationDate, SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate, "new", mommyKey);
+                                Log.i("Testing", appIsEmpty+"");
+                                Log.i("Testing2", appKey);
+                                if(appIsEmpty == true)
+                                {
+                                    pCollectionReference.add(appDate).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Snackbar snackbar = Snackbar.make(relativeLayoutPE, "Appointment Updated!", Snackbar.LENGTH_LONG);
+                                            snackbar.show();
+                                            nCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    Snackbar snackbar = Snackbar.make(relativeLayoutPE, "Notification Send!", Snackbar.LENGTH_LONG);
+                                                    snackbar.show();
+                                                }
+                                            });
+                                        }
+                                    });
+                                }else{
+                                    DocumentReference pDocumentReference = mFirebaseFirestore.collection("Mommy").document(mommyKey).collection("AppointmentDate").document(appKey);
+                                    pDocumentReference.update("appointmentDate", nextAppointmentDate);
+                                    pDocumentReference.update("appointmentTime", getNextAppointmentTime);
+                                    pDocumentReference.update("mommyId", SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this));
+                                    pDocumentReference.update("medicalPersonnelId", SaveSharedPreference.getID(PregnancyExaminationActivity.this));
+                                    pDocumentReference.update("createdDate", createdDate);
+                                    Snackbar snackbar = Snackbar.make(relativeLayoutPE, "Appointment Updated!", Snackbar.LENGTH_LONG);
+                                    snackbar.show();
+                                    nCollectionReference.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Snackbar snackbar = Snackbar.make(relativeLayoutPE, "Notification Send!", Snackbar.LENGTH_LONG);
+                                            snackbar.show();
+                                        }
+                                    });
+                                }
+                            }
+                            mDocumentReference.update("bodyWeight", Double.parseDouble(bodyWeight));
+                            mDocumentReference.update("bloodPressure", Double.parseDouble(bloodPressure));
+                            mDocumentReference.update("pulse", Double.parseDouble(pulse));
+                            mDocumentReference.update("bookingWeight", Double.parseDouble(bookingWeight));
+                            mDocumentReference.update("bookingBMI", Double.parseDouble(bookingBMI));
+                            mDocumentReference.update("bookingBP", Double.parseDouble(bookingBP));
+                            mDocumentReference.update("lkkr", lkkr);
+                            mDocumentReference.update("nextAppointmentDate", nextAppointmentDate);
+                            mDocumentReference.update("getNextAppointmentTime", getNextAppointmentTime);
+                            mDocumentReference.update("urineAlb", Double.parseDouble(urineAlb));
+                            mDocumentReference.update("urineSugar", Double.parseDouble(urineSugar));
+                            mDocumentReference.update("hb", Double.parseDouble(hb));
+                            mDocumentReference.update("edema", edema);
+                            mDocumentReference.update("pregnancyWeek", Integer.parseInt(pregnancyWeek));
+                            mDocumentReference.update("uterineHeight", Double.parseDouble(uterineHeight));
+                            mDocumentReference.update("presentPosition", presentPosition);
+                            mDocumentReference.update("heart", heart);
+                            mDocumentReference.update("motion", motion);
+                            mDocumentReference.update("peProblem", problemList);
+                            mDocumentReference.update("medicalPersonnelName", medicalPersonnelName);
+                            mDocumentReference.update("createdDate", createdDate);
+                            Snackbar snackbar = Snackbar.make(relativeLayoutPE, "Updated Successfully!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                            DisableField();
+                            btnCancelPE.setVisibility(View.GONE);
+                            check = 0;
+                        }else{
+                            check = 1;
                         }
-                        mDocumentReference.update("bodyWeight", Double.parseDouble(bodyWeight));
-                        mDocumentReference.update("bloodPressure", Double.parseDouble(bloodPressure));
-                        mDocumentReference.update("pulse", Double.parseDouble(pulse));
-                        mDocumentReference.update("bookingWeight", Double.parseDouble(bookingWeight));
-                        mDocumentReference.update("bookingBMI", Double.parseDouble(bookingBMI));
-                        mDocumentReference.update("bookingBP", Double.parseDouble(bookingBP));
-                        mDocumentReference.update("lkkr", lkkr);
-                        mDocumentReference.update("nextAppointmentDate", nextAppointmentDate);
-                        mDocumentReference.update("getNextAppointmentTime", getNextAppointmentTime);
-                        mDocumentReference.update("urineAlb", Double.parseDouble(urineAlb));
-                        mDocumentReference.update("urineSugar", Double.parseDouble(urineSugar));
-                        mDocumentReference.update("hb", Double.parseDouble(hb));
-                        mDocumentReference.update("edema", edema);
-                        mDocumentReference.update("pregnancyWeek", Integer.parseInt(pregnancyWeek));
-                        mDocumentReference.update("uterineHeight", Double.parseDouble(uterineHeight));
-                        mDocumentReference.update("presentPosition", presentPosition);
-                        mDocumentReference.update("heart", heart);
-                        mDocumentReference.update("motion", motion);
-                        mDocumentReference.update("peProblem", problemList);
-                        mDocumentReference.update("medicalPersonnelName", medicalPersonnelName);
-                        mDocumentReference.update("createdDate", createdDate);
-                        Snackbar snackbar = Snackbar.make(relativeLayoutPE, "Updated Successfully!", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                        DisableField();
-                        btnCancelPE.setVisibility(View.GONE);
-                        check = 0;
                     }
                 }
             }
@@ -672,37 +706,214 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
         btnAddProblem.setEnabled(true);
     }
 
-    private Boolean SaveCheckRequiredField(List<EditText> requiredField)
+    private boolean SaveCheckDialogRequired()
     {
-        Boolean isRequired = true;
-        String bodyWeight = bodyWeightEditText.getText().toString();
-        String bloodPressure = bloodPressureEditText.getText().toString();
-        String pulse = pulseEditText.getText().toString();
-        if(bodyWeight.equals(""))
+        String problem = editTextProblem.getText().toString();
+        String treatment = editTextTreatment.getText().toString();
+        if(problem.isEmpty() || treatment.isEmpty())
         {
-            bodyWeightInputLayout.setErrorEnabled(true);
-            bodyWeightInputLayout.setError("This field is required!");
-        } else{
-            bodyWeightInputLayout.setErrorEnabled(false);
-            bodyWeightInputLayout.setError(null);
-        }
-        if(bloodPressure.equals(""))
-        {
-            bloodPressureInputLayout.setErrorEnabled(true);
-            bloodPressureInputLayout.setError("This field is required!");
+            if(problem.isEmpty())
+            {
+                layoutPEProblem.setErrorEnabled(true);
+                layoutPEProblem.setError("This field is required!");
+            }else{
+                layoutPEProblem.setErrorEnabled(false);
+                layoutPEProblem.setError(null);
+            }
+
+            if(treatment.isEmpty())
+            {
+                layoutPETreatment.setErrorEnabled(true);
+                layoutPETreatment.setError("This field is required!");
+            }else{
+                layoutPETreatment.setErrorEnabled(false);
+                layoutPETreatment.setError(null);
+            }
+            return true;
         }else{
-            bloodPressureInputLayout.setErrorEnabled(false);
-            bloodPressureInputLayout.setError(null);
+            return false;
         }
-        if(pulse.equals(""))
+    }
+
+    private boolean SaveCheckRequiredField()
+    {
+        if(bodyWeightEditText.getText().toString().isEmpty() || bloodPressureEditText.getText().toString().isEmpty() || pulseEditText.getText().toString().isEmpty()
+                || editTextBookingWeight.getText().toString().isEmpty() || editTextBookingBMI.getText().toString().isEmpty() || editTextBookingBP.getText().toString().isEmpty()
+                || editTextLKKR.getText().toString().isEmpty() || editTextUrineAlb.getText().toString().isEmpty() || editTextUrineSugar.getText().toString().isEmpty()
+                || editTextHB.getText().toString().isEmpty() || editTextPregnancyPeriod.getText().toString().isEmpty() || editTextDueDate.getText().toString().isEmpty()
+                || editTextNextAppTime.getText().toString().isEmpty())
         {
-            pulseInputLayout.setErrorEnabled(true);
-            pulseInputLayout.setError("This field is required!");
+            if(bodyWeightEditText.getText().toString().equals(""))
+            {
+                bodyWeightInputLayout.setErrorEnabled(true);
+                bodyWeightInputLayout.setError("This field is required!");
+            } else{
+                bodyWeightInputLayout.setErrorEnabled(false);
+                bodyWeightInputLayout.setError(null);
+            }
+
+            if(bloodPressureEditText.getText().toString().equals(""))
+            {
+                bloodPressureInputLayout.setErrorEnabled(true);
+                bloodPressureInputLayout.setError("This field is required!");
+            }else{
+                bloodPressureInputLayout.setErrorEnabled(false);
+                bloodPressureInputLayout.setError(null);
+            }
+
+            if(pulseEditText.getText().toString().equals(""))
+            {
+                pulseInputLayout.setErrorEnabled(true);
+                pulseInputLayout.setError("This field is required!");
+            }else{
+                pulseInputLayout.setErrorEnabled(false);
+                pulseInputLayout.setError(null);
+            }
+
+            if(editTextBookingWeight.getText().toString().isEmpty())
+            {
+                layoutBookingWeight.setErrorEnabled(true);
+                layoutBookingWeight.setError("This field is required!");
+            }else{
+                layoutBookingWeight.setErrorEnabled(false);
+                layoutBookingWeight.setError(null);
+            }
+
+            if(editTextBookingBMI.getText().toString().isEmpty())
+            {
+                layoutBookingBMI.setErrorEnabled(true);
+                layoutBookingBMI.setError("This field is required!");
+            }else{
+                layoutBookingBMI.setErrorEnabled(false);
+                layoutBookingBMI.setError(null);
+            }
+
+            if(editTextBookingBP.getText().toString().isEmpty())
+            {
+                layoutBookingBP.setErrorEnabled(true);
+                layoutBookingBP.setError("This field is required!");
+            }else{
+                layoutBookingBP.setErrorEnabled(false);
+                layoutBookingBP.setError(null);
+            }
+
+            if(editTextLKKR.getText().toString().isEmpty())
+            {
+                layoutLKKR.setErrorEnabled(true);
+                layoutLKKR.setError("This field is required!");
+            }else{
+                layoutLKKR.setErrorEnabled(false);
+                layoutLKKR.setError(null);
+            }
+
+            if(editTextUrineAlb.getText().toString().isEmpty())
+            {
+                layoutUrineAlb.setErrorEnabled(true);
+                layoutUrineAlb.setError("This field is required!");
+            }else{
+                layoutUrineAlb.setErrorEnabled(false);
+                layoutUrineAlb.setError(null);
+            }
+
+            if(editTextUrineSugar.getText().toString().isEmpty())
+            {
+                layoutUrineSugar.setErrorEnabled(true);
+                layoutUrineSugar.setError("This field is required!");
+            }else{
+                layoutUrineSugar.setErrorEnabled(false);
+                layoutUrineSugar.setError(null);
+            }
+
+            if(editTextHB.getText().toString().isEmpty())
+            {
+                layoutHB.setErrorEnabled(true);
+                layoutHB.setError("This field is required!");
+            }else{
+                layoutHB.setErrorEnabled(false);
+                layoutHB.setError(null);
+            }
+
+            if(editTextPregnancyPeriod.getText().toString().isEmpty())
+            {
+                layoutPregnancyPeriod.setErrorEnabled(true);
+                layoutPregnancyPeriod.setError("This field is required!");
+            }else{
+                layoutPregnancyPeriod.setErrorEnabled(false);
+                layoutPregnancyPeriod.setError(null);
+            }
+
+            if(editTextDueDate.getText().toString().isEmpty())
+            {
+                txtInputLayoutDueDate.setErrorEnabled(true);
+                txtInputLayoutDueDate.setError("This field is required!");
+            }else{
+                txtInputLayoutDueDate.setErrorEnabled(false);
+                txtInputLayoutDueDate.setError(null);
+            }
+
+            if(editTextNextAppTime.getText().toString().isEmpty())
+            {
+                layoutNextAppTime.setErrorEnabled(true);
+                layoutNextAppTime.setError("This field is required!");
+            }else{
+                layoutNextAppTime.setErrorEnabled(false);
+                layoutNextAppTime.setError(null);
+            }
+            return true;
         }else{
-            pulseInputLayout.setErrorEnabled(false);
-            pulseInputLayout.setError(null);
+            return false;
         }
-        return isRequired;
+    }
+
+    private void CheckRequiredDialog()
+    {
+        editTextProblem.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextProblem.getText().toString().isEmpty())
+                {
+                    layoutPEProblem.setErrorEnabled(true);
+                    layoutPEProblem.setError("This field is required1");
+                }else{
+                    layoutPEProblem.setErrorEnabled(false);
+                    layoutPEProblem.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextTreatment.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextTreatment.getText().toString().isEmpty())
+                {
+                    layoutPETreatment.setErrorEnabled(true);
+                    layoutPETreatment.setError("This field is required1");
+                }else{
+                    layoutPETreatment.setErrorEnabled(false);
+                    layoutPETreatment.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void CheckRequiredTextChange()
@@ -770,6 +981,246 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 }else{
                     pulseInputLayout.setErrorEnabled(false);
                     pulseInputLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextBookingWeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextBookingWeight.getText().toString().isEmpty())
+                {
+                    layoutBookingWeight.setErrorEnabled(true);
+                    layoutBookingWeight.setError("This field is required!");
+                }else{
+                    layoutBookingWeight.setErrorEnabled(false);
+                    layoutBookingWeight.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextBookingBMI.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextBookingBMI.getText().toString().isEmpty())
+                {
+                    layoutBookingBMI.setErrorEnabled(true);
+                    layoutBookingBMI.setError("This field is required!");
+                }else{
+                    layoutBookingBMI.setErrorEnabled(false);
+                    layoutBookingBMI.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextBookingBP.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextBookingBP.getText().toString().isEmpty())
+                {
+                    layoutBookingBP.setErrorEnabled(true);
+                    layoutBookingBP.setError("This field is required!");
+                }else{
+                    layoutBookingBP.setErrorEnabled(false);
+                    layoutBookingBP.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextLKKR.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextLKKR.getText().toString().isEmpty())
+                {
+                    layoutLKKR.setErrorEnabled(true);
+                    layoutLKKR.setError("This field is required!");
+                }else{
+                    layoutLKKR.setErrorEnabled(false);
+                    layoutLKKR.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextUrineAlb.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextUrineAlb.getText().toString().isEmpty())
+                {
+                    layoutUrineAlb.setErrorEnabled(true);
+                    layoutUrineAlb.setError("This field is required!");
+                }else{
+                    layoutUrineAlb.setErrorEnabled(false);
+                    layoutUrineAlb.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextUrineSugar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextUrineSugar.getText().toString().isEmpty())
+                {
+                    layoutUrineSugar.setErrorEnabled(true);
+                    layoutUrineSugar.setError("This field is required!");
+                }else{
+                    layoutUrineSugar.setErrorEnabled(false);
+                    layoutUrineSugar.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextHB.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextHB.getText().toString().isEmpty())
+                {
+                    layoutHB.setErrorEnabled(true);
+                    layoutHB.setError("This field is required!");
+                }else{
+                    layoutHB.setErrorEnabled(false);
+                    layoutHB.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextPregnancyPeriod.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextPregnancyPeriod.getText().toString().isEmpty())
+                {
+                    layoutPregnancyPeriod.setErrorEnabled(true);
+                    layoutPregnancyPeriod.setError("This field is required!");
+                }else{
+                    layoutPregnancyPeriod.setErrorEnabled(false);
+                    layoutPregnancyPeriod.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextDueDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextDueDate.getText().toString().isEmpty())
+                {
+                    txtInputLayoutDueDate.setErrorEnabled(true);
+                    txtInputLayoutDueDate.setError("This field is required!");
+                }else{
+                    txtInputLayoutDueDate.setErrorEnabled(false);
+                    txtInputLayoutDueDate.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextNextAppTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editTextNextAppTime.getText().toString().isEmpty())
+                {
+                    layoutNextAppTime.setErrorEnabled(true);
+                    layoutNextAppTime.setError("This field is required!");
+                }else{
+                    layoutNextAppTime.setErrorEnabled(false);
+                    layoutNextAppTime.setError(null);
                 }
             }
 
