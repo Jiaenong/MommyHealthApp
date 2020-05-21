@@ -469,6 +469,7 @@
     <string name="weightNow">Your Weight Now (kg)</string>
     <string name="calculate">Calculate</string>
     <string name="clear">Clear</string>
+    <string name="help">Help</string>
     <string-array name="pregnant_week">
         <item>Select Week</item>
         <item>Week 1</item>
