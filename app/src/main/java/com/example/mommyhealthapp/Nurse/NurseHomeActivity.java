@@ -1,11 +1,13 @@
 package com.example.mommyhealthapp.Nurse;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.example.mommyhealthapp.Class.MedicalPersonnel;
+import com.example.mommyhealthapp.MainActivity;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.Nurse.ui.CreateMother.CreateMotherDetailFragment;
 import com.example.mommyhealthapp.SaveSharedPreference;
@@ -14,8 +16,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -102,6 +106,40 @@ public class NurseHomeActivity extends AppCompatActivity implements CreateMother
         }
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.action_logout:
+                AlertDialog.Builder builder = new AlertDialog.Builder(NurseHomeActivity.this);
+                builder.setTitle("Logout");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SaveSharedPreference.clearUser(NurseHomeActivity.this);
+                        Intent intent = new Intent(NurseHomeActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+                builder.setMessage("Are you sure you want to log out?");
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+                return true;
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.MommyHealthInfo;
+import com.example.mommyhealthapp.MainActivity;
 import com.example.mommyhealthapp.Nurse.MommyProfileActivity;
 import com.example.mommyhealthapp.Nurse.ui.SearchMother.SearchMotherFragment;
 import com.example.mommyhealthapp.R;
@@ -201,6 +202,28 @@ public class MommyRecordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
+            case R.id.action_logout:
+                AlertDialog.Builder builder = new AlertDialog.Builder(MommyRecordActivity.this);
+                builder.setTitle("Logout");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SaveSharedPreference.clearUser(MommyRecordActivity.this);
+                        Intent intent = new Intent(MommyRecordActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.setMessage("Are you sure you want to log out?");
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+                return true;
             case android.R.id.home:
                 finish();
                 return true;
