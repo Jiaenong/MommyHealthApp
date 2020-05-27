@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.mommyhealthapp.Class.DiaryImage;
+import com.example.mommyhealthapp.MainActivity;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.Continuation;
@@ -419,6 +420,28 @@ public class UploadDiaryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
+            case R.id.action_logout:
+                AlertDialog.Builder builder = new AlertDialog.Builder(UploadDiaryActivity.this);
+                builder.setTitle("Logout");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SaveSharedPreference.clearUser(UploadDiaryActivity.this);
+                        Intent intent = new Intent(UploadDiaryActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.setMessage("Are you sure you want to log out?");
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+                return true;
             case android.R.id.home:
                 finish();
                 return true;

@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.MommyDetail;
+import com.example.mommyhealthapp.MainActivity;
 import com.example.mommyhealthapp.Nurse.AntenatalActivity;
 import com.example.mommyhealthapp.Nurse.SectionNActivity;
 import com.example.mommyhealthapp.R;
@@ -633,6 +634,28 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
+            case R.id.action_logout:
+                AlertDialog.Builder builder = new AlertDialog.Builder(PregnancyWeightGainActivity.this);
+                builder.setTitle("Logout");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SaveSharedPreference.clearUser(PregnancyWeightGainActivity.this);
+                        Intent intent = new Intent(PregnancyWeightGainActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.setMessage("Are you sure you want to log out?");
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+                return true;
             case android.R.id.home:
                 finish();
                 return true;

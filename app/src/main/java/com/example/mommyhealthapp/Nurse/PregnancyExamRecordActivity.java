@@ -1,12 +1,14 @@
 package com.example.mommyhealthapp.Nurse;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import com.example.mommyhealthapp.Class.BloodTest;
 import com.example.mommyhealthapp.Class.MommyHealthInfo;
 import com.example.mommyhealthapp.Class.PregnancyExamination;
+import com.example.mommyhealthapp.MainActivity;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.RecyclerTouchListener;
 import com.example.mommyhealthapp.SaveSharedPreference;
@@ -191,6 +194,28 @@ public class PregnancyExamRecordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
+            case R.id.action_logout:
+                AlertDialog.Builder builder = new AlertDialog.Builder(PregnancyExamRecordActivity.this);
+                builder.setTitle("Logout");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SaveSharedPreference.clearUser(PregnancyExamRecordActivity.this);
+                        Intent intent = new Intent(PregnancyExamRecordActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.setMessage("Are you sure you want to log out?");
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+                return true;
             case android.R.id.home:
                 finish();
                 return true;
