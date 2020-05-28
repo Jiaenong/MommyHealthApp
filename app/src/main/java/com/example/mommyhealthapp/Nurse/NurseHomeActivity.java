@@ -135,9 +135,6 @@ public class NurseHomeActivity extends AppCompatActivity implements CreateMother
                 alert.setCanceledOnTouchOutside(false);
                 alert.show();
                 return true;
-            case android.R.id.home:
-                finish();
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }
