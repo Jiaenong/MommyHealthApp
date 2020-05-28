@@ -30,11 +30,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Mommy.MotherGuidebook"
+            android:label="@string/guidebook" />
+        <activity
             android:name=".Mommy.UploadDiaryActivity"
-            android:label="Today's Diary"/>
+            android:label="Today&apos;s Diary" />
         <activity
             android:name=".Mommy.DiaryActivity"
-            android:label="My Diary"/>
+            android:label="My Diary" />
         <activity
             android:name=".Mommy.PregnancyWeightGainActivity"
             android:label="Weight Gain Calculator" />

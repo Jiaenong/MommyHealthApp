@@ -18,8 +18,8 @@
     <string name="menu_home">Home</string>
     <string name="menu_create">Add Mother</string>
     <string name="menu_search">Search</string>
-    <string name="createMother">Create Mummy</string>
-    <string name="searchMother">Search Mummy</string>
+    <string name="createMother">Create Mother</string>
+    <string name="searchMother">Search Mother</string>
     <string name="logout">Log Out</string>
     <string name="nurse_profile">Medical Personnel Profile</string>
     <string name="first_name">First Name</string>
@@ -31,7 +31,7 @@
     <string name="next_step">Next Step</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="nav_createMotherDetail">Mummy Detail</string>
+    <string name="nav_createMotherDetail">Mother Detail</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="height">Height (cm)</string>
     <string name="weight">Weight (kg)</string>
@@ -70,23 +70,23 @@
     <string name="mummy_husband_work">Husband Occupation</string>
     <string name="mummy_husband_workplace">Husband Work Place</string>
     <string name="mummy_husband_phone">Husband Phone No.</string>
-    <string name="mummy_name">Mummy Name</string>
-    <string name="mummy_id">Mummy ID</string>
+    <string name="mummy_name">Mother Name</string>
+    <string name="mummy_id">Mother ID</string>
     <string name="early_test">Early Test</string>
     <string name="maternal_medical_examination">Baby Kicks Record</string>
     <string name="sectionN">Health Tutorial</string>
     <string name="mgtt">MGTT Examination</string>
     <string name="pregnancy_examination">Pregnancy Examination</string>
     <string name="summary">Graph Report</string>
-    <string name="mummy_info">Mummy Information</string>
-    <string name="mummy_detail_info">Mummy Detail Information</string>
+    <string name="mummy_info">Mother Information</string>
+    <string name="mummy_detail_info">Mother Detail Information</string>
     <string name="update">Update</string>
     <string name="cancel">Cancel</string>
     <string name="bahagian_A">Pregnancy Experience</string>
     <string name="bahagian_B">Screening Test</string>
     <string name="bahagian_C">Health History</string>
     <string name="bahagian_D">Current Health Status</string>
-    <string name="mommy_status">Mommy Status</string>
+    <string name="mommy_status">Mother Status</string>
     <string name="status">Status :</string>
     <string name="bloodtest_result">Blood Test :</string>
     <string name="blood_group">Blood Group :</string>
@@ -201,7 +201,7 @@
     <string name="mgtt_congenital">Congenital Abnormality(Previous child)</string>
     <string name="mgtt_mascrosomic"><![CDATA[Previous mascrosomic baby 4kg & above]]></string>
     <string name="mgtt_diabetes">4. First degree relatives with Diabetes</string>
-    <string name="title_activity_mommy_home">MommyHomeActivity</string>
+    <string name="title_activity_mommy_home">MotherHomeActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -317,7 +317,7 @@
     <string name="question_help_3star">Applied to me to some degree, or some of the time</string>
     <string name="question_help_4star">Applied to me very much, or most of the time</string>
     <string name="noted">Noted</string>
-    <string name="mummy_list">Mummy List</string>
+    <string name="mummy_list">Mother List</string>
     <string name="secB_rapidTest_test_1">Test 1:</string>
     <string name="secB_rapidTest_ElizaTest">Eliza Test:</string>
     <string name="radioGrp_Test1_NR">NR</string>
@@ -462,6 +462,7 @@
     <string name="diaryBook">Baby Growth Diary</string>
     <string name="diaryTitle">Title</string>
     <string name="diaryDescription">Quotes of today</string>
+    <string name="guidebook">Guidebook</string>
     <string name="babyCountdown">My Baby is coming</string>
     <string name="currentPregnancyStage">Your Current Pregnancy Stage :</string>
     <string name="pregnantWithTwins">"Pregnant With Twins : "</string>
