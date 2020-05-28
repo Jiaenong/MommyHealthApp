@@ -4,11 +4,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +25,12 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.mommyhealthapp.AlertService;
 import com.example.mommyhealthapp.Class.MentalHealth;
 import com.example.mommyhealthapp.MainActivity;
+import com.example.mommyhealthapp.NotifyService;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.ReminderService;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -557,6 +564,27 @@ public class HealthyMindFilterActivity extends AppCompatActivity {
         ratingBarQ21.setEnabled(true);
     }
 
+    private void CancelAlarm()
+    {
+        AlarmManager alarmManager = (AlarmManager)HealthyMindFilterActivity.this.getSystemService(Context.ALARM_SERVICE );
+        Intent intent = new Intent(HealthyMindFilterActivity.this, NotifyService.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(HealthyMindFilterActivity.this, 9000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+
+        Intent intentReminder = new Intent(HealthyMindFilterActivity.this, ReminderService.class);
+        PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(HealthyMindFilterActivity.this, 101, intentReminder, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntentReminder);
+        pendingIntentReminder.cancel();
+
+        Intent intentAlert = new Intent(HealthyMindFilterActivity.this, AlertService.class);
+        PendingIntent pendingIntentAlert = PendingIntent.getBroadcast(HealthyMindFilterActivity.this, 1000, intentAlert, 0);
+        alarmManager.cancel(pendingIntentAlert);
+        pendingIntentAlert.cancel();
+
+        Log.i("TestingAlarmCancel", "Alarm Cancel");
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
@@ -566,6 +594,10 @@ public class HealthyMindFilterActivity extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        if(SaveSharedPreference.getUser(HealthyMindFilterActivity.this).equals("Mommy"))
+                        {
+                            CancelAlarm();
+                        }
                         SaveSharedPreference.clearUser(HealthyMindFilterActivity.this);
                         Intent intent = new Intent(HealthyMindFilterActivity.this, MainActivity.class);
                         startActivity(intent);

@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -36,13 +38,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.mommyhealthapp.AlertService;
 import com.example.mommyhealthapp.Class.AppointmentDate;
 import com.example.mommyhealthapp.Class.MedicalPersonnel;
 import com.example.mommyhealthapp.Class.Notification;
 import com.example.mommyhealthapp.Class.PregnancyExamination;
 import com.example.mommyhealthapp.Class.ProblemPE;
 import com.example.mommyhealthapp.MainActivity;
+import com.example.mommyhealthapp.NotifyService;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.ReminderService;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -1232,6 +1237,27 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
         });
     }
 
+    private void CancelAlarm()
+    {
+        AlarmManager alarmManager = (AlarmManager)PregnancyExaminationActivity.this.getSystemService(Context.ALARM_SERVICE );
+        Intent intent = new Intent(PregnancyExaminationActivity.this, NotifyService.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(PregnancyExaminationActivity.this, 9000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+
+        Intent intentReminder = new Intent(PregnancyExaminationActivity.this, ReminderService.class);
+        PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(PregnancyExaminationActivity.this, 101, intentReminder, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntentReminder);
+        pendingIntentReminder.cancel();
+
+        Intent intentAlert = new Intent(PregnancyExaminationActivity.this, AlertService.class);
+        PendingIntent pendingIntentAlert = PendingIntent.getBroadcast(PregnancyExaminationActivity.this, 1000, intentAlert, 0);
+        alarmManager.cancel(pendingIntentAlert);
+        pendingIntentAlert.cancel();
+
+        Log.i("TestingAlarmCancel", "Alarm Cancel");
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
@@ -1241,6 +1267,10 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        if(SaveSharedPreference.getUser(PregnancyExaminationActivity.this).equals("Mommy"))
+                        {
+                            CancelAlarm();
+                        }
                         SaveSharedPreference.clearUser(PregnancyExaminationActivity.this);
                         Intent intent = new Intent(PregnancyExaminationActivity.this, MainActivity.class);
                         startActivity(intent);

@@ -4,7 +4,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,9 +23,12 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.mommyhealthapp.AlertService;
 import com.example.mommyhealthapp.Class.MGTTResult;
 import com.example.mommyhealthapp.MainActivity;
+import com.example.mommyhealthapp.NotifyService;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.ReminderService;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -508,6 +514,27 @@ public class MGTTResultActivity extends AppCompatActivity {
         editTextThirdPostprandial.setEnabled(true);
     }
 
+    private void CancelAlarm()
+    {
+        AlarmManager alarmManager = (AlarmManager)MGTTResultActivity.this.getSystemService(Context.ALARM_SERVICE );
+        Intent intent = new Intent(MGTTResultActivity.this, NotifyService.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MGTTResultActivity.this, 9000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+
+        Intent intentReminder = new Intent(MGTTResultActivity.this, ReminderService.class);
+        PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(MGTTResultActivity.this, 101, intentReminder, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntentReminder);
+        pendingIntentReminder.cancel();
+
+        Intent intentAlert = new Intent(MGTTResultActivity.this, AlertService.class);
+        PendingIntent pendingIntentAlert = PendingIntent.getBroadcast(MGTTResultActivity.this, 1000, intentAlert, 0);
+        alarmManager.cancel(pendingIntentAlert);
+        pendingIntentAlert.cancel();
+
+        Log.i("TestingAlarmCancel", "Alarm Cancel");
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
@@ -517,6 +544,10 @@ public class MGTTResultActivity extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        if(SaveSharedPreference.getUser(MGTTResultActivity.this).equals("Mommy"))
+                        {
+                            CancelAlarm();
+                        }
                         SaveSharedPreference.clearUser(MGTTResultActivity.this);
                         Intent intent = new Intent(MGTTResultActivity.this, MainActivity.class);
                         startActivity(intent);

@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.MainActivity;
 import com.example.mommyhealthapp.NotifyService;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.ReminderService;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -407,6 +409,27 @@ public class KickCounterActivity extends AppCompatActivity {
         });
     }
 
+    private void CancelAlarm()
+    {
+        AlarmManager alarmManager = (AlarmManager)KickCounterActivity.this.getSystemService(Context.ALARM_SERVICE );
+        Intent intent = new Intent(KickCounterActivity.this, NotifyService.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(KickCounterActivity.this, 9000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+
+        Intent intentReminder = new Intent(KickCounterActivity.this, ReminderService.class);
+        PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(KickCounterActivity.this, 101, intentReminder, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntentReminder);
+        pendingIntentReminder.cancel();
+
+        Intent intentAlert = new Intent(KickCounterActivity.this, AlertService.class);
+        PendingIntent pendingIntentAlert = PendingIntent.getBroadcast(KickCounterActivity.this, 1000, intentAlert, 0);
+        alarmManager.cancel(pendingIntentAlert);
+        pendingIntentAlert.cancel();
+
+        Log.i("TestingAlarmCancel", "Alarm Cancel");
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
@@ -416,6 +439,7 @@ public class KickCounterActivity extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        CancelAlarm();
                         SaveSharedPreference.clearUser(KickCounterActivity.this);
                         Intent intent = new Intent(KickCounterActivity.this, MainActivity.class);
                         startActivity(intent);

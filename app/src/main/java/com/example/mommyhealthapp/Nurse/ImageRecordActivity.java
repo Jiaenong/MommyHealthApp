@@ -9,9 +9,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,11 +25,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.mommyhealthapp.AlertService;
 import com.example.mommyhealthapp.Class.DocumentImage;
 import com.example.mommyhealthapp.Class.PregnancyExamination;
 import com.example.mommyhealthapp.MainActivity;
+import com.example.mommyhealthapp.NotifyService;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.RecyclerTouchListener;
+import com.example.mommyhealthapp.ReminderService;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -193,6 +200,27 @@ public class ImageRecordActivity extends AppCompatActivity {
         });
     }
 
+    private void CancelAlarm()
+    {
+        AlarmManager alarmManager = (AlarmManager)ImageRecordActivity.this.getSystemService(Context.ALARM_SERVICE );
+        Intent intent = new Intent(ImageRecordActivity.this, NotifyService.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(ImageRecordActivity.this, 9000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+
+        Intent intentReminder = new Intent(ImageRecordActivity.this, ReminderService.class);
+        PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(ImageRecordActivity.this, 101, intentReminder, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntentReminder);
+        pendingIntentReminder.cancel();
+
+        Intent intentAlert = new Intent(ImageRecordActivity.this, AlertService.class);
+        PendingIntent pendingIntentAlert = PendingIntent.getBroadcast(ImageRecordActivity.this, 1000, intentAlert, 0);
+        alarmManager.cancel(pendingIntentAlert);
+        pendingIntentAlert.cancel();
+
+        Log.i("TestingAlarmCancel", "Alarm Cancel");
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
@@ -202,6 +230,10 @@ public class ImageRecordActivity extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        if(SaveSharedPreference.getUser(ImageRecordActivity.this).equals("Mommy"))
+                        {
+                            CancelAlarm();
+                        }
                         SaveSharedPreference.clearUser(ImageRecordActivity.this);
                         Intent intent = new Intent(ImageRecordActivity.this, MainActivity.class);
                         startActivity(intent);

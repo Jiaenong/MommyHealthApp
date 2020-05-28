@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,11 +26,14 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.example.mommyhealthapp.AlertService;
 import com.example.mommyhealthapp.Class.KickCount;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.PreviousPregnant;
 import com.example.mommyhealthapp.MainActivity;
+import com.example.mommyhealthapp.NotifyService;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.ReminderService;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -169,6 +174,28 @@ public class BabyKickRecordActivity extends AppCompatActivity implements SearchV
             }
         });
     }
+
+    private void CancelAlarm()
+    {
+        AlarmManager alarmManager = (AlarmManager)BabyKickRecordActivity.this.getSystemService(Context.ALARM_SERVICE );
+        Intent intent = new Intent(BabyKickRecordActivity.this, NotifyService.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(BabyKickRecordActivity.this, 9000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+
+        Intent intentReminder = new Intent(BabyKickRecordActivity.this, ReminderService.class);
+        PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(BabyKickRecordActivity.this, 101, intentReminder, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntentReminder);
+        pendingIntentReminder.cancel();
+
+        Intent intentAlert = new Intent(BabyKickRecordActivity.this, AlertService.class);
+        PendingIntent pendingIntentAlert = PendingIntent.getBroadcast(BabyKickRecordActivity.this, 1000, intentAlert, 0);
+        alarmManager.cancel(pendingIntentAlert);
+        pendingIntentAlert.cancel();
+
+        Log.i("TestingAlarmCancel", "Alarm Cancel");
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
@@ -178,6 +205,10 @@ public class BabyKickRecordActivity extends AppCompatActivity implements SearchV
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        if(SaveSharedPreference.getUser(BabyKickRecordActivity.this).equals("Mommy"))
+                        {
+                            CancelAlarm();
+                        }
                         SaveSharedPreference.clearUser(BabyKickRecordActivity.this);
                         Intent intent = new Intent(BabyKickRecordActivity.this, MainActivity.class);
                         startActivity(intent);

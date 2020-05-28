@@ -4,6 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,12 +25,15 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.mommyhealthapp.AlertService;
 import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.MainActivity;
+import com.example.mommyhealthapp.NotifyService;
 import com.example.mommyhealthapp.Nurse.AntenatalActivity;
 import com.example.mommyhealthapp.Nurse.SectionNActivity;
 import com.example.mommyhealthapp.R;
+import com.example.mommyhealthapp.ReminderService;
 import com.example.mommyhealthapp.SaveSharedPreference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -631,6 +637,27 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
         }
     }
 
+    private void CancelAlarm()
+    {
+        AlarmManager alarmManager = (AlarmManager)PregnancyWeightGainActivity.this.getSystemService(Context.ALARM_SERVICE );
+        Intent intent = new Intent(PregnancyWeightGainActivity.this, NotifyService.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(PregnancyWeightGainActivity.this, 9000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+
+        Intent intentReminder = new Intent(PregnancyWeightGainActivity.this, ReminderService.class);
+        PendingIntent pendingIntentReminder = PendingIntent.getBroadcast(PregnancyWeightGainActivity.this, 101, intentReminder, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntentReminder);
+        pendingIntentReminder.cancel();
+
+        Intent intentAlert = new Intent(PregnancyWeightGainActivity.this, AlertService.class);
+        PendingIntent pendingIntentAlert = PendingIntent.getBroadcast(PregnancyWeightGainActivity.this, 1000, intentAlert, 0);
+        alarmManager.cancel(pendingIntentAlert);
+        pendingIntentAlert.cancel();
+
+        Log.i("TestingAlarmCancel", "Alarm Cancel");
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
@@ -640,6 +667,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        CancelAlarm();
                         SaveSharedPreference.clearUser(PregnancyWeightGainActivity.this);
                         Intent intent = new Intent(PregnancyWeightGainActivity.this, MainActivity.class);
                         startActivity(intent);
