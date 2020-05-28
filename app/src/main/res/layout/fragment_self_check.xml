@@ -279,6 +279,42 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewGuidebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="#fafafa"
+                app:cardCornerRadius="20dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/imageView55"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:src="@drawable/mother_guidebook"
+                        app:srcCompat="@drawable/mother_guidebook" />
+
+                    <TextView
+                        android:id="@+id/textView113"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/guidebook"
+                        android:textSize="30sp"
+                        app:fontFamily="sans-serif-smallcaps" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.core.widget.NestedScrollView>

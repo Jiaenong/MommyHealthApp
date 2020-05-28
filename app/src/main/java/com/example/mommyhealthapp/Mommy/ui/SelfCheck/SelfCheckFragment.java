@@ -21,6 +21,7 @@ import com.example.mommyhealthapp.Class.Mommy;
 import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.Mommy.DiaryActivity;
 import com.example.mommyhealthapp.Mommy.KickCounterActivity;
+import com.example.mommyhealthapp.Mommy.MotherGuidebook;
 import com.example.mommyhealthapp.Mommy.PregnancyWeightGainActivity;
 import com.example.mommyhealthapp.R;
 import com.example.mommyhealthapp.SaveSharedPreference;
@@ -54,7 +55,7 @@ public class SelfCheckFragment extends Fragment {
     private Boolean isEmpty;
     private FirebaseFirestore mFirebaseFirestore;
     private CollectionReference mCollectionReference, nCollectionReference;
-    private CardView kickCounterMain, cardViewPregnancyWeight, cardViewBabyDiary;
+    private CardView kickCounterMain, cardViewPregnancyWeight, cardViewBabyDiary, cardViewGuidebook;
     private ProgressBar progressBarDiary;
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -158,6 +159,7 @@ public class SelfCheckFragment extends Fragment {
         kickCounterMain = (CardView)v.findViewById(R.id.kickCounterMain);
         cardViewPregnancyWeight = (CardView)v.findViewById(R.id.cardViewPregnancyWeight);
         cardViewBabyDiary = (CardView)v.findViewById(R.id.cardViewBabyDiary);
+        cardViewGuidebook = (CardView)v.findViewById(R.id.cardViewGuidebook);
 
         kickCounterMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +179,13 @@ public class SelfCheckFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), DiaryActivity.class);
+                startActivity(intent);
+            }
+        });
+        cardViewGuidebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MotherGuidebook.class);
                 startActivity(intent);
             }
         });
