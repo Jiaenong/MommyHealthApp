@@ -237,7 +237,11 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                         editTextHB.setText(pe.getHb()+"");
                         editTextEdema.setText(pe.getEdema());
                         editTextPregnancyPeriod.setText(pe.getPregnancyWeek()+"");
-                        editTextUterineHeight.setText(pe.getUterineHeight()+"");
+                        if(pe.getUterineHeight() == 0.0){
+                            editTextUterineHeight.setText("");
+                        }else{
+                            editTextUterineHeight.setText(pe.getUterineHeight()+"");
+                        }
                         editTextPresentPosition.setText(pe.getPresentPosition());
                         editTextPEHeart.setText(pe.getHeart());
                         editTextPEMotion.setText(pe.getMotion());
@@ -447,6 +451,7 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                                 motion = editTextPEMotion.getText().toString(),
                                 pregnancyExamId = UUID.randomUUID().toString().replace("-", ""),
                                 medicalPersonnelName = medicalPersonnelname;
+                        Double uterineHeightss;
                         String notificationDetail = getResources().getString(R.string.NotificationAppointment)+editTextDueDate.getText().toString()+ " " + editTextNextAppTime.getText().toString();
                         Date notificationDate = new Date();
                         Date nextAppointmentDate = null, getNextAppointmentTime = null, createdDate = new Date();
@@ -456,12 +461,17 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                        if(uterineHeight.isEmpty()) {
+                            uterineHeightss = 0.0;
+                        }else{
+                            uterineHeightss = Double.parseDouble(uterineHeight);
+                        }
                         final Notification notification = new Notification(notificationDetail, notificationDate, SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate, "new", mommyKey);
                         final AppointmentDate appDate = new AppointmentDate(nextAppointmentDate, getNextAppointmentTime, SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this), SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate);
                         PregnancyExamination pe = new PregnancyExamination(Double.parseDouble(bookingWeight), Double.parseDouble(bookingBMI), Double.parseDouble(bookingBP), lkkr,
                                 nextAppointmentDate, getNextAppointmentTime, Double.parseDouble(urineAlb), Double.parseDouble(urineSugar), Double.parseDouble(hb),
                                 Double.parseDouble(bodyWeight), Double.parseDouble(bloodPressure), Double.parseDouble(pulse), edema, Integer.parseInt(pregnancyWeek),
-                                Double.parseDouble(uterineHeight), presentPosition, heart, motion, problemList, medicalPersonnelName, createdDate, pregnancyExamId);
+                                uterineHeightss, presentPosition, heart, motion, problemList, medicalPersonnelName, createdDate, pregnancyExamId);
                         mCollectionReference.add(pe).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
@@ -552,6 +562,12 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                                     motion = editTextPEMotion.getText().toString(),
                                     pregnancyExamId = UUID.randomUUID().toString().replace("-", ""),
                                     medicalPersonnelName = medicalPersonnelname;
+                            Double uterineHeightss;
+                            if(uterineHeight.isEmpty()) {
+                                uterineHeightss = 0.0;
+                            }else{
+                                uterineHeightss = Double.parseDouble(uterineHeight);
+                            }
                             Date nextAppointmentDate = null, getNextAppointmentTime = null, createdDate = new Date();
                             try {
                                 nextAppointmentDate = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDueDate.getText().toString());
@@ -615,7 +631,7 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                             mDocumentReference.update("hb", Double.parseDouble(hb));
                             mDocumentReference.update("edema", edema);
                             mDocumentReference.update("pregnancyWeek", Integer.parseInt(pregnancyWeek));
-                            mDocumentReference.update("uterineHeight", Double.parseDouble(uterineHeight));
+                            mDocumentReference.update("uterineHeight", uterineHeightss);
                             mDocumentReference.update("presentPosition", presentPosition);
                             mDocumentReference.update("heart", heart);
                             mDocumentReference.update("motion", motion);
