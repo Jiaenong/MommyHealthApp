@@ -232,8 +232,8 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                         editTextBookingBMI.setText(pe.getBookingBMI()+"");
                         editTextBookingBP.setText(pe.getBookingBP()+"");
                         editTextLKKR.setText(pe.getLkkr());
-                        editTextUrineAlb.setText(pe.getUrineAlb()+"");
-                        editTextUrineSugar.setText(pe.getUrineSugar()+"");
+                        editTextUrineAlb.setText(pe.getUrineAlb());
+                        editTextUrineSugar.setText(pe.getUrineSugar());
                         editTextHB.setText(pe.getHb()+"");
                         editTextEdema.setText(pe.getEdema());
                         editTextPregnancyPeriod.setText(pe.getPregnancyWeek()+"");
@@ -469,7 +469,7 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                         final Notification notification = new Notification(notificationDetail, notificationDate, SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate, "new", mommyKey);
                         final AppointmentDate appDate = new AppointmentDate(nextAppointmentDate, getNextAppointmentTime, SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this), SaveSharedPreference.getID(PregnancyExaminationActivity.this), createdDate);
                         PregnancyExamination pe = new PregnancyExamination(Double.parseDouble(bookingWeight), Double.parseDouble(bookingBMI), Double.parseDouble(bookingBP), lkkr,
-                                nextAppointmentDate, getNextAppointmentTime, Double.parseDouble(urineAlb), Double.parseDouble(urineSugar), Double.parseDouble(hb),
+                                nextAppointmentDate, getNextAppointmentTime, urineAlb, urineSugar, Double.parseDouble(hb),
                                 Double.parseDouble(bodyWeight), Double.parseDouble(bloodPressure), Double.parseDouble(pulse), edema, Integer.parseInt(pregnancyWeek),
                                 uterineHeightss, presentPosition, heart, motion, problemList, medicalPersonnelName, createdDate, pregnancyExamId);
                         mCollectionReference.add(pe).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -626,8 +626,8 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                             mDocumentReference.update("lkkr", lkkr);
                             mDocumentReference.update("nextAppointmentDate", nextAppointmentDate);
                             mDocumentReference.update("getNextAppointmentTime", getNextAppointmentTime);
-                            mDocumentReference.update("urineAlb", Double.parseDouble(urineAlb));
-                            mDocumentReference.update("urineSugar", Double.parseDouble(urineSugar));
+                            mDocumentReference.update("urineAlb", urineAlb);
+                            mDocumentReference.update("urineSugar", urineSugar);
                             mDocumentReference.update("hb", Double.parseDouble(hb));
                             mDocumentReference.update("edema", edema);
                             mDocumentReference.update("pregnancyWeek", Integer.parseInt(pregnancyWeek));

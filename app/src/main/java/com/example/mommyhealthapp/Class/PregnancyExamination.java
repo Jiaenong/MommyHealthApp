@@ -10,8 +10,8 @@ public class PregnancyExamination {
     private String lkkr;
     private Date nextAppointmentDate;
     private Date getNextAppointmentTime;
-    private double urineAlb;
-    private double urineSugar;
+    private String urineAlb;
+    private String urineSugar;
     private double hb;
     private double bodyWeight;
     private double bloodPressure;
@@ -30,7 +30,7 @@ public class PregnancyExamination {
     public PregnancyExamination (){}
 
     public PregnancyExamination(double bookingWeight, double bookingBMI, double bookingBP, String lkkr, Date nextAppointmentDate, Date getNextAppointmentTime,
-                                double urineAlb, double urineSugar, double hb, double bodyWeight, double bloodPressure, double pulse, String edema, int pregnancyWeek,
+                                String urineAlb, String urineSugar, double hb, double bodyWeight, double bloodPressure, double pulse, String edema, int pregnancyWeek,
                                 double uterineHeight, String presentPosition, String heart, String motion, List<ProblemPE> peProblem, String medicalPersonnelName,
                                 Date createdDate, String pregnancyExamId)
     {
@@ -106,19 +106,19 @@ public class PregnancyExamination {
         this.getNextAppointmentTime = getNextAppointmentTime;
     }
 
-    public double getUrineAlb() {
+    public String getUrineAlb() {
         return urineAlb;
     }
 
-    public void setUrineAlb(double urineAlb) {
+    public void setUrineAlb(String urineAlb) {
         this.urineAlb = urineAlb;
     }
 
-    public double getUrineSugar() {
+    public String getUrineSugar() {
         return urineSugar;
     }
 
-    public void setUrineSugar(double urineSugar) {
+    public void setUrineSugar(String urineSugar) {
         this.urineSugar = urineSugar;
     }
 

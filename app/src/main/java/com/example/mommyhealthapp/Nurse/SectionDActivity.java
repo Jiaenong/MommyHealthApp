@@ -337,10 +337,10 @@ public class SectionDActivity extends AppCompatActivity {
             if(editTextCVVLeft.getText().toString().isEmpty())
             {
                 layoutCVVLeft.setErrorEnabled(true);
-                editTextCVVLeft.setError("This field is required!");
+                layoutCVVLeft.setError("This field is required!");
             }else{
                 layoutCVVLeft.setErrorEnabled(false);
-                editTextCVVLeft.setError(null);
+                layoutCVVLeft.setError(null);
             }
 
             if(editTextCVVRight.getText().toString().isEmpty())
