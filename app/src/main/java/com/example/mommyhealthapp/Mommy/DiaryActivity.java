@@ -88,9 +88,9 @@ public class DiaryActivity extends AppCompatActivity {
                     healthInfoId = documentSnapshot.getId();
                 }
                 nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("DiaryImage");
-                nCollectionReference.orderBy("createdDate", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                nCollectionReference.orderBy("createdDate", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                         diList.clear();
                         for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
                         {

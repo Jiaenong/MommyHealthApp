@@ -238,8 +238,9 @@ public class UploadDiaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/jpeg");
-                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                String [] mimeTypes = {"image/png", "image/jpg","image/jpeg"};
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
                 if(isEmpty == true)
                 {
                     startActivityForResult(Intent.createChooser(intent, "Complete the action using"),RC_PHOTO_PICKER);
