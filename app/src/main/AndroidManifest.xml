@@ -49,7 +49,7 @@
             android:label="Laboratory Document" />
         <activity
             android:name=".Nurse.PregnancyControlActivity"
-            android:label="Pregnancy Control"
+            android:label="Pregnancy Code"
             android:theme="@style/MyMaterialTheme.Base" />
 
         <receiver

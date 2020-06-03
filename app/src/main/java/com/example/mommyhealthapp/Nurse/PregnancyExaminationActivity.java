@@ -376,7 +376,7 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
 
                 problemDialog.show();
                 Window window =problemDialog.getWindow();
-                window.setLayout(800, 800);
+                window.setLayout(800, 900);
             }
         });
 
@@ -418,7 +418,7 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
 
                 problemDialog.show();
                 Window window =problemDialog.getWindow();
-                window.setLayout(800, 800);
+                window.setLayout(800, 900);
             }
         });
 

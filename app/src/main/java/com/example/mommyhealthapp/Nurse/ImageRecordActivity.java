@@ -40,6 +40,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -93,9 +94,9 @@ public class ImageRecordActivity extends AppCompatActivity {
                         healthInfoId = documentSnapshot.getId();
                     }
                     nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("DocumentImage");
-                    nCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    nCollectionReference.orderBy("createdDate", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
-                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             diList.clear();
                             for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
                             {
@@ -166,7 +167,8 @@ public class ImageRecordActivity extends AppCompatActivity {
                     healthInfoId = documentSnapshot.getId();
                 }
                 nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("DocumentImage");
-                nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+                nCollectionReference.orderBy("createdDate",Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)

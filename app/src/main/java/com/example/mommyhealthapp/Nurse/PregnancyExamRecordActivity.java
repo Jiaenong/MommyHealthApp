@@ -41,6 +41,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -92,7 +93,7 @@ public class PregnancyExamRecordActivity extends AppCompatActivity {
                         healthInfoId = documentSnapshot.getId();
                     }
                     nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination");
-                    nCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    nCollectionReference.orderBy("createdDate", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                             peList.clear();
@@ -164,7 +165,7 @@ public class PregnancyExamRecordActivity extends AppCompatActivity {
                     healthInfoId = documentSnapshot.getId();
                 }
                 nCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination");
-                nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                nCollectionReference.orderBy("createdDate", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for(QueryDocumentSnapshot documentSnapshots : queryDocumentSnapshots)
