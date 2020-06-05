@@ -53,6 +53,60 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/pregnancyControl"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="7dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="#fafafa"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/pregnancyControlExamination"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp"
+                        app:fontFamily="sans-serif-smallcaps" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/graphReport"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="7dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="#fafafa"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView27"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/summary"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="25sp"
+                        app:fontFamily="sans-serif-smallcaps" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:id="@+id/mgtt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -73,6 +127,33 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="@string/mgtt"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="25sp"
+                        app:fontFamily="sans-serif-smallcaps" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/babyKicks"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="7dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="#fafafa"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView26"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/babyReocrdKickCount"
                         android:textColor="@color/colorAccent"
                         android:textSize="25sp"
                         app:fontFamily="sans-serif-smallcaps" />
@@ -129,87 +210,6 @@
                         android:text="@string/sectionN"
                         android:textColor="@color/colorAccent"
                         android:textSize="25sp"
-                        app:fontFamily="sans-serif-smallcaps" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/babyKicks"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="7dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#fafafa"
-                app:cardCornerRadius="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView26"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="@string/babyReocrdKickCount"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="25sp"
-                        app:fontFamily="sans-serif-smallcaps" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/graphReport"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="7dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#fafafa"
-                app:cardCornerRadius="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView27"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="@string/summary"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="25sp"
-                        app:fontFamily="sans-serif-smallcaps" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/pregnancyControl"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="7dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#fafafa"
-                app:cardCornerRadius="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView28"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="@string/pregnancyControlExamination"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="20sp"
                         app:fontFamily="sans-serif-smallcaps" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

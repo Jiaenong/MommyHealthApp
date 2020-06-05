@@ -158,7 +158,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardViewBabyKick"
+                        android:id="@+id/cardViewColorCode"
                         android:layout_width="150dp"
                         android:layout_height="170dp"
                         android:layout_marginLeft="20dp"
@@ -174,24 +174,25 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/imageView7"
+                                android:id="@+id/imageView12"
                                 android:layout_width="90dp"
                                 android:layout_height="90dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="20dp"
-                                app:srcCompat="@drawable/baby_kick_foot" />
+                                app:srcCompat="@drawable/color_code" />
 
                             <TextView
-                                android:id="@+id/textView14"
+                                android:id="@+id/textView19"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="@string/maternal_medical_examination"
+                                android:text="@string/pregnancyControlExamination"
                                 android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="18sp"
                                 app:fontFamily="sans-serif-smallcaps" />
+
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                     </androidx.cardview.widget.CardView>
@@ -206,7 +207,7 @@
                     android:padding="10dp">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardViewSectionN"
+                        android:id="@+id/cardViewSummaryReport"
                         android:layout_width="150dp"
                         android:layout_height="170dp"
                         android:layout_marginBottom="5dp"
@@ -221,19 +222,19 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/imageView8"
+                                android:id="@+id/imageView11"
                                 android:layout_width="90dp"
                                 android:layout_height="90dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="20dp"
-                                app:srcCompat="@drawable/health_tutorial" />
+                                app:srcCompat="@drawable/graph_report" />
 
                             <TextView
-                                android:id="@+id/textView15"
+                                android:id="@+id/textView18"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="@string/sectionN"
+                                android:text="@string/summary"
                                 android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorAccent"
@@ -294,10 +295,49 @@
                     android:padding="10dp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewBabyKick"
+                        android:layout_width="150dp"
+                        android:layout_height="170dp"
+                        android:layout_marginBottom="5dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardBackgroundColor="#fafafa"
+                        app:cardCornerRadius="20dp">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imageView7"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="20dp"
+                                app:srcCompat="@drawable/baby_kick_foot" />
+
+                            <TextView
+                                android:id="@+id/textView14"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/maternal_medical_examination"
+                                android:layout_gravity="center_horizontal"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="18sp"
+                                app:fontFamily="sans-serif-smallcaps" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/cardViewPE"
                         android:layout_width="150dp"
                         android:layout_height="170dp"
                         android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="20dp"
                         android:clickable="true"
                         android:foreground="?android:attr/selectableItemBackground"
                         app:cardBackgroundColor="#fafafa"
@@ -332,46 +372,6 @@
 
                     </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardViewSummaryReport"
-                        android:layout_width="150dp"
-                        android:layout_height="170dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:clickable="true"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fafafa"
-                        app:cardCornerRadius="20dp">
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imageView11"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="20dp"
-                                app:srcCompat="@drawable/graph_report" />
-
-                            <TextView
-                                android:id="@+id/textView18"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/summary"
-                                android:layout_gravity="center_horizontal"
-                                android:textAlignment="center"
-                                android:textColor="@color/colorAccent"
-                                android:textSize="18sp"
-                                app:fontFamily="sans-serif-smallcaps" />
-
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    </androidx.cardview.widget.CardView>
-
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -382,7 +382,7 @@
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardViewColorCode"
+                        android:id="@+id/cardViewSectionN"
                         android:layout_width="150dp"
                         android:layout_height="170dp"
                         android:layout_marginBottom="5dp"
@@ -397,19 +397,19 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/imageView12"
+                                android:id="@+id/imageView8"
                                 android:layout_width="90dp"
                                 android:layout_height="90dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="20dp"
-                                app:srcCompat="@drawable/color_code" />
+                                app:srcCompat="@drawable/health_tutorial" />
 
                             <TextView
-                                android:id="@+id/textView19"
+                                android:id="@+id/textView15"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="@string/pregnancyControlExamination"
+                                android:text="@string/sectionN"
                                 android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorAccent"
