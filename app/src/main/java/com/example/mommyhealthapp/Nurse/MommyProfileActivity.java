@@ -164,7 +164,7 @@ public class MommyProfileActivity extends AppCompatActivity {
                         startActivity(intent);
                     }else{
                         AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
-                        builder.setTitle("Mummy Not Available");
+                        builder.setTitle("Section Not Available");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -188,7 +188,7 @@ public class MommyProfileActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
-                    builder.setTitle("Mummy Not Available");
+                    builder.setTitle("Section Not Available");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -211,7 +211,7 @@ public class MommyProfileActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
-                    builder.setTitle("Mummy Not Available");
+                    builder.setTitle("Section Not Available");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -234,7 +234,7 @@ public class MommyProfileActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
-                    builder.setTitle("Mummy Not Available");
+                    builder.setTitle("Section Not Available");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -257,7 +257,7 @@ public class MommyProfileActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
-                    builder.setTitle("Mummy Not Available");
+                    builder.setTitle("Section Not Available");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -280,7 +280,7 @@ public class MommyProfileActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
-                    builder.setTitle("Mummy Not Available");
+                    builder.setTitle("Section Not Available");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -303,7 +303,7 @@ public class MommyProfileActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
-                    builder.setTitle("Mummy Not Available");
+                    builder.setTitle("Section Not Available");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -326,7 +326,7 @@ public class MommyProfileActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(MommyProfileActivity.this);
-                    builder.setTitle("Mummy Not Available");
+                    builder.setTitle("Section Not Available");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
