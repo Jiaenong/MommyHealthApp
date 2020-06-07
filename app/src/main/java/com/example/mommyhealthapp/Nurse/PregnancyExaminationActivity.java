@@ -41,6 +41,7 @@ import android.widget.TimePicker;
 import com.example.mommyhealthapp.AlertService;
 import com.example.mommyhealthapp.Class.AppointmentDate;
 import com.example.mommyhealthapp.Class.MedicalPersonnel;
+import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.Class.Notification;
 import com.example.mommyhealthapp.Class.PregnancyExamination;
 import com.example.mommyhealthapp.Class.ProblemPE;
@@ -93,9 +94,10 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
     private String pregnancyExamId, healthInfoId, medicalPersonnelname, key, nextAppDate, nextAppTime, appKey, mommyKey;
     private Boolean isEmpty, appIsEmpty;
     private int check = 0;
+    private double height;
 
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference, nCollectionReference, oCollectionReference, pCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference, oCollectionReference, pCollectionReference, qCollectionReference, rCollectionReference;
     private DocumentReference mDocumentReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,6 +199,28 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 }
             });
         }
+        qCollectionReference = mFirebaseFirestore.collection("Mommy");
+        qCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    mommyKey = documentSnapshot.getId();
+                }
+                rCollectionReference = mFirebaseFirestore.collection("Mommy").document(mommyKey).collection("MommyDetail");
+                rCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                        {
+                            MommyDetail mommyDetail = documentSnapshot.toObject(MommyDetail.class);
+                            height = mommyDetail.getHeight();
+                            Log.i("height", height+"");
+                        }
+                    }
+                });
+            }
+        });
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination");
         mCollectionReference.whereEqualTo("pregnancyExamId", pregnancyExamId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -206,6 +230,9 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                     isEmpty = true;
                     progressBarPE.setVisibility(View.GONE);
                     layoutPE.setVisibility(View.VISIBLE);
+                    layoutBookingWeight.setVisibility(View.GONE);
+                    layoutBookingBP.setVisibility(View.GONE);
+                    layoutBookingBMI.setVisibility(View.GONE);
                 }else{
                     isEmpty = false;
                     DisableField();
@@ -431,14 +458,19 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 {
                     if(!SaveCheckRequiredField())
                     {
+                        double weight = Double.parseDouble(bodyWeightEditText.getText().toString());
+                        double BMI = 0;
+                        BMI = weight / (height*height/10000);
+                        editTextBookingBMI.setText(Double.toString(BMI));
+                        Log.i("BMI",BMI+"");
                         progressBarPE.setVisibility(View.VISIBLE);
                         layoutPE.setVisibility(View.GONE);
                         String bodyWeight = bodyWeightEditText.getText().toString(),
                                 bloodPressure = bloodPressureEditText.getText().toString(),
                                 pulse = pulseEditText.getText().toString(),
-                                bookingWeight = editTextBookingWeight.getText().toString(),
+                                bookingWeight = bodyWeightEditText.getText().toString(),
                                 bookingBMI = editTextBookingBMI.getText().toString(),
-                                bookingBP = editTextBookingBP.getText().toString(),
+                                bookingBP = bloodPressureEditText.getText().toString(),
                                 lkkr = editTextLKKR.getText().toString(),
                                 urineAlb = editTextUrineAlb.getText().toString(),
                                 urineSugar = editTextUrineSugar.getText().toString(),
@@ -538,18 +570,27 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                     if(check == 1)
                     {
                         btnCancelPE.setVisibility(View.VISIBLE);
+                        layoutBookingWeight.setVisibility(View.GONE);
+                        layoutBookingBP.setVisibility(View.GONE);
+                        layoutBookingBMI.setVisibility(View.GONE);
                         EnableField();
                     }else if(check == 2)
                     {
                         if(!SaveCheckRequiredField())
                         {
+
+                            double weight = Double.parseDouble(bodyWeightEditText.getText().toString());
+                            double BMI = 0;
+                            BMI = weight / (height*height/10000);
+                            editTextBookingBMI.setText(Double.toString(BMI));
+                            Log.i("BMI",BMI+"");
                             DocumentReference mDocumentReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination").document(key);
                             String bodyWeight = bodyWeightEditText.getText().toString(),
                                     bloodPressure = bloodPressureEditText.getText().toString(),
                                     pulse = pulseEditText.getText().toString(),
-                                    bookingWeight = editTextBookingWeight.getText().toString(),
+                                    bookingWeight = bodyWeightEditText.getText().toString(),
                                     bookingBMI = editTextBookingBMI.getText().toString(),
-                                    bookingBP = editTextBookingBP.getText().toString(),
+                                    bookingBP = bloodPressureEditText.getText().toString(),
                                     lkkr = editTextLKKR.getText().toString(),
                                     urineAlb = editTextUrineAlb.getText().toString(),
                                     urineSugar = editTextUrineSugar.getText().toString(),
@@ -642,6 +683,11 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                             snackbar.show();
                             DisableField();
                             btnCancelPE.setVisibility(View.GONE);
+                            layoutBookingWeight.setVisibility(View.VISIBLE);
+                            layoutBookingBP.setVisibility(View.VISIBLE);
+                            layoutBookingBMI.setVisibility(View.VISIBLE);
+                            editTextBookingWeight.setText(bodyWeight);
+                            editTextBookingBP.setText(bloodPressure);
                             check = 0;
                         }else{
                             check = 1;
@@ -655,6 +701,9 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 btnCancelPE.setVisibility(View.GONE);
+                layoutBookingBP.setVisibility(View.VISIBLE);
+                layoutBookingWeight.setVisibility(View.VISIBLE);
+                layoutBookingBMI.setVisibility(View.VISIBLE);
                 DisableField();
                 check = 0;
             }
@@ -710,9 +759,6 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
         bodyWeightEditText.setEnabled(true);
         bloodPressureEditText.setEnabled(true);
         pulseEditText.setEnabled(true);
-        editTextBookingWeight.setEnabled(true);
-        editTextBookingBMI.setEnabled(true);
-        editTextBookingBP.setEnabled(true);
         editTextLKKR.setEnabled(true);
         editTextUrineAlb.setEnabled(true);
         editTextUrineSugar.setEnabled(true);
@@ -760,7 +806,6 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
     private boolean SaveCheckRequiredField()
     {
         if(bodyWeightEditText.getText().toString().isEmpty() || bloodPressureEditText.getText().toString().isEmpty() || pulseEditText.getText().toString().isEmpty()
-                || editTextBookingWeight.getText().toString().isEmpty() || editTextBookingBMI.getText().toString().isEmpty() || editTextBookingBP.getText().toString().isEmpty()
                 || editTextLKKR.getText().toString().isEmpty() || editTextUrineAlb.getText().toString().isEmpty() || editTextUrineSugar.getText().toString().isEmpty()
                 || editTextHB.getText().toString().isEmpty() || editTextPregnancyPeriod.getText().toString().isEmpty() || editTextDueDate.getText().toString().isEmpty()
                 || editTextNextAppTime.getText().toString().isEmpty())
@@ -790,33 +835,6 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
             }else{
                 pulseInputLayout.setErrorEnabled(false);
                 pulseInputLayout.setError(null);
-            }
-
-            if(editTextBookingWeight.getText().toString().isEmpty())
-            {
-                layoutBookingWeight.setErrorEnabled(true);
-                layoutBookingWeight.setError("This field is required!");
-            }else{
-                layoutBookingWeight.setErrorEnabled(false);
-                layoutBookingWeight.setError(null);
-            }
-
-            if(editTextBookingBMI.getText().toString().isEmpty())
-            {
-                layoutBookingBMI.setErrorEnabled(true);
-                layoutBookingBMI.setError("This field is required!");
-            }else{
-                layoutBookingBMI.setErrorEnabled(false);
-                layoutBookingBMI.setError(null);
-            }
-
-            if(editTextBookingBP.getText().toString().isEmpty())
-            {
-                layoutBookingBP.setErrorEnabled(true);
-                layoutBookingBP.setError("This field is required!");
-            }else{
-                layoutBookingBP.setErrorEnabled(false);
-                layoutBookingBP.setError(null);
             }
 
             if(editTextLKKR.getText().toString().isEmpty())
@@ -1003,78 +1021,6 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 }else{
                     pulseInputLayout.setErrorEnabled(false);
                     pulseInputLayout.setError(null);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        editTextBookingWeight.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(editTextBookingWeight.getText().toString().isEmpty())
-                {
-                    layoutBookingWeight.setErrorEnabled(true);
-                    layoutBookingWeight.setError("This field is required!");
-                }else{
-                    layoutBookingWeight.setErrorEnabled(false);
-                    layoutBookingWeight.setError(null);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        editTextBookingBMI.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(editTextBookingBMI.getText().toString().isEmpty())
-                {
-                    layoutBookingBMI.setErrorEnabled(true);
-                    layoutBookingBMI.setError("This field is required!");
-                }else{
-                    layoutBookingBMI.setErrorEnabled(false);
-                    layoutBookingBMI.setError(null);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        editTextBookingBP.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(editTextBookingBP.getText().toString().isEmpty())
-                {
-                    layoutBookingBP.setErrorEnabled(true);
-                    layoutBookingBP.setError("This field is required!");
-                }else{
-                    layoutBookingBP.setErrorEnabled(false);
-                    layoutBookingBP.setError(null);
                 }
             }
 

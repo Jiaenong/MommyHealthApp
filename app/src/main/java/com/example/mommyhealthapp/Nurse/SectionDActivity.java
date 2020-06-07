@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 
 import com.example.mommyhealthapp.AlertService;
 import com.example.mommyhealthapp.Class.CurrentHealthStatus;
+import com.example.mommyhealthapp.Class.MommyDetail;
 import com.example.mommyhealthapp.MainActivity;
 import com.example.mommyhealthapp.NotifyService;
 import com.example.mommyhealthapp.R;
@@ -52,12 +53,13 @@ public class SectionDActivity extends AppCompatActivity {
     private ProgressBar progressBarCurrentHealthStatus;
     private Button btnCurrentSave, btnCurrentCancel;
 
-    private String healthInfoId, bloodTestId, key;
+    private String healthInfoId, bloodTestId, key, mommyKey;
+    Double height, weight;
     private Boolean isEmpty;
     private int check = 0;
 
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference, oCollectionReference;
     private DocumentReference mDocumentReference;
 
     @Override
@@ -101,6 +103,36 @@ public class SectionDActivity extends AppCompatActivity {
         CheckRequiredField();
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
+        nCollectionReference = mFirebaseFirestore.collection("Mommy");
+        nCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(SectionDActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    mommyKey = documentSnapshot.getId();
+                }
+                nCollectionReference = mFirebaseFirestore.collection("Mommy").document(mommyKey).collection("MommyDetail");
+                nCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                        {
+                            MommyDetail mommyDetail = documentSnapshot.toObject(MommyDetail.class);
+                            height = mommyDetail.getHeight();
+                            weight = mommyDetail.getWeight();
+                            Log.i("height", weight+"");
+                        }
+                        editTextHeightCurrent.setText(Double.toString(height));
+                        double BMI = 0;
+                        BMI = weight / (height*height/10000);
+                        editTextCurrentBMI.setText(Double.toString(BMI));
+                        Log.i("BMI",BMI+"");
+                        editTextHeightCurrent.setEnabled(false);
+                        editTextCurrentBMI.setEnabled(false);
+                    }
+                });
+            }
+        });
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/CurrentHealthStatus");
         if (SaveSharedPreference.getUser(SectionDActivity.this).equals("Mommy")){
             MommyLogIn();
@@ -194,8 +226,6 @@ public class SectionDActivity extends AppCompatActivity {
                         {
                             Date today = new Date();
                             mDocumentReference = mFirebaseFirestore.document("MommyHealthInfo/"+healthInfoId+"/BloodTest/"+bloodTestId+"/CurrentHealthStatus/"+key);
-                            mDocumentReference.update("currentHeight", Double.parseDouble(editTextHeightCurrent.getText().toString()));
-                            mDocumentReference.update("currentBMI", Double.parseDouble(editTextCurrentBMI.getText().toString()));
                             mDocumentReference.update("currentThyroid", editTextCurrentThyroid.getText().toString());
                             mDocumentReference.update("currentJaundice", editTextCurrentJaundice.getText().toString());
                             mDocumentReference.update("currentPallor", editTextCurrentPallor.getText().toString());
@@ -276,28 +306,10 @@ public class SectionDActivity extends AppCompatActivity {
 
     private boolean CheckRequiredOnClick()
     {
-        if(editTextHeightCurrent.getText().toString().isEmpty() || editTextCurrentBMI.getText().toString().isEmpty() || editTextCurrentThyroid.getText().toString().isEmpty()
-                || editTextCurrentJaundice.getText().toString().isEmpty() || editTextCLeftBreast.getText().toString().isEmpty() || editTextCRightBreast.getText().toString().isEmpty()
+        if(editTextCurrentThyroid.getText().toString().isEmpty() || editTextCurrentJaundice.getText().toString().isEmpty()
+                || editTextCLeftBreast.getText().toString().isEmpty() || editTextCRightBreast.getText().toString().isEmpty()
                 || editTextCVVLeft.getText().toString().isEmpty() || editTextCVVRight.getText().toString().isEmpty())
         {
-            if(editTextHeightCurrent.getText().toString().isEmpty())
-            {
-                layoutHeightCurrent.setErrorEnabled(true);
-                layoutHeightCurrent.setError("This field is required!");
-            }else{
-                layoutHeightCurrent.setErrorEnabled(false);
-                layoutHeightCurrent.setError(null);
-            }
-
-            if(editTextCurrentBMI.getText().toString().isEmpty())
-            {
-                layoutCurrentBMI.setErrorEnabled(true);
-                layoutCurrentBMI.setError("This field is required!");
-            }else{
-                layoutCurrentBMI.setErrorEnabled(false);
-                layoutCurrentBMI.setError(null);
-            }
-
             if(editTextCurrentThyroid.getText().toString().isEmpty())
             {
                 layoutCurrentThyroid.setErrorEnabled(true);
@@ -359,54 +371,6 @@ public class SectionDActivity extends AppCompatActivity {
 
     private void CheckRequiredField()
     {
-        editTextHeightCurrent.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(editTextHeightCurrent.getText().toString().isEmpty())
-                {
-                    layoutHeightCurrent.setErrorEnabled(true);
-                    layoutHeightCurrent.setError("This field is required!");
-                }else{
-                    layoutHeightCurrent.setErrorEnabled(false);
-                    layoutHeightCurrent.setError(null);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        editTextCurrentBMI.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(editTextCurrentBMI.getText().toString().isEmpty())
-                {
-                    layoutCurrentBMI.setErrorEnabled(true);
-                    layoutCurrentBMI.setError("This field is required!");
-                }else{
-                    layoutCurrentBMI.setErrorEnabled(false);
-                    layoutCurrentBMI.setError(null);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
         editTextCurrentThyroid.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -580,8 +544,6 @@ public class SectionDActivity extends AppCompatActivity {
 
     private void EnableField()
     {
-        editTextHeightCurrent.setEnabled(true);
-        editTextCurrentBMI.setEnabled(true);
         editTextCurrentThyroid.setEnabled(true);
         editTextCurrentJaundice.setEnabled(true);
         editTextCurrentPallor.setEnabled(true);
