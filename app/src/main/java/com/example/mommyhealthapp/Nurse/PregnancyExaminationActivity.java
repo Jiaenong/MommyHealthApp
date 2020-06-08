@@ -97,7 +97,7 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
     private double height;
 
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference mCollectionReference, nCollectionReference, oCollectionReference, pCollectionReference, qCollectionReference, rCollectionReference;
+    private CollectionReference mCollectionReference, nCollectionReference, oCollectionReference, pCollectionReference, rCollectionReference;
     private DocumentReference mDocumentReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,27 +186,6 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                         }
                     }
                 });
-            }
-        });
-        if(!SaveSharedPreference.getUser(PregnancyExaminationActivity.this).equals("Mommy"))
-        {
-            mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(PregnancyExaminationActivity.this));
-            mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
-                    medicalPersonnelname = md.getName();
-                }
-            });
-        }
-        qCollectionReference = mFirebaseFirestore.collection("Mommy");
-        qCollectionReference.whereEqualTo("mommyId", SaveSharedPreference.getMummyId(PregnancyExaminationActivity.this)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-                {
-                    mommyKey = documentSnapshot.getId();
-                }
                 rCollectionReference = mFirebaseFirestore.collection("Mommy").document(mommyKey).collection("MommyDetail");
                 rCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -221,6 +200,19 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                 });
             }
         });
+
+        if(!SaveSharedPreference.getUser(PregnancyExaminationActivity.this).equals("Mommy"))
+        {
+            mDocumentReference = mFirebaseFirestore.collection("MedicalPersonnel").document(SaveSharedPreference.getID(PregnancyExaminationActivity.this));
+            mDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    MedicalPersonnel md = documentSnapshot.toObject(MedicalPersonnel.class);
+                    medicalPersonnelname = md.getName();
+                }
+            });
+        }
+
         mCollectionReference = mFirebaseFirestore.collection("MommyHealthInfo").document(healthInfoId).collection("PregnancyExamination");
         mCollectionReference.whereEqualTo("pregnancyExamId", pregnancyExamId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override

@@ -87,6 +87,7 @@ public class PregnancyWeightGainActivity extends AppCompatActivity {
         spinnerStage.setAdapter(adapter);
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
+        radioBtnTwinsNo.setChecked(true);
         mCollectionReference = mFirebaseFirestore.collection("Mommy").document(SaveSharedPreference.getID(PregnancyWeightGainActivity.this)).collection("MommyDetail");
         mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
