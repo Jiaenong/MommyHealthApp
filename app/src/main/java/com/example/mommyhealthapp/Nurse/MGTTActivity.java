@@ -250,10 +250,25 @@ public class MGTTActivity extends AppCompatActivity {
         cardViewMGTTResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MGTTActivity.this, MGTTResultActivity.class);
-                intent.putExtra("healthInfoId", healthInfoId);
-                intent.putExtra("MGTTKey", key);
-                startActivity(intent);
+                if(isEmpty == true)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MGTTActivity.this);
+                    builder.setTitle("Error");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.setMessage("Please save MGTT before proceed to MGTT Result!");
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }else{
+                    Intent intent = new Intent(MGTTActivity.this, MGTTResultActivity.class);
+                    intent.putExtra("healthInfoId", healthInfoId);
+                    intent.putExtra("MGTTKey", key);
+                    startActivity(intent);
+                }
             }
         });
 
