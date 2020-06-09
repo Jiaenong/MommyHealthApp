@@ -1073,6 +1073,9 @@ public class BreastFeedingActivity extends AppCompatActivity {
                         }
                         SaveSharedPreference.clearUser(BreastFeedingActivity.this);
                         Intent intent = new Intent(BreastFeedingActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }

@@ -114,6 +114,9 @@ public class SectionNActivity extends AppCompatActivity {
                         }
                         SaveSharedPreference.clearUser(SectionNActivity.this);
                         Intent intent = new Intent(SectionNActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }

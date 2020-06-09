@@ -670,6 +670,9 @@ public class EarlyTestActivity extends AppCompatActivity {
                         }
                         SaveSharedPreference.clearUser(EarlyTestActivity.this);
                         Intent intent = new Intent(EarlyTestActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }

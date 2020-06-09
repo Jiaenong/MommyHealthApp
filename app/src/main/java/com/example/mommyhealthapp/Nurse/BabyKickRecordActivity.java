@@ -211,6 +211,9 @@ public class BabyKickRecordActivity extends AppCompatActivity implements SearchV
                         }
                         SaveSharedPreference.clearUser(BabyKickRecordActivity.this);
                         Intent intent = new Intent(BabyKickRecordActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }

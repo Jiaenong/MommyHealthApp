@@ -1227,6 +1227,9 @@ public class PregnancyExaminationActivity extends AppCompatActivity {
                         }
                         SaveSharedPreference.clearUser(PregnancyExaminationActivity.this);
                         Intent intent = new Intent(PregnancyExaminationActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }

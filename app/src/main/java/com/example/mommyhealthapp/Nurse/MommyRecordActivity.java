@@ -210,6 +210,9 @@ public class MommyRecordActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         SaveSharedPreference.clearUser(MommyRecordActivity.this);
                         Intent intent = new Intent(MommyRecordActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }

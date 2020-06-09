@@ -457,6 +457,9 @@ public class UploadDiaryActivity extends AppCompatActivity {
                         CancelAlarm();
                         SaveSharedPreference.clearUser(UploadDiaryActivity.this);
                         Intent intent = new Intent(UploadDiaryActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }

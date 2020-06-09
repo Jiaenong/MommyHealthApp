@@ -184,6 +184,9 @@ public class DiaryActivity extends AppCompatActivity {
                         CancelAlarm();
                         SaveSharedPreference.clearUser(DiaryActivity.this);
                         Intent intent = new Intent(DiaryActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }
