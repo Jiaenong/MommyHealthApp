@@ -45,6 +45,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 
 public class SearchMotherFragment extends Fragment implements SearchView.OnQueryTextListener {
@@ -117,7 +118,7 @@ public class SearchMotherFragment extends Fragment implements SearchView.OnQuery
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                 recycleViewMummy.setLayoutManager(mLayoutManager);
                 recycleViewMummy.setItemAnimator(new DefaultItemAnimator());
-                recycleViewMummy.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                recycleViewMummy.addItemDecoration(new DividerItemDecoration(recycleViewMummy.getContext(), LinearLayoutManager.VERTICAL));
                 recycleViewMummy.setAdapter(adapter);
                 if(mommyList.isEmpty())
                 {
