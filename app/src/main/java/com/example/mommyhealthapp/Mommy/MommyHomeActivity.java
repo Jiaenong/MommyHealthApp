@@ -53,25 +53,27 @@ public class MommyHomeActivity extends AppCompatActivity implements SelfCheckFra
         mCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                Date appointmentDate = null;
-                Date today = new Date();
-                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-                {
-                    AppointmentDate app = documentSnapshot.toObject(AppointmentDate.class);
-                    appointmentDate = app.getAppointmentDate();
-                }
-                Log.i("Testing Equal Date", appointmentDate.toString());
-                Log.i("Testing today date", today.toString());
-                long daysBetween = today.getTime() - appointmentDate.getTime();
-                long days = TimeUnit.DAYS.convert(daysBetween, TimeUnit.MILLISECONDS);
-                if(today.before(appointmentDate))
-                {
-                    Calendar date = Calendar.getInstance();
-                    date.setTime(appointmentDate);
-                    date.set(Calendar.HOUR_OF_DAY,0);
-                    date.set(Calendar.MINUTE,0);
-                    date.set(Calendar.SECOND,0);
-                    setAppointmentReminder(date);
+                if(!queryDocumentSnapshots.isEmpty()){
+                    Date appointmentDate = null;
+                    Date today = new Date();
+                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                    {
+                        AppointmentDate app = documentSnapshot.toObject(AppointmentDate.class);
+                        appointmentDate = app.getAppointmentDate();
+                    }
+                    Log.i("Testing Equal Date", appointmentDate.toString());
+                    Log.i("Testing today date", today.toString());
+                    long daysBetween = today.getTime() - appointmentDate.getTime();
+                    long days = TimeUnit.DAYS.convert(daysBetween, TimeUnit.MILLISECONDS);
+                    if(today.before(appointmentDate))
+                    {
+                        Calendar date = Calendar.getInstance();
+                        date.setTime(appointmentDate);
+                        date.set(Calendar.HOUR_OF_DAY,0);
+                        date.set(Calendar.MINUTE,0);
+                        date.set(Calendar.SECOND,0);
+                        setAppointmentReminder(date);
+                    }
                 }
             }
         });
