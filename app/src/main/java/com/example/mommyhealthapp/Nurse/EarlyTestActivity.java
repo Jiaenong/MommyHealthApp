@@ -223,7 +223,7 @@ public class EarlyTestActivity extends AppCompatActivity {
                                     public void onSuccess(DocumentReference documentReference) {
                                         bloodTestId = documentReference.getId();
                                         AlertDialog.Builder builder = new AlertDialog.Builder(EarlyTestActivity.this);
-                                        builder.setTitle("Register Successfully");
+                                        builder.setTitle("Save Successfully");
                                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
